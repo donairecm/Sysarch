@@ -1,0 +1,377 @@
+@import url('https://fonts.googleapis.com/css2?family=Arizonia&family=Goldman:wght@400;700&family=Noto+Sans+JP:wght@100..900&display=swap');
+*{
+    border: 0;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+:root {
+    --main-color: #2C3E50; 
+    --company-background: gold;
+    --background-color: white;
+}
+
+body{
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.container{
+    background-color: #fff;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+    width: 800px;
+    max-width: 100%;
+    min-height: 500px;
+}
+
+.container button.hidden{
+    background-color: transparent;
+    border-color: #fff;
+}
+
+.container form{
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    height: 100%;
+}
+
+.form-container{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+}
+
+.sign-in{
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.container.active .sign-in{
+    transform: translateX(100%);
+}
+
+.sign-up{
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.container.active .sign-up{
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: move 0.6s;
+}
+
+@keyframes move{
+    0%, 49.99%{
+        opacity: 0;
+        z-index: 1;
+    }
+    50%, 100%{
+        opacity: 1;
+        z-index: 5;
+    }
+}
+
+.social-icons{
+    margin: 20px 0;
+}
+
+.social-icons a{
+    border: 1px solid #ccc;
+    border-radius: 20%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 3px;
+    width: 40px;
+    height: 40px;
+}
+
+.toggle-container{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.6s ease-in-out;
+    border-radius: 150px 0 0 100px;
+    z-index: 1000;
+}
+
+.container.active .toggle-container{
+    transform: translateX(-100%);
+    border-radius: 0 150px 100px 0;
+}
+
+.toggle{
+    background-color: gold;
+    height: 100%;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+}
+
+.container.active .toggle{
+    transform: translateX(50%);
+}
+
+.toggle-panel{
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 30px;
+    top: 0;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+}
+
+.toggle-left{
+    transform: translateX(-200%);
+    gap: 80px;
+    padding: 50px 50px 0 50px;
+}
+
+.container.active .toggle-left{
+    transform: translateX(0);
+}
+
+.toggle-right{
+    right: 0;
+    transform: translateX(0);
+}
+
+.container.active .toggle-right{
+    transform: translateX(200%);
+}
+
+/* Imported Stuff */
+.logo{
+    display: flex;  
+    align-items: center;
+    gap: 5px;
+    color: rgb(241, 0, 0);
+}
+.signup-right .logo{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-bottom: 100px;
+}
+.logo .left{
+    font-family: "Arizonia", cursive;
+    font-size: 1.9rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+.logo .right{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    line-height: 15px;
+    text-transform: uppercase;
+}
+.logo .right .top{
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 800;
+    letter-spacing: .5px;
+    font-size: .8rem;
+}
+
+.logo .right .bot{
+    font-family: "Goldman", sans-serif;
+    font-weight: 600;
+    font-size: .6rem;
+    letter-spacing: 2.5px;
+}
+.signup-right .message .top,
+.signup-right .message .bot{
+    text-align: center;
+}
+.message .top{
+    font-family: "Goldman", sans-serif;
+    font-weight: 500;
+    font-size: 2.9rem;
+}
+.message .bot{
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: .9rem;
+}
+form .input-group{
+    position: relative;
+    width: 100%;
+}
+
+form .input-group label{
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: .6rem;
+    letter-spacing: .5px;
+    text-transform:uppercase;
+    color: #8f8f8f;
+    padding: 0 5px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+form .input-group input{
+    margin: 7px 0;
+    padding: 13px 15px;
+    color: black;
+    border-radius: 8px;
+    background-color: #eee;
+    border: 1px solid transparent;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+form .input-group input:not(:focus):hover {
+    background-color: #d6d6d6;
+}
+
+.input-group input:focus,
+.input-group input:valid {
+    background-color: white;
+    border: 1px solid black;
+}
+.input-group input:focus~label,
+.input-group input:valid~label{
+    top: 8px;
+    left: 8px;
+    background: white;
+    color: black;
+}
+
+
+button{
+    font-family: "Goldman", sans-serif;
+    background-color: var(--company-background);
+    font-weight: 600;
+    color: black;
+    font-size: 12px;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 100%;
+}
+
+form button:hover{
+    filter: brightness(90%);
+}
+
+
+.signup-left button{
+    margin-top: 5px;
+}
+
+.form-header{
+    font-family: "Goldman", sans-serif;
+    font-weight: 600;
+    font-size: 1.9rem;
+    text-align: center;
+    margin-bottom: 25px;
+}
+.signup-left .form-header{
+    margin-bottom: 10px;
+}
+
+a,.text{
+    text-decoration: none;
+    font-size: .8rem;
+}
+.mid, .remember{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Noto Sans JP", sans-serif;
+}
+.mid{
+    width: 100%;
+    height: 4%;
+}
+.remember{
+    gap: 3px;
+}
+.or{
+    font-family: "Noto Sans JP", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    width: 100%;
+    height: 4%;
+    margin: 12px 0 11px 0;
+}
+
+.or hr{
+    width: 43%;
+    background-color: rgba(0, 0, 0, 0.295);
+    color: rgba(0, 0, 0, 0.295);
+    opacity: 1;
+    height: 1px;
+    margin: 0px 10px 0px 10px;
+}
+
+.signup-login-btn-container button{
+    background-color: white;
+    border: 1px solid ;
+    transition: .2s;
+}
+
+form .signup-login-btn-container{
+    width: 100%;
+}
+
+.signup-login-btn-container button:hover{
+    background-color: var(--company-background);
+    border: 1px solid gold;
+}
+.sign-up button:not(.signup-login-btn-container button){
+    margin-top: 45px;
+}
+
+.toggle-right{
+    text-align: center;
+    gap: 80px;
+    padding: 50px 50px 0 50px;
+}
+.toggle-right .logo{
+    display: flex;
+    justify-content: end;
+}
+.sign-in .form-header {
+    margin-bottom: 15px;
+}
+.sign-in button:not(.signup-login-btn-container button){
+    margin-top: 20px;
+}
+
