@@ -1,0 +1,39 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: #f4f4f4;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo img {
+    height: 50px;
+
+}
+.header-right img {
+    height: 32px;
+    cursor: pointer;
+}
+.header-name {
+    font-size: 1.5em;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-right .user-access,
+.header-right .header-settings {
+    margin-left: 20px;
+}
+
+.sidebar-toggle img {
+    height: 32px; 
+    cursor: pointer;
+}
