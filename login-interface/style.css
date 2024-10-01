@@ -1,0 +1,284 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap');
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --main-color: #2C3E50; 
+    --company-background: lightblue;
+    --background-color: white;
+}
+
+body {
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+.main-container {
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+    width: 800px;
+    max-width: 100%;
+    min-height: 500px;
+    display: flex; 
+}
+
+.left-panel {
+    background-color: #033847; /* Your custom color for the left panel */
+    width: 45%; /* Half the container width */
+    padding: 30px;
+    clip-path: polygon(0% 0%, 90% 0%, 100% 10%, 100% 90%, 90% 100%, 0% 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.right-panel {
+    background-color: white; /* Right side background */
+    width: 55%; /* Half the container width */
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Form styles */
+
+.form-header{
+    font-family: "Goldman", sans-serif;
+    font-weight: 600;
+    font-size: 2.1rem;
+    text-align: center;
+    margin-bottom: 35px;
+  
+}
+
+form .input-group{
+    position: relative;
+    width: 100%;
+}
+
+form .input-group label{
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: .6rem;
+    letter-spacing: .5px;
+    text-transform:uppercase;
+    color: #8f8f8f;
+    padding: 0 5px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+form .input-group input{
+    margin: 10px 0;
+    padding: 13px 15px;
+    color: black;
+    border-radius: 8px;
+    background-color: #eee;
+    border: 1px solid transparent;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+form .input-group input:not(:focus):hover {
+    background-color: #d6d6d6;
+}
+
+.input-group input:focus,
+.input-group input:valid {
+    background-color: white;
+    border: 1px solid black;
+}
+.input-group input:focus~label,
+.input-group input:valid~label{
+    top: 8px;
+    left: 8px;
+    background: white;
+    color: black;
+}
+
+
+button{
+    font-family: "Goldman", sans-serif;
+    background-color: #033847;
+    font-weight: 600;
+    color: white;
+    font-size: 12px;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 50px;
+}
+
+form button:hover{
+    filter: brightness(150%);
+}
+
+
+.signup-left button{
+    margin-top: 5px;
+}
+
+a.text {
+    text-decoration: none;
+    font-size: .9rem;
+    color: red; /* Initial color */
+    letter-spacing: .4px;
+    margin-left: 50%;
+}
+
+a.text:hover {
+    color: rgb(185, 0, 0);
+    cursor: pointer;
+}
+
+
+
+.mid, .remember{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Noto Sans JP", sans-serif;
+}
+.mid{
+    width: 100%;
+    height: 4%;
+}
+
+/* Logo wrapper to control position */
+.logo-wrapper {
+    display: flex;
+}
+
+/* Logo styling */
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.squares {
+    position: relative;
+    width: 45px; /* Adjust as needed */
+    height: 46px;
+}
+
+.square {
+    width: 27px;
+    height: 29px;
+    border: 4px solid;
+    border-image: linear-gradient(to top right, #4a4a4a, #d3d3d3) 1; 
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); 
+    position: absolute;
+}
+
+.square:nth-child(1) {
+    top: 0;
+    left: 0;
+}
+
+.square:nth-child(2) {
+    top: 16px; 
+    left: 16px;
+}
+
+.logo-text .b {
+    font-size: 2.8rem; 
+    line-height: 0.9;
+    font-weight: 600;
+    display: inline-block;
+    background: linear-gradient(to top right, #b4b4b4, #ffffff);
+    background-clip: text; /* Standard property */
+    -webkit-background-clip: text; /* WebKit-specific */
+    color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Shadow effect */
+}
+
+.logo-text {
+    font-size: 2rem; /* Minimum 2rem, scales with 5vw, maximum 3rem */
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    background: linear-gradient(to top right, #b4b4b4, #ffffff);
+    background-clip: text; /* Standard property */
+    -webkit-background-clip: text; /* WebKit-specific */
+    color: transparent;
+    text-transform: uppercase;
+    margin-bottom: -7px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Shadow effect */
+}
+
+.logo-subtext {
+    font-size: .37rem; /* Adjust the values to fit your design */
+    font-weight: 900;
+    font-family: "Playwrite DE Grund", cursive;
+    background: linear-gradient(to top right, #cfcfcf, #ffffff);
+    background-clip: text; /* Standard property */
+    -webkit-background-clip: text; /* WebKit-specific */
+    color: transparent;
+    letter-spacing: .3px;
+    margin-left: 5px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.welcome-wrapper{
+    margin-top: -40px;
+}
+
+.welcome-wrapper h1{
+    font-size: 3.4rem;
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: 600;
+    line-height: 3.4rem;
+    letter-spacing: .5px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    margin-bottom: -3px;
+}
+.welcome-wrapper .welcome{
+    background: linear-gradient(to top right, #a8c1cf, #ffffff);
+    background-clip: text; /* Standard property */
+    -webkit-background-clip: text; /* WebKit-specific */
+    color: transparent;
+}
+
+.welcome-wrapper .back{
+    background: linear-gradient(to top right, #a8c1cf, #ffffff);
+    background-clip: text; /* Standard property */
+    -webkit-background-clip: text; /* WebKit-specific */
+    color: transparent;
+}
+
+.welcome-wrapper p{
+    background: linear-gradient(to top right, #b7d2e2, #ffffff);
+    background-clip: text; /* Standard property */
+    -webkit-background-clip: text; /* WebKit-specific */
+    color: transparent;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    letter-spacing: .1px;
+    font-size: .85rem;
+}
+
+

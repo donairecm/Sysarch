@@ -1,108 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="login-register/style.css">
     <title>Best Aluminum Sales Corp.</title>
+    <link rel="stylesheet" href="login-interface/style.css">
 </head>
-
 <body>
-
-    <div class="container active" id="container">
-        <div class="form-container sign-up">
-        <form action="">
-                <div class="form-header">Sign in to your Account</div>
-                <div class="input-group">
-                    <input type="text" required>
-                    <label for="">Email</label>
-                </div>
-                <div class="input-group">
-                    <input type="text" required>
-                    <label for="">Password</label>
-                </div>
-                <div class="mid">
-                    <div class="remember">
-                        <input type="checkbox">
-                        <p class="text">Remember me</p>
+    
+    <div class="main-container">
+        <div class="left-panel">
+            <div class="logo-wrapper">
+                <div class="logo-container">
+                    <div class="squares">
+                        <div class="square"></div>
+                        <div class="square"></div>
                     </div>
-                    <a href="#">Forgot your Password?</a>
+                    <div class="logo-text-container">
+                        <div class="logo-text"><span class="b">B</span>est</div>
+                        <div class="logo-subtext">Aluminum Sales Corp.</div>
+                    </div>
                 </div>
-                <button>Sign in</button>
-            <div class="or">
-                <hr> <p> or </p> <hr>
             </div>
-            <div class="signup-login-btn-container">
-                <button id="login">Sign up</button>
+            <div class="welcome-wrapper">
+                <h1><span class="welcome">Welcome</span></br><span class="back">Back!</span></h1>
+                <p>Fill in your details to log in and get started!</p>
             </div>
-            </form>
-
+            <div class="idk">.</div>
         </div>
-        <div class="form-container sign-in ">
-            <form>
-            <form action="">
-                <div class="form-header">Create Your account</div>
-                 <div class="input-group">
-                    <input type="text" required>
-                    <label for="">Account type</label>
+        <div class="right-panel">
+            <div class="form-container sign-up">
+                <form action="">
+                        <div class="form-header">Sign in to your Account</div>
+                        <div class="input-group">
+                            <input type="text" required>
+                            <label for="">Email</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" required>
+                            <label for="">Password</label>
+                        </div>
+                        <div class="mid">
+                            <!--<div class="remember">
+                                <input type="checkbox">
+                                <p class="text">Remember me</p>
+                            </div>-->
+                            <a href="#" class="text">Forgot your password?</a>
+                        </div>
+                        <button>Sign in</button>
+                 
+                    </form>
+        
                 </div>
-                <div class="input-group">
-                    <input type="text" required>
-                    <label for="">Full name</label>
-                </div>
-                <div class="input-group">
-                    <input type="text" required>
-                    <label for="">Password</label>
-                </div>
-                 <div class="input-group">
-                    <input type="text" required>
-                    <label for="">Re-enter Password</label>
-                </div>
-                <button>Sign up</button>
-            <div class="or">
-                <hr> <p> or </p> <hr>
-            </div>
-            <div class="signup-login-btn-container">
-            <button id="register">Sign in</button>
-            </div>
-            </form>
-            </form>
-        </div>
-        <div class="toggle-container">
-            <div class="toggle">
-                <div class="toggle-panel toggle-left">
-                <div class="logo">
-                <div class="left">Best</div>
-                <div class="right">
-                    <div class="top">Aluminum sales</div>
-                    <div class="bot">Corporation</div>
-                </div>
-            </div>
-            <div class="message">
-                <div class="top">Welcome <br>Back!</div>
-                <div class="bot">Fill in your details to login and get started!</div>
-            </div>
-                </div>
-                <div class="toggle-panel toggle-right">
-                <div class="logo">
-                <div class="left">Best</div>
-                <div class="right">
-                    <div class="top">Aluminum sales</div>
-                    <div class="bot">Corporation</div>
-                </div>
-            </div>
-            <div class="message">
-                <div class="top">Start Here</div>
-                <div class="bot">Sign up now to access the management system!</div>
-            </div>
-                </div>
-            </div>
         </div>
     </div>
-
     <script src="login-register/script.js"></script>
 </body>
-
 </html>
