@@ -34,7 +34,7 @@ body {
     overflow: hidden;
     width: 800px;
     max-width: 100%;
-    min-height: 500px;
+    min-height: 430px;
     display: flex; 
 }
 
@@ -62,8 +62,10 @@ body {
     font-family: "Goldman", sans-serif;
     font-weight: 600;
     font-size: 2.1rem;
+    color: #022a35;
     text-align: center;
     margin-bottom: 35px;
+    margin-top: -5px;
   
 }
 
@@ -80,7 +82,7 @@ form .input-group label{
     font-size: .6rem;
     letter-spacing: .5px;
     text-transform:uppercase;
-    color: #8f8f8f;
+    color: #45585c;
     padding: 0 5px;
     pointer-events: none;
     transition: .3s;
@@ -91,7 +93,7 @@ form .input-group input{
     padding: 13px 15px;
     color: black;
     border-radius: 8px;
-    background-color: #eee;
+    background-color: #b0c6ca;
     border: 1px solid transparent;
     width: 100%;
     outline: none;
@@ -99,20 +101,20 @@ form .input-group input{
 }
 
 form .input-group input:not(:focus):hover {
-    background-color: #d6d6d6;
+    background-color: #7f9fa5;
 }
 
 .input-group input:focus,
 .input-group input:valid {
     background-color: white;
-    border: 1px solid black;
+    border: 1px solid #022a35;
 }
 .input-group input:focus~label,
 .input-group input:valid~label{
     top: 8px;
     left: 8px;
     background: white;
-    color: black;
+    color: #022a35;
 }
 
 
@@ -144,13 +146,13 @@ form button:hover{
 a.text {
     text-decoration: none;
     font-size: .9rem;
-    color: red; /* Initial color */
+    color: #004355bd; 
     letter-spacing: .4px;
     margin-left: 50%;
 }
 
 a.text:hover {
-    color: rgb(185, 0, 0);
+    color: #003746;
     cursor: pointer;
 }
 
@@ -243,6 +245,8 @@ a.text:hover {
     text-transform: uppercase;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
+
+/*end*/
 
 .welcome-wrapper{
     margin-top: -40px;
