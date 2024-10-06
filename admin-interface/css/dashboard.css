@@ -1,0 +1,90 @@
+/* Main content layout */
+.main-content {
+    padding: 20px;
+    display: grid;
+    gap: 20px;
+}
+
+/* Top Bar */
+.top-bar {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.download-btn {
+    background-color: #f07167;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Summary Cards */
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background-color: #8791b1;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card h4 {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.card .number {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card .percentage {
+    color: #21ce99;
+}
+
+/* Graphs Section */
+.graphs-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.line-chart, .recent-transactions {
+    background-color: #8895c0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.line-chart h4, .recent-transactions h4 {
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+/* Bottom section with more charts */
+.bottom-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.campaign-chart, .sales-quantity-chart, .traffic-map {
+    background-color: #94a0ca;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.campaign-chart h4, .sales-quantity-chart h4, .traffic-map h4 {
+    margin-bottom: 15px;
+    color: #fff;
+}
+
