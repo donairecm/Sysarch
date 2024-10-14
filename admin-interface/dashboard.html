@@ -5,14 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin Interface</title>
         <link rel="stylesheet" href="css/navbar-sidebar.css">
-        <link rel="stylesheet" href="css/dashboard-expand.css">
-        <link rel="stylesheet" href="css/dashboard.css">
-        <script type="text/javascript" src="js/app.js" defer></script>
+        <link rel="stylesheet" href="css/dashboard/dashboard.css">
         <script type="text/javascript" src="js/dropdown.js" defer></script>
-        <script type="text/javascript" src="js/dashboard-top.js" defer></script>
-        <script type="text/javascript" src="js/dashboard-middle.js" defer></script>
-        <script type="text/javascript" src="js/dashboard-top-right.js" defer></script>
-        <script type="text/javascript" src="js/top-expand.js" defer></script>
+        <script type="text/javascript" src="js/dashboard/top_row-graph.js" defer></script>
+        <script type="text/javascript" src="js/dashboard/sales_trends.js" defer></script>
+        <script type="text/javascript" src="js/dashboard/inventory_levels.js" defer></script>
+        <script type="text/javascript" src="js/dashboard/recent_orders.js" defer></script>
+        <script type="text/javascript" src="js/dashboard/inventory_turnover.js" defer></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
 <body>
@@ -165,7 +164,7 @@
     </nav>
 
     <div class="dashboard-grid">
-        <div class="dashboard-item units-sold top-row">    
+        <div class="dashboard-item total-units-sold top-row">    
             <div class="left">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed" class="units-sold-icon">
                     <path d="M856-390 570-104q-12 12-27 18t-30 6q-15 0-30-6t-27-18L103-457q-11-11-17-25.5T80-513v-287q0-33 23.5-56.5T160-880h287q16 0 31 6.5t26 17.5l352 353q12 12 17.5 27t5.5 30q0 15-5.5 29.5T856-390ZM260-640q25 0 42.5-17.5T320-700q0-25-17.5-42.5T260-760q-25 0-42.5 17.5T200-700q0 25 17.5 42.5T260-640Z"/>
@@ -177,24 +176,11 @@
             </div>
             <div class="right">
                 <div class="graph">
-                    <canvas id="doughnutChart1"></canvas>
+                    <canvas id="unitsSoldChart"></canvas>
                 </div>
-                <div class="percent">+7%</div>
             </div>
         </div>
-        <!-- Modal Structure for Units Sold -->
-        <div id="unitsSoldModal" class="modal units-sold-modal">
-            <div class="modal-content">
-                <!-- Removed the span, SVG will now act as the close button -->
-                <svg id="unitsSoldCloseButton" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed" style="cursor: pointer;">
-                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-                </svg>
-                <h2>Units Sold Details</h2>
-                <p>This is additional information about the units sold.</p>
-            </div>
-        </div>
-        
-        
+
         <div class="dashboard-item total-sales top-row">
         <div class="left">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
@@ -207,11 +193,11 @@
         </div>
         <div class="right"> 
             <div class="graph">
-                <canvas id="doughnutChart2"></canvas>
+                <canvas id="salesChart"></canvas>
             </div>
-            <div class="percent">+11%</div>
         </div>
         </div>
+
         <div class="dashboard-item stock-value top-row">
             <div class="left">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
@@ -225,239 +211,36 @@
             </div>
             <div class="right"> 
                 <div class="graph">
-                    <canvas id="doughnutChart3"></canvas>
-                </div>
-                <div class="bot">
-                    <div class="incoming ">9%</div>
-                    <div class="division"> | </div>
-                    <div class="outgoing ">11%</div>
+                    <canvas id="stockValueChart"></canvas>
                 </div>
             </div>
         </div>
 
-        <!-- Top left-->
-        <div class="dashboard-item recent-orders">
-            <span class="item-name">Recent Orders</span>
-            <div class="recent-orders-container">
-                <ul class="recent-orders-list">
-                    <!-- Header row for labels -->
-                    <li class="order-header">
-                        <span class="header-product-name">Product</span>
-                        <span class="header-order-count">Count</span>
-                        <span class="header-order-price">Total Price</span>
-                        <span class="header-order-status">Status</span>
-                    </li>
-                    <!-- Order items with random counts and prices -->
-                    <li class="order-item" data-product="Aluminum Sheets" data-price="3450" data-count="2" data-status="pending">
-                        <span class="product-name">Aluminum Sheets</span>
-                        <span class="order-count">2</span>
-                        <span class="order-total-price">₱6,900</span>
-                        <span class="order-status pending">Pending</span>
-                    </li>
-                    <li class="order-item" data-product="Aluminum Pipes" data-price="8200" data-count="1" data-status="on-process">
-                        <span class="product-name">Aluminum Pipes</span>
-                        <span class="order-count">1</span>
-                        <span class="order-total-price">₱8,200</span>
-                        <span class="order-status on-process">On Process</span>
-                    </li>
-                    <li class="order-item" data-product="Aluminum Foil Rolls" data-price="5600" data-count="3" data-status="completed">
-                        <span class="product-name">Aluminum Foil Rolls</span>
-                        <span class="order-count">3</span>
-                        <span class="order-total-price">₱16,800</span>
-                        <span class="order-status completed">Completed</span>
-                    </li>
-                    <li class="order-item" data-product="Aluminum Coils" data-price="12750" data-count="1" data-status="pending">
-                        <span class="product-name">Aluminum Coils</span>
-                        <span class="order-count">1</span>
-                        <span class="order-total-price">₱12,750</span>
-                        <span class="order-status pending">Pending</span>
-                    </li>
-                    <li class="order-item" data-product="Aluminum Bars" data-price="2100" data-count="4" data-status="completed">
-                        <span class="product-name">Aluminum Bars</span>
-                        <span class="order-count">4</span>
-                        <span class="order-total-price">₱8,400</span>
-                        <span class="order-status completed">Completed</span>
-                    </li>
-                    <li class="order-item" data-product="Aluminum Extrusions" data-price="6300" data-count="2" data-status="on-process">
-                        <span class="product-name">Aluminum Extrusions</span>
-                        <span class="order-count">2</span>
-                        <span class="order-total-price">₱12,600</span>
-                        <span class="order-status on-process">On Process</span>
-                    </li>
-                    <li class="order-item" data-product="Aluminum Rods" data-price="3700" data-count="3" data-status="pending">
-                        <span class="product-name">Aluminum Rods</span>
-                        <span class="order-count">3</span>
-                        <span class="order-total-price">₱11,100</span>
-                        <span class="order-status pending">Pending</span>
-                    </li>
-                    <li class="order-item" data-product="Aluminum Wire" data-price="9800" data-count="1" data-status="completed">
-                        <span class="product-name">Aluminum Wire</span>
-                        <span class="order-count">1</span>
-                        <span class="order-total-price">₱9,800</span>
-                        <span class="order-status completed">Completed</span>
-                    </li>
-                    <li class="order-item" data-product="Aluminum Angles" data-price="4600" data-count="2" data-status="on-process">
-                        <span class="product-name">Aluminum Angles</span>
-                        <span class="order-count">2</span>
-                        <span class="order-total-price">₱9,200</span>
-                        <span class="order-status on-process">On Process</span>
-                    </li>
-                    <li class="order-item" data-product="Aluminum Tubes" data-price="7550" data-count="1" data-status="completed">
-                        <span class="product-name">Aluminum Tubes</span>
-                        <span class="order-count">1</span>
-                        <span class="order-total-price">₱7,550</span>
-                        <span class="order-status completed">Completed</span>
-                    </li>
-                    <li class="order-item" data-product="Aluminum Panels" data-price="13900" data-count="1" data-status="pending">
-                        <span class="product-name">Aluminum Panels</span>
-                        <span class="order-count">1</span>
-                        <span class="order-total-price">₱13,900</span>
-                        <span class="order-status pending">Pending</span>
-                    </li>
-                    <li class="order-item" data-product="Aluminum Frames" data-price="11400" data-count="2" data-status="on-process">
-                        <span class="product-name">Aluminum Frames</span>
-                        <span class="order-count">2</span>
-                        <span class="order-total-price">₱22,800</span>
-                        <span class="order-status on-process">On Process</span>
-                    </li>
-                </ul>
+        <div class="dashboard-item sales-trends">
+            <span class="item-name">Sales Trends</span>
+            <div class="container">
+                <canvas id="salesTrendsChart"></canvas>
             </div>
         </div>
-        <!-- Middle -->
         <div class="dashboard-item inventory-levels">
             <span class="item-name">Inventory Levels</span>
-            <div class="inventory-graph-container">
-                <canvas id="inventoryGraph"></canvas>
+            <div class="container">
+                <canvas id="inventoryLevelsChart"></canvas>
             </div>
         </div>
-        <!--Bottom right-->
+        <div class="dashboard-item recent-orders">
+            <span class="item-name">Recent Orders</span>
+            <div class="container">
+                <canvas id="recentOrdersChart"></canvas>
+            </div>
+        </div>
         <div class="dashboard-item supplier-details">
             <span class="item-name">Supplier Details</span>
-            <div class="supplier-details-container">
-                <ul class="supplier-details-list">
-                <!-- Header row for labels -->
-                <li class="supplier-header">
-                    <span class="header-supplier-name">Supplier</span>
-                    <span class="header-supplier-id">ID</span>
-                    <span class="header-contact">Contact</span>
-                </li>
-                <!-- Supplier items with random names and IDs -->
-                <li class="supplier-item" data-supplier="Aluminum Supply Co." data-id="SUP001">
-                    <span class="supplier-name">Aluminum Supply Co.</span>
-                    <span class="supplier-id">SUP001</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="Metal Goods Trading" data-id="SUP002">
-                    <span class="supplier-name">Metal Goods Trading</span>
-                    <span class="supplier-id">SUP002</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="AluTech Industrial" data-id="SUP003">
-                    <span class="supplier-name">AluTech Industrial</span>
-                    <span class="supplier-id">SUP003</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="Precision Aluminum Works" data-id="SUP004">
-                    <span class="supplier-name">Precision Aluminum Works</span>
-                    <span class="supplier-id">SUP004</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="AluPro Suppliers" data-id="SUP005">
-                    <span class="supplier-name">AluPro Suppliers</span>
-                    <span class="supplier-id">SUP005</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="Aluminum Alloys Ltd." data-id="SUP006">
-                    <span class="supplier-name">Aluminum Alloys Ltd.</span>
-                    <span class="supplier-id">SUP006</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="Prime Metal Supply" data-id="SUP007">
-                    <span class="supplier-name">Prime Metal Supply</span>
-                    <span class="supplier-id">SUP007</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="Aluminum Solutions" data-id="SUP008">
-                    <span class="supplier-name">Aluminum Solutions</span>
-                    <span class="supplier-id">SUP008</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="Quality Metals" data-id="SUP009">
-                    <span class="supplier-name">Quality Metals</span>
-                    <span class="supplier-id">SUP009</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="AluSource Trading" data-id="SUP010">
-                    <span class="supplier-name">AluSource Trading</span>
-                    <span class="supplier-id">SUP010</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="Alumina Tech Corp." data-id="SUP011">
-                    <span class="supplier-name">Alumina Tech Corp.</span>
-                    <span class="supplier-id">SUP011</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="AluSales Corporation" data-id="SUP012">
-                    <span class="supplier-name">AluSales Corporation</span>
-                    <span class="supplier-id">SUP012</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="AluCraft Supplies" data-id="SUP013">
-                    <span class="supplier-name">AluCraft Supplies</span>
-                    <span class="supplier-id">SUP013</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="Aluminum Masters" data-id="SUP014">
-                    <span class="supplier-name">Aluminum Masters</span>
-                    <span class="supplier-id">SUP014</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="Metal Supply Hub" data-id="SUP015">
-                    <span class="supplier-name">Metal Supply Hub</span>
-                    <span class="supplier-id">SUP015</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="Aluminum Trade Works" data-id="SUP016">
-                    <span class="supplier-name">Aluminum Trade Works</span>
-                    <span class="supplier-id">SUP016</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="AluDepot Enterprises" data-id="SUP017">
-                    <span class="supplier-name">AluDepot Enterprises</span>
-                    <span class="supplier-id">SUP017</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="Aluminum Group Corp." data-id="SUP018">
-                    <span class="supplier-name">Aluminum Group Corp.</span>
-                    <span class="supplier-id">SUP018</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="Metalworks Suppliers" data-id="SUP019">
-                    <span class="supplier-name">Metalworks Suppliers</span>
-                    <span class="supplier-id">SUP019</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="Metal Core Trading" data-id="SUP020">
-                    <span class="supplier-name">Metal Core Trading</span>
-                    <span class="supplier-id">SUP020</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="Aluminum Experts" data-id="SUP021">
-                    <span class="supplier-name">Aluminum Experts</span>
-                    <span class="supplier-id">SUP021</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="Alloy Sales Co." data-id="SUP022">
-                    <span class="supplier-name">Alloy Sales Co.</span>
-                    <span class="supplier-id">SUP022</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                <li class="supplier-item" data-supplier="AluKing Supplies" data-id="SUP023">
-                    <span class="supplier-name">AluKing Supplies</span>
-                    <span class="supplier-id">SUP023</span>
-                    <button class="contact-btn">Contact</button>
-                </li>
-                </ul>
+        </div>
+        <div class="dashboard-item inventory-turnover">
+            <span class="item-name">Inventory Turnover</span>
+            <div class="container">
+                <canvas id="inventoryTurnoverChart"></canvas>
             </div>
         </div>
     </div>

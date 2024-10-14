@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+/* #region Grid Layout */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr); 
+    grid-template-rows: 80px auto 20px 180px; 
+    gap: 10px;
+    margin: 15px 15px 15px 85px;
+    height: calc(100vh - 95px);
+}
+
+.total-units-sold{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 5;
+}
+
+.total-sales{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 5;
+    grid-column-end: 9;
+}
+
+.stock-value{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 9;
+    grid-column-end: 13;
+}
+
+.sales-trends{
+    grid-row-start: 2;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 8;    
+}
+
+.inventory-levels{
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 8;
+    grid-column-end: 13;    
+}
+
+.recent-orders{
+    grid-row-start: 4;
+    grid-row-end: 5;
+    grid-column-start: 1;
+    grid-column-end: 5;    
+}
+
+.supplier-details{
+    grid-row-start: 4;
+    grid-row-end: 5;
+    grid-column-start: 5;
+    grid-column-end: 8;    
+}
+
+.inventory-turnover{
+    grid-row-start: 3;
+    grid-row-end: 5;
+    grid-column-start: 8;
+    grid-column-end: 13;    
+}
+/* #endregion */
+
+/* #region Dashboard item styles */
+.dashboard-item {
+    padding: 10px;
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
+    font-family: 'Afacad Flux', sans-serif;
+    transition: transform 0.2s, box-shadow 0.2s; 
+}
+
+.dashboard-item:hover {
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+}
+
+.dashboard-item .item-name{
+    letter-spacing: .8px;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-left: 10px;
+}
+/* #endregion */
+
+/* #region 3 top row*/
+.dashboard-item .top-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.top-row .left svg{
+    fill: black;
+    height: 18px;
+    width: 18px;
+    margin-top: 2px;
+}
+
+.top-row .left{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-left: 4px;
+}
+
+.top-row .left .right{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-left: 10px;
+}
+
+.top-row .left .right .name{
+    letter-spacing: .8px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.top-row .left .right .val{
+    letter-spacing: .5px;
+    font-size: 1.60rem;
+    font-weight: 700;
+    font-family: "Baloo Paaji 2", sans-serif;
+}
+
+.val .span{
+    font-family: "Source Serif 4", serif;
+}
+
+.top-row > .right {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+}
+
+.top-row .graph {
+    width: 100%;
+    height: 60px; 
+    padding-top: 10px;
+}
+
+.top-row .graph canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+/* #endregion */
+
+/* #region Sales Trends */
+.sales-trends .container {
+    width: 100%;
+    height: 32vh;
+    overflow-x: auto;
+    margin-top: 10px;
+    margin-left: -5px;
+    margin-bottom: -5px;
+}
+
+#salesTrendsChart {
+    width: 100%; 
+    height: 100%; 
+}
+
+/* #endregion*/
+
+/* #region Inventory Levels */
+.inventory-levels .container {
+    width: 100%;
+    height: 27vh;
+    margin-top: 10px;
+    margin-left: -5px;
+    margin-bottom: -5px;
+}
+
+#inventoryLevelsChart {
+    width: 100%; 
+    height: 100%; 
+}
+
+/* #endregion*/
+
+/* #region Inventory Levels */
+.recent-orders .container {
+    width: 100%;
+    height: 23vh;
+    margin-top: 5px;
+    margin-left: -5px;
+    margin-bottom: -5px;
+}
+
+#orderStatusChart {
+    width: 100%; 
+    height: 100%; 
+}
+
+/* #endregion*/
+
+/* #region Inventory Levels */
+.inventory-turnover .container {
+    width: 100%;
+    height: 28vh;
+    margin-top: 5px;
+    margin-left: -5px;
+    margin-bottom: -5px;
+}
+
+#inventoryTurnoverChart {
+    width: 100%; 
+    height: 100%; 
+}
+
+/* #endregion*/
