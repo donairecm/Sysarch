@@ -55,6 +55,16 @@ body {
 }
 /* #endregion */
 
+/* #region Navbar Title stuff */
+#navbar .title{
+    color: var(--text-clr);
+    font-family: 'Afacad Flux', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: .8px;
+    margin-left: 20px;
+}
+/* #endregion */
+
 /* #region Navbar Icon Styling */
 .icon-container {
     display: flex;
@@ -478,6 +488,6 @@ body {
 }
 /* #endregion */
 
-/* #endregion */
+
 
 

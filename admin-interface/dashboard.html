@@ -12,6 +12,7 @@
         <script type="text/javascript" src="js/dashboard/inventory_levels.js" defer></script>
         <script type="text/javascript" src="js/dashboard/recent_orders.js" defer></script>
         <script type="text/javascript" src="js/dashboard/inventory_turnover.js" defer></script>
+        <script type="text/javascript" src="js/dashboard/supplier_details.js" defer></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
 <body>
@@ -115,6 +116,9 @@
     <div id="overlay"></div>
 
     <nav id="navbar">
+        <div class="title">
+            <div class="no-1">Admin Dashboard</div>
+        </div>
         <div class="icon-container">
           <!--<ul>
               <li>
@@ -160,7 +164,7 @@
                     </div>
                 </li>                       
             </ul>
-      </div>
+        </div>
     </nav>
 
     <div class="dashboard-grid">
@@ -236,6 +240,9 @@
         </div>
         <div class="dashboard-item supplier-details">
             <span class="item-name">Supplier Details</span>
+            <div class="container">
+                <canvas id="supplierDetailsChart"></canvas>
+            </div>
         </div>
         <div class="dashboard-item inventory-turnover">
             <span class="item-name">Inventory Turnover</span>

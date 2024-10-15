@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const ctx = document.getElementById('inventoryLevelsChart').getContext('2d');
+    const inventoryLevelsCtx = document.getElementById('inventoryLevelsChart').getContext('2d');
 
     // Generate random stock data for 376 items
     const stockData = [];
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const lowStockLevel = 200;
     const highStockLevel = 800;
 
-    new Chart(ctx, {
+    new Chart(inventoryLevelsCtx, {
         type: 'line',
         data: {
             labels: labels,
