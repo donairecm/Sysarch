@@ -6,7 +6,7 @@ var unitsSoldChart = new Chart(unitsSoldCtx, {
         labels: Array(12).fill(''),  // Placeholder for 12 data points
         datasets: [{
             label: '',  // No label
-             data: [50000, 51000, 50500, 52000, 53000, 52500, 54000, 55000, 54500, 56000, 57000, 56500],  // Sample data
+            data: [50000, 51000, 50500, 52000, 53000, 52500, 54000, 55000, 54500, 56000, 57000, 56500],  // Sample data
             borderColor: 'blue',  // Line color
             backgroundColor: 'rgba(0, 0, 255, 0.1)',  // Shaded area color
             fill: true,  // Fill the area under the line
