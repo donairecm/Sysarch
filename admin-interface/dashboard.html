@@ -14,12 +14,12 @@
         <script type="text/javascript" src="js/dashboard/recent_orders.js" defer></script>
         <script type="text/javascript" src="js/dashboard/inventory_turnover.js" defer></script>
         <script type="text/javascript" src="js/dashboard/supplier_details.js" defer></script>
-        <script type="text/javascript" src="js/dashboard/modal/modal.js" defer></script>
-        <script type="text/javascript" src="js/dashboard/modal/total_units_sold.js" defer></script>
-        <script type="text/javascript" src="js/dashboard/modal/total_sales.js" defer></script>
-        <script type="text/javascript" src="js/dashboard/modal/stock_value.js" defer></script>
-        <script type="text/javascript" src="js/dashboard/modal/sales_trends.js" defer></script>
-        <script type="text/javascript" src="js/dashboard/modal/inventory_levels.js" defer></script>
+        <script type="text/javascript" src="js/modal/modal.js" defer></script>
+        <script type="text/javascript" src="js/modal/total_units_sold.js" defer></script>
+        <script type="text/javascript" src="js/modal/total_sales.js" defer></script>
+        <script type="text/javascript" src="js/modal/stock_value.js" defer></script>
+        <script type="text/javascript" src="js/modal/sales_trends.js" defer></script>
+        <script type="text/javascript" src="js/modal/inventory_levels.js" defer></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
 <body>
@@ -259,7 +259,7 @@
         </div>
     </div>
     
-    <!-- Modals -->
+    <!-- Modals -->    
     <div id="total-units-sold" class="modal tus">
         <div class="modal-content">
             <h2>Total Units Sold</h2>
@@ -268,14 +268,26 @@
                     <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
                 </svg>
             </div>
-    
-            <!-- Filter buttons for Week, Month, Year -->
+
+            <!-- Date Filter Selection -->
             <div class="chart-filters">
-                <button id="filter-week" class="filter-btn">Week</button>
-                <button id="filter-month" class="filter-btn">Month</button>
-                <button id="filter-year" class="filter-btn">Year</button>
+                <select id="filter-year">
+                    <option value="">Select Year</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                </select>
+
+                <select id="filter-month" disabled>
+                    <option value="">Select Month</option>
+                </select>
+
+                <select id="filter-week" disabled>
+                    <option value="">Select Week</option>
+                </select>
             </div>
-    
+
             <div class="graph">
                 <canvas id="unitsSoldChartModal"></canvas>
             </div>
