@@ -4,23 +4,20 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin Interface</title>
-        <link rel="stylesheet" href="css/navbar-sidebar.css">
+        <link rel="stylesheet" href="css/navbar-sidebar/navbar-sidebar.css">
+        <link rel="stylesheet" href="css/navbar-sidebar/media-query.css">
         <link rel="stylesheet" href="css/dashboard/dashboard.css">
-        <link rel="stylesheet" href="css/dashboard/modal/modal.css">
         <script type="text/javascript" src="js/dropdown.js" defer></script>
+
+        <!-- #region Dashboard scripts-->
         <script type="text/javascript" src="js/dashboard/top_row-graph.js" defer></script>
-        <script type="text/javascript" src="js/dashboard/sales_trends.js" defer></script>
         <script type="text/javascript" src="js/dashboard/inventory_levels.js" defer></script>
         <script type="text/javascript" src="js/dashboard/recent_orders.js" defer></script>
-        <script type="text/javascript" src="js/dashboard/inventory_turnover.js" defer></script>
-        <script type="text/javascript" src="js/dashboard/supplier_details.js" defer></script>
-        <script type="text/javascript" src="js/modal/modal.js" defer></script>
-        <script type="text/javascript" src="js/modal/total_units_sold.js" defer></script>
-        <script type="text/javascript" src="js/modal/total_sales.js" defer></script>
-        <script type="text/javascript" src="js/modal/stock_value.js" defer></script>
-        <script type="text/javascript" src="js/modal/sales_trends.js" defer></script>
-        <script type="text/javascript" src="js/modal/inventory_levels.js" defer></script>
+        <script type="text/javascript" src="js/dashboard/user_activities.js" defer></script>
+        <!-- #endregion -->
+        
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.0.2"></script>
     </head>
 <body>
     <nav id="sidebar">
@@ -49,7 +46,7 @@
                     </div>
                 </a>
             </li>
-            <li>
+            <li class="has-submenu">
                 <a href="inventory.html">
                     <div class="left">
                         <div class="icon-container">
@@ -65,8 +62,14 @@
                         </svg>
                     </div>
                 </a>
+                <ul class="submenu">
+                    <li><a href="#">Monitoring</a></li>
+                    <li><a href="#">Stock levels</a></li>
+                    <li><a href="#">Reorder points</a></li>
+                    <li><a href="#">Product list</a></li>
+                </ul>
             </li>
-            <li>
+            <li class="has-submenu">
                 <a href="sales.html">
                     <div class="left">
                         <div class="icon-container">
@@ -82,8 +85,14 @@
                         </svg>
                     </div>
                 </a>
+                <ul class="submenu">
+                    <li><a href="#">Sales Overview</a></li>
+                    <li><a href="#">Sales Reports</a></li>
+                    <li><a href="#">Manage Orders</a></li>
+                    <li><a href="#">Customer details</a></li>
+                </ul>
             </li>
-            <li>
+            <li class="has-submenu">
                 <a href="supply.html">
                     <div class="left">
                         <div class="icon-container">
@@ -99,8 +108,12 @@
                         </svg>
                     </div>
                 </a>
+                <ul class="submenu">
+                    <li><a href="#">Orders</a></li>
+                    <li><a href="#">Supplier details</a></li>
+                </ul>
             </li>
-            <li>
+            <li class="has-submenu">
                 <a href="staff.html">
                     <div class="left">
                         <div class="icon-container">
@@ -116,6 +129,66 @@
                         </svg>
                     </div>
                 </a>
+                <ul class="submenu">
+                    <li><a href="#">User activities</a></li>
+                    <li><a href="#">User logs</a></li>
+                    <li><a href="#">Manage users</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <nav id="sidebar2">
+        <ul>
+            <li class="active">
+                <a href="dashboard.html">
+                    <div class="icon-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                            <path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/>
+                        </svg>
+                    </div>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="inventory.html">
+                    <div class="icon-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                            <path d="M620-163 450-333l56-56 114 114 226-226 56 56-282 282Zm220-397h-80v-200h-80v120H280v-120h-80v560h240v80H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h167q11-35 43-57.5t70-22.5q40 0 71.5 22.5T594-840h166q33 0 56.5 23.5T840-760v200ZM480-760q17 0 28.5-11.5T520-800q0-17-11.5-28.5T480-840q-17 0-28.5 11.5T440-800q0 17 11.5 28.5T480-760Z"/>
+                        </svg>
+                    </div>
+                    <span>Inventory</span>
+                </a>
+            </li>
+            <li>
+                <a href="sales.html">
+                    <div class="icon-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                            <path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80ZM120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z"/>
+                        </svg>
+                    </div>
+                    <span>Sales</span>
+                </a>
+            </li>
+            <li>
+                <a href="supply.html">
+                    <div class="icon-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                            <path d="M240-160q-50 0-85-35t-35-85H40v-440q0-33 23.5-56.5T120-800h560v160h120l120 160v200h-80q0 50-35 85t-85 35q-50 0-85-35t-35-85H360q0 50-35 85t-85 35Zm0-80q17 0 28.5-11.5T280-280q0-17-11.5-28.5T240-320q-17 0-28.5 11.5T200-280q0 17 11.5 28.5T240-240ZM120-360h32q17-18 39-29t49-11q27 0 49 11t39 29h272v-360H120v360Zm600 120q17 0 28.5-11.5T760-280q0-17-11.5-28.5T720-320q-17 0-28.5 11.5T680-280q0 17 11.5 28.5T720-240Zm-40-200h170l-90-120h-80v120ZM360-540Z"/>
+                        </svg>
+                    </div>
+                    <span>Supply-chain</span>
+                </a>
+            </li>
+            <li>
+                <a href="staff.html">
+                    <div class="icon-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                            <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h168q14-36 44-58t68-22q38 0 68 22t44 58h168q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm280-670q13 0 21.5-8.5T510-820q0-13-8.5-21.5T480-850q-13 0-21.5 8.5T450-820q0 13 8.5 21.5T480-790Zm0 350q58 0 99-41t41-99q0-58-41-99t-99-41q-58 0-99 41t-41 99q0 58 41 99t99 41ZM200-200h560v-46q-54-53-125.5-83.5T480-360q-83 0-154.5 30.5T200-246v46Z"/>
+                        </svg>
+                    </div>
+                    <span>Staff</span>
+                </a>
             </li>
         </ul>
     </nav>
@@ -123,19 +196,19 @@
     <div id="overlay"></div>
 
     <nav id="navbar">
+        
         <div class="title">
-            <div class="no-1">Admin Dashboard</div>
-        </div>
-        <div class="icon-container">
-          <!--<ul>
-              <li>
-                  <div class="icon-button">
-                      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                          <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/>
-                      </svg>
-                  </div>
-              </li>                     
-          </ul>-->
+            <div class="navbarleft">
+                <div class="logo-wrapper">
+                    <div class="logo-container">
+                        <div class="squares">
+                            <div class="square"></div>
+                            <div class="square"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="no-1">Admin Dashboard</div>
+            </div>
         </div>
         <div class="icon-container">
             <ul>
@@ -177,12 +250,16 @@
     <div class="dashboard-grid">
         <div class="dashboard-item total-units-sold top-row" data-modal="total-units-sold">    
             <div class="left">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed" class="units-sold-icon">
-                    <path d="M856-390 570-104q-12 12-27 18t-30 6q-15 0-30-6t-27-18L103-457q-11-11-17-25.5T80-513v-287q0-33 23.5-56.5T160-880h287q16 0 31 6.5t26 17.5l352 353q12 12 17.5 27t5.5 30q0 15-5.5 29.5T856-390ZM260-640q25 0 42.5-17.5T320-700q0-25-17.5-42.5T260-760q-25 0-42.5 17.5T200-700q0 25 17.5 42.5T260-640Z"/>
-                </svg>
                 <div class="right">
-                    <div class="name">Total Units Sold</div>
-                    <div class="val">57,464</div>
+                    <div class="container">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed" class="units-sold-icon">
+                            <path d="M856-390 570-104q-12 12-27 18t-30 6q-15 0-30-6t-27-18L103-457q-11-11-17-25.5T80-513v-287q0-33 23.5-56.5T160-880h287q16 0 31 6.5t26 17.5l352 353q12 12 17.5 27t5.5 30q0 15-5.5 29.5T856-390ZM260-640q25 0 42.5-17.5T320-700q0-25-17.5-42.5T260-760q-25 0-42.5 17.5T200-700q0 25 17.5 42.5T260-640Z"/>
+                        </svg>
+                    </div>
+                    <div class="container-r">
+                        <div class="name">Total Units Sold</div>
+                    <div class="val">157,464</div>
+                    </div>
                 </div>
             </div>
             <div class="right">
@@ -194,12 +271,16 @@
 
         <div class="dashboard-item total-sales top-row" data-modal="total-sales">
         <div class="left">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                <path d="M280-640q-33 0-56.5-23.5T200-720v-80q0-33 23.5-56.5T280-880h400q33 0 56.5 23.5T760-800v80q0 33-23.5 56.5T680-640H280Zm0-80h400v-80H280v80ZM160-80q-33 0-56.5-23.5T80-160v-40h800v40q0 33-23.5 56.5T800-80H160ZM80-240l139-313q10-22 30-34.5t43-12.5h376q23 0 43 12.5t30 34.5l139 313H80Zm260-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm120 160h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm120 160h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Z"/>
-            </svg>
             <div class="right">
-                <div class="name">Total Sales</div>
+                <div class="container">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path d="M280-640q-33 0-56.5-23.5T200-720v-80q0-33 23.5-56.5T280-880h400q33 0 56.5 23.5T760-800v80q0 33-23.5 56.5T680-640H280Zm0-80h400v-80H280v80ZM160-80q-33 0-56.5-23.5T80-160v-40h800v40q0 33-23.5 56.5T800-80H160ZM80-240l139-313q10-22 30-34.5t43-12.5h376q23 0 43 12.5t30 34.5l139 313H80Zm260-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm120 160h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm120 160h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Z"/>
+                    </svg>
+                </div>
+                <div class="container-r">
+                    <div class="name">Total Sales</div>
                 <div class="val"><span>₱</span>336,413</div>
+                </div>
             </div>
         </div>
         <div class="right"> 
@@ -211,13 +292,17 @@
 
         <div class="dashboard-item stock-value top-row" data-modal="stock-value">
             <div class="left">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                    <path d="M160-160v-440h160v440H160Zm0-480v-160h160v160H160Zm240 480v-320h160v320H400Zm0-360v-160h160v160H400Zm240 360v-200h160v200H640Zm0-240v-160h160v160H640Z"/>
-                </svg>
                 <div class="right">
-                    <div class="name">Stock Value</div>
+                    <div class="container">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                            <path d="M160-160v-440h160v440H160Zm0-480v-160h160v160H160Zm240 480v-320h160v320H400Zm0-360v-160h160v160H400Zm240 360v-200h160v200H640Zm0-240v-160h160v160H640Z"/>
+                        </svg>
+                    </div>
+                    <div class="container-r">
+                        <div class="name">Stock Value</div>
                     <div class="val">
                         <span>₱</span>43,413</div>
+                    </div>
                 </div>
             </div>
             <div class="right"> 
@@ -227,191 +312,57 @@
             </div>
         </div>
 
-        <div class="dashboard-item sales-trends" data-modal="sales-trends">
-            <span class="item-name">Sales Trends</span>
-            <div class="container">
-                <canvas id="salesTrendsChart"></canvas>
+        <div class="dashboard-item recent-orders">
+            <span class="item-name">Recent Orders</span>
+            <div class="recent-orders-container">
+                <ul class="recent-orders-list">
+                    <!-- Header row for labels -->
+                    <li class="order-header">
+                        <span class="header-product-name">Product name</span>
+                        <span class="header-order-count">Count</span>
+                        <span class="header-order-price">Total Price</span>
+                        <span class="header-order-status">Status</span>
+                    </li>
+                </ul>
             </div>
         </div>
-        <div class="dashboard-item inventory-levels" data-modal="inventory-levels">
+
+        <div class="dashboard-item inventory-levels">
             <span class="item-name">Inventory Levels</span>
             <div class="container">
+                <div id="stock-level-labels">
+                    <div class="stock-level-box" style="background-color: #00ff6a;" data-level="High">High: <span id="highCount"></span></div>
+                    <div class="stock-level-box" style="background-color: #22fa29;" data-level="Stable">Stable: <span id="stableCount"></span></div>
+                    <div class="stock-level-box" style="background-color: #379600;" data-level="Reorder">Reorder: <span id="reorderCount"></span></div>
+                    <div class="stock-level-box" style="background-color: #ff5e00;" data-level="Low">Low: <span id="lowCount"></span></div>
+                    <div class="stock-level-box" style="background-color: #ff1100;" data-level="Critical">Critical: <span id="criticalCount"></span></div>
+                    <div class="stock-level-box" style="background-color: #bd0d00;" data-level="Out of Stock">Out of Stock: <span id="outOfStockCount"></span></div>
+                </div>
                 <canvas id="inventoryLevelsChart"></canvas>
             </div>
         </div>
-        <div class="dashboard-item recent-orders" data-modal="recent-orders">
-            <span class="item-name">Recent Orders</span>
-            <div class="container">
-                <canvas id="recentOrdersChart"></canvas>
+        
+        <div class="dashboard-item user-activities">
+            <span class="item-name">User Activities</span>
+        
+            <div class="user-activities-container">
+                <ul class="user-activities-list">
+                    <li class="user-activities-header">
+                        <span class="user-activities-header-user">User</span>
+                        <span class="user-activities-header-name">Name</span>
+                        <span class="user-activities-header-time">Time</span>
+                        <span class="user-activities-header-activity-log">Activity/Log</span>
+                    </li>
+                    <!-- Dynamic rows will be populated by JavaScript -->
+                </ul>
             </div>
         </div>
-        <div class="dashboard-item supplier-details" data-modal="supplier-details">
-            <span class="item-name">Supplier Details</span>
-            <div class="container">
-                <canvas id="supplierDetailsChart"></canvas>
-            </div>
-        </div>
-        <div class="dashboard-item inventory-turnover" data-modal="inventory-turnover">
-            <span class="item-name">Inventory Turnover</span>
-            <div class="container">
-                <canvas id="inventoryTurnoverChart"></canvas>
-            </div>
-        </div>
+        
+        
+        
     </div>
     
-    <!-- Modals -->    
-    <div id="total-units-sold" class="modal tus">
-        <div class="modal-content">
-            <h2>Total Units Sold</h2>
-            <div class="close-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-                </svg>
-            </div>
-
-            <!-- Date Filter Selection -->
-            <div class="chart-filters">
-                <select id="filter-year">
-                    <option value="">Select Year</option>
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
-                    <option value="2023">2023</option>
-                    <option value="2024">2024</option>
-                </select>
-
-                <select id="filter-month" disabled>
-                    <option value="">Select Month</option>
-                </select>
-
-                <select id="filter-week" disabled>
-                    <option value="">Select Week</option>
-                </select>
-            </div>
-
-            <div class="graph">
-                <canvas id="unitsSoldChartModal"></canvas>
-            </div>
-        </div>
-    </div>
-
-    <div id="total-sales" class="modal ts">
-        <div class="modal-content">
-            <h2>Total Sales</h2>
-            <div class="close-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-                </svg>
-            </div>
-
-            <div class="chart-filters">
-                <button id="sales-filter-week" class="filter-btn">Week</button>
-                <button id="sales-filter-month" class="filter-btn">Month</button>
-                <button id="sales-filter-year" class="filter-btn">Year</button>
-            </div>
-
-            <div class="graph">
-                <canvas id="totalSalesChartModal"></canvas>
-            </div>
-        </div>
-    </div>
-
-    <div id="stock-value" class="modal sv">
-        <div class="modal-content">
-            <h2>Stock Value</h2>
-            <div class="close-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-                </svg>
-            </div>
-
-            <div class="chart-filters">
-                <button id="stock-value-filter-week" class="filter-btn">Week</button>
-                <button id="stock-value-filter-month" class="filter-btn">Month</button>
-                <button id="stock-value-filter-year" class="filter-btn">Year</button>
-            </div>
-
-            <div class="graph">
-                <canvas id="stockValueChartModal"></canvas>
-            </div>
-        </div>
-    </div>
-
-    <div id="sales-trends" class="modal st">
-        <div class="modal-content">
-            <h2>Sales Trends</h2>
-            <div class="close-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-                </svg>
-            </div>
-
-            <div class="chart-filters">
-                <button id="stock-trends-filter-week" class="filter-btn">Week</button>
-                <button id="stock-trends-filter-month" class="filter-btn">Month</button>
-                <button id="stock-trends-filter-year" class="filter-btn">Year</button>
-            </div>
-    
-            <div class="graph">
-                <canvas id="salesTrendsChartModal"></canvas>
-            </div>
-        </div>        
-    </div>
-
-    <div id="inventory-levels" class="modal il">
-        <div class="modal-content">
-            <h2>Inventory Levels</h2>
-            <div class="close-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-                </svg>
-            </div>
-
-            <div class="chart-filters">
-                <button id="inventory-levels-filter-week" class="filter-btn">Week</button>
-                <button id="inventory-levels-filter-month" class="filter-btn">Month</button>
-                <button id="inventory-levels-filter-year" class="filter-btn">Year</button>
-            </div>
-    
-            <div class="graph">
-                <canvas id="inventoryLevelsChartModal"></canvas>
-            </div>
-        </div>
-    </div>
-
-    <div id="inventory-turnover" class="modal">
-        <div class="modal-content">
-            <h2>Inventory Turnover</h2>
-            <div class="close-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-                </svg>
-            </div>
-        </div>
-    </div>
-
-    <div id="recent-orders" class="modal">
-        <div class="modal-content">
-            <h2>Recent Orders</h2>
-            <div class="close-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-                </svg>
-            </div>
-        </div>
-    </div>
-
-    <div id="supplier-details" class="modal">
-        <div class="modal-content">
-            <h2>Supplier Details</h2>
-            <div class="close-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-                </svg>
-            </div>
-        </div>
-    </div>
-
-
+  
 
 </body>
 </html>

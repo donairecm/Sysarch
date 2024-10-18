@@ -2,68 +2,10 @@
 /* #region Grid Layout */
 .dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(12, 1fr); 
-    grid-template-rows: 80px auto 20px 180px; 
+    grid-template-columns: repeat(14, 1fr); 
     gap: 10px;
-    margin: 15px 15px 15px 85px;
-    height: calc(100vh - 95px);
 }
 
-.total-units-sold{
-    grid-row-start: 1;
-    grid-row-end: 2;
-    grid-column-start: 1;
-    grid-column-end: 5;
-}
-
-.total-sales{
-    grid-row-start: 1;
-    grid-row-end: 2;
-    grid-column-start: 5;
-    grid-column-end: 9;
-}
-
-.stock-value{
-    grid-row-start: 1;
-    grid-row-end: 2;
-    grid-column-start: 9;
-    grid-column-end: 13;
-}
-
-.sales-trends{
-    grid-row-start: 2;
-    grid-row-end: 4;
-    grid-column-start: 1;
-    grid-column-end: 8;    
-}
-
-.inventory-levels{
-    grid-row-start: 2;
-    grid-row-end: 3;
-    grid-column-start: 8;
-    grid-column-end: 13;    
-}
-
-.recent-orders{
-    grid-row-start: 4;
-    grid-row-end: 5;
-    grid-column-start: 1;
-    grid-column-end: 4;    
-}
-
-.supplier-details{
-    grid-row-start: 4;
-    grid-row-end: 5;
-    grid-column-start: 4;
-    grid-column-end: 8;    
-}
-
-.inventory-turnover{
-    grid-row-start: 3;
-    grid-row-end: 5;
-    grid-column-start: 8;
-    grid-column-end: 13;    
-}
 /* #endregion */
 
 /* #region Dashboard item styles */
@@ -88,7 +30,7 @@
 }
 /* #endregion */
 
-/* #region 3 top row*/
+/* #region 3 top row */
 .dashboard-item .top-row{
     display: flex;
     justify-content: space-between;
@@ -102,10 +44,29 @@
 }
 
 .top-row .left svg{
-    fill: black;
-    height: 18px;
-    width: 18px;
-    margin-top: 2px;
+    height: 15px;
+    width: 15px;
+    margin-top: 3px;
+}
+
+.total-units-sold .left .right > .container{
+    background-color: rgba(35, 117, 194, 0.897);
+    fill: rgb(152, 205, 255);
+}
+
+.total-sales .left .right > .container{
+    background-color: rgba(82, 173, 29, 0.856);
+    fill: rgb(166, 255, 114);
+}
+
+.stock-value .left .right > .container{
+    background-color: rgba(127, 74, 233, 0.7);
+    fill: rgba(255, 150, 241, 0.623);
+}
+
+.top-row .left .right > .container{
+    padding: 3px 6px;
+    border-radius: 10px;
 }
 
 .top-row .left{
@@ -113,26 +74,20 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
-    margin-left: 4px;
-}
-
-.top-row .left .right{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    margin-left: 10px;
 }
 
 .top-row .left .right .name{
-    letter-spacing: .8px;
+    letter-spacing: .5px;
     font-size: 1rem;
     font-weight: 500;
+    margin-top: 5px;
+    margin-bottom: -5px;
+    white-space: nowrap;
 }
 
 .top-row .left .right .val{
     letter-spacing: .5px;
-    font-size: 1.60rem;
+    font-size: 1.50rem;
     font-weight: 700;
     font-family: "Baloo Paaji 2", sans-serif;
 }
@@ -141,18 +96,9 @@
     font-family: "Source Serif 4", serif;
 }
 
-.top-row > .right {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 50px;
-}
-
 .top-row .graph {
     width: 100%;
     height: 60px; 
-    padding-top: 10px;
 }
 
 .top-row .graph canvas {
@@ -162,33 +108,145 @@
     max-height: 100%;
     display: block;
 }
+/* #endregion */
+
+/* #region Recent Orders */
+.recent-orders-container {
+    overflow-y: auto;
+    padding-right: 10px;
+    font-size: .88rem;
+    font-weight: 500;
+    position: relative;
+}
+
+.recent-orders-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.order-item {
+    border-bottom: 1px solid #ddd;
+    font-family: 'Afacad Flux', sans-serif;
+    background-color: #fff;
+    border-radius: 8px; 
+    transition: background-color 0.2s, box-shadow 0.2s;
+    margin-bottom: 5px;
+}
+
+.order-item:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+    cursor: pointer;
+}
+
+/* Alternate row background */
+.order-item:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* Consistent layout for product name, count, price, and status */
+.order-item .product-name, .order-header .header-product-name {
+    flex-basis: 28%; /* Same width for product name */
+    text-align: left;
+}
+
+.order-item .order-count, .order-header .header-order-count {
+    flex-basis: 20%; /* Same width for item count */
+    text-align: center;
+}
+
+.order-item .order-total-price, .order-header .header-order-price {
+    flex-basis: 25%; /* Same width for total price */
+    text-align: center;
+}
+
+.order-item .order-status, .order-header .header-order-status {
+    flex-basis: 27%; /* Same width for status */
+    text-align: center;
+}
+
+/* Styling for order status labels */
+.order-item .order-status {
+    font-weight: 600;
+    padding: 2px 4px;
+    border-radius: 5px;
+    text-align: center;
+    width: 80px;
+}
+
+/* Status colors */
+.order-status.pending {
+    color: #ff9800;
+}
+
+.order-status.on-process {
+    color: #4caf50;
+}
+
+.order-status.completed {
+    color: #2196f3;
+}
+
+.order-status.refunded {
+    color: #f44336; 
+}
+
+.order-header {
+    background-color: #f1f1f1;
+    border-bottom: 2px solid #ccc;
+    position: sticky; 
+    top: 0; 
+    z-index: 4;
+}
+
+/* Header text alignment */
+.order-header span {
+    flex: 1;
+    text-align: center;
+}
+
+.header-product-name {
+    flex-basis: 40%;
+    text-align: left;
+}
+
+.order-header,
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Align items vertically centered */
+    padding: 5px 10px; /* Consistent padding */
+    font-family: 'Afacad Flux', sans-serif;
+}
+
+/* #region scrollbar */
+.recent-orders-container::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.recent-orders-container::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Scrollbar track (background) */
+}
+
+.recent-orders-container::-webkit-scrollbar-thumb {
+    background-color: #888; /* Scrollbar thumb (handle) */
+    border-radius: 10px; /* Rounded corners for thumb */
+    border: 2px solid #f1f1f1; /* Space around the thumb */
+}
+
+.recent-orders-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Color on hover */
+}
 
 /* #endregion */
 
-/* #region Sales Trends */
-.sales-trends .container {
-    width: 100%;
-    height: 32vh;
-    overflow-x: auto;
-    margin-top: 10px;
-    margin-left: -5px;
-    margin-bottom: -5px;
-}
-
-#salesTrendsChart {
-    width: 100%; 
-    height: 100%; 
-}
-
-/* #endregion*/
+/* #endregion */
 
 /* #region Inventory Levels */
 .inventory-levels .container {
     width: 100%;
-    height: 27vh;
     margin-top: 10px;
-    margin-left: -5px;
-    margin-bottom: -5px;
 }
 
 #inventoryLevelsChart {
@@ -196,52 +254,154 @@
     height: 100%; 
 }
 
-/* #endregion*/
-
-/* #region Recent Orders */
-.recent-orders .container {
-    width: 100%;
-    height: 22vh;
-    margin-top: 5px;
-    margin-left: -5px;
-    margin-bottom: -5px;
+#stock-level-labels {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+    font-family: 'Afacad Flux', sans-serif;
+    font-size: .8rem;
 }
 
-#orderStatusChart {
-    width: 100%; 
-    height: 100%; 
-}
-
-/* #endregion*/
-
-/* #region Turnover Levels */
-.inventory-turnover .container {
-    width: 100%;
-    height: 28vh;
-    margin-top: 5px;
-    margin-left: -5px;
-    margin-bottom: -5px;
-}
-
-#inventoryTurnoverChart {
-    width: 100%; 
-    height: 100%; 
+.stock-level-box {
+    padding: 2px 7px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    position: relative;
 }
 
 /* #endregion*/
 
-/* #region Inventory Levels */
-.supplier-details .container {
-    width: 100%;
-    height: 23vh;
-    margin-top: 5px;
-    margin-left: -5px;
-    margin-bottom: -5px;
+/* #region User Activities */
+/* User Activities specific styles */
+.user-activities-container {
+    overflow-y: auto;
+    padding-right: 10px;
+    font-size: .88rem;
+    font-weight: 500;
+    position: relative;
 }
 
-#supplierDetailsChart {
-    width: 100%; 
-    height: 100%; 
+.user-activities-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-/* #endregion*/
+.user {
+    display: flex;
+    align-items: center;
+}
+.user-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+}
+.user svg {
+    width: 20px;
+    height: 20px;
+    fill: black;
+}
+
+/* Header row with sticky position */
+.user-activities-header {
+    background-color: #f1f1f1;
+    border-bottom: 2px solid #ccc;
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+
+/* Each row for user activity or log */
+.user-activities-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-family: 'Afacad Flux', sans-serif;
+    background-color: #fff;
+    border-radius: 8px;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    margin-bottom: 5px;
+}
+
+/* Hover effect for rows */
+.user-activities-item:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+/* Alternating row background */
+.user-activities-item:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* Styling for user, name, time, and activity/log */
+.user-activities-item .user, .user-activities-header .user-activities-header-user {
+    flex-basis: 7%;
+    text-align: left;
+}
+
+.user-activities-item .name, .user-activities-header .user-activities-header-name {
+    flex-basis: 15%;
+    text-align: left; /* Align name to the left */
+    padding-left: 10px; /* Add some padding for better alignment */
+}
+
+.user-activities-item .time, .user-activities-header .user-activities-header-time {
+    flex-basis: 20%;
+    text-align: center;
+}
+
+.user-activities-item .activity-log, .user-activities-header .user-activities-header-activity-log {
+    flex-basis: 53%;
+    text-align: center;
+}
+
+/* SVG placeholder styling */
+.user-activities-item .svg-placeholder {
+    width: 20px;
+    height: 20px;
+    background-color: #ccc;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+/* Responsive scrollbar */
+.user-activities-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.user-activities-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.user-activities-container::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+    border: 2px solid #f1f1f1;
+}
+
+.user-activities-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+    .user-activities-header span, .user-activities-item span {
+        font-size: 0.75rem;
+    }
+    .user-activities-item, .user-activities-header {
+        padding: 8px;
+    }
+}
+
+/* #endregion */

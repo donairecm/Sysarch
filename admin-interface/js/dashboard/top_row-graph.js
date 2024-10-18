@@ -1,134 +1,204 @@
-// Total Units Sold Line Chart 
+// Function to generate random data that sums to a specific total with a minimum value per month
+function generateRandomData(total, months, minValue) {
+    let data = Array(months).fill(minValue);
+    let remainingTotal = total - months * minValue;  // Deduct minimum values from total
+
+    let randomValues = Array(months).fill(0);
+    let sum = 0;
+
+    // Randomly distribute remaining values while ensuring they sum up to the remainingTotal
+    for (let i = 0; i < months - 1; i++) {
+        randomValues[i] = Math.random();  // Assign random fractions to each month
+        sum += randomValues[i];
+    }
+
+    // Normalize the remaining random values
+    let scalingFactor = remainingTotal / sum;
+    randomValues = randomValues.map(value => value * scalingFactor);
+
+    // Add the random values to the minimum values and ensure the total is correct
+    for (let i = 0; i < months - 1; i++) {
+        data[i] += randomValues[i];
+    }
+
+    // Adjust the last element to match the exact total
+    let currentSum = data.reduce((a, b) => a + b, 0);
+    data[months - 1] += total - currentSum;  // Final adjustment for rounding differences
+
+    // Round the data values to integers
+    return data.map(value => Math.round(value));
+}
+
+// Total Units Sold Area Chart 
 var unitsSoldCtx = document.getElementById('unitsSoldChart').getContext('2d');
+
+// Generate random units sold data that sums to 157464 for 10 months (Jan to Oct)
+var targetUnitsSoldTotal = 157464;
+var adjustedUnitsSold = generateRandomData(targetUnitsSoldTotal, 10, 6000);  // Ensuring no value is below 6,000
+
 var unitsSoldChart = new Chart(unitsSoldCtx, {
     type: 'line',
     data: {
-        labels: Array(12).fill(''),  // Placeholder for 12 data points
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October'],
+  // Jan to Oct
         datasets: [{
-            label: '',  // No label
-            data: [50000, 51000, 50500, 52000, 53000, 52500, 54000, 55000, 54500, 56000, 57000, 56500],  // Sample data
-            borderColor: 'blue',  // Line color
-            backgroundColor: 'rgba(0, 0, 255, 0.1)',  // Shaded area color
-            fill: true,  // Fill the area under the line
-            pointRadius: 0,  // No dots on the line
-            borderWidth: 2  // Thickness of the line
+            label: 'Units Sold',
+            data: adjustedUnitsSold,  // Randomly generated data
+            backgroundColor: 'rgba(35, 117, 194, 0.5)',  // Blue area fill
+            borderColor: 'rgb(0, 64, 124)',  // Dark blue border
+            borderWidth: 1,  // Thin line
+            pointRadius: 0,  // Invisible points
+            hoverRadius: 6,  // Increase the hover radius
+            hitRadius: 8,  // Make it easier to hover
+            tension: 0.4,  // Smooth curves
+            fill: true  // Enable area fill
         }]
     },
     options: {
-        responsive: true,  // Responsive to the container size
-        maintainAspectRatio: false,  // Allows stretching with the container
-        legend: { display: false },  // No legend
-        tooltips: { enabled: false },  // Disable tooltips
+        responsive: true,  
+        maintainAspectRatio: false,  
         scales: {
-            x: { display: false },  // Completely remove x-axis
-            y: { display: false }   // Completely remove y-axis
+            x: { display: false },  // Hide x-axis
+            y: { display: false }   // Hide y-axis
         },
         plugins: {
             legend: { display: false },  // Disable legend
-            tooltip: { enabled: false },  // Disable tooltips
-        },
-        elements: {
-            line: {
-                tension: 0.4  // Smooth out the line curves
+            tooltip: {
+                enabled: true,
+                backgroundColor: '#333', 
+                titleColor: '#fff',
+                bodyColor: '#fff',
+                callbacks: {
+                    title: (tooltipItems) => {
+                        return tooltipItems[0].label;  // Show the month
+                    },
+                    label: (tooltipItem) => {
+                        return tooltipItem.raw.toLocaleString();  // Show the value with commas
+                    }
+                }
             }
-        }
+        },
     }
 });
 
-// Total Sales Line Chart 
+// Total Sales Area Chart 
 var salesCtx = document.getElementById('salesChart').getContext('2d');
+
+// Generate random sales data that sums to 336413 for 10 months (Jan to Oct)
+var targetSalesTotal = 336413;
+var adjustedSales = generateRandomData(targetSalesTotal, 10, 8000);  // Ensuring no value is below 8,000
+
 var salesChart = new Chart(salesCtx, {
     type: 'line',
     data: {
-        labels: Array(12).fill(''),  // Placeholder for 12 data points
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October'],  // Jan to Oct
         datasets: [{
-            label: '',  // No label
-            data: [336413, 345000, 353000, 330000, 336000, 380000, 378000, 400000, 405000, 407000, 410000, 440000],  // Sample data
-            borderColor: 'green',  // Line color
-            backgroundColor: 'rgba(0, 255, 0, 0.1)',  // Shaded area color
-            fill: true,  // Fill the area under the line
-            pointRadius: 0,  // No dots on the line
-            borderWidth: 2  // Thickness of the line
+            label: 'Total Sales',
+            data: adjustedSales,  // Randomly generated data
+            backgroundColor: 'rgba(82, 173, 29, 0.5)',  // Light green area fill
+            borderColor: 'green',  
+            borderWidth: 1,  // Thin line
+            pointRadius: 0,  // Invisible points
+            hoverRadius: 6,  // Increase the hover radius
+            hitRadius: 8,  // Make it easier to hover
+            tension: 0.4,  // Smooth curves
+            fill: true  // Enable area fill
+        }]
+    },
+    options: {
+        responsive: true,  
+        maintainAspectRatio: false,  
+        scales: {
+            x: { display: false },  // Hide x-axis
+            y: { display: false }   // Hide y-axis
+        },
+        plugins: {
+            legend: { display: false },  // Disable legend
+            tooltip: {
+                enabled: true,
+                backgroundColor: '#333', 
+                titleColor: '#fff',
+                bodyColor: '#fff',
+                callbacks: {
+                    title: (tooltipItems) => {
+                        return tooltipItems[0].label;  // Show the month
+                    },
+                    label: (tooltipItem) => {
+                        return `₱${tooltipItem.raw.toLocaleString()}`;  // Show the value with Peso sign and commas
+                    }
+                }
+            }
+        },
+    }
+});
+
+// Function to generate random stock values with given min and max constraints
+function generateRandomStockValues(minValue, maxValue, totalLimit, months) {
+    let values = [];
+    let sum = 0;
+
+    for (let i = 0; i < months - 1; i++) {
+        let value = Math.random() * (maxValue - minValue) + minValue;  // Random value between minValue and maxValue
+        sum += value;
+        values.push(Math.round(value));
+    }
+
+    // Adjust the last value to ensure the total doesn't exceed the limit
+    let remainingValue = totalLimit - sum;
+    values.push(Math.round(Math.max(minValue, Math.min(remainingValue, maxValue))));  // Ensure it's within min-max range
+
+    return values;
+}
+
+// Stock Value Area Chart
+var stockValueCtx = document.getElementById('stockValueChart').getContext('2d');
+
+// Generate random stock data with min between 32412-42312 and max at 74261 for 10 months
+var maxStockValue = 74261;
+var minStockValue = 32412;
+var targetStockTotal = 74261;  // Total should not exceed this
+var stockValues = generateRandomStockValues(minStockValue, maxStockValue, targetStockTotal, 10);
+
+var stockValueChart = new Chart(stockValueCtx, {
+    type: 'line',
+    data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October'],  // Labels for Jan to Oct
+        datasets: [{
+            label: 'Stock Value',
+            data: stockValues,  // Randomized stock value data
+            backgroundColor: 'rgba(153, 102, 255, 0.5)',  // Purple area fill
+            borderColor: 'rgba(153, 102, 255, 1)',  
+            borderWidth: 1,
+            pointRadius: 0,  // Invisible points
+            hoverRadius: 6,  // Increase the hover radius
+            hitRadius: 8,  // Make it easier to hover
+            tension: 0.4,  // Smooth curves
+            fill: true  // Enable area fill
         }]
     },
     options: {
         responsive: true,  // Responsive to the container size
         maintainAspectRatio: false,  // Allows stretching with the container
-        legend: { display: false },  // No legend
-        tooltips: { enabled: false },  // Disable tooltips
         scales: {
-            x: { display: false },  // Completely remove x-axis
-            y: { display: false }   // Completely remove y-axis
+            x: { display: false },  // Hide x-axis
+            y: { display: false }   // Hide y-axis
         },
         plugins: {
             legend: { display: false },  // Disable legend
-            tooltip: { enabled: false },  // Disable tooltips
-        },
-        elements: {
-            line: {
-                tension: 0.4  // Smooth out the line curves
+            tooltip: {
+                enabled: true,
+                backgroundColor: '#333', 
+                titleColor: '#fff',
+                bodyColor: '#fff',
+                callbacks: {
+                    title: (tooltipItems) => {
+                        return tooltipItems[0].label;  // Show the month
+                    },
+                    label: (tooltipItem) => {
+                        return `₱${tooltipItem.raw.toLocaleString()}`;  // Show the value with Peso sign and commas
+                    }
+                }
             }
         }
     }
 });
-
-
-// Stock Value Line Chart
-var stockValueCtx = document.getElementById('stockValueChart').getContext('2d');
-var stockValueChart = new Chart(stockValueCtx, {
-    type: 'line',
-    data: {
-        labels: Array(12).fill(''),  // Placeholder for 12 data points (months or periods)
-        datasets: [
-            {
-                label: '',  // No label for Total Stock Value
-                data: [48000, 47000, 46000, 45000, 44000, 43000, 41500, 40000, 37500, 35000, 32000, 30000],  // Total stock value decreasing over time as items are sold
-                borderColor: 'rgba(153, 102, 255, 1)',  // Purple line for Total Stock Value
-                backgroundColor: 'rgba(153, 102, 255, 0.1)',  // Light purple fill
-                fill: true,
-                pointRadius: 0,  // No dots on the line
-                borderWidth: 2
-            },
-            {
-                label: '',  // No label for Sold Stock Value
-                data: [2000, 4000, 6000, 8000, 10000, 13000, 16000, 20000, 25000, 30000, 35000, 40000],  // Sold stock value (steady increase over time)
-                borderColor: 'rgba(75, 192, 75, 1)',  // Green line for Sold Stock Value
-                backgroundColor: 'rgba(75, 192, 75, 0.1)',  // Light green fill
-                fill: true,
-                pointRadius: 0,
-                borderWidth: 2
-            },
-            {
-                label: '',  // No label for Idle Stock Value
-                data: [46000, 43000, 43000, 42000, 41000, 37500, 34000, 31500, 27000, 23000, 19000, 15000],  // Idle stock value (gradual decrease as stock is sold)
-                borderColor: 'rgba(255, 99, 132, 1)',  // Red line for Idle Stock Value
-                backgroundColor: 'rgba(255, 99, 132, 0.1)',  // Light red fill
-                fill: true,
-                pointRadius: 0,
-                borderWidth: 2
-            }
-        ]
-    },
-    options: {
-        responsive: true,  // Responsive to the container size
-        maintainAspectRatio: false,  // Allows stretching with the container
-        legend: { display: false },  // No legend
-        tooltips: { enabled: false },  // Disable tooltips
-        scales: {
-            x: { display: false },  // Completely remove x-axis
-            y: { display: false }   // Completely remove y-axis
-        },
-        plugins: {
-            legend: { display: false },  // Disable legend
-            tooltip: { enabled: false },  // Disable tooltips
-        },
-        elements: {
-            line: {
-                tension: 0.4  // Smooth out the line curves
-            }
-        }
-    }
-});
-
-
-

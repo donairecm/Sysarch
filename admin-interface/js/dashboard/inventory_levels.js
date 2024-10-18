@@ -1,121 +1,166 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const inventoryLevelsCtx = document.getElementById('inventoryLevelsChart').getContext('2d');
+    const ctx = document.getElementById('inventoryLevelsChart').getContext('2d');
 
-    // Generate random stock data for 376 items
-    const stockData = [];
-    const labels = [];
-    for (let i = 1; i <= 376; i++) {
-        labels.push(i); // Use numbers 1 through 376 for item labels
-        stockData.push(Math.floor(Math.random() * 1000)); // Random stock count between 0 and 1000
+    function generateStockData(count) {
+        const stockData = [];
+        const generateRandomName = () => {
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const randomLetters = Array(3).fill('').map(() => letters.charAt(Math.floor(Math.random() * letters.length))).join('');
+            const randomNumbers = String(Math.floor(Math.random() * 900) + 100); // 3 digit random number
+            return `${randomLetters}-${randomNumbers}`;
+        };
+
+        for (let i = 1; i <= count; i++) {
+            stockData.push({
+                item: generateRandomName(),
+                stock: Math.floor(Math.random() * 1000) // Random stock count between 0 and 1000
+            });
+        }
+        return stockData;
     }
 
-    const lowStockLevel = 200;
-    const highStockLevel = 800;
+    const stockData = generateStockData(376);
 
-    new Chart(inventoryLevelsCtx, {
+    const stockLevelLines = {
+        high: 900,
+        stable: 700,
+        reorder: 500,
+        low: 300,
+        critical: 100,
+        outOfStock: 0
+    };
+
+    const countPerLevel = {
+        high: stockData.filter(item => item.stock >= stockLevelLines.high).length,
+        stable: stockData.filter(item => item.stock >= stockLevelLines.stable && item.stock < stockLevelLines.high).length,
+        reorder: stockData.filter(item => item.stock >= stockLevelLines.reorder && item.stock < stockLevelLines.stable).length,
+        low: stockData.filter(item => item.stock >= stockLevelLines.low && item.stock < stockLevelLines.reorder).length,
+        critical: stockData.filter(item => item.stock >= stockLevelLines.critical && item.stock < stockLevelLines.low).length,
+        outOfStock: stockData.filter(item => item.stock <= stockLevelLines.outOfStock).length
+    };
+
+    // Update counts in the stock level boxes
+    document.getElementById('highCount').textContent = countPerLevel.high;
+    document.getElementById('stableCount').textContent = countPerLevel.stable;
+    document.getElementById('reorderCount').textContent = countPerLevel.reorder;
+    document.getElementById('lowCount').textContent = countPerLevel.low;
+    document.getElementById('criticalCount').textContent = countPerLevel.critical;
+    document.getElementById('outOfStockCount').textContent = countPerLevel.outOfStock;
+
+    new Chart(ctx, {
         type: 'line',
         data: {
-            labels: labels,
+            labels: stockData.map(data => data.item),
             datasets: [
                 {
-                    label: 'Stock Count',
-                    data: stockData,
-                    borderColor: '#4a90e2', // Softer blue color for the main line
-                    borderWidth: 2,
+                    label: 'Stock Levels',
+                    borderColor: '#4a90e2',
+                    data: stockData.map(data => data.stock),
                     fill: false,
-                    pointRadius: 1, // Smaller points for cleaner appearance
-                },
-                {
-                    label: 'Low Stock Level',
-                    data: Array(376).fill(lowStockLevel),
-                    borderColor: '#f44336', // Softer red for low stock
-                    borderDash: [5, 5],
-                    borderWidth: 1,
-                    fill: false,
+                    borderWidth: 1.2,
+                    pointStyle: 'circle', // Solid circle
+                    pointRadius: 1.6, // Smaller circle size
+                    hitRadius: 10,
+                    hoverRadius: 6, // Larger hover area
+                    pointBackgroundColor: '#4a90e2', // Circle fill color
                 },
                 {
                     label: 'High Stock Level',
-                    data: Array(376).fill(highStockLevel),
-                    borderColor: '#4caf50', // Softer green for high stock
-                    borderDash: [5, 5],
-                    borderWidth: 1,
+                    data: Array(stockData.length).fill(stockLevelLines.high),
+                    borderColor: '#00ff6a',
+                    backgroundColor: 'rgba(189, 13, 0, 0.2)',
+                    borderWidth: 2.5,
+                    hoverRadius: 6,  
+                    hitRadius: 8,
                     fill: false,
+                    pointRadius: 0,
                 },
-            ],
+                {
+                    label: 'Stable Stock Level',
+                    data: Array(stockData.length).fill(stockLevelLines.stable),
+                    borderColor: '#22fa29',
+                    borderWidth: 2.5,
+                    hoverRadius: 6,  
+                    hitRadius: 8,
+                    fill: false,
+                    pointRadius: 0,
+                },
+                {
+                    label: 'Reorder Stock Level',
+                    data: Array(stockData.length).fill(stockLevelLines.reorder),
+                    borderColor: '#379600',
+                    borderWidth: 2.5,
+                    hoverRadius: 6,  
+                    hitRadius: 8,
+                    fill: false,
+                    pointRadius: 0,
+                },
+                {
+                    label: 'Low Stock Level',
+                    data: Array(stockData.length).fill(stockLevelLines.low),
+                    borderColor: '#ff5e00',
+                    borderWidth: 2.5,
+                    hoverRadius: 6,  
+                    hitRadius: 8,
+                    fill: false,
+                    pointRadius: 0,
+                },
+                {
+                    label: 'Critical Stock Level',
+                    data: Array(stockData.length).fill(stockLevelLines.critical),
+                    borderColor: '#ff1100',
+                    borderWidth: 2.5,
+                    hoverRadius: 6,  
+                    hitRadius: 8,
+                    fill: false,
+                    pointRadius: 0,
+                },
+                {
+                    label: 'Out of Stock',
+                    data: Array(stockData.length).fill(stockLevelLines.outOfStock),
+                    borderColor: '#bd0d00',
+                    borderWidth: 2.5,
+                    hoverRadius: 6,  
+                    hitRadius: 8,
+                    fill: false,
+                    pointRadius: 0,
+                }
+            ]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            elements: {
-                line: {
-                    tension: 0.3, // Smooth out the line a bit for aesthetics
-                },
-            },
             scales: {
                 x: {
-                    display: true,
-                    title: {
-                        display: true,
-                        text: 'Item Number',
-                        color: '#666', // Softer grey text
-                        font: {
-                            size: 14,
-                            family: "'Afacad Flux', sans-serif", // Apply the custom font
-                        },
-                    },
-                    grid: {
-                        display: false, // Hide vertical grid lines for cleaner look
-                    },
-                    ticks: {
-                        color: '#666',
-                        font: {
-                            size: 10,
-                            family: "'Afacad Flux', sans-serif", // Apply the custom font
-                        },
-                    },
+                    display: false,
                 },
                 y: {
                     beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Stock Count',
-                        color: '#666', // Softer grey text
-                        font: {
-                            size: 14,
-                            family: "'Afacad Flux', sans-serif", // Apply the custom font
-                        },
-                    },
-                    grid: {
-                        color: '#e0e0e0', // Lighter grid lines for subtlety
-                    },
-                    ticks: {
-                        color: '#666',
-                        font: {
-                            size: 10,
-                            family: "'Afacad Flux', sans-serif", // Apply the custom font
-                        },
-                    },
+                    suggestedMax: 1000,
                 },
             },
             plugins: {
                 legend: {
-                    display: false, // Hide legend to make it cleaner
+                    display: false // This line hides the legend
                 },
                 tooltip: {
-                    backgroundColor: '#333', // Darker background for tooltip
-                    titleColor: '#fff',
-                    bodyColor: '#fff',
-                    cornerRadius: 4, // Rounded tooltip corners
-                    xPadding: 10, // More padding for readability
-                    yPadding: 10,
-                    titleFont: {
-                        family: "'Afacad Flux', sans-serif", // Apply custom font to tooltip title
-                    },
-                    bodyFont: {
-                        family: "'Afacad Flux', sans-serif", // Apply custom font to tooltip body
-                    },
-                },
-            },
-        },
+                    callbacks: {
+                        label: function(context) {
+                            if (context.datasetIndex === 0) {
+                                const stockDataItem = stockData[context.dataIndex];
+                                return `${stockDataItem.item}: ${stockDataItem.stock} items`;
+                            } else {
+                                const stockLevel = Object.keys(stockLevelLines)[context.datasetIndex - 1];
+                                const count = countPerLevel[stockLevel];
+                                return `${stockLevel.charAt(0).toUpperCase() + stockLevel.slice(1)} Level: ${count} items`;
+                            }
+                        },
+                        title: function() {
+                            return '';
+                        }
+                    }
+                }
+            }
+        }
     });
 });

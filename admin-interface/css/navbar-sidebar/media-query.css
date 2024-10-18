@@ -1,0 +1,451 @@
+/* For extra-large screens/desktops above 1200px */
+@media (min-width: 1200px) {
+    .dashboard-grid{
+        margin: 15px 15px 15px 85px;
+        height: calc(100vh - 95px);
+        grid-template-rows: 105px 160px auto auto; 
+    }
+
+    .top-row .left .right{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .top-row > .right {
+        /* Set a fixed width for consistency */
+        width: 120px; /* Adjust this value as per your requirement */
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        margin-left: 10px;
+    }
+    .recent-orders-container{
+        max-height: 38vh; 
+    }
+    .inventory-levels .container {
+        height: 54vh;
+    }
+    .user-activities-container{
+        max-height: 32vh;
+    }
+    /* #region gridlayout*/
+    .total-units-sold{
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 1;
+        grid-column-end: 4;
+    }
+    
+    .total-sales{
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 4;
+        grid-column-end: 7;
+    }
+    
+    .stock-value{
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 7;
+        grid-column-end: 10;
+    }
+    
+    .recent-orders{
+        grid-row-start: 1;
+        grid-row-end: 3;
+        grid-column-start: 10;
+        grid-column-end: 15;    
+    }
+    
+    .inventory-levels{
+        grid-row-start: 2;
+        grid-row-end: 5;
+        grid-column-start: 1;
+        grid-column-end: 10;      
+    }
+    
+    .user-activities{
+        grid-row-start: 3;
+        grid-row-end: 5;
+        grid-column-start: 10;
+        grid-column-end: 15;    
+    }
+    /* #endregion */
+
+}
+
+/* For large laptops from 1025px to 1200px */
+@media (max-width: 1200px) {
+    .dashboard-grid{
+        margin: 15px 15px 15px 85px;
+        height: calc(100vh - 95px);
+        grid-template-rows: 105px 160px auto auto; 
+    }
+    .top-row .left .right{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .top-row > .right {
+        /* Set a fixed width for consistency */
+        width: 120px; /* Adjust this value as per your requirement */
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        margin-left: 10px;
+    }
+    .recent-orders-container{
+        max-height: 38vh; 
+    }
+    .inventory-levels .container {
+        height: 53vh;
+    }
+    .user-activities-container{
+        max-height: 32vh;
+    }
+   /* #region gridlayout*/
+   .total-units-sold{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+.total-sales{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 4;
+    grid-column-end: 7;
+}
+
+.stock-value{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 7;
+    grid-column-end: 10;
+}
+
+.recent-orders{
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 10;
+    grid-column-end: 15;    
+}
+
+.inventory-levels{
+    grid-row-start: 2;
+    grid-row-end: 5;
+    grid-column-start: 1;
+    grid-column-end: 10;      
+}
+
+.user-activities{
+    grid-row-start: 3;
+    grid-row-end: 5;
+    grid-column-start: 10;
+    grid-column-end: 15;    
+}
+/* #endregion */
+
+}
+
+/* Sidebar on small/medium screens (max-width: 1024px) */
+@media (max-width: 1024px) {
+    #navbar{
+        padding-left: 20px;
+    }
+    /* #region Hide current sidebar*/
+    #sidebar {
+        display: none;      
+    }
+    #sidebar .logo-wrapper{
+        display: none;
+    }
+    #sidebar ul{
+        display: none;
+    }
+    /* #endregion*/
+    #sidebar2{
+        display: block;
+    }
+    #navbar .logo-wrapper {
+        display: flex;
+    }
+    .dashboard-grid{
+        margin: 15px 15px 85px 15px;
+        height: calc(100vh - 95px);
+        grid-template-rows: 105px 160px auto auto; 
+    }
+    .top-row .left .right{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .top-row > .right {
+        /* Set a fixed width for consistency */
+        width: 120px; /* Adjust this value as per your requirement */
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        margin-left: 10px;
+    }
+    .recent-orders-container{
+        max-height: 38vh; 
+    }
+    .inventory-levels .container {
+        height: 53vh;
+    }
+    .user-activities-container{
+        max-height: 29vh;
+    }
+}
+
+
+
+/* For tablets/small laptops from 481px to 768px */
+@media (max-width: 930px) {
+    #navbar{
+        background-color: rgb(255, 0, 0);
+    }
+    .dashboard-grid{
+        height: 170vh;
+        grid-template-rows: 100px 100px 100px 64vh 53vh ; 
+    }
+    .top-row .left .right{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .top-row > .right {
+        /* Set a fixed width for consistency */
+        width: 150px; /* Adjust this value as per your requirement */
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        margin-left: 10px;
+    }
+    .recent-orders-container{
+        max-height: 45vh; 
+    }
+    .inventory-levels .container {
+        height: 51vh;
+    }
+    .user-activities-container{
+        max-height: 46vh;
+    }
+    
+    /* #region gridlayout*/
+   .total-units-sold{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 7;
+}
+
+.total-sales{
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 7;
+}
+
+.stock-value{
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 7;
+}
+
+.recent-orders{
+    grid-row-start: 1;
+    grid-row-end: 4;
+    grid-column-start: 7;
+    grid-column-end: 15;    
+}
+
+.inventory-levels{
+    grid-row-start: 4;
+    grid-row-end: 5;
+    grid-column-start: 1;
+    grid-column-end: 15;      
+}
+
+.user-activities{
+    grid-row-start: 5;
+    grid-row-end: 6;
+    grid-column-start: 1;
+    grid-column-end: 15;    
+}
+/* #endregion */
+
+}
+
+/* For mobile devices up to 480px */
+@media (max-width: 630px) {
+    #navbar{
+        background-color: rgb(0, 217, 255);
+    }
+    .dashboard-grid{
+        height: 220vh;
+        grid-template-rows: 75px 75px 75px 420px 325px; 
+    }
+
+    .top-row .left .right{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .top-row > .right {
+        /* Set a fixed width for consistency */
+        width: 290px; /* Adjust this value as per your requirement */
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        margin-left: 10px;
+    }
+
+    .container-r{
+        margin-left: 10px;
+    }
+
+    .recent-orders-container{
+        max-height: 47vh; 
+    }
+    .inventory-levels .container {
+        height: 56vh;
+    }
+
+     /* #region gridlayout*/
+   .total-units-sold{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 15;
+    }
+
+    .total-sales{
+        grid-row-start: 2;
+        grid-row-end: 3;
+        grid-column-start: 1;
+        grid-column-end: 15;
+    }
+
+    .stock-value{
+        grid-row-start: 3;
+        grid-row-end: 4;
+        grid-column-start: 1;
+        grid-column-end: 15;
+    }
+
+    .inventory-levels{
+        grid-row-start: 4;
+        grid-row-end: 5;
+        grid-column-start: 1;
+        grid-column-end: 15;    
+    }
+
+    .recent-orders{
+        grid-row-start: 5;
+        grid-row-end: 6;
+        grid-column-start: 1;
+        grid-column-end: 15;      
+    }
+
+    .user-activities{
+        grid-row-start: 6;
+        grid-row-end: 7;
+        grid-column-start: 1;
+        grid-column-end: 15;    
+    }
+    /* #endregion */
+
+}
+
+@media (max-width: 480px) {
+    #navbar{
+        background-color: rgb(4, 0, 255);
+    }
+    .dashboard-grid{
+        height: 195vh;
+        grid-template-rows: 75px 75px 75px 50vh 52vh 52vh;
+    }
+
+    .top-row .left .right{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .top-row > .right {
+        /* Set a fixed width for consistency */
+        width: 180px; /* Adjust this value as per your requirement */
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        margin-left: 10px;
+    }
+
+    .container-r{
+        margin-left: 10px;
+    }
+
+    .recent-orders-container{
+        max-height: 47vh; 
+    }
+    .inventory-levels .container {
+        height: 35vh;
+    }
+
+     /* #region gridlayout*/
+   .total-units-sold{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 15;
+    }
+
+    .total-sales{
+        grid-row-start: 2;
+        grid-row-end: 3;
+        grid-column-start: 1;
+        grid-column-end: 15;
+    }
+
+    .stock-value{
+        grid-row-start: 3;
+        grid-row-end: 4;
+        grid-column-start: 1;
+        grid-column-end: 15;
+    }
+
+    .inventory-levels{
+        grid-row-start: 4;
+        grid-row-end: 5;
+        grid-column-start: 1;
+        grid-column-end: 15;    
+    }
+
+    .recent-orders{
+        grid-row-start: 5;
+        grid-row-end: 6;
+        grid-column-start: 1;
+        grid-column-end: 15;      
+    }
+
+    .user-activities{
+        grid-row-start: 6;
+        grid-row-end: 7;
+        grid-column-start: 1;
+        grid-column-end: 15;    
+    }
+    /* #endregion */
+
+}
+

@@ -44,45 +44,35 @@ body {
     z-index: 9;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
-.left-of-navbar {
-    display: flex;
-    flex-direction: row;
-}
-
-.icon-container-left {
-    margin-right: 15px;
-}
 /* #endregion */
 
 /* #region Navbar Title stuff */
-#navbar .title{
+#navbar .no-1{
     color: var(--text-clr);
     font-family: 'Afacad Flux', sans-serif;
     font-size: 1.1rem;
     letter-spacing: .8px;
-    margin-left: 20px;
 }
 /* #endregion */
 
 /* #region Navbar Icon Styling */
-.icon-container {
+#navbar .icon-container {
     display: flex;
     align-items: center;
 }
 
-.icon-container ul {
+#navbar .icon-container ul {
     list-style: none;
     display: flex;
     margin: 0;
     padding: 0;
 }
 
-.icon-container li {
+#navbar .icon-container li {
     margin-left: 7px;
 }
 
-.icon-button {
+#navbar .icon-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -93,15 +83,15 @@ body {
     cursor: pointer;
 }
 
-.icon-button:hover, .icon-button.active {
+#navbar .icon-button:hover, .icon-button.active {
     background-color: var(--hover-clr);
 }
 
-.icon-button:hover svg, .icon-button.active svg {
+#navbar .icon-button:hover svg, .icon-button.active svg {
     fill: var(--accent-clr);
 }
 
-.icon-button svg {
+#navbar .icon-button svg {
     width: 28px;
     height: 28px;
     fill: var(--text-clr);
@@ -191,6 +181,57 @@ body {
     text-transform: uppercase;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
+/* #endregion */
+
+/* #region Logo Styling responsive */
+#navbar .navbarleft{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#navbar .no-1{
+    margin-left: 20px;
+}
+
+#navbar .logo-wrapper {
+    padding-left: 0;
+    display: none;
+}
+
+#navbar .logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#navbar .squares {
+    position: relative;
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0; 
+}
+
+#navbar .square {
+    width: 25px;
+    height: 27px;
+    border: 3px solid;
+    border-image: linear-gradient(to top right, #4a4a4a, #d3d3d3) 1;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    position: absolute;
+}
+
+#navbar .square:nth-child(1) {
+    top: 0;
+    left: 0;
+}
+
+#navbar .square:nth-child(2) {
+    top: 13px;
+    left: 13px;
+}
+
 /* #endregion */
 
 /* #region Sidebar Styling */
@@ -340,6 +381,94 @@ body {
 }
 /* #endregion */
 
+/* #region Sidebar2 */
+#sidebar2 {
+    display: none;
+    width: 100%;
+    height: 60px;
+    background-color: var(--main-color);
+    position: fixed;
+    left: 0;
+    top: auto;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+    font-family: 'Afacad Flux', sans-serif;
+    color: var(--text-clr);
+}
+
+#sidebar2 ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    margin: 0;
+}
+
+#sidebar2 ul li {
+    flex: 1 1 20%;
+    text-align: center; 
+    cursor: pointer;
+}
+
+#sidebar2 ul li a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-clr);
+    transition: color 0.3s ease, fill 0.3s ease, background-color 0.5s ease;
+}
+
+#sidebar2 ul li .icon-container {
+    margin-top: 7px;
+    margin-bottom: -5px;
+}
+
+#sidebar2 svg{
+    width: 25px;
+    height: 25px;
+    fill: var(--text-clr);
+    transition: fill 0.3s ease;
+}
+
+#sidebar2 span{
+    margin-bottom: 5px;
+    transition: color 0.3s 
+}
+
+/* #region Sidebar2 hover effects and shit*/
+#sidebar2 ul li a:hover{
+    background-color: var(--hover-clr);
+}
+
+#sidebar2 ul li:hover a svg {
+    fill: var(--accent-clr);
+}
+
+#sidebar2 ul li:hover a span {
+    color: var(--accent-clr);
+}
+
+#sidebar2 ul li.active a {
+    background: linear-gradient(to bottom, rgba(0, 202, 0, 0.315), transparent);
+}
+
+#sidebar2 ul li.active{
+    border-top: 2.5px solid var(--accent-clr);
+}
+
+#sidebar2 ul li.active a svg {
+    fill: var(--accent-clr);
+}
+
+#sidebar2 ul li.active a span {
+    color: var(--accent-clr);
+}
+/* #endregion */
+/* #endregion*/
+
 /* #region Sidebar Expanded State */
 #sidebar:hover {
     width: 240px;
@@ -359,9 +488,73 @@ body {
 #sidebar:hover ul li a .right svg {
     max-width: 50px;
     opacity: 1;
+}
+
+/* #endregion */
+
+/* #region Sidebar submenu styling */
+.submenu {
+    display: block;
+    position: absolute;
+    width: 200px;
+    left: calc(70px + 5px); 
+    background-color: var(--main-color);
+    padding: 10px;
+    top: -25%;
+    list-style: none;
+    border: 1px solid #054e63;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, left 0.3s ease-in-out; /* Added smooth left transition */
+    transform: translateX(-20px); 
+}
+
+.submenu li {
+    margin-bottom: 10px;
+}
+
+.submenu li a {
+    color: var(--text-clr);
+    text-decoration: none;
+    font-family: 'Afacad Flux', sans-serif;
+}
+
+.submenu li a:hover {
+    color: var(--accent-clr);
     
 }
 
+/* Show submenu when hovering over the parent li */
+.has-submenu:hover .submenu {
+    display: block;
+    visibility: visible;
+    opacity: 1; 
+    transform: translateX(0); 
+}
+
+/* Position submenu relative to the hovered item */
+.has-submenu {
+    position: relative; 
+}
+
+/* Adjust the positioning when the sidebar expands */
+#sidebar:hover .submenu {
+    left: calc(240px + 1px); 
+}
+
+/* Animations for smooth transition */
+.submenu {
+    opacity: 0;
+    transform: translateX(-20px); 
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, left 0.3s ease-in-out; /* Smooth fade/slide */
+}
+
+.has-submenu:hover .submenu {
+    opacity: 1;
+    transform: translateX(0); 
+    visibility: visible;
+}
 /* #endregion */
 
 /* #region Dropdown related stuff */
@@ -488,6 +681,22 @@ body {
 }
 /* #endregion */
 
+/* #region Scrollbar */
+body::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
 
+body::-webkit-scrollbar-track {
+    background: transparent; /* Scrollbar track (background) */
+}
 
+body::-webkit-scrollbar-thumb {
+    background-color: #888; /* Scrollbar thumb (handle) */
+    border-radius: 10px; /* Rounded corners for thumb */
+}
 
+body::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Color on hover */
+}
+
+/* #endregion */
