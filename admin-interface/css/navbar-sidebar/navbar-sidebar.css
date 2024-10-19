@@ -251,7 +251,7 @@ body {
     list-style: none;
 }
 
-#sidebar ul li {
+#sidebar ul li:not(.submenu li) {
     margin: 15px 0;
 }
 
@@ -260,11 +260,11 @@ body {
     flex-direction: row;
 }
 
-#sidebar ul li:first-child {
+#sidebar ul li:not(.submenu li):first-child {
     margin-top: 0;
 }
 
-#sidebar ul li a {
+.sidebar-item{
     display: flex;
     align-self: start;
     justify-content: space-between;
@@ -278,7 +278,7 @@ body {
     border-radius: 8px;
 }
 
-#sidebar ul li a span {
+#sidebar ul li a span.sidebar-hover {
     max-width: 0;
     opacity: 0;
     overflow: hidden;
@@ -296,7 +296,7 @@ body {
     align-items: center;
 }
 
-#sidebar ul li a .right svg {
+#sidebar ul li a .right svg.sidebar-hover {
     max-width: 0;
     opacity: 0;
     overflow: hidden;
@@ -309,7 +309,7 @@ body {
     margin-top: 1px;
 }
 
-#sidebar ul li a .icon-container {
+#sidebar ul li .sidebar-item .icon-container {
     width: 25px;
     height: 25px;
 }
@@ -326,7 +326,7 @@ body {
 }
 
 /* Sidebar Icon Styling */
-#sidebar ul li a svg {
+#sidebar ul li a svg.sidebar-hover {
     width: 23px;
     height: 23px;
     fill: var(--text-clr);
@@ -355,28 +355,28 @@ body {
 /* #endregion */
 
 /* #region Sidebar Hover & Active States */
-#sidebar ul li a:hover {
+#sidebar ul li .sidebar-item:hover {
     background-color: var(--hover-clr);
 }
 
-#sidebar ul li:hover a svg {
+#sidebar ul li:hover a svg.sidebar-hover {
     fill: var(--accent-clr);
 }
 
-#sidebar ul li:hover a span {
+#sidebar ul li:hover a span.sidebar-hover {
     color: var(--accent-clr);
 }
 
-#sidebar ul li.active a {
+#sidebar ul li.active a.sidebar-item {
     background-color: var(--hover-clr);
     border-radius: 8px;
 }
 
-#sidebar ul li.active a svg {
+#sidebar ul li.active a svg.sidebar-hover {
     fill: var(--accent-clr);
 }
 
-#sidebar ul li.active a span {
+#sidebar ul li.active a span.sidebar-hover {
     color: var(--accent-clr);
 }
 /* #endregion */
@@ -499,7 +499,7 @@ body {
     width: 200px;
     left: calc(70px + 5px); 
     background-color: var(--main-color);
-    padding: 10px;
+    padding: 4px 10px;
     top: -25%;
     list-style: none;
     border: 1px solid #054e63;
@@ -508,21 +508,44 @@ body {
     visibility: hidden;
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, left 0.3s ease-in-out; /* Added smooth left transition */
     transform: translateX(-20px); 
+    border-radius: 10px;
 }
 
-.submenu li {
-    margin-bottom: 10px;
+.submenu .submenu-icon-container > svg{
+    height: 23px;
+    width: 23px;
+    fill: var(--text-clr);
 }
 
-.submenu li a {
-    color: var(--text-clr);
-    text-decoration: none;
-    font-family: 'Afacad Flux', sans-serif;
+.submenu .submenu-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
-.submenu li a:hover {
+.submenu .submenu-container:hover{
+    background-color: var(--hover-clr);
+}
+
+.submenu .submenu-container:hover > a {
     color: var(--accent-clr);
-    
+}
+
+.submenu .submenu-container:hover > .submenu-icon-container svg{
+    fill: var(--accent-clr);
+}
+
+.submenu .submenu-container > a{
+    text-decoration: none;
+    color: var(--text-clr);
+    margin-left: 10px;
+    font-family: 'Afacad Flux', sans-serif;
+    font-size: 1.15rem;
 }
 
 /* Show submenu when hovering over the parent li */
