@@ -1,0 +1,266 @@
+
+/* #region Grid Layout */
+.stock-levels-grid{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); 
+    grid-template-rows: 80px 100%;
+    height: 330px;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+
+/* #region Grid items*/
+.stock-on-hand{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+.stock-in-transit{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 3;
+    grid-column-end: 5;
+}
+.average-stock-levels{
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 5;
+}
+
+.top-selling-products{
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 5;
+    grid-column-end: 7;
+}
+/* #endregion*/
+/* #endregion */
+
+/* #region Top Selling Products */
+.top-selling-products-container {
+    overflow-y: auto;
+    padding-right: 10px;
+    font-size: .88rem;
+    font-weight: 500;
+    position: relative;
+    max-height: 356px;
+}
+
+.stock-levels-item > span:first-child{ /* name */
+    font-weight: 400;
+    font-size: 1.2rem;
+    text-wrap: nowrap;
+    margin: 10px;
+    display: flex;
+}
+
+.stock-levels-item:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.top-selling-products-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.top-selling-item {
+    border-bottom: 1px solid #ddd;
+    font-family: 'Afacad Flux', sans-serif;
+    background-color: #fff;
+    border-radius: 8px;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+.top-selling-item:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+/* Alternate row background */
+.top-selling-item:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* Layout for each column */
+.top-selling-item .id, .top-selling-header .header-id {
+    flex-basis: 10%; /* Same width for ID */
+    text-align: center;
+}
+
+.top-selling-item .product-name, .top-selling-header .header-product-name {
+    flex-basis: 40%; /* Product name gets more space */
+    text-align: left;
+}
+
+.top-selling-item .time, .top-selling-header .header-time {
+    flex-basis: 20%; /* Time */
+    text-align: center;
+}
+
+.top-selling-item .total-sold, .top-selling-header .header-total-sold {
+    flex-basis: 20%; /* Total Sold */
+    text-align: center;
+}
+
+/* Styling for header */
+.top-selling-header {
+    background-color: #eeeeee;
+    border-bottom: 2px solid #ccc;
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+/* Custom Scrollbar for Top Selling Products */
+.top-selling-products-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.top-selling-products-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.top-selling-products-container::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+    border: 2px solid #f1f1f1;
+}
+
+.top-selling-products-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+/* #endregion */
+
+/* #region top row */
+.top-row-sl {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.top-row-sl .left{
+    display: flex;
+    flex-direction: column;
+}
+
+.top-row-sl .left > span:first-child {
+    font-weight: 400;
+    font-size: 1.2rem;
+    text-wrap: nowrap;
+}
+.top-row-sl .left > span:last-child {
+    font-weight: 700;
+    font-size: 1.7rem;
+    font-family: "Baloo Paaji 2", sans-serif;
+    text-wrap: nowrap;
+}
+
+.top-row-sl .right{
+    width: 200px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.top-row-sl .graph{
+    width: 100%;
+    height: 60px;
+    max-width: 100%;
+}
+
+.top-row-sl .right canvas{
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+/* #endregion */
+
+/* #region Stock Levels */
+.average-stock-levels .container{
+    width: 99%;
+    height: 250px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.graph{
+    height: 100%;
+    width: 100%;
+}
+
+#stockLevelsSummaryChart{
+    width: 100%;
+    height: 100%;
+}
+
+.average-stock-levels #filterButtons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 5px; /* Adds some space between the buttons and the chart */
+}
+
+/* General button styling within .average-stock-levels */
+.average-stock-levels .filter-btn {
+    padding: 3px 9px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    font-size: .7rem;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Button hover effect specific to .average-stock-levels */
+.average-stock-levels .filter-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* High Stock Button */
+.average-stock-levels .filter-btn[data-threshold="high"] {
+    background-color: #28A745; /* Green */
+}
+
+/* Normal Stock Button */
+.average-stock-levels .filter-btn[data-threshold="normal"] {
+    background-color: #007BFF; /* Blue */
+}
+
+/* Low Stock Button */
+.average-stock-levels .filter-btn[data-threshold="low"] {
+    background-color: #FFCC00; /* Yellow */
+    color: #333; /* Darker text for better contrast */
+}
+
+/* Critical Stock Button */
+.average-stock-levels .filter-btn[data-threshold="critical"] {
+    background-color: #FF9900; /* Orange */
+}
+
+/* Out of Stock Button */
+.average-stock-levels .filter-btn[data-threshold="out"] {
+    background-color: #FF4D4D; /* Red */
+}
+
+/* #endregion */

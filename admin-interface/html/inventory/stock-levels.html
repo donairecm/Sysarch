@@ -3,17 +3,17 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Admin Interface</title>
-        <link rel="stylesheet" href="css/navbar-sidebar/navbar-sidebar.css">
-        <link rel="stylesheet" href="css/navbar-sidebar/media-query.css">
-        <link rel="stylesheet" href="css/dashboard/dashboard.css">
-        <script type="text/javascript" src="js/dropdown.js" defer></script>
+        <title>Admin | Inventory</title>
+        <link rel="stylesheet" href="../../css/navbar-sidebar/navbar-sidebar.css">
+        <link rel="stylesheet" href="../../css/navbar-sidebar/media-query.css">
+        <script type="text/javascript" src="../../js/dropdown.js" defer></script>
 
-        <!-- #region Dashboard scripts-->
-        <script type="text/javascript" src="js/dashboard/top_row-graph.js" defer></script>
-        <script type="text/javascript" src="js/dashboard/inventory_levels.js" defer></script>
-        <script type="text/javascript" src="js/dashboard/recent_orders.js" defer></script>
-        <script type="text/javascript" src="js/dashboard/user_activities.js" defer></script>
+        <!-- #region Inventory css-->
+        <link rel="stylesheet" href="../../css/inventory/inventory.css">
+        <!-- #endregion -->
+
+        <!-- #region Inventory scripts-->
+        <script type="text/javascript" src="../../js/inventory/global.js" defer></script>
         <!-- #endregion -->
         
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -34,7 +34,7 @@
             </div>
         </div>
         <ul>
-            <li class="active">
+            <li >
                 <a class="sidebar-item" href="dashboard.html">
                     <div class="left">
                         <div class="icon-container">
@@ -46,8 +46,8 @@
                     </div>
                 </a>
             </li>
-            <li class="has-submenu">
-                <a class="sidebar-item" href="html/inventory/inventory.html">
+            <li class="has-submenu active">
+                <a class="sidebar-item" href="inventory.html">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -98,7 +98,7 @@
                 </ul>
             </li>
             <li class="has-submenu">
-                <a class="sidebar-item" href="html/sales/sales.html">
+                <a class="sidebar-item" href="sales.html">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -149,7 +149,7 @@
                 </ul>
             </li>
             <li class="has-submenu">
-                <a class="sidebar-item" href="html/supply/supply.html">
+                <a class="sidebar-item" href="supply.html">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -184,7 +184,7 @@
                 </ul>
             </li>
             <li class="has-submenu">
-                <a class="sidebar-item" href="html/staff/staff.html">
+                <a class="sidebar-item" href="staff.html">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -231,7 +231,7 @@
 
     <nav id="sidebar2">
         <ul>
-            <li class="active">
+            <li>
                 <a href="dashboard.html">
                     <div class="icon-container">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
@@ -241,7 +241,7 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li>
+            <li class="active">
                 <a href="inventory.html">
                     <div class="icon-container">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
@@ -287,7 +287,6 @@
     <div id="overlay"></div>
 
     <nav id="navbar">
-        
         <div class="title">
             <div class="navbarleft">
                 <div class="logo-wrapper">
@@ -298,7 +297,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="no-1">Admin Dashboard</div>
+                <div class="no-1">
+                    <span onclick="redirectToPage('inventory.html')">Inventory</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg>
+                    <span onclick="redirectToPage('stock-levels.html')" >Stock levels</span>
+                </div>
             </div>
         </div>
         <div class="icon-container">
@@ -337,119 +340,6 @@
             </ul>
         </div>
     </nav>
-
-    <div class="dashboard-grid">
-        <div class="dashboard-item total-units-sold top-row" data-modal="total-units-sold">    
-            <div class="left">
-                <div class="right">
-                    <div class="container">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed" class="units-sold-icon">
-                            <path d="M856-390 570-104q-12 12-27 18t-30 6q-15 0-30-6t-27-18L103-457q-11-11-17-25.5T80-513v-287q0-33 23.5-56.5T160-880h287q16 0 31 6.5t26 17.5l352 353q12 12 17.5 27t5.5 30q0 15-5.5 29.5T856-390ZM260-640q25 0 42.5-17.5T320-700q0-25-17.5-42.5T260-760q-25 0-42.5 17.5T200-700q0 25 17.5 42.5T260-640Z"/>
-                        </svg>
-                    </div>
-                    <div class="container-r">
-                        <div class="name">Total Units Sold</div>
-                    <div class="val">157,464</div>
-                    </div>
-                </div>
-            </div>
-            <div class="right">
-                <div class="graph">
-                    <canvas id="unitsSoldChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div class="dashboard-item total-sales top-row" data-modal="total-sales">
-        <div class="left">
-            <div class="right">
-                <div class="container">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                        <path d="M280-640q-33 0-56.5-23.5T200-720v-80q0-33 23.5-56.5T280-880h400q33 0 56.5 23.5T760-800v80q0 33-23.5 56.5T680-640H280Zm0-80h400v-80H280v80ZM160-80q-33 0-56.5-23.5T80-160v-40h800v40q0 33-23.5 56.5T800-80H160ZM80-240l139-313q10-22 30-34.5t43-12.5h376q23 0 43 12.5t30 34.5l139 313H80Zm260-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm120 160h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm120 160h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Z"/>
-                    </svg>
-                </div>
-                <div class="container-r">
-                    <div class="name">Total Sales</div>
-                <div class="val"><span>₱</span>336,413</div>
-                </div>
-            </div>
-        </div>
-        <div class="right"> 
-            <div class="graph">
-                <canvas id="salesChart"></canvas>
-            </div>
-        </div>
-        </div>
-
-        <div class="dashboard-item stock-value top-row" data-modal="stock-value">
-            <div class="left">
-                <div class="right">
-                    <div class="container">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                            <path d="M160-160v-440h160v440H160Zm0-480v-160h160v160H160Zm240 480v-320h160v320H400Zm0-360v-160h160v160H400Zm240 360v-200h160v200H640Zm0-240v-160h160v160H640Z"/>
-                        </svg>
-                    </div>
-                    <div class="container-r">
-                        <div class="name">Total Stock Value</div>
-                    <div class="val">
-                        <span>₱</span>43,413</div>
-                    </div>
-                </div>
-            </div>
-            <div class="right"> 
-                <div class="graph">
-                    <canvas id="stockValueChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div class="dashboard-item recent-orders">
-            <span class="item-name">Recent Orders</span>
-            <div class="recent-orders-container">
-                <ul class="recent-orders-list">
-                    <!-- Header row for labels -->
-                    <li class="order-header">
-                        <span class="header-product-name">Product name</span>
-                        <span class="header-order-count">Count</span>
-                        <span class="header-order-price">Total Price</span>
-                        <span class="header-order-status">Status</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="dashboard-item inventory-levels">
-            <span class="item-name">Stock Levels</span>
-            <div class="container">
-                <div id="stock-level-labels">
-                    <div class="stock-level-box" style="background-color: #00ff6a;" data-level="High">High: <span id="highCount"></span></div>
-                    <div class="stock-level-box" style="background-color: #ff5e00;" data-level="Low">Low: <span id="lowCount"></span></div>
-                </div>
-                <canvas id="inventoryLevelsChart"></canvas>
-            </div>
-        </div>
-        
-        <div class="dashboard-item user-activities">
-            <span class="item-name">User Activities</span>
-        
-            <div class="user-activities-container">
-                <ul class="user-activities-list">
-                    <li class="user-activities-header">
-                        <span class="user-activities-header-user">User</span>
-                        <span class="user-activities-header-name">Name</span>
-                        <span class="user-activities-header-time">Time</span>
-                        <span class="user-activities-header-activity-log">Activity/Log</span>
-                    </li>
-                    <!-- Dynamic rows will be populated by JavaScript -->
-                </ul>
-            </div>
-        </div>
-        
-        
-        
-    </div>
-    
-  
 
 </body>
 </html>

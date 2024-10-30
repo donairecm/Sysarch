@@ -23,29 +23,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const stockLevelLines = {
         high: 900,
-        stable: 700,
-        reorder: 500,
-        low: 300,
-        critical: 100,
-        outOfStock: 0
+        low: 300
     };
 
     const countPerLevel = {
         high: stockData.filter(item => item.stock >= stockLevelLines.high).length,
-        stable: stockData.filter(item => item.stock >= stockLevelLines.stable && item.stock < stockLevelLines.high).length,
-        reorder: stockData.filter(item => item.stock >= stockLevelLines.reorder && item.stock < stockLevelLines.stable).length,
-        low: stockData.filter(item => item.stock >= stockLevelLines.low && item.stock < stockLevelLines.reorder).length,
-        critical: stockData.filter(item => item.stock >= stockLevelLines.critical && item.stock < stockLevelLines.low).length,
-        outOfStock: stockData.filter(item => item.stock <= stockLevelLines.outOfStock).length
+        low: stockData.filter(item => item.stock < stockLevelLines.low).length
     };
 
     // Update counts in the stock level boxes
     document.getElementById('highCount').textContent = countPerLevel.high;
-    document.getElementById('stableCount').textContent = countPerLevel.stable;
-    document.getElementById('reorderCount').textContent = countPerLevel.reorder;
     document.getElementById('lowCount').textContent = countPerLevel.low;
-    document.getElementById('criticalCount').textContent = countPerLevel.critical;
-    document.getElementById('outOfStockCount').textContent = countPerLevel.outOfStock;
 
     new Chart(ctx, {
         type: 'line',
@@ -58,39 +46,18 @@ document.addEventListener('DOMContentLoaded', function () {
                     data: stockData.map(data => data.stock),
                     fill: false,
                     borderWidth: 1.2,
-                    pointStyle: 'circle', // Solid circle
-                    pointRadius: 1.6, // Smaller circle size
+                    pointStyle: 'circle',
+                    pointRadius: 1.6,
                     hitRadius: 10,
-                    hoverRadius: 6, // Larger hover area
-                    pointBackgroundColor: '#4a90e2', // Circle fill color
+                    hoverRadius: 6,
+                    pointBackgroundColor: '#4a90e2',
                 },
                 {
                     label: 'High Stock Level',
                     data: Array(stockData.length).fill(stockLevelLines.high),
                     borderColor: '#00ff6a',
-                    backgroundColor: 'rgba(189, 13, 0, 0.2)',
                     borderWidth: 2.5,
-                    hoverRadius: 6,  
-                    hitRadius: 8,
-                    fill: false,
-                    pointRadius: 0,
-                },
-                {
-                    label: 'Stable Stock Level',
-                    data: Array(stockData.length).fill(stockLevelLines.stable),
-                    borderColor: '#22fa29',
-                    borderWidth: 2.5,
-                    hoverRadius: 6,  
-                    hitRadius: 8,
-                    fill: false,
-                    pointRadius: 0,
-                },
-                {
-                    label: 'Reorder Stock Level',
-                    data: Array(stockData.length).fill(stockLevelLines.reorder),
-                    borderColor: '#379600',
-                    borderWidth: 2.5,
-                    hoverRadius: 6,  
+                    hoverRadius: 6,
                     hitRadius: 8,
                     fill: false,
                     pointRadius: 0,
@@ -100,27 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     data: Array(stockData.length).fill(stockLevelLines.low),
                     borderColor: '#ff5e00',
                     borderWidth: 2.5,
-                    hoverRadius: 6,  
-                    hitRadius: 8,
-                    fill: false,
-                    pointRadius: 0,
-                },
-                {
-                    label: 'Critical Stock Level',
-                    data: Array(stockData.length).fill(stockLevelLines.critical),
-                    borderColor: '#ff1100',
-                    borderWidth: 2.5,
-                    hoverRadius: 6,  
-                    hitRadius: 8,
-                    fill: false,
-                    pointRadius: 0,
-                },
-                {
-                    label: 'Out of Stock',
-                    data: Array(stockData.length).fill(stockLevelLines.outOfStock),
-                    borderColor: '#bd0d00',
-                    borderWidth: 2.5,
-                    hoverRadius: 6,  
+                    hoverRadius: 6,
                     hitRadius: 8,
                     fill: false,
                     pointRadius: 0,
@@ -141,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             plugins: {
                 legend: {
-                    display: false // This line hides the legend
+                    display: false // Hides the legend
                 },
                 tooltip: {
                     callbacks: {
@@ -150,9 +97,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                 const stockDataItem = stockData[context.dataIndex];
                                 return `${stockDataItem.item}: ${stockDataItem.stock} items`;
                             } else {
-                                const stockLevel = Object.keys(stockLevelLines)[context.datasetIndex - 1];
-                                const count = countPerLevel[stockLevel];
-                                return `${stockLevel.charAt(0).toUpperCase() + stockLevel.slice(1)} Level: ${count} items`;
+                                const stockLevel = context.datasetIndex === 1 ? 'High' : 'Low';
+                                const count = countPerLevel[stockLevel.toLowerCase()];
+                                return `${stockLevel} Stock Level: ${count} items`;
                             }
                         },
                         title: function() {

@@ -3,17 +3,24 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Admin Interface</title>
-        <link rel="stylesheet" href="css/navbar-sidebar/navbar-sidebar.css">
-        <link rel="stylesheet" href="css/navbar-sidebar/media-query.css">
-        <link rel="stylesheet" href="css/dashboard/dashboard.css">
-        <script type="text/javascript" src="js/dropdown.js" defer></script>
+        <title>Admin | Inventory</title>
+        <link rel="stylesheet" href="../../css/navbar-sidebar/navbar-sidebar.css">
+        <link rel="stylesheet" href="../../css/navbar-sidebar/media-query.css">
+        <script type="text/javascript" src="../../js/dropdown.js" defer></script>
 
-        <!-- #region Dashboard scripts-->
-        <script type="text/javascript" src="js/dashboard/top_row-graph.js" defer></script>
-        <script type="text/javascript" src="js/dashboard/inventory_levels.js" defer></script>
-        <script type="text/javascript" src="js/dashboard/recent_orders.js" defer></script>
-        <script type="text/javascript" src="js/dashboard/user_activities.js" defer></script>
+        <!-- #region Inventory css-->
+        <link rel="stylesheet" href="../../css/inventory/inventory.css">
+        <link rel="stylesheet" href="../../css/inventory/monitoring/monitoring-summary.css">
+        <link rel="stylesheet" href="../../css/inventory/stock-levels/stock-levels-summary.css">
+        <link rel="stylesheet" href="../../css/inventory/reorder-points/reorder-points-summary.css">
+        <link rel="stylesheet" href="../../css/inventory/product-list/product-list-summary.css">
+         <!-- #endregion -->
+
+        <!-- #region Inventory scripts-->
+        <script type="text/javascript" src="../../js/inventory/global.js" defer></script>
+        <script type="text/javascript" src="../../js/inventory/monitoring/monitoring-summary.js" defer></script>
+        <script type="text/javascript" src="../../js/inventory/stock-levels/stock-levels-summary.js" defer></script>
+        <script type="text/javascript" src="../../js/inventory/reorder-points/reorder-points-summary.js" defer></script>
         <!-- #endregion -->
         
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -34,8 +41,8 @@
             </div>
         </div>
         <ul>
-            <li class="active">
-                <a class="sidebar-item" href="dashboard.html">
+            <li>
+                <a class="sidebar-item" href="../../dashboard.html">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -46,7 +53,7 @@
                     </div>
                 </a>
             </li>
-            <li class="has-submenu">
+            <li class="has-submenu active">
                 <a class="sidebar-item" href="html/inventory/inventory.html">
                     <div class="left">
                         <div class="icon-container">
@@ -231,7 +238,7 @@
 
     <nav id="sidebar2">
         <ul>
-            <li class="active">
+            <li>
                 <a href="dashboard.html">
                     <div class="icon-container">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
@@ -241,7 +248,7 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li>
+            <li class="active">
                 <a href="inventory.html">
                     <div class="icon-container">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
@@ -287,7 +294,6 @@
     <div id="overlay"></div>
 
     <nav id="navbar">
-        
         <div class="title">
             <div class="navbarleft">
                 <div class="logo-wrapper">
@@ -298,7 +304,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="no-1">Admin Dashboard</div>
+                <div class="no-1"></div>
             </div>
         </div>
         <div class="icon-container">
@@ -338,118 +344,217 @@
         </div>
     </nav>
 
-    <div class="dashboard-grid">
-        <div class="dashboard-item total-units-sold top-row" data-modal="total-units-sold">    
-            <div class="left">
-                <div class="right">
+    <div class="inventory-grid">
+        <div class="inventory-item inventory-options">
+            <div class="item-name top">Inventory</div>
+            <div class="options">
+                <div class="option-items" onclick="redirectToPage('monitoring.html')">
+                    <span>Monitoring</span>
+                </div>
+                <div class="option-items" onclick="redirectToPage('stock-levels.html')">
+                    <span>Stock levels</span>
+                </div>
+                <div class="option-items" onclick="redirectToPage('reorder-points.html')">
+                    <span>Reorder points</span>
+                </div>
+                <div class="option-items" onclick="redirectToPage('product-list.html')">
+                    <span>Product list</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="inventory-item monitoring">
+            <div class="item-name">Monitoring</div>
+            <div class="monitoring-grid">
+                <div class="total-inventory-value monitoring-item top-row-m">
+                    <div class="left">
+                        <span>Total Inventory Value</span>
+                        <span>₱43,413</span>
+                    </div>
+                    <div class="right">
+                        <div class="graph">
+                            <canvas id="totalInventoryValueChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="total-inventory-turnover-rate monitoring-item top-row-m">
+                    <div class="left">
+                        <span>Total Inventory Turnover Rate</span>
+                        <span>3.4</span>
+                    </div>
+                    <div class="right">
+                        <div class="graph">
+                            <canvas id="totalInventoryTurnoverRateChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="low-stock-alerts monitoring-item">
+                    <span>Low Stock Alerts</span>
+                    <div class="low-stock-alerts-container">
+                        <ul class="low-stock-list">
+                            <!-- Header for Low Stock Alerts -->
+                            <li class="stock-header">
+                                <span class="header-id">ID</span>
+                                <span class="header-product-name">Name</span>
+                                <span class="header-stock-level">Stock Count</span>
+                                <span class="header-last-restock">Last Restock Date</span>
+                            </li>
+                            <!-- Example Low Stock Item -->
+                            <li class="stock-item">
+                                <span class="id">002</span>
+                                <span class="product-name">Product B</span>
+                                <span class="stock-level">5</span>
+                                <span class="last-restock">2024-09-15</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="recently-restocked-items monitoring-item">
+                    <span>Recently Restocked Items</span>
+                    <div class="restocked-items-container">
+                        <ul class="restocked-items-list">
+                            <!-- Header for Recently Restocked Items -->
+                            <li class="restocked-header">
+                                <span class="header-id">ID</span>
+                                <span class="header-product-name">Name</span>
+                                <span class="header-supplier">Supplier</span>
+                                <span class="header-restocked-date">Date</span>
+                                <span class="header-restock-count">Restock Count</span>
+                            </li>
+                            <!-- Example Restocked Item -->
+                            <li class="restocked-item">
+                                <span class="id">001</span>
+                                <span class="product-name">Product A</span>
+                                <span class="supplier">Supplier X</span>
+                                <span class="restocked-date">2024-10-20</span>
+                                <span class="restock-count">50</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="inventory-item stock-levels">
+            <div class="item-name">Stock levels</div>
+            <div class="stock-levels-grid">
+                <div class="stock-on-hand stock-levels-item top-row-sl">
+                    <div class="left">
+                        <span>Total Stock on hand</span>
+                        <span>11,272</span>
+                    </div>
+                    <div class="right">
+                        <div class="graph">
+                            <canvas id="totalStockonHandChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="stock-in-transit stock-levels-item top-row-sl">
+                    <div class="left">
+                        <span>Total Stock in Transit</span>
+                        <span>239</span>
+                    </div>
+                    <div class="right">
+                        <div class="graph">
+                            <canvas id="totalStockinTransitChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="average-stock-levels stock-levels-item">
+                    <span>Stock Levels</span>
                     <div class="container">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed" class="units-sold-icon">
-                            <path d="M856-390 570-104q-12 12-27 18t-30 6q-15 0-30-6t-27-18L103-457q-11-11-17-25.5T80-513v-287q0-33 23.5-56.5T160-880h287q16 0 31 6.5t26 17.5l352 353q12 12 17.5 27t5.5 30q0 15-5.5 29.5T856-390ZM260-640q25 0 42.5-17.5T320-700q0-25-17.5-42.5T260-760q-25 0-42.5 17.5T200-700q0 25 17.5 42.5T260-640Z"/>
-                        </svg>
+                        <!-- Filter Buttons -->
+                        <div id="filterButtons">
+                            <button class="filter-btn" data-threshold="high" style="background-color: #28A745;">High Stock</button>
+                            <button class="filter-btn" data-threshold="normal" style="background-color: #007BFF;">Normal Stock</button>
+                            <button class="filter-btn" data-threshold="low" style="background-color: #FFCC00;">Low Stock</button>
+                            <button class="filter-btn" data-threshold="critical" style="background-color: #FF9900;">Critical Stock</button>
+                            <button class="filter-btn" data-threshold="out" style="background-color: #FF4D4D;">Out of Stock</button>
+                        </div>
+                        <!-- Chart Canvas -->
+                        <div class="graph">
+                            <canvas id="stockLevelsSummaryChart"></canvas>
+                        </div>
                     </div>
-                    <div class="container-r">
-                        <div class="name">Total Units Sold</div>
-                    <div class="val">157,464</div>
+                </div>
+                
+                <div class="top-selling-products stock-levels-item">
+                    <span>Top Selling Products</span>
+                    <div class="top-selling-products-container">
+                        <ul class="top-selling-products-list">
+                            <!-- Header for Top Selling Products -->
+                            <li class="top-selling-header">
+                                <span class="header-id">ID</span>
+                                <span class="header-product-name">Name</span>
+                                <span class="header-total-sold">Total Sold</span>
+                            </li>
+                            <!-- Example Top Selling Item (Populated by JavaScript) -->
+                        </ul>
                     </div>
                 </div>
             </div>
-            <div class="right">
-                <div class="graph">
-                    <canvas id="unitsSoldChart"></canvas>
-                </div>
-            </div>
         </div>
+        
 
-        <div class="dashboard-item total-sales top-row" data-modal="total-sales">
-        <div class="left">
-            <div class="right">
-                <div class="container">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                        <path d="M280-640q-33 0-56.5-23.5T200-720v-80q0-33 23.5-56.5T280-880h400q33 0 56.5 23.5T760-800v80q0 33-23.5 56.5T680-640H280Zm0-80h400v-80H280v80ZM160-80q-33 0-56.5-23.5T80-160v-40h800v40q0 33-23.5 56.5T800-80H160ZM80-240l139-313q10-22 30-34.5t43-12.5h376q23 0 43 12.5t30 34.5l139 313H80Zm260-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm120 160h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm120 160h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80h40q8 0 14-6t6-14q0-8-6-14t-14-6h-40q-8 0-14 6t-6 14q0 8 6 14t14 6Z"/>
-                    </svg>
+        <div class="inventory-item reorder-points">
+            <div class="item-name">Reorder points</div>
+            <div class="reorder-points-grid">
+                <div class="below-reorder reorder-points-item top-rp">
+                    <div class="left">
+                        <span>Products below reorder point</span>
+                    </div>
+                    <div class="right">
+                        <div class="graph">
+                            <canvas id="belowReorderPointChartSummary"></canvas>
+                        </div>
+                    </div>
                 </div>
-                <div class="container-r">
-                    <div class="name">Total Sales</div>
-                <div class="val"><span>₱</span>336,413</div>
+                <div class="nearing-reorder reorder-points-item top-rp">
+                    <div class="left">
+                        <span>Products nearing reorder points</span>
+                    </div>
+                    <div class="right">
+                        <div class="graph">
+                            <canvas id="nearingReorderPointChartSummary"></canvas>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="right"> 
-            <div class="graph">
-                <canvas id="salesChart"></canvas>
-            </div>
-        </div>
-        </div>
-
-        <div class="dashboard-item stock-value top-row" data-modal="stock-value">
-            <div class="left">
-                <div class="right">
+                <div class="reordered-this-month reorder-points-item top-rp">
+                    <div class="left">
+                        <span>Recently reordered products</span>
+                    </div>
+                    <div class="right">
+                        <div class="graph">
+                            <canvas id="reordered"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-reorder-points reorder-points-item">
+                    <span>Reorder Points</span>
                     <div class="container">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                            <path d="M160-160v-440h160v440H160Zm0-480v-160h160v160H160Zm240 480v-320h160v320H400Zm0-360v-160h160v160H400Zm240 360v-200h160v200H640Zm0-240v-160h160v160H640Z"/>
-                        </svg>
+                        <div class="graph">
+                            <canvas id="reorderPointsSummaryChart"></canvas>
+                        </div>
                     </div>
-                    <div class="container-r">
-                        <div class="name">Total Stock Value</div>
-                    <div class="val">
-                        <span>₱</span>43,413</div>
-                    </div>
-                </div>
-            </div>
-            <div class="right"> 
-                <div class="graph">
-                    <canvas id="stockValueChart"></canvas>
                 </div>
             </div>
         </div>
 
-        <div class="dashboard-item recent-orders">
-            <span class="item-name">Recent Orders</span>
-            <div class="recent-orders-container">
-                <ul class="recent-orders-list">
-                    <!-- Header row for labels -->
-                    <li class="order-header">
-                        <span class="header-product-name">Product name</span>
-                        <span class="header-order-count">Count</span>
-                        <span class="header-order-price">Total Price</span>
-                        <span class="header-order-status">Status</span>
-                    </li>
-                </ul>
+        <div class="inventory-item product-list">
+            <div class="item-name">Product list</div>
+            <div class="product-list-grid">
+                <div class="total-number-products product-list-item top-pl">Total number of products</div>
+                <div class="product-categories product-list-item top-pl">Total number of categories</div>
+                <div class="recently-added product-list-item top-pl">Recently added products</div>
+                <div class="discontinued product-list-item top-pl">Discontinued products</div>
+                <div class="product-list-gc product-list-item">Product List</div>
             </div>
-        </div>
 
-        <div class="dashboard-item inventory-levels">
-            <span class="item-name">Stock Levels</span>
-            <div class="container">
-                <div id="stock-level-labels">
-                    <div class="stock-level-box" style="background-color: #00ff6a;" data-level="High">High: <span id="highCount"></span></div>
-                    <div class="stock-level-box" style="background-color: #ff5e00;" data-level="Low">Low: <span id="lowCount"></span></div>
-                </div>
-                <canvas id="inventoryLevelsChart"></canvas>
-            </div>
         </div>
-        
-        <div class="dashboard-item user-activities">
-            <span class="item-name">User Activities</span>
-        
-            <div class="user-activities-container">
-                <ul class="user-activities-list">
-                    <li class="user-activities-header">
-                        <span class="user-activities-header-user">User</span>
-                        <span class="user-activities-header-name">Name</span>
-                        <span class="user-activities-header-time">Time</span>
-                        <span class="user-activities-header-activity-log">Activity/Log</span>
-                    </li>
-                    <!-- Dynamic rows will be populated by JavaScript -->
-                </ul>
-            </div>
-        </div>
-        
-        
-        
     </div>
-    
-  
+
 
 </body>
 </html>

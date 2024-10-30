@@ -1,0 +1,297 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+/* #region Grid Layout */
+.monitoring-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    grid-template-rows: 80px 100%;
+    height: 345px;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+.monitoring-item, .stock-levels-item, 
+.reorder-points-item, .product-list-item{
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    background-color: #eeeeee;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.monitoring-item:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* #region Grid items*/
+.total-inventory-value{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+.total-inventory-turnover-rate{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 3;
+    grid-column-end: 5;
+}
+.low-stock-alerts{
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 3;
+    grid-column-end: 5;
+}
+.recently-restocked-items{
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+/* #endregion*/
+/* #endregion */
+
+/* #region Top graph*/
+.top-row-m{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+.top-row-m .left{
+    display: flex;
+    flex-direction: column;
+}
+.top-row-m .left > span:first-child{ /* name */
+    font-weight: 400;
+    font-size: 1.2rem;
+    text-wrap: nowrap;
+}
+
+.top-row-m .left > span:last-child{ /*val */
+    font-weight: 700;
+    font-size: 1.7rem;
+    font-family: "Baloo Paaji 2", sans-serif;
+    text-wrap: nowrap;
+}
+
+.top-row-m .right{
+    width: 300px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.top-row-m .graph{
+    width: 100%;
+    height: 60px;
+    max-width: 100%;
+}
+
+.top-row-m .right canvas{
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+/* #endregion */
+
+/* #region Recently Restocked Items */
+.recently-restocked-items > span:first-child{ /* name */
+    font-weight: 400;
+    font-size: 1.2rem;
+    text-wrap: nowrap;
+    margin: 10px;
+    display: flex;
+}
+
+.restocked-items-container {
+    overflow-y: auto;
+    padding-right: 10px;
+    font-size: .88rem;
+    font-weight: 500;
+    max-height: 280px;
+    position: relative;
+}
+
+.restocked-items-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.restocked-item {
+    border-bottom: 1px solid #ddd;
+    font-family: 'Afacad Flux', sans-serif;
+    background-color: #fff;
+    border-radius: 8px;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+.restocked-item:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+/* Alternate row background */
+.restocked-item:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* Layout for each column */
+.restocked-item .id, .restocked-header .header-id {
+    flex-basis: 10%; /* Same width for ID */
+    text-align: center;
+}
+
+.restocked-item .product-name, .restocked-header .header-product-name {
+    flex-basis: 30%; /* Product name gets more space */
+    text-align: left;
+}
+
+.restocked-item .supplier, .restocked-header .header-supplier {
+    flex-basis: 20%; /* Same width for supplier */
+    text-align: left;
+}
+
+.restocked-item .restocked-date, .restocked-header .header-restocked-date {
+    flex-basis: 20%; /* Same width for restock date */
+    text-align: center;
+}
+
+.restocked-item .restock-count, .restocked-header .header-restock-count {
+    flex-basis: 20%; /* Same width for restock count */
+    text-align: center;
+}
+
+/* Styling for header */
+.restocked-header {
+    background-color: #eeeeee;
+    border-bottom: 2px solid #ccc;
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+/* #endregion */
+
+/* #region Low Stock Alerts */
+
+.low-stock-alerts > span:first-child{ /* name */
+    font-weight: 400;
+    font-size: 1.2rem;
+    text-wrap: nowrap;
+    margin: 10px;
+    display: flex;
+}
+
+.low-stock-alerts-container {
+    overflow-y: auto;
+    padding-right: 10px;
+    font-size: .88rem;
+    font-weight: 500;
+    max-height: 280px;
+    position: relative;
+}
+
+.low-stock-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.stock-item {
+    border-bottom: 1px solid #ddd;
+    font-family: 'Afacad Flux', sans-serif;
+    background-color: #fff;
+    border-radius: 8px;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+.stock-item:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+/* Alternate row background */
+.stock-item:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* Layout for each column */
+.stock-item .id, .stock-header .header-id {
+    flex-basis: 10%; /* Same width for ID */
+    text-align: center;
+}
+
+.stock-item .product-name, .stock-header .header-product-name {
+    flex-basis: 40%; /* Product name gets more space */
+    text-align: left;
+}
+
+.stock-item .stock-level, .stock-header .header-stock-level {
+    flex-basis: 25%; /* Same width for stock count */
+    text-align: center;
+}
+
+.stock-item .last-restock, .stock-header .header-last-restock {
+    flex-basis: 25%; /* Same width for last restock */
+    text-align: center;
+}
+
+/* Styling for header */
+.stock-header {
+    background-color: #eeeeee;
+    border-bottom: 2px solid #ccc;
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+}
+/* #endregion */
+
+/* #region Scrollbar design for Recently Restocked Items and Low Stock Alerts */
+.restocked-items-container::-webkit-scrollbar,
+.low-stock-alerts-container::-webkit-scrollbar {
+    width: 8px; /* Scrollbar width */
+}
+
+.restocked-items-container::-webkit-scrollbar-track,
+.low-stock-alerts-container::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Scrollbar track (background) */
+}
+
+.restocked-items-container::-webkit-scrollbar-thumb,
+.low-stock-alerts-container::-webkit-scrollbar-thumb {
+    background-color: #888; /* Scrollbar thumb (handle) */
+    border-radius: 10px; /* Rounded corners for thumb */
+    border: 2px solid #f1f1f1; /* Space around the thumb */
+}
+
+.restocked-items-container::-webkit-scrollbar-thumb:hover,
+.low-stock-alerts-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Darker color on hover */
+}
+/* #endregion */
+
+

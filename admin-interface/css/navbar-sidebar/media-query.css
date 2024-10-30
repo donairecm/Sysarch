@@ -14,8 +14,7 @@
     }
 
     .top-row > .right {
-        /* Set a fixed width for consistency */
-        width: 120px; /* Adjust this value as per your requirement */
+        width: 120px; 
         display: flex;
         justify-content: flex-end;
         align-items: flex-end;

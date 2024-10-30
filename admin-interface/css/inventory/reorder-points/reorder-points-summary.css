@@ -1,0 +1,67 @@
+
+/* #region Grid Layout */
+
+.reorder-points-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    grid-template-rows: 80px 100%;
+    height: 330px;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+.reorder-points-item > span:first-child{ /* name */
+    font-weight: 400;
+    font-size: 1.2rem;
+    text-wrap: nowrap;
+    margin: 10px;
+    display: flex;
+}
+
+/* #region Grid items*/
+.below-reorder{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+.nearing-reorder{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+.reordered-this-month{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 3;
+    grid-column-end: 4;
+}
+.product-reorder-points{
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+/* #endregion*/
+/* #endregion */
+
+/* #region reorder points summary chart */
+.product-reorder-points .container{
+    width: 99%;
+    height: 275px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.graph{
+    height: 100%;
+    width: 100%;
+}
+
+#reorderPointsSummaryChart{
+    width: 100%;
+    height: 100%;
+}
+/* #endregion */

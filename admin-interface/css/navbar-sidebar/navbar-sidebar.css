@@ -50,9 +50,27 @@ body {
 #navbar .no-1{
     color: var(--text-clr);
     font-family: 'Afacad Flux', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.03rem;
     letter-spacing: .8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+#navbar .no-1 svg{
+    fill: var(--text-clr);
+    width: 17px;
+    height: 17px;
+    margin: 0 13px;
+}
+
+#navbar .no-1 span{
+    cursor: pointer;
+}
+
+#navbar .no-1 span:hover{
+    color: var(--accent-clr);
+} 
 /* #endregion */
 
 /* #region Navbar Icon Styling */
@@ -485,7 +503,7 @@ body {
     margin-left: 10px;
 }
 
-#sidebar:hover ul li a .right svg {
+#sidebar:hover ul li a .right svg.sidebar-hover {
     max-width: 50px;
     opacity: 1;
 }

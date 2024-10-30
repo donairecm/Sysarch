@@ -4,10 +4,17 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin | Inventory</title>
-        <link rel="stylesheet" href="css/navbar-sidebar/navbar-sidebar.css">
-        <link rel="stylesheet" href="css/navbar-sidebar/media-query.css">
-        <link rel="stylesheet" href="css/dashboard/dashboard.css">
-        <script type="text/javascript" src="js/dropdown.js" defer></script>
+        <link rel="stylesheet" href="../../css/navbar-sidebar/navbar-sidebar.css">
+        <link rel="stylesheet" href="../../css/navbar-sidebar/media-query.css">
+        <script type="text/javascript" src="../../js/dropdown.js" defer></script>
+
+        <!-- #region Inventory css-->
+        <link rel="stylesheet" href="../../css/inventory/inventory.css">
+        <!-- #endregion -->
+
+        <!-- #region Inventory scripts-->
+        <script type="text/javascript" src="../../js/inventory/global.js" defer></script>
+        <!-- #endregion -->
         
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.0.2"></script>
@@ -290,7 +297,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="no-1">Inventory</div>
+                <div class="no-1">
+                    <span onclick="redirectToPage('inventory.html')">Inventory</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg>
+                    <span onclick="redirectToPage('product-list.html')" >Product list</span>
+                </div>
             </div>
         </div>
         <div class="icon-container">
