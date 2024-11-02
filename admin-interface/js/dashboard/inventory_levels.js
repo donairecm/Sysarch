@@ -1,113 +1,161 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const ctx = document.getElementById('inventoryLevelsChart').getContext('2d');
+// Stock Levels
+const totalInventoryItems = 376;
+const inventoryThresholds = {
+    high: 300,
+    low: 100,
+    critical: 50,
+    out: 0
+};
 
-    function generateStockData(count) {
-        const stockData = [];
-        const generateRandomName = () => {
-            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const randomLetters = Array(3).fill('').map(() => letters.charAt(Math.floor(Math.random() * letters.length))).join('');
-            const randomNumbers = String(Math.floor(Math.random() * 900) + 100); // 3 digit random number
-            return `${randomLetters}-${randomNumbers}`;
-        };
+// Generate random stock levels and item IDs with at least 1-5 out-of-stock items
+function generateInventoryData() {
+    const inventoryData = [];
 
-        for (let i = 1; i <= count; i++) {
-            stockData.push({
-                item: generateRandomName(),
-                stock: Math.floor(Math.random() * 1000) // Random stock count between 0 and 1000
-            });
-        }
-        return stockData;
+    // Generate 1-5 guaranteed out-of-stock items
+    const outOfStockCount = Math.floor(Math.random() * 5) + 1;
+    for (let i = 0; i < outOfStockCount; i++) {
+        const itemID = Math.floor(Math.random() * 10000);
+        inventoryData.push({ id: itemID, stock: 0 }); // Stock set to 0 (out of stock)
     }
 
-    const stockData = generateStockData(376);
+    // Generate the remaining stock items
+    for (let i = outOfStockCount; i < totalInventoryItems; i++) {
+        const itemID = Math.floor(Math.random() * 10000);
+        const stockLevel = Math.floor(Math.random() * 501); // Random stock level between 0 and 500
+        inventoryData.push({ id: itemID, stock: stockLevel });
+    }
 
-    const stockLevelLines = {
-        high: 900,
-        low: 300
-    };
+    return inventoryData;
+}
 
-    const countPerLevel = {
-        high: stockData.filter(item => item.stock >= stockLevelLines.high).length,
-        low: stockData.filter(item => item.stock < stockLevelLines.low).length
-    };
+// Inventory data for all items
+const inventoryData = generateInventoryData();
 
-    // Update counts in the stock level boxes
-    document.getElementById('highCount').textContent = countPerLevel.high;
-    document.getElementById('lowCount').textContent = countPerLevel.low;
+// Prepare data for the chart
+const inventoryDataset = {
+    label: 'Inventory Level per Item',
+    data: inventoryData.map(data => data.stock),
+    fill: false,
+    borderColor: 'rgba(0, 123, 255, 0.6)',
+    borderWidth: 1,
+    pointRadius: 3,
+    hoverRadius: 6,
+    pointBorderRadius: 4,
+    pointBackgroundColor: inventoryData.map(data => {
+        if (data.stock <= inventoryThresholds.out) return '#FF4D4D';
+        if (data.stock <= inventoryThresholds.critical) return '#FF9900';
+        if (data.stock <= inventoryThresholds.low) return '#FFCC00';
+        if (data.stock >= inventoryThresholds.high) return '#28A745';
+        return '#007BFF';
+    })
+};
 
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: stockData.map(data => data.item),
-            datasets: [
-                {
-                    label: 'Stock Levels',
-                    borderColor: '#4a90e2',
-                    data: stockData.map(data => data.stock),
-                    fill: false,
-                    borderWidth: 1.2,
-                    pointStyle: 'circle',
-                    pointRadius: 1.6,
-                    hitRadius: 10,
-                    hoverRadius: 6,
-                    pointBackgroundColor: '#4a90e2',
+// Create chart with threshold lines
+const inventoryCtx = document.getElementById('inventoryLevelsChartNew').getContext('2d');
+const inventoryChart = new Chart(inventoryCtx, {
+    type: 'line',
+    data: {
+        labels: Array(totalInventoryItems).fill(''),
+        datasets: [inventoryDataset]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    display: true,
                 },
-                {
-                    label: 'High Stock Level',
-                    data: Array(stockData.length).fill(stockLevelLines.high),
-                    borderColor: '#00ff6a',
-                    borderWidth: 2.5,
-                    hoverRadius: 6,
-                    hitRadius: 8,
-                    fill: false,
-                    pointRadius: 0,
-                },
-                {
-                    label: 'Low Stock Level',
-                    data: Array(stockData.length).fill(stockLevelLines.low),
-                    borderColor: '#ff5e00',
-                    borderWidth: 2.5,
-                    hoverRadius: 6,
-                    hitRadius: 8,
-                    fill: false,
-                    pointRadius: 0,
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    display: false,
-                },
-                y: {
-                    beginAtZero: true,
-                    suggestedMax: 1000,
-                },
-            },
-            plugins: {
-                legend: {
-                    display: false // Hides the legend
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            if (context.datasetIndex === 0) {
-                                const stockDataItem = stockData[context.dataIndex];
-                                return `${stockDataItem.item}: ${stockDataItem.stock} items`;
-                            } else {
-                                const stockLevel = context.datasetIndex === 1 ? 'High' : 'Low';
-                                const count = countPerLevel[stockLevel.toLowerCase()];
-                                return `${stockLevel} Stock Level: ${count} items`;
-                            }
-                        },
-                        title: function() {
-                            return '';
-                        }
+                suggestedMax: 500,
+                grid: {
+                    color: function(context) {
+                        if (context.tick.value === inventoryThresholds.out) return '#FF4D4D';
+                        if (context.tick.value === inventoryThresholds.critical) return '#FF9900';
+                        if (context.tick.value === inventoryThresholds.low) return '#FFCC00';
+                        if (context.tick.value === inventoryThresholds.high) return '#28A745';
+                        return 'rgba(0, 0, 0, 0.1)';
                     }
                 }
+            },
+            x: {
+                display: false
+            }
+        },
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        const itemIndex = tooltipItem.dataIndex;
+                        const itemID = inventoryData[itemIndex].id;
+                        const stockLevel = tooltipItem.raw;
+                        let stockStatus = '';
+
+                        if (stockLevel <= inventoryThresholds.out) stockStatus = '---- Out of Stock ----';
+                        else if (stockLevel <= inventoryThresholds.critical) stockStatus = '--- Critical Level ---';
+                        else if (stockLevel <= inventoryThresholds.low) stockStatus = '----- Low Level -----';
+                        else if (stockLevel >= inventoryThresholds.high) stockStatus = '---- High Level ----';
+                        else stockStatus = '--- Normal Level ---';
+
+                        return [
+                            stockStatus,
+                            `Product ID: ${itemID}`,
+                            `Stock count: ${stockLevel}`
+                        ];
+                    }
+                }
+            },
+            legend: {
+                display: false
             }
         }
+    }
+});
+
+// Track active filter
+let activeInventoryFilter = null;
+
+// Filter data based on active filter
+function filterInventoryData() {
+    if (!activeInventoryFilter) return inventoryData;
+
+    return inventoryData.filter(data => {
+        if (activeInventoryFilter === 'high' && data.stock >= inventoryThresholds.high) return true;
+        if (activeInventoryFilter === 'normal' && data.stock > inventoryThresholds.low && data.stock < inventoryThresholds.high) return true;
+        if (activeInventoryFilter === 'low' && data.stock <= inventoryThresholds.low && data.stock > inventoryThresholds.critical) return true;
+        if (activeInventoryFilter === 'critical' && data.stock <= inventoryThresholds.critical && data.stock > inventoryThresholds.out) return true;
+        if (activeInventoryFilter === 'out' && data.stock <= inventoryThresholds.out) return true;
+        return false;
+    });
+}
+
+// Update chart with filtered data
+function updateInventoryChart() {
+    const filteredData = filterInventoryData();
+    inventoryChart.data.labels = filteredData.map(() => '');
+    inventoryChart.data.datasets[0].data = filteredData.map(data => data.stock);
+    inventoryChart.data.datasets[0].pointBackgroundColor = filteredData.map(data => {
+        if (data.stock <= inventoryThresholds.out) return '#FF4D4D';
+        if (data.stock <= inventoryThresholds.critical) return '#FF9900';
+        if (data.stock <= inventoryThresholds.low) return '#FFCC00';
+        if (data.stock >= inventoryThresholds.high) return '#28A745';
+        return '#007BFF';
+    });
+    inventoryChart.update();
+}
+
+// Add event listeners to filter buttons
+document.querySelectorAll('.inventory-filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const threshold = this.getAttribute('data-threshold');
+        if (activeInventoryFilter === threshold) {
+            activeInventoryFilter = null;
+        } else {
+            activeInventoryFilter = threshold;
+        }
+        updateInventoryChart();
     });
 });
+
+// Initial chart load
+updateInventoryChart();

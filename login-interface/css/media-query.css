@@ -1,0 +1,41 @@
+@media (max-width: 780px) { 
+    .right-panel { 
+        padding: 50px 30px; 
+    } 
+}
+
+@media (max-width: 687px) { 
+    .main-container{
+        max-width: 80%;
+        min-height: 410px;
+    }
+    .left-panel{
+        display: none;
+    }
+    .right-panel{
+        width: 100%;
+        padding: 60px;
+    }
+    body{
+        background: #033847;
+        justify-content: flex-start;
+    }
+    .logo-container-mobile{
+        display: block;
+    }
+    form .input-group input{
+        height: 50px;
+    }
+}
+
+@media (max-width: 518px){
+    .right-panel{
+        padding: 60px 40;
+    }
+}
+
+@media (max-width: 417px){
+    a.text{
+        font-size: .7rem;
+    }
+}

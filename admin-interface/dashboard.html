@@ -421,13 +421,19 @@
         <div class="dashboard-item inventory-levels">
             <span class="item-name">Stock Levels</span>
             <div class="container">
-                <div id="stock-level-labels">
-                    <div class="stock-level-box" style="background-color: #00ff6a;" data-level="High">High: <span id="highCount"></span></div>
-                    <div class="stock-level-box" style="background-color: #ff5e00;" data-level="Low">Low: <span id="lowCount"></span></div>
+                <!-- Filter Buttons -->
+                <div id="inventoryFilterButtons">
+                    <button class="inventory-filter-btn" data-threshold="high" style="background-color: #28A745;">High Stock</button>
+                    <button class="inventory-filter-btn" data-threshold="normal" style="background-color: #007BFF;">Normal Stock</button>
+                    <button class="inventory-filter-btn" data-threshold="low" style="background-color: #FFCC00;">Low Stock</button>
+                    <button class="inventory-filter-btn" data-threshold="critical" style="background-color: #FF9900;">Critical Stock</button>
+                    <button class="inventory-filter-btn" data-threshold="out" style="background-color: #FF4D4D;">Out of Stock</button>
                 </div>
-                <canvas id="inventoryLevelsChart"></canvas>
+                <!-- Chart Canvas -->
+                <canvas id="inventoryLevelsChartNew"></canvas>
             </div>
         </div>
+        
         
         <div class="dashboard-item user-activities">
             <span class="item-name">User Activities</span>

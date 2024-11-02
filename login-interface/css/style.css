@@ -1,10 +1,12 @@
+/* #region fonts*/
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+/* #endregion */
 
-
-
+/* #region heehee */
 * {
     margin: 0;
     padding: 0;
@@ -34,7 +36,7 @@ body {
     overflow: hidden;
     width: 800px;
     max-width: 100%;
-    min-height: 430px;
+    min-height: 410px;
     display: flex; 
 }
 
@@ -51,22 +53,76 @@ body {
 .right-panel {
     background-color: white; /* Right side background */
     width: 55%; /* Half the container width */
-    padding: 60px;
+    padding: 50px;
     display: flex;
     flex-direction: column;
 }
+/* #endregion */
 
-/* Form styles */
+/* #region Right styles */
+/* #region Login error tooltip */
+.right-panel .username-error-container .login-errors{
+    display: none;
+}
 
+.right-panel .password-error-container .login-errors{
+    display: none;
+}
+
+.username-error-container, .password-error-container {
+    position: relative;
+}
+
+.username-error-container .login-errors,
+.password-error-container .login-errors {
+    bottom: -102px;
+    left: 60%;
+    transform: translateX(-50%);
+}
+
+.right-panel .login-errors {
+    font-family: "Montserrat", sans-serif;
+    font-size: .75rem;
+    letter-spacing: 0.4px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 174, 174);
+    padding: 12px 16px;
+    position: absolute;
+    text-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: -3px 5px 30px rgba(0, 0, 0, 0.384);
+    border-radius: 4px;
+    z-index: 10;
+}
+
+/* arrow at the top */
+.tooltip-style::after {
+    content: "";
+    position: absolute;
+    top: -10px; /* Adjust the arrow to the top */
+    left: 20%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid rgb(255, 174, 174); /* Arrow pointing down */
+    border-top: none; /* Remove the original top border */
+}
+
+/* #endregion */
+
+/* #region Form styles */
 .form-header{
     font-family: "Goldman", sans-serif;
     font-weight: 600;
     font-size: 2.1rem;
     color: #022a35;
     text-align: center;
-    margin-bottom: 35px;
+    margin-bottom: 30px;
     margin-top: -5px;
-  
 }
 
 form .input-group{
@@ -86,37 +142,52 @@ form .input-group label{
     padding: 0 5px;
     pointer-events: none;
     transition: .3s;
+    border-radius: 40px;
 }
 
 form .input-group input{
-    margin: 10px 0;
+    font-family: "Montserrat", sans-serif;
+    margin: 9px 0;
     padding: 13px 15px;
     color: black;
     border-radius: 8px;
-    background-color: #b0c6ca;
+    background-color: #c3dadf;
     border: 1px solid transparent;
     width: 100%;
     outline: none;
     transition: border-color 0.3s;
 }
 
-form .input-group input:not(:focus):hover {
-    background-color: #7f9fa5;
-}
-
-.input-group input:focus,
-.input-group input:valid {
-    background-color: white;
-    border: 1px solid #022a35;
-}
-.input-group input:focus~label,
-.input-group input:valid~label{
+/* label upon click */
+form .input-group input:focus + label,
+form .input-group input:not(:placeholder-shown) + label {
     top: 8px;
     left: 8px;
     background: white;
     color: #022a35;
 }
 
+/* input upon click */
+.input-group input:focus {
+    background-color: white;
+    border: 1px solid #022a35;
+}
+
+.input-group input.has-value {
+    background-color: white;
+    border: 1px solid #022a35;
+}
+
+/* error handling */
+.input-group input.has-error {
+    background-color: rgb(255, 184, 184);
+    border: 1px solid rgb(255, 0, 0);
+}
+
+form .input-group input.has-error + label {
+   
+    color: rgb(255, 0, 0); 
+}
 
 button{
     font-family: "Goldman", sans-serif;
@@ -131,13 +202,12 @@ button{
     text-transform: uppercase;
     cursor: pointer;
     width: 100%;
-    margin-top: 50px;
+    margin-top: 40px;
 }
 
 form button:hover{
     filter: brightness(150%);
 }
-
 
 .signup-left button{
     margin-top: 5px;
@@ -148,7 +218,6 @@ a.text {
     font-size: .9rem;
     color: #004355bd; 
     letter-spacing: .4px;
-    margin-left: 50%;
 }
 
 a.text:hover {
@@ -156,21 +225,27 @@ a.text:hover {
     cursor: pointer;
 }
 
-
-
-.mid, .remember{
+/*.mid, .remember{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     font-family: "Noto Sans JP", sans-serif;
-}
+    margin-top: 10px;
+}*/
+
 .mid{
     width: 100%;
     height: 4%;
+    text-wrap: nowrap;
+    text-align: right;
 }
 
-/* Logo wrapper to control position */
+/* #endregion */
+/* #endregion */
+
+/* #region Left styles */
+/* #region Logo wrapper to control position */
 .logo-wrapper {
     display: flex;
 }
@@ -246,20 +321,20 @@ a.text:hover {
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/*end*/
+/* #endregion */
 
+/* #region Welcome wrapper */
 .welcome-wrapper{
     margin-top: -40px;
 }
 
 .welcome-wrapper h1{
-    font-size: 3.4rem;
-    font-family: "Josefin Sans", sans-serif;
+    font-size: 3rem;
+    font-family: "Montserrat", sans-serif; 
     font-weight: 600;
-    line-height: 3.4rem;
+    line-height: 3rem;
     letter-spacing: .5px;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-    margin-bottom: -3px;
 }
 .welcome-wrapper .welcome{
     background: linear-gradient(to top right, #a8c1cf, #ffffff);
@@ -282,7 +357,119 @@ a.text:hover {
     color: transparent;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
     letter-spacing: .1px;
-    font-size: .85rem;
+    font-size: .82rem;
+    margin-top: 10px;
+}
+/* #endregion */
+/* #endregion */
+
+/* Add pop-up animation */
+@keyframes pop {
+    0% {
+
+        opacity: 0;
+    }
+    100% {
+
+        opacity: 1;
+    }
 }
 
+.pop-animation {
+    animation: pop 0.2s ease;
+}
+
+/* #region mobile logo styling */
+.logo-container-mobile {
+    display: none;
+    background-color: #033847;
+    position: relative;
+    overflow: hidden;
+    width: 800px;
+    max-width: 80%;
+    min-height: 80px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.logo-container-mobile .logo-wrapper {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.logo-container-mobile .logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.logo-container-mobile .squares {
+    position: relative;
+    width: 45px; /* Adjust as needed */
+    height: 46px;
+}
+
+.logo-container-mobile .square {
+    width: 27px;
+    height: 29px;
+    border: 4px solid;
+    border-image: linear-gradient(to top right, #4a4a4a, #d3d3d3) 1; 
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); 
+    position: absolute;
+}
+
+.logo-container-mobile .square:nth-child(1) {
+    top: 0;
+    left: 0;
+}
+
+.logo-container-mobile .square:nth-child(2) {
+    top: 16px; 
+    left: 16px;
+}
+
+.logo-container-mobile .logo-text .b {
+    font-size: 2.8rem; 
+    line-height: 0.9;
+    font-weight: 600;
+    display: inline-block;
+    background: linear-gradient(to top right, #b4b4b4, #ffffff);
+    background-clip: text; /* Standard property */
+    -webkit-background-clip: text; /* WebKit-specific */
+    color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Shadow effect */
+}
+
+.logo-container-mobile .logo-text {
+    font-size: 2rem; /* Minimum 2rem, scales with 5vw, maximum 3rem */
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    background: linear-gradient(to top right, #b4b4b4, #ffffff);
+    background-clip: text; /* Standard property */
+    -webkit-background-clip: text; /* WebKit-specific */
+    color: transparent;
+    text-transform: uppercase;
+    margin-bottom: -7px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Shadow effect */
+}
+
+.logo-container-mobile .logo-subtext {
+    font-size: .37rem; /* Adjust the values to fit your design */
+    font-weight: 900;
+    font-family: "Playwrite DE Grund", cursive;
+    background: linear-gradient(to top right, #cfcfcf, #ffffff);
+    background-clip: text; /* Standard property */
+    -webkit-background-clip: text; /* WebKit-specific */
+    color: transparent;
+    letter-spacing: .3px;
+    margin-left: 5px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* #endregion */
 
