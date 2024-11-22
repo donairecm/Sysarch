@@ -39,3 +39,10 @@
         font-size: .7rem;
     }
 }
+
+@media (max-width: 437px){
+    .username-error-container .login-errors,
+    .password-error-container .login-errors {
+        left: 50%;
+    }
+}

@@ -96,3 +96,53 @@ function hideTooltip(elementId) {
         inputField.classList.remove('has-error');
     }
 }
+
+// Funtion to toggle password visibility
+// Handle both tooltip hiding and icon visibility on focus and blur
+const passwordField = document.getElementById('password');
+const openEyeIcon = document.getElementById('open-eye');
+const closedEyeIcon = document.getElementById('closed-eye');
+const togglePasswordIcon = document.querySelector('.toggle-password');
+
+// Prevent input blur when clicking on the toggle icon
+togglePasswordIcon.addEventListener('mousedown', function(event) {
+    event.preventDefault();  // Prevents the blur event on input
+});
+
+passwordField.addEventListener('focus', function() {
+    hideTooltip('password-error');  // Hide the tooltip
+    showPasswordIcons();            // Show the appropriate icon
+});
+
+passwordField.addEventListener('blur', function() {
+    hidePasswordIcons();            // Hide both icons
+});
+
+// Functions to show and hide icons based on password field state
+function showPasswordIcons() {
+    if (passwordField.type === 'password') {
+        openEyeIcon.style.display = 'block';
+        closedEyeIcon.style.display = 'none';
+    } else {
+        openEyeIcon.style.display = 'none';
+        closedEyeIcon.style.display = 'block';
+    }
+}
+
+function hidePasswordIcons() {
+    openEyeIcon.style.display = 'none';
+    closedEyeIcon.style.display = 'none';
+}
+
+// Toggle password visibility and icons
+function togglePasswordVisibility() {
+    if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        openEyeIcon.style.display = 'none';
+        closedEyeIcon.style.display = 'block';
+    } else {
+        passwordField.type = 'password';
+        openEyeIcon.style.display = 'block';
+        closedEyeIcon.style.display = 'none';
+    }
+}

@@ -17,21 +17,22 @@ if (isset($_POST['login'])) {
     }
 
     if (empty($error)) {
-        $stmt = $conn->prepare("SELECT username, password_hash, user_role FROM user_tbl WHERE username = ?");
+        $stmt = $conn->prepare("SELECT employee_id, password_hash, user_role FROM user_tbl WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $stmt->store_result();
 
         if ($stmt->num_rows > 0) {
-            $stmt->bind_result($db_username, $password_hash, $user_role);
+            $stmt->bind_result($employee_id, $password_hash, $user_role);
             $stmt->fetch();
 
             if (password_verify($password, $password_hash)) {
-                $_SESSION['username'] = $db_username;
+                // Store only the employee_id and user_role in session
+                $_SESSION['employee_id'] = $employee_id;
                 $_SESSION['user_role'] = $user_role;
 
                 // Successful login, send a success response with redirect URL
-                echo json_encode(['success' => true, 'redirect_url' => $user_role === 'admin' ? 'admin-interface/dashboard.html' : 'some_other_page.html']);
+                echo json_encode(['success' => true, 'redirect_url' => $user_role === 'admin' ? 'admin-interface/dashboard.php' : 'some_other_page.html']);
                 exit;
             } else {
                 // Incorrect password
@@ -49,6 +50,7 @@ if (isset($_POST['login'])) {
     exit;
 }
 ?>
+
 
 
 <script>

@@ -158,6 +158,27 @@ form .input-group input{
     transition: border-color 0.3s;
 }
 
+/* Password visibility */
+.toggle-password svg{
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    fill: rgba(0, 0, 0, 0.349);
+    width: 22px;
+    height: 22px;
+    display: none;
+    background-color: white;
+}
+
+.toggle-password svg:hover{
+    fill: #022a35b7;
+}
+
+
+
 /* label upon click */
 form .input-group input:focus + label,
 form .input-group input:not(:placeholder-shown) + label {
@@ -239,6 +260,7 @@ a.text:hover {
     height: 4%;
     text-wrap: nowrap;
     text-align: right;
+    margin-top: 2px;
 }
 
 /* #endregion */
@@ -363,7 +385,7 @@ a.text:hover {
 /* #endregion */
 /* #endregion */
 
-/* Add pop-up animation */
+/* #region Add pop-up animation */
 @keyframes pop {
     0% {
 
@@ -378,6 +400,7 @@ a.text:hover {
 .pop-animation {
     animation: pop 0.2s ease;
 }
+/* #endregion */
 
 /* #region mobile logo styling */
 .logo-container-mobile {
@@ -472,4 +495,5 @@ a.text:hover {
 }
 
 /* #endregion */
+
 

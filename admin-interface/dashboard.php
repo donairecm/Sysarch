@@ -1,3 +1,16 @@
+
+<?php
+// Get profile details from profile.php
+$profileData = include 'php/profile.php';
+
+// Extract variables from the array
+$firstName = $profileData['firstName'];
+$lastName = $profileData['lastName'];
+$profilePic = $profileData['profilePic'];
+$employeeID = $profileData['employeeID'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,7 +20,9 @@
         <link rel="stylesheet" href="css/navbar-sidebar/navbar-sidebar.css">
         <link rel="stylesheet" href="css/navbar-sidebar/media-query.css">
         <link rel="stylesheet" href="css/dashboard/dashboard.css">
-        <script type="text/javascript" src="js/dropdown.js" defer></script>
+
+        <script type="text/javascript" src="js/profile-dropdown.js" defer></script>
+        <script type="text/javascript" src="js/navbar-icons-tooltip.js" defer></script>
 
         <!-- #region Dashboard scripts-->
         <script type="text/javascript" src="js/dashboard/top_row-graph.js" defer></script>
@@ -287,7 +302,6 @@
     <div id="overlay"></div>
 
     <nav id="navbar">
-        
         <div class="title">
             <div class="navbarleft">
                 <div class="logo-wrapper">
@@ -302,41 +316,112 @@
             </div>
         </div>
         <div class="icon-container">
-            <ul>
-                <li>
-                    <div class="icon-button icon-button-hover" data-tooltip="Notifications">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                            <path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z"/>
-                        </svg>
-                    </div>
-                    <div id="notification-dropdown" class="dropdown">
-                        <div class="dropdown-header">Notifications</div>
-                        <div class="dropdown-body">
-                            <div id="new-section">
-                                <div class="dropdown-item">nf1</div>
-                                <div class="dropdown-item">nf2</div>
-                                <div class="dropdown-item">nf3</div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="icon-button icon-button-hover" data-tooltip="Settings">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                            <path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/>
-                        </svg>
-                    </div>
-                    <div id="settings-dropdown" class="dropdown">
-                        <div class="dropdown-header">Settings</div>
-                        <div class="dropdown-body">
-                            <div class="dropdown-item">Settings Option 1</div>
-                            <div class="dropdown-item">Settings Option 2</div>
-                        </div>
-                    </div>
-                </li>                       
-            </ul>
+            <div class="left-container">
+                <!-- #region Shape -->
+                <!--<div class="user-activities-container">
+                    <div class="arrow-shape"></div>
+                    <span class="uac1">User</span>
+                    <span class="uac2">Activities</span>
+                </div>-->
+                <!-- #endregion--> 
+                <!-- #region Old Icons -->
+                <!--<div class="ic-container" data-tooltip="User Activities">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path d="M120-200q-33 0-56.5-23.5T40-280v-400q0-33 23.5-56.5T120-760h400q33 0 56.5 23.5T600-680v400q0 33-23.5 56.5T520-200H120Zm0-146q44-26 94-40t106-14q56 0 106 14t94 40v-334H120v334Zm200 26q-41 0-80 10t-74 30h308q-35-20-74-30t-80-10Zm0-110q-45 0-77.5-32.5T210-540q0-45 32.5-77.5T320-650q45 0 77.5 32.5T430-540q0 45-32.5 77.5T320-430Zm0-74q15 0 25.5-10.5T356-540q0-15-10.5-25.5T320-576q-15 0-25.5 10.5T284-540q0 15 10.5 25.5T320-504Zm360 304v-560h80v560h-80Zm160 0v-560h80v560h-80ZM320-540Zm0 260Z"/>
+                    </svg>
+                </div>
+
+                <div class="ic-container" data-tooltip="Alerts">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240ZM330-120 120-330v-300l210-210h300l210 210v300L630-120H330Z"/>
+                    </svg>
+                </div>
+
+                <div class="ic-container" data-tooltip="Activities">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path d="M666-440 440-666l226-226 226 226-226 226Zm-546-80v-320h320v320H120Zm400 400v-320h320v320H520Zm-400 0v-320h320v320H120Zm80-480h160v-160H200v160Zm467 48 113-113-113-113-113 113 113 113Zm-67 352h160v-160H600v160Zm-400 0h160v-160H200v160Zm160-400Zm194-65ZM360-360Zm240 0Z"/>
+                    </svg>
+                </div>-->
+                <!-- #endregion -->
+                <div class="ic-container" data-tooltip="Notifications">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="profile-container" onclick="toggleDropdown()">
+                <div class="pic">
+                    <!-- Display profile picture here -->
+                    <img src="<?php echo htmlspecialchars($profilePic); ?>" alt="Profile Picture">
+                </div>
+                <div class="info">
+                    <!-- Display employee name and ID -->
+                    <span class="employee-name"><?php echo htmlspecialchars($lastName) . ', ' . htmlspecialchars($firstName); ?></span>
+                    <span class="employee-ID"><?php echo htmlspecialchars($employeeID); ?></span>
+                </div>
+                <div class="chevron-container" >
+                    <svg id="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/>
+                    </svg>
+                </div>
+            </div>
+
         </div>
     </nav>
+    <div class="layer">
+        <div class="profile-pop-over" id="profilePopOverContent" >
+        <div class="background-img" style="background-image: url('<?php echo htmlspecialchars($profilePic); ?>');"></div>
+        <div class="background-overlay"></div>
+            <div class="profile-header">
+                <div class="pic">
+                    <img src="<?php echo htmlspecialchars($profilePic); ?>" alt="Profile Picture">
+                </div>
+                <div class="profile-details">
+                    <span class="employee-name"><?php echo htmlspecialchars($lastName) . ', ' . htmlspecialchars($firstName); ?></span>
+                    <span class="employee-ID"><?php echo htmlspecialchars($employeeID); ?></span>
+                    <div class="view-button">Edit Profile</div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <ul class="profile-menu">
+                <li>
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                            <path d="m787-145 28-28-75-75v-112h-40v128l87 87Zm-587 25q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v268q-19-9-39-15.5t-41-9.5v-243H200v560h242q3 22 9.5 42t15.5 38H200Zm0-120v40-560 243-3 280Zm80-40h163q3-21 9.5-41t14.5-39H280v80Zm0-160h244q32-30 71.5-50t84.5-27v-3H280v80Zm0-160h400v-80H280v80ZM720-40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Z"/>
+                        </svg>
+                        <span>Activity Logs</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                            <path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/>
+                        </svg>
+                        <span>Account Settings</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="divider"></div>
+
+            <ul class="logout">
+                <li>
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M806-440H320v-80h486l-62-62 56-58 160 160-160 160-56-58 62-62ZM600-600v-160H200v560h400v-160h80v160q0 33-23.5 56.5T600-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h400q33 0 56.5 23.5T680-760v160h-80Z"/>
+                        </svg>
+                        <span>Log out</span>
+                    </a>
+                </li>
+            </ul>
+
+            <span class="corner-bottom-left"></span>
+            <span class="corner-bottom-right"></span>
+        </div>
+    </div>
+
+
 
     <div class="dashboard-grid">
         <div class="dashboard-item total-units-sold top-row" data-modal="total-units-sold">    

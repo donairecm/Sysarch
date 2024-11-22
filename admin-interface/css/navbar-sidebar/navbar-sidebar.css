@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 /* #region Global Reset */
 * {
@@ -29,9 +30,10 @@ body {
 }
 /* #endregion */
 
+
 /* #region Navbar Styling */
 #navbar {
-    height: 62px;
+    height: 60px;
     width: 100%;
     background-color: var(--main-color);
     position: sticky;
@@ -40,7 +42,7 @@ body {
     align-items: center;
     justify-content: space-between;
     transition: 300ms ease-in-out;
-    padding: 5px 20px 5px 70px;
+    padding: 5px 10px 5px 70px;
     z-index: 9;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -77,6 +79,7 @@ body {
 #navbar .icon-container {
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 #navbar .icon-container ul {
@@ -109,14 +112,465 @@ body {
     fill: var(--accent-clr);
 }
 
-#navbar .icon-button svg {
+#navbar .icon-button > svg {
     width: 28px;
     height: 28px;
     fill: var(--text-clr);
     transition: fill .3s ease;
 }
 
+/* #endregion */
 
+/* #region Profile styling */
+.profile-container{
+    display: flex;
+    flex-direction: row;
+    height: 43px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 17px;
+    position: relative;
+    margin-left: 3px;
+}
+
+.profile-container:hover{
+    cursor: pointer;
+}
+
+.profile-container .pic {
+    height: 35px;
+    width: 35px;
+    margin-right: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-container .pic img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+.profile-container .info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'Afacad Flux', sans-serif;
+    color: rgb(243, 243, 243);
+}
+
+.profile-container .info span:first-child{
+    font-size: .85rem;
+    line-height: .85rem;
+    margin-top: 3px;
+}
+.profile-container .info span:last-child{
+    line-height: .75rem;
+    font-size: .75rem;
+    color: var(--text-clr);
+}
+
+.chevron-container{
+    height: 100%;
+    width: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#chevron{
+    fill: rgb(243, 243, 243);
+    width: 28px;
+    height: 28px;
+    transition: transform 0.3s ease;
+}
+
+.rotate {
+    transform: rotate(180deg); 
+}
+
+/* #region Pop Over styling */
+.layer{
+    position: absolute;
+}
+
+.profile-pop-over {
+    font-family: 'Afacad Flux', sans-serif;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    min-width: 290px;
+    top: 10px;
+    right: 40px;
+    background-color: var(--main-color);
+    color: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    border: 1px solid rgba(75, 75, 75, 0.651);
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8); /* Start with a slightly smaller scale */
+    transition: opacity 0.1s ease, visibility 0.1s ease, transform 0.1s ease;
+}
+
+.profile-pop-over.show {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1); 
+}
+
+/* Pop-out effect when closing */
+.profile-pop-over.hide {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.9); 
+}
+
+/* #region Border of the corners */
+/* Add curved corner borders using pseudo-elements */
+.profile-pop-over::before,
+.profile-pop-over::after,
+.profile-pop-over .corner-bottom-left,
+.profile-pop-over .corner-bottom-right {
+    content: '';
+    position: absolute;
+    width: 10px; /* Corner border width */
+    height: 10px; /* Corner border height */
+    border: 1px solid #ffffff77; /* Custom border color */
+    border-radius: 1px;
+}
+
+/* Top-left corner */
+.profile-pop-over::before {
+    top: -1px;
+    left: -1px;
+    border-right: none;
+    border-bottom: none;
+    border-top-left-radius: 8px; /* Apply the curve */
+}
+
+/* Top-right corner */
+.profile-pop-over::after {
+    top: -1px;
+    right: -1px;
+    border-left: none;
+    border-bottom: none;
+    border-top-right-radius: 8px; /* Apply the curve */
+}
+
+/* Bottom-left corner */
+.profile-pop-over .corner-bottom-left {
+    bottom: -1px;
+    left: -1px;
+    border-top: none;
+    border-right: none;
+    border-bottom-left-radius: 8px; /* Apply the curve */
+}
+
+/* Bottom-right corner */
+.profile-pop-over .corner-bottom-right {
+    bottom: -1px;
+    right: -1px;
+    border-top: none;
+    border-left: none;
+    border-bottom-right-radius: 8px; /* Apply the curve */
+}
+/* #endregion */
+
+/* #region Inside Contents */
+.profile-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-radius: 12px;
+    overflow: hidden; /* Ensures background effects don't overflow the container */
+    color: #fff;
+    z-index: 1;
+}
+
+.profile-header .pic {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 12px;
+}
+
+.profile-header .pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-header .profile-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-header .profile-details .employee-name {
+    color: rgba(255, 255, 255, 0.884);
+    font-size: .9rem;
+    letter-spacing: .5px;
+    font-weight: bold;
+}
+
+.profile-header .profile-details .employee-ID {
+    font-size: .8rem;
+    letter-spacing: .5px;
+    color: #aaa;
+}
+
+.view-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #3d3d3dc9; /* Dark gray background */
+    color: #eeeeeed7; /* White text */
+    border: none;
+    width: 75px;
+    padding: 5px 2px; 
+    height: 21px;
+    margin-top: 3px;
+    border-radius: 5px; 
+    font-size: .70rem; 
+    font-weight: 800; 
+    letter-spacing: .7px;
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+}
+
+/* Hover effect for the button */
+.view-button:hover {
+    background-color: #ffffff60; /* Bright blue background */
+}
+.background-img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -2;
+    border-radius: 8px;
+}
+
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.582); 
+    backdrop-filter: blur(7px) brightness(.5)  ; /* Applies the blur effect */
+    z-index: -1;
+    border-radius: 8px;
+}
+
+/* Menu Links */
+.profile-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0 20px;
+}
+
+.profile-menu li {
+    margin: 5px 0;
+}
+
+.profile-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    padding: 10px 8px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.profile-menu li a:hover,
+.logout li a:hover  {
+    background-color: #464646a8;
+}
+
+.profile-menu li a:hover span{
+    color: white;
+}
+
+.profile-menu li a:hover svg{
+    fill: white;
+}
+
+.profile-menu li a svg,
+.logout li a svg{
+    fill: var(--text-clr);
+    height: 22px;
+    width: 22px;
+    margin-right: 8px;
+}
+
+.profile-menu li a span,
+.logout li a span{
+    letter-spacing: 1px;
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--text-clr);
+}
+
+.logout {
+    list-style: none;
+    padding: 0;
+    margin: 0 20px 17px 20px;
+}
+
+.logout a {
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    padding: 10px 8px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.logout li a svg,
+.logout li a span{
+    color: rgba(255, 45, 45, 0.884);
+    fill: rgba(255, 45, 45, 0.884);
+}
+
+
+.divider {
+    width: auto; /* Full width of the container */
+    height: 1px; /* Thickness of the line */
+    background-color: #ddddddb7; /* Light gray color for the line */
+    margin: 15px 20px; /* Space around the line */
+    display: block;
+}
+
+/* #endregion */
+
+/* #endregion */
+
+/* #endregion */
+
+/* #region User Activities navbar */
+.left-container {
+    height: 35px;
+    display: flex;
+    align-items: center;
+}
+
+/* #region User Activies navbar */
+.icon-container .left-container .user-activities-container {
+    position: relative;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    clip-path: polygon(11% 50%, 0% 0%, 85% 0%, 95% 50%, 85% 100%, 0% 100%);
+    margin-right: -7px;
+}
+
+
+.icon-container .left-container .user-activities-container .arrow-shape {
+    width: 120px; 
+    height: 100%;
+    background: linear-gradient(
+        90deg, 
+        #4cb900, /* A bit dark */
+        #5be400, /* The main color */
+        #4cb900 /* A bit dark */
+    );
+    clip-path: polygon(11% 50%, 0% 0%, 85% 0%, 95% 50%, 85% 100%, 0% 100%);
+    cursor: pointer;
+}
+
+.icon-container .left-container .user-activities-container .arrow-shape:hover{
+    background: linear-gradient(
+        90deg, 
+        #4cb900, /* A bit dark */
+        #4cb900, /* Slightly dark */
+        #4cb900 /* A bit dark */
+    );
+}
+
+
+.icon-container .left-container .user-activities-container span {
+    position: absolute;
+    font-family: 'Afacad Flux', sans-serif;
+    color: var(--main-color);
+    pointer-events: none; 
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+.uac1{
+    top: 0;
+    left: 25px;
+}
+.uac2{
+    bottom: 0;
+    right: 35px;
+}
+/* #endregion */
+
+/* #endregion */
+
+/* #region Navbar Icons */
+.ic-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 43px;
+    height: 43px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    margin-right: 3px;
+    cursor: pointer;
+}
+.ic-container svg {
+    width: 26px;
+    height: 26px;
+    fill: var(--text-clr);
+    transition: fill .3s ease;
+}
+
+
+.ic-container:hover svg{
+    fill: var(--accent-clr); 
+}
+
+.ic-container:hover {
+    background-color: var(--hover-clr);
+}
+
+/* #endregion */
+
+/* #region Tooltip */
+.tooltip {
+    position: absolute;
+    background-color: #1e4450dc;
+    color: rgb(243, 243, 243);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-family: 'Afacad Flux', sans-serif;
+    font-size: .85rem;
+    letter-spacing: .8px;
+    font-weight: 600;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(14px, -50%); 
+    transition: opacity 0.2s ease-in-out;
+    z-index: 1000;
+}
 /* #endregion */
 
 /* #region Logo Styling */

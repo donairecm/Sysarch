@@ -4,7 +4,55 @@
     display: grid;
     grid-template-columns: repeat(14, 1fr); 
     gap: 10px;
+    margin: 15px 15px 15px 85px;
+    height: calc(100vh - 95px);
+    grid-template-rows: 105px 160px auto auto;
 }
+
+/* #region gridlayout*/
+.total-units-sold{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+.total-sales{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 4;
+    grid-column-end: 7;
+}
+
+.stock-value{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 7;
+    grid-column-end: 10;
+}
+
+.recent-orders{
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 10;
+    grid-column-end: 15;    
+}
+
+.inventory-levels{
+    grid-row-start: 2;
+    grid-row-end: 5;
+    grid-column-start: 1;
+    grid-column-end: 10;      
+}
+
+.user-activities{
+    grid-row-start: 3;
+    grid-row-end: 5;
+    grid-column-start: 10;
+    grid-column-end: 15;    
+}
+/* #endregion */
+
 
 /* #endregion */
 
@@ -43,6 +91,14 @@
     justify-content: space-between;
 }
 
+.top-row > .right {
+    width: 120px; 
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-left: 10px;
+}
+
 .top-row .left svg{
     height: 15px;
     width: 15px;
@@ -62,6 +118,13 @@
 .stock-value .left .right > .container{
     background-color: rgba(127, 74, 233, 0.7);
     fill: rgba(255, 150, 241, 0.623);
+}
+
+.top-row .left .right{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .top-row .left .right > .container{
@@ -117,6 +180,7 @@
     font-size: .88rem;
     font-weight: 500;
     position: relative;
+    max-height: 38vh; 
 }
 
 .recent-orders-list {
@@ -290,6 +354,7 @@
     padding-right: 10px;
     font-size: .88rem;
     font-weight: 500;
+    max-height: 32vh;
     position: relative;
 }
 
