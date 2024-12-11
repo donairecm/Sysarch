@@ -633,9 +633,10 @@ body {
 }
 
 .action-tools-pop-over ul li .text .info{
-    font-size: .90rem;
-    line-height: .90rem;
+    font-size: .86rem;
+    line-height: .75rem;
     letter-spacing: .4px;
+    color: rgb(19, 19, 19);
 }
 
 /* #endregion */

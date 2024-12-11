@@ -19,10 +19,16 @@ $employeeID = $profileData['employeeID'];
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin Interface</title>
+
+        <!-- #region Navbar CSS-->
+        <link rel="stylesheet" href="css/dashboard/dashboard.css">
+        <link rel="stylesheet" href="css/dashboard/media-query.css">
+        <!-- #endregion -->
+
+        <!-- #region Navbar CSS-->
         <link rel="stylesheet" href="css/navbar-sidebar/navbar-sidebar.css">
         <link rel="stylesheet" href="css/navbar-sidebar/media-query.css">
-        <link rel="stylesheet" href="css/dashboard/dashboard.css">
-
+        <!-- #endregion -->
         
         <script type="text/javascript" src="js/navbar-icons-tooltips-popovers.js" defer></script>
 
