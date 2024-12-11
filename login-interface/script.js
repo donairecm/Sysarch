@@ -120,6 +120,7 @@ passwordField.addEventListener('blur', function() {
 
 // Functions to show and hide icons based on password field state
 function showPasswordIcons() {
+    // Toggling password visibility
     if (passwordField.type === 'password') {
         openEyeIcon.style.display = 'block';
         closedEyeIcon.style.display = 'none';
@@ -127,12 +128,27 @@ function showPasswordIcons() {
         openEyeIcon.style.display = 'none';
         closedEyeIcon.style.display = 'block';
     }
+
+    // Adjust padding of input field
+    const inputFields = document.querySelectorAll('.input-group input');
+    inputFields.forEach(input => {
+        input.style.padding = '13px 40px 13px 15px';
+    });
 }
 
+
 function hidePasswordIcons() {
+    // Hide both icons
     openEyeIcon.style.display = 'none';
     closedEyeIcon.style.display = 'none';
+
+    // Reset padding of input fields
+    const inputFields = document.querySelectorAll('.input-group input');
+    inputFields.forEach(input => {
+        input.style.padding = '13px 15px';
+    });
 }
+
 
 // Toggle password visibility and icons
 function togglePasswordVisibility() {

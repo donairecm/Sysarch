@@ -161,8 +161,8 @@ form .input-group input{
 /* Password visibility */
 .toggle-password svg{
     position: absolute;
-    top: 50%;
-    right: 15px;
+    top: 52%;
+    right: 10px;
     transform: translateY(-50%);
     cursor: pointer;
     transition: opacity 0.2s ease;
@@ -170,7 +170,7 @@ form .input-group input{
     width: 22px;
     height: 22px;
     display: none;
-    background-color: white;
+    background-color: none;
 }
 
 .toggle-password svg:hover{
