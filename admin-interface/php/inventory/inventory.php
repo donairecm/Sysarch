@@ -6,6 +6,7 @@ $profileData = include '../profile.php';
 $firstName = $profileData['firstName'];
 $lastName = $profileData['lastName'];
 $profilePic = $profileData['profilePic'];
+$profileCover = $profileData['profileCover']; 
 $employeeID = $profileData['employeeID'];
 ?>
 
@@ -23,7 +24,12 @@ $employeeID = $profileData['employeeID'];
         <script type="text/javascript" src="../../js/navbar-icons-tooltips-popovers.js" defer></script>
         <!-- #endregion -->
 
+        <!-- #region Options Grid css-->
+        <link rel="stylesheet" href="../../css/dashboard/dashboard.css">
+         <!-- #endregion -->
+
         <!-- #region Inventory css-->
+        <link rel="stylesheet" href="../../css/inventory/inventory.css">
          <!-- #endregion -->
 
         <!-- #region Inventory scripts-->
@@ -48,7 +54,8 @@ $employeeID = $profileData['employeeID'];
             </div>
         </div>
         <ul>
-            <li>
+            <!-- Dashboard -->
+            <li >
                 <a class="sidebar-item" href="../../dashboard.php">
                     <div class="left">
                         <div class="icon-container">
@@ -60,8 +67,9 @@ $employeeID = $profileData['employeeID'];
                     </div>
                 </a>
             </li>
+            <!-- Inventory -->
             <li class="has-submenu active">
-                <a class="sidebar-item" href="html/inventory/inventory.html">
+                <a class="sidebar-item" href="inventory.php">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -76,31 +84,9 @@ $employeeID = $profileData['employeeID'];
                         </svg>
                     </div>
                 </a>
+                <!-- Inventory Menu -->
                 <ul class="submenu">
-                    <li class="submenu-container">
-                        <div class="submenu-icon-container">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                                <path d="M824-80 716-188q-22 13-46 20.5t-50 7.5q-75 0-127.5-52.5T440-340q0-75 52.5-127.5T620-520q75 0 127.5 52.5T800-340q0 26-7.5 50T772-244l108 108-56 56ZM620-240q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29Zm220-320h-80v-200h-80v120H280v-120h-80v560h200v80H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h167q11-35 43-57.5t70-22.5q40 0 71.5 22.5T594-840h166q33 0 56.5 23.5T840-760v200ZM480-760q17 0 28.5-11.5T520-800q0-17-11.5-28.5T480-840q-17 0-28.5 11.5T440-800q0 17 11.5 28.5T480-760Z"/>
-                            </svg>
-                        </div>
-                        <a href="#">Monitoring</a>
-                    </li>
-                    <li class="submenu-container">
-                        <div class="submenu-icon-container">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                                <path d="M160-160v-120h160v120H160Zm0-160v-160h160v160H160Zm0-200v-280h160v280H160Zm240 360v-280h160v280H400Zm0-320v-160h160v160H400Zm0-200v-120h160v120H400Zm240 520v-80h160v80H640Zm0-120v-160h160v160H640Zm0-200v-320h160v320H640Z"/>
-                            </svg>
-                        </div>
-                        <a href="#">Stock levels</a>
-                    </li>
-                    <li class="submenu-container">
-                        <div class="submenu-icon-container">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                                <path d="M40-160v-80h200v-80H80v-80h160v-80H122v-80h118v-118l-78-168 72-34 94 200h464l-78-166 72-34 94 200v520H40Zm440-280h160q17 0 28.5-11.5T680-480q0-17-11.5-28.5T640-520H480q-17 0-28.5 11.5T440-480q0 17 11.5 28.5T480-440ZM320-240h480v-360H320v360Zm0 0v-360 360Z"/>
-                            </svg>
-                        </div>
-                        <a href="#">Reorder points</a>
-                    </li>
+                    <!-- Product List -->
                     <li class="submenu-container">
                         <div class="submenu-icon-container">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -109,10 +95,38 @@ $employeeID = $profileData['employeeID'];
                         </div>
                         <a href="#">Product list</a>
                     </li>
+                    <!-- Stock Levels -->
+                    <li class="submenu-container">
+                        <div class="submenu-icon-container">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                <path d="M160-160v-120h160v120H160Zm0-160v-160h160v160H160Zm0-200v-280h160v280H160Zm240 360v-280h160v280H400Zm0-320v-160h160v160H400Zm0-200v-120h160v120H400Zm240 520v-80h160v80H640Zm0-120v-160h160v160H640Zm0-200v-320h160v320H640Z"/>
+                            </svg>
+                        </div>
+                        <a href="#">Stock levels</a>
+                    </li>
+                    <!-- Reorder Ponts -->
+                    <li class="submenu-container">
+                        <div class="submenu-icon-container">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                <path d="M40-160v-80h200v-80H80v-80h160v-80H122v-80h118v-118l-78-168 72-34 94 200h464l-78-166 72-34 94 200v520H40Zm440-280h160q17 0 28.5-11.5T680-480q0-17-11.5-28.5T640-520H480q-17 0-28.5 11.5T440-480q0 17 11.5 28.5T480-440ZM320-240h480v-360H320v360Zm0 0v-360 360Z"/>
+                            </svg>
+                        </div>
+                        <a href="#">Reorder points</a>
+                    </li>
+                    <!-- Inventory Movements -->
+                    <li class="submenu-container">
+                        <div class="submenu-icon-container">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                <path d="M824-80 716-188q-22 13-46 20.5t-50 7.5q-75 0-127.5-52.5T440-340q0-75 52.5-127.5T620-520q75 0 127.5 52.5T800-340q0 26-7.5 50T772-244l108 108-56 56ZM620-240q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29Zm220-320h-80v-200h-80v120H280v-120h-80v560h200v80H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h167q11-35 43-57.5t70-22.5q40 0 71.5 22.5T594-840h166q33 0 56.5 23.5T840-760v200ZM480-760q17 0 28.5-11.5T520-800q0-17-11.5-28.5T480-840q-17 0-28.5 11.5T440-800q0 17 11.5 28.5T480-760Z"/>
+                            </svg>
+                        </div>
+                        <a href="#">Monitoring</a>
+                    </li>
                 </ul>
             </li>
+            <!-- Sales -->
             <li class="has-submenu">
-                <a class="sidebar-item" href="html/sales/sales.html">
+                <a class="sidebar-item" href="../../php/sales/sales.php">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -127,7 +141,9 @@ $employeeID = $profileData['employeeID'];
                         </svg>
                     </div>
                 </a>
+                <!-- Sales Menu -->
                 <ul class="submenu">
+                    <!-- Sales Overview -->
                     <li class="submenu-container">
                         <div class="submenu-icon-container">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -136,14 +152,7 @@ $employeeID = $profileData['employeeID'];
                         </div>
                         <a href="#">Sales Overview</a>
                     </li>
-                    <li class="submenu-container">
-                        <div class="submenu-icon-container">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                                <path d="M320-600q17 0 28.5-11.5T360-640q0-17-11.5-28.5T320-680q-17 0-28.5 11.5T280-640q0 17 11.5 28.5T320-600Zm0 160q17 0 28.5-11.5T360-480q0-17-11.5-28.5T320-520q-17 0-28.5 11.5T280-480q0 17 11.5 28.5T320-440Zm0 160q17 0 28.5-11.5T360-320q0-17-11.5-28.5T320-360q-17 0-28.5 11.5T280-320q0 17 11.5 28.5T320-280ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h440l200 200v440q0 33-23.5 56.5T760-120H200Zm0-80h560v-400H600v-160H200v560Zm0-560v160-160 560-560Z"/>
-                            </svg>
-                        </div>
-                        <a href="#">Sales Reports</a>
-                    </li>
+                    <!-- Manage Orders -->
                     <li class="submenu-container">
                         <div class="submenu-icon-container">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -152,6 +161,7 @@ $employeeID = $profileData['employeeID'];
                         </div>
                         <a href="#">Manage Orders</a>
                     </li>
+                    <!-- Customer Details -->
                     <li class="submenu-container">
                         <div class="submenu-icon-container">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -162,8 +172,9 @@ $employeeID = $profileData['employeeID'];
                     </li>
                 </ul>
             </li>
+            <!-- Supply-chain -->
             <li class="has-submenu">
-                <a class="sidebar-item" href="html/supply/supply.html">
+                <a class="sidebar-item" href="../../php/supply-chain/supply-chain.php">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -178,15 +189,18 @@ $employeeID = $profileData['employeeID'];
                         </svg>
                     </div>
                 </a>
+                <!-- Supply-chain Menu -->
                 <ul class="submenu">
+                    <!-- Order Processing -->
                     <li class="submenu-container">
                         <div class="submenu-icon-container">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                                 <path d="M440-183v-274L200-596v274l240 139Zm80 0 240-139v-274L520-457v274Zm-80 92L160-252q-19-11-29.5-29T120-321v-318q0-22 10.5-40t29.5-29l280-161q19-11 40-11t40 11l280 161q19 11 29.5 29t10.5 40v318q0 22-10.5 40T800-252L520-91q-19 11-40 11t-40-11Zm200-528 77-44-237-137-78 45 238 136Zm-160 93 78-45-237-137-78 45 237 137Z"/>
                             </svg>
                         </div>
-                        <a href="#">Orders</a>
+                        <a href="#">Order Processing</a>
                     </li>
+                    <!-- Supplier Details -->
                     <li class="submenu-container">
                         <div class="submenu-icon-container">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -197,8 +211,9 @@ $employeeID = $profileData['employeeID'];
                     </li>
                 </ul>
             </li>
+            <!-- Staff -->
             <li class="has-submenu">
-                <a class="sidebar-item" href="html/staff/staff.html">
+                <a class="sidebar-item" href="../../php/staff/staff.php">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -213,30 +228,25 @@ $employeeID = $profileData['employeeID'];
                         </svg>
                     </div>
                 </a>
+                <!-- Staff Menu -->
                 <ul class="submenu">
+                    <!-- User Profiles -->
                     <li class="submenu-container">
                         <div class="submenu-icon-container">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                                 <path d="M120-200q-33 0-56.5-23.5T40-280v-400q0-33 23.5-56.5T120-760h400q33 0 56.5 23.5T600-680v400q0 33-23.5 56.5T520-200H120Zm0-146q44-26 94-40t106-14q56 0 106 14t94 40v-334H120v334Zm200 26q-41 0-80 10t-74 30h308q-35-20-74-30t-80-10Zm0-110q-45 0-77.5-32.5T210-540q0-45 32.5-77.5T320-650q45 0 77.5 32.5T430-540q0 45-32.5 77.5T320-430Zm0-74q15 0 25.5-10.5T356-540q0-15-10.5-25.5T320-576q-15 0-25.5 10.5T284-540q0 15 10.5 25.5T320-504Zm360 304v-560h80v560h-80Zm160 0v-560h80v560h-80ZM320-540Zm0 260Z"/>
                             </svg>
                         </div>
-                        <a href="#">User activities</a>
+                        <a href="#">User Profiles</a>
                     </li>
+                    <!-- Activity Logs -->
                     <li class="submenu-container">
                         <div class="submenu-icon-container">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                                 <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-480H200v480Zm80-280v-80h400v80H280Zm0 160v-80h240v80H280Z"/>
                             </svg>
                         </div>
-                        <a href="#">User logs</a>
-                    </li>
-                    <li class="submenu-container">
-                        <div class="submenu-icon-container">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                                <path d="M400-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM80-160v-112q0-33 17-62t47-44q51-26 115-44t141-18h14q6 0 12 2-8 18-13.5 37.5T404-360h-4q-71 0-127.5 18T180-306q-9 5-14.5 14t-5.5 20v32h252q6 21 16 41.5t22 38.5H80Zm560 40-12-60q-12-5-22.5-10.5T584-204l-58 18-40-68 46-40q-2-14-2-26t2-26l-46-40 40-68 58 18q11-8 21.5-13.5T628-460l12-60h80l12 60q12 5 22.5 11t21.5 15l58-20 40 70-46 40q2 12 2 25t-2 25l46 40-40 68-58-18q-11 8-21.5 13.5T732-180l-12 60h-80Zm40-120q33 0 56.5-23.5T760-320q0-33-23.5-56.5T680-400q-33 0-56.5 23.5T600-320q0 33 23.5 56.5T680-240ZM400-560q33 0 56.5-23.5T480-640q0-33-23.5-56.5T400-720q-33 0-56.5 23.5T320-640q0 33 23.5 56.5T400-560Zm0-80Zm12 400Z"/>
-                            </svg>
-                        </div>
-                        <a href="#">Manage users</a>
+                        <a href="#">Activity logs</a>
                     </li>
                 </ul>
             </li>
@@ -311,32 +321,65 @@ $employeeID = $profileData['employeeID'];
                         </div>
                     </div>
                 </div>
-                <div class="no-1">Inventory</div>
+                <div class="no-1"></div>
             </div>
         </div>
         <div class="icon-container">
             <div class="left-container">
-                <div class="ic-container" data-tooltip="Alerts">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                <!-- Notifications -->
+                <div class="ic-container ic1" data-tooltip="Notifications">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160ZM480-80q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80Z"/>
+                    </svg>
+                    <svg class="icon show" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z"/>
+                    </svg>
+                    <span>Notifications</span>
+                    <div class="badge">
+                    </div>
+                </div>
+
+                <!--
+                <div class="ic-container ic2" data-tooltip="Alerts">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path d="M280-280q17 0 28.5-11.5T320-320q0-17-11.5-28.5T280-360q-17 0-28.5 11.5T240-320q0 17 11.5 28.5T280-280Zm-40-160h80v-240h-80v240Zm200 160h280v-80H440v80Zm0-160h280v-80H440v80Zm0-160h280v-80H440v80ZM160-120q-33 0-56.5-23.5T80-200v-560q0-33 23.5-56.5T160-840h640q33 0 56.5 23.5T880-760v560q0 33-23.5 56.5T800-120H160Z"/>
+                    </svg>
+                    <svg class="icon show" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
                         <path d="M280-280q17 0 28.5-11.5T320-320q0-17-11.5-28.5T280-360q-17 0-28.5 11.5T240-320q0 17 11.5 28.5T280-280Zm-40-160h80v-240h-80v240Zm200 160h280v-80H440v80Zm0-160h280v-80H440v80Zm0-160h280v-80H440v80ZM160-120q-33 0-56.5-23.5T80-200v-560q0-33 23.5-56.5T160-840h640q33 0 56.5 23.5T880-760v560q0 33-23.5 56.5T800-120H160Zm0-80h640v-560H160v560Zm0 0v-560 560Z"/>
                     </svg>
+                    <span>Alerts</span>
+                    <div class="badge">
+                    </div>
+                </div>-->
+
+                <!-- User Activities -->
+                <div class="ic-container ic3" data-tooltip="user-activities-ic-nav"> <!--User Activities hehe-->
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path d="M560-440h200v-80H560v80Zm0-120h200v-80H560v80ZM200-320h320v-22q0-45-44-71.5T360-440q-72 0-116 26.5T200-342v22Zm160-160q33 0 56.5-23.5T440-560q0-33-23.5-56.5T360-640q-33 0-56.5 23.5T280-560q0 33 23.5 56.5T360-480ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Z"/>
+                    </svg>
+                    <svg class="icon show" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path d="M560-440h200v-80H560v80Zm0-120h200v-80H560v80ZM200-320h320v-22q0-45-44-71.5T360-440q-72 0-116 26.5T200-342v22Zm160-160q33 0 56.5-23.5T440-560q0-33-23.5-56.5T360-640q-33 0-56.5 23.5T280-560q0 33 23.5 56.5T360-480ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm0-80h640v-480H160v480Zm0 0v-480 480Z"/>
+                    </svg>
+                    <span>User Activities</span>
+                    <div class="badge">
+                    </div>
                 </div>
-                
-                <div class="ic-container" data-tooltip="Notifications">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                        <path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z"/>
+
+                <!-- Action Tools / Utilities -->
+                <div class="ic-container ic4" data-tooltip="Action Tools">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path d="M666-440 440-666l226-226 226 226-226 226Zm-546-80v-320h320v320H120Zm400 400v-320h320v320H520Zm-400 0v-320h320v320H120Z"/>
+                    </svg>
+                    <svg class="icon show" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path d="M666-440 440-666l226-226 226 226-226 226Zm-546-80v-320h320v320H120Zm400 400v-320h320v320H520Zm-400 0v-320h320v320H120Zm80-480h160v-160H200v160Zm467 48 113-113-113-113-113 113 113 113Zm-67 352h160v-160H600v160Zm-400 0h160v-160H200v160Zm160-400Zm194-65ZM360-360Zm240 0Z"/>
                     </svg>
                 </div>
             </div>
+            <!-- Profile -->
             <div class="profile-container" onclick="toggleDropdown()">
                 <div class="pic">
                     <!-- Display profile picture here -->
                     <img src="<?php echo htmlspecialchars($profilePic); ?>" alt="Profile Picture">
-                </div>
-                <div class="info">
-                    <!-- Display employee name and ID -->
-                    <span class="employee-name"><?php echo htmlspecialchars($lastName) . ', ' . htmlspecialchars($firstName); ?></span>
-                    <span class="employee-ID"><?php echo htmlspecialchars($employeeID); ?></span>
                 </div>
                 <div class="chevron-container" >
                     <svg id="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -347,10 +390,12 @@ $employeeID = $profileData['employeeID'];
 
         </div>
     </nav>
+    
     <div class="layer">
+        <!-- Profile Popover -->
         <div class="profile-pop-over" id="profilePopOverContent" >
-        <div class="background-img" style="background-image: url('<?php echo htmlspecialchars($profilePic); ?>');"></div>
-        <div class="background-overlay"></div>
+            <div class="background-img" style="background-image: url('<?php echo htmlspecialchars($profileCover); ?>');"></div>
+            <div class="background-overlay"></div>
             <div class="profile-header">
                 <div class="pic">
                     <img src="<?php echo htmlspecialchars($profilePic); ?>" alt="Profile Picture">
@@ -399,21 +444,151 @@ $employeeID = $profileData['employeeID'];
             <span class="corner-bottom-right"></span>
         </div>
 
+        <!-- Action Tool Pop over -->
+        <div class="action-tools-pop-over" id="actiontoolsPopoverContent">
+            <div class="header">Action Tools</div>
+            <div class="orientation">
+            <ul>
+                <li>
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                            <path d="M560-80v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q8 9 12.5 20t4.5 22q0 11-4 22.5T903-300L683-80H560Zm300-263-37-37 37 37ZM620-140h38l121-122-18-19-19-18-122 121v38ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v120h-80v-80H520v-200H240v640h240v80H240Zm280-400Zm241 199-19-18 37 37-18-19Z"/>
+                        </svg>
+                    </div>
+                    <div class="text">
+                        <div class="title">Manage Products</div>
+                        <div class="info">View, add, edit, or remove products <br> from your inventory</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                            <path d="M400-320q100 0 170-70t70-170q0-100-70-170t-170-70q-100 0-170 70t-70 170q0 100 70 170t170 70Zm-40-120v-280h80v280h-80Zm-140 0v-200h80v200h-80Zm280 0v-160h80v160h-80ZM824-80 597-307q-41 32-91 49.5T400-240q-134 0-227-93T80-560q0-134 93-227t227-93q134 0 227 93t93 227q0 56-17.5 106T653-363l227 227-56 56Z"/>
+                        </svg>
+                    </div>
+                    <div class="text">
+                        <div class="title">Track Inventory</div>
+                        <div class="info">Search for any products current stock level or reorder point</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                            <path d="M160-501q0 71 47.5 122T326-322l-62-62 56-56 160 160-160 160-56-56 64-64q-105-6-176.5-81T80-500q0-109 75.5-184.5T340-760h140v80H340q-75 0-127.5 52T160-501Zm400 261v-80h320v80H560Zm0-220v-80h320v80H560Zm0-220v-80h320v80H560Z"/>
+                        </svg>
+                    </div>
+                    <div class="text">
+                        <div class="title">Reorder Items</div>
+                        <div class="info">Automate or manually place a reorder request for restocking</div>
+                    </div>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                            <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h360v80H200v560h560v-360h80v360q0 33-23.5 56.5T760-120H200Zm120-160v-80h320v80H320Zm0-120v-80h320v80H320Zm0-120v-80h320v80H320Zm360-80v-80h-80v-80h80v-80h80v80h80v80h-80v80h-80Z"/>
+                        </svg>
+                    </div>
+                    <div class="text">
+                        <div class="title">Create Orders</div>
+                        <div class="info">Create and manage customer order processes</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                            <path d="m105-399-65-47 200-320 120 140 160-260 120 180 135-214 65 47-198 314-119-179-152 247-121-141-145 233Zm475 159q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29ZM784-80 676-188q-21 14-45.5 21t-50.5 7q-75 0-127.5-52.5T400-340q0-75 52.5-127.5T580-520q75 0 127.5 52.5T760-340q0 26-7 50.5T732-244l108 108-56 56Z"/>
+                        </svg>
+                    </div>
+                    <div class="text">
+                        <div class="title">Today's Sales</div>
+                        <div class="info">View sales metrics and performance <br> for the day</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                            <path d="M80-200v-80h400v80H80Zm0-200v-80h200v80H80Zm0-200v-80h200v80H80Zm744 400L670-354q-24 17-52.5 25.5T560-320q-83 0-141.5-58.5T360-520q0-83 58.5-141.5T560-720q83 0 141.5 58.5T760-520q0 29-8.5 57.5T726-410l154 154-56 56ZM560-400q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Z"/>
+                        </svg>
+                    </div>
+                    <div class="text">
+                        <div class="title">Supplier Lookup</div>
+                        <div class="info">Search for contact details of suppliers <br> or supply-chain managers</div>
+                    </div>
+                </li>
+            </ul>
+            </div>
+        </div>
+
         <!-- Alerts Popover -->
         <div class="alerts-pop-over" id="alertsPopOverContent">
             alerts go here
         </div>
 
+        <!-- User Activities Navbar -->
+        <div class="user-activities-nav" id="userActivitiesPopOverContent">
+            <div class="header">User Activities</div>
+            <div class="row2">
+                <div class="filters">
+                    <div class="all f active">All</div>
+                    <div class="unread f">Inventory </div>
+                    <div class="unread f">Sales</div>
+                    <div class="unread f">Supply-chain </div>
+                </div>
+            </div>
+            <div class="contents">
+                    <div class="empty all-and-unread">
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                                <path d="M560-440h200v-80H560v80Zm0-120h200v-80H560v80ZM200-320h320v-22q0-45-44-71.5T360-440q-72 0-116 26.5T200-342v22Zm160-160q33 0 56.5-23.5T440-560q0-33-23.5-56.5T360-640q-33 0-56.5 23.5T280-560q0 33 23.5 56.5T360-480ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm0-80h640v-480H160v480Zm0 0v-480 480Z"/>
+                            </svg>
+                        </div>
+                        <div class="message">
+                            <span class="top">No activities to show yet!</span>
+                            <span class="bot">User activities will appear here once actions have been made.</span>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
         <!-- Notifications Popover -->
         <div class="notifications-pop-over" id="notificationsPopOverContent">
-            notifications go here
+                <div class="header">Notifications</div>
+                <div class="row2">
+                    <div class="filters">
+                        <div class="all f active">All</div>
+                        <div class="unread f">Unread 
+                            <span class="count"></span>
+                        </div>
+                        <div class="alerts f ">Alerts
+                            <span class="count"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contents">
+                    <div class="empty all-and-unread">
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                                <path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160ZM480-80q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80Z"/>
+                            </svg>
+                        </div>
+                        <div class="message">
+                            <span class="top">Currently, nothing to report!</span>
+                            <span class="bot">Your notifications will appear here when you have some.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="previous-notifs">See previous notifications</div>
         </div>
     </div>
 
-    <div class="inventory-grid">
-  
-    </div>
+    <div class="dashboard-grid">
+        <div class="dashboard-item title">Inventory</div>
 
+        <div class="dashboard-item "></div>
+    </div>
+    
 
 </body>
 </html>

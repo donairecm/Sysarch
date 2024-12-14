@@ -1,7 +1,6 @@
-
 <?php
 // Get profile details from profile.php
-$profileData = include 'php/profile.php';
+$profileData = include '../profile.php';
 
 // Extract variables from the array
 $firstName = $profileData['firstName'];
@@ -11,38 +10,34 @@ $profileCover = $profileData['profileCover'];
 $employeeID = $profileData['employeeID'];
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Admin Interface</title>
+        <title>Admin | Inventory</title>
+        <script type="text/javascript" src="../../js/dropdown.js" defer></script>
 
-        <!-- #region Navbar CSS/JS-->
-        <link rel="stylesheet" href="css/navbar-sidebar/navbar-sidebar.css">
-        <link rel="stylesheet" href="css/navbar-sidebar/media-query.css">
-        <script type="text/javascript" src="js/navbar-icons-tooltips-popovers.js" defer></script>
-        <!-- #endregion -->
-        
-        <!-- #region Dashboard CSS-->
-        <link rel="stylesheet" href="css/dashboard/dashboard.css">
-        <link rel="stylesheet" href="css/dashboard/media-query.css">
+        <!-- #region Navbar css and js -->
+        <link rel="stylesheet" href="../../css/navbar-sidebar/navbar-sidebar.css">
+        <link rel="stylesheet" href="../../css/navbar-sidebar/media-query.css">
+        <script type="text/javascript" src="../../js/navbar-icons-tooltips-popovers.js" defer></script>
         <!-- #endregion -->
 
-        <!-- #region Dashboard scripts-->
-        <script type="text/javascript" src="js/dashboard/top_row-graph.js" defer></script>
-        <script type="text/javascript" src="js/dashboard/units-sold-per-item.js" defer></script>
-        <script type="text/javascript" src="js/dashboard/stock-levels.js" defer></script>
-        <script type="text/javascript" src="js/dashboard/units-sold-per-item.js" defer></script>
+        <!-- #region Options Grid css-->
+        <link rel="stylesheet" href="../../css/dashboard/dashboard.css">
+         <!-- #endregion -->
+
+        <!-- #region Inventory css-->
+        <link rel="stylesheet" href="../../css/inventory/inventory.css">
+         <!-- #endregion -->
+
+        <!-- #region Inventory scripts-->
+       
         <!-- #endregion -->
         
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.0.2"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix"></script>
-
     </head>
 <body>
     <nav id="sidebar">
@@ -60,8 +55,8 @@ $employeeID = $profileData['employeeID'];
         </div>
         <ul>
             <!-- Dashboard -->
-            <li class="active">
-                <a class="sidebar-item" href="dashboard.php">
+            <li >
+                <a class="sidebar-item" href="../../dashboard.php">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -73,8 +68,8 @@ $employeeID = $profileData['employeeID'];
                 </a>
             </li>
             <!-- Inventory -->
-            <li class="has-submenu">
-                <a class="sidebar-item" href="php/inventory/inventory.php">
+            <li class="has-submenu active">
+                <a class="sidebar-item" href="inventory.php">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -125,13 +120,13 @@ $employeeID = $profileData['employeeID'];
                                 <path d="M824-80 716-188q-22 13-46 20.5t-50 7.5q-75 0-127.5-52.5T440-340q0-75 52.5-127.5T620-520q75 0 127.5 52.5T800-340q0 26-7.5 50T772-244l108 108-56 56ZM620-240q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29Zm220-320h-80v-200h-80v120H280v-120h-80v560h200v80H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h167q11-35 43-57.5t70-22.5q40 0 71.5 22.5T594-840h166q33 0 56.5 23.5T840-760v200ZM480-760q17 0 28.5-11.5T520-800q0-17-11.5-28.5T480-840q-17 0-28.5 11.5T440-800q0 17 11.5 28.5T480-760Z"/>
                             </svg>
                         </div>
-                        <a href="#">Inventory Movements</a>
+                        <a href="#">Monitoring</a>
                     </li>
                 </ul>
             </li>
             <!-- Sales -->
             <li class="has-submenu">
-                <a class="sidebar-item" href="php/sales/sales.php">
+                <a class="sidebar-item" href="../../php/sales/sales.php">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -179,7 +174,7 @@ $employeeID = $profileData['employeeID'];
             </li>
             <!-- Supply-chain -->
             <li class="has-submenu">
-                <a class="sidebar-item" href="php/supply-chain/supply-chain.php">
+                <a class="sidebar-item" href="../../php/supply-chain/supply-chain.php">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -218,7 +213,7 @@ $employeeID = $profileData['employeeID'];
             </li>
             <!-- Staff -->
             <li class="has-submenu">
-                <a class="sidebar-item" href="php/staff/staff.php">
+                <a class="sidebar-item" href="../../php/staff/staff.php">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -260,7 +255,7 @@ $employeeID = $profileData['employeeID'];
 
     <nav id="sidebar2">
         <ul>
-            <li class="active">
+            <li>
                 <a href="dashboard.html">
                     <div class="icon-container">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
@@ -270,7 +265,7 @@ $employeeID = $profileData['employeeID'];
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li>
+            <li class="active">
                 <a href="inventory.html">
                     <div class="icon-container">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
@@ -326,6 +321,7 @@ $employeeID = $profileData['employeeID'];
                         </div>
                     </div>
                 </div>
+                <div class="no-1">Inventory</div>
             </div>
         </div>
         <div class="icon-container">
@@ -394,7 +390,7 @@ $employeeID = $profileData['employeeID'];
 
         </div>
     </nav>
-
+    
     <div class="layer">
         <!-- Profile Popover -->
         <div class="profile-pop-over" id="profilePopOverContent" >
@@ -587,109 +583,21 @@ $employeeID = $profileData['employeeID'];
         </div>
     </div>
 
-
-    <div class="dashboard-grid">
-        <div class="dashboard-item title">Dashboard</div>
-
-        <!-- Revenue -->
-        <div class="dashboard-item top-row revenue">
-            <div class="top">
-                <div class="text">
-                    <div class="name">Revenue</div>
-                    <div class="value"><span>₱</span>386,251</div>
-                </div>
-                <div class="svg-container">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                        <path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80ZM120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z"/>
-                    </svg>
-                </div>
-            </div>
-            <div class="dashboard-analytics">
-                <span>+51%</span> more than last month
-            </div>
+    <div class="options-grid">
+        <div class="options-grid-item option1">
+            <span class="item-name">Product list</span>
         </div>
-
-        <!-- Inventory Value -->
-        <div class="dashboard-item top-row inventory-value">
-            <div class="top">
-                <div class="text">
-                    <div class="name">Inventory Value</div>
-                    <div class="value"><span>₱</span>24,051</div>
-                </div>
-                <div class="svg-container">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                       <path d="M160-160v-440h160v440H160Zm0-480v-160h160v160H160Zm240 480v-320h160v320H400Zm0-360v-160h160v160H400Zm240 360v-200h160v200H640Zm0-240v-160h160v160H640Z"/>
-                    </svg>
-                </div>
-            </div>
-            <div class="dashboard-analytics">
-                <span>+3%</span> more than last month
-            </div>
+        <div class="options-grid-item option2">
+            <span class="item-name">Stock Levels</span>
         </div>
-
-        
-
-        <!-- Inventory Turnover Rate -->
-        <div class="dashboard-item top-row inventory-turnover-rate">
-            <div class="top">
-                <div class="text">
-                    <div class="name">Inventory Turnover</div>
-                    <div class="value">4.7</div>
-                </div>
-                <div class="svg-container">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                        <path d="m280-120-56-56 63-66q-106-12-176.5-91.5T40-520q0-117 81.5-198.5T320-800h120v80H320q-83 0-141.5 58.5T120-520q0 72 46 127t117 69l-59-59 56-57 160 160-160 160Zm240-40v-280h360v280H520Zm0-360v-280h360v280H520Zm80-80h200v-120H600v120Z"/>
-                    </svg>
-                </div>
-            </div>
-            <div class="dashboard-analytics">
-                <span>+1.2</span> more than last week
-            </div>
+        <div class="options-grid-item option3">
+            <span class="item-name">Reorder points</span>s
         </div>
-
-        <!-- Orders in Transit -->
-        <div class="dashboard-item top-row orders-in-transit">
-            <div class="top">
-                <div class="text">
-                    <div class="name">Orders in Transit</div>
-                    <div class="value">23</div>
-                </div>
-                <div class="svg-container">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                        <path d="M240-160q-50 0-85-35t-35-85H40v-440q0-33 23.5-56.5T120-800h560v160h120l120 160v200h-80q0 50-35 85t-85 35q-50 0-85-35t-35-85H360q0 50-35 85t-85 35Zm0-80q17 0 28.5-11.5T280-280q0-17-11.5-28.5T240-320q-17 0-28.5 11.5T200-280q0 17 11.5 28.5T240-240ZM120-360h32q17-18 39-29t49-11q27 0 49 11t39 29h272v-360H120v360Zm600 120q17 0 28.5-11.5T760-280q0-17-11.5-28.5T720-320q-17 0-28.5 11.5T680-280q0 17 11.5 28.5T720-240Zm-40-200h170l-90-120h-80v120ZM360-540Z"/>
-                    </svg>
-                </div>
-            </div>
-            <div class="dashboard-analytics">
-                <span>+1%</span> more than yesterday
-            </div>
+        <div class="options-grid-item option4">
+            <span class="item-name">Inventory Movements</span>
         </div>
-
-        <!-- Stock Levels -->
-        <div class="dashboard-item ex1">
-            <div class="item-name">Stock Levels</div>
-            <div class="frame">
-                <div class="text">*There are<div class="needs-restocking"></div>products that needs restocking</div>
-                <div class="container">
-                    <canvas id="dashboardStockLevelChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <!-- Units Sold per Item -->
-        <div class="dashboard-item ex2">
-            <div class="item-name">Units Sold per Product</div>
-            <div class="frame">
-                <div class="text">*Almost 3% of the products underperformed last month</div>
-                <div class="container">
-                    <canvas id="dashboardUnitsSoldperItem"></canvas>
-                </div>
-            </div>
-        </div>
-
     </div>
-    
-  
+
 
 </body>
 </html>

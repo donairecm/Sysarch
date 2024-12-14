@@ -1,0 +1,23 @@
+
+/* #region Option Gridlayout*/
+.option1{
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 9;
+}
+
+.option2{
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 9;
+    grid-column-end: 17;
+}
+
+/* #endregion */
+
+
+
+
+
+

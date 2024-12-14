@@ -202,3 +202,62 @@ var stockValueChart = new Chart(stockValueCtx, {
         }
     }
 });
+
+// Function to generate random inventory turnover values with given constraints
+function generateRandomInventoryTurnover(minValue, maxValue, months) {
+    return Array.from({ length: months }, () =>
+        Math.random() * (maxValue - minValue) + minValue
+    ).map(value => Math.round(value * 100) / 100); // Round to two decimal places
+}
+
+// Inventory Turnover Chart
+var inventoryTurnoverCtx = document.getElementById('inventoryTurnoverChart').getContext('2d');
+
+// Generate random inventory turnover data with min at 0.5 and max at 5 for 10 months
+var minTurnover = 0.5;
+var maxTurnover = 5.0;
+var inventoryTurnoverValues = generateRandomInventoryTurnover(minTurnover, maxTurnover, 10);
+
+var inventoryTurnoverChart = new Chart(inventoryTurnoverCtx, {
+    type: 'line',
+    data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October'], // Jan to Oct
+        datasets: [{
+            label: 'Inventory Turnover',
+            data: inventoryTurnoverValues, // Randomized inventory turnover data
+            backgroundColor: 'rgba(255, 159, 64, 0.5)', // Orange area fill
+            borderColor: 'rgba(255, 159, 64, 1)', // Orange border
+            borderWidth: 1,
+            pointRadius: 0, // Invisible points
+            hoverRadius: 6, // Increase the hover radius
+            hitRadius: 8, // Make it easier to hover
+            tension: 0.4, // Smooth curves
+            fill: true // Enable area fill
+        }]
+    },
+    options: {
+        responsive: true, // Responsive to the container size
+        maintainAspectRatio: false, // Allows stretching with the container
+        scales: {
+            x: { display: false }, // Hide x-axis
+            y: { display: false } // Hide y-axis
+        },
+        plugins: {
+            legend: { display: false }, // Disable legend
+            tooltip: {
+                enabled: true,
+                backgroundColor: '#333',
+                titleColor: '#fff',
+                bodyColor: '#fff',
+                callbacks: {
+                    title: (tooltipItems) => {
+                        return tooltipItems[0].label; // Show the month
+                    },
+                    label: (tooltipItem) => {
+                        return `Turnover: ${tooltipItem.raw.toFixed(2)}`; // Show turnover with 2 decimal places
+                    }
+                }
+            }
+        }
+    }
+});

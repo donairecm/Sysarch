@@ -6,6 +6,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Afacad Flux', sans-serif;
 }
 /* #endregion */
 
@@ -1274,6 +1275,7 @@ body {
     margin-left: 10px;
     font-family: 'Afacad Flux', sans-serif;
     font-size: 1.15rem;
+    
 }
 
 /* Show submenu when hovering over the parent li */
@@ -1434,7 +1436,7 @@ body {
 
 /* #region Scrollbar */
 body::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
+    width: 6px; /* Width of the scrollbar */
 }
 
 body::-webkit-scrollbar-track {
