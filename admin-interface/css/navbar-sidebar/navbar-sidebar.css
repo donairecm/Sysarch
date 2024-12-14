@@ -6,7 +6,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Afacad Flux', sans-serif;
+
 }
 /* #endregion */
 
@@ -1082,7 +1082,6 @@ body {
 /* #endregion */
 
 /* #endregion */
-
 /* #region Sidebar Hover & Active States */
 #sidebar ul li .sidebar-item:hover {
     background-color: var(--hover-clr);

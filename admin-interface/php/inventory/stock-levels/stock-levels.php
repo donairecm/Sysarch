@@ -1,6 +1,6 @@
 <?php
 // Get profile details from profile.php
-$profileData = include '../profile.php';
+$profileData = include '../../profile.php';
 
 // Extract variables from the array
 $firstName = $profileData['firstName'];
@@ -16,24 +16,23 @@ $employeeID = $profileData['employeeID'];
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin | Inventory</title>
-        <script type="text/javascript" src="../../js/dropdown.js" defer></script>
+        <script type="text/javascript" src="../../../../js/dropdown.js" defer></script>
+
+        <link rel="stylesheet" href="../../../css/dashboard/dashboard.css">
 
         <!-- #region Navbar css and js -->
-        <link rel="stylesheet" href="../../css/navbar-sidebar/navbar-sidebar.css">
-        <link rel="stylesheet" href="../../css/navbar-sidebar/media-query.css">
-        <script type="text/javascript" src="../../js/navbar-icons-tooltips-popovers.js" defer></script>
+        <link rel="stylesheet" href="../../../css/navbar-sidebar/navbar-sidebar.css">
+        <link rel="stylesheet" href="../../../css/navbar-sidebar/media-query.css">
+        <script type="text/javascript" src="../../../js/navbar-icons-tooltips-popovers.js" defer></script>
         <!-- #endregion -->
 
-        <!-- #region Options Grid css-->
-        <link rel="stylesheet" href="../../css/dashboard/dashboard.css">
+        <!-- #region Inventory-stock-levels css-->
+        <link rel="stylesheet" href="../../../css/inventory/inventory.css">
+        <link rel="stylesheet" href="../../../css/inventory/product-list/product-list.css">
          <!-- #endregion -->
 
-        <!-- #region Inventory css-->
-        <link rel="stylesheet" href="../../css/inventory/inventory.css">
-         <!-- #endregion -->
-
-        <!-- #region Inventory scripts-->
-       
+        <!-- #region Inventory-stock-levels scripts-->
+        <script type="text/javascript" src="../../../js/inventory/stock-levels/stock-levels.js" defer></script>
         <!-- #endregion -->
         
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -56,7 +55,7 @@ $employeeID = $profileData['employeeID'];
         <ul>
             <!-- Dashboard -->
             <li >
-                <a class="sidebar-item" href="../../dashboard.php">
+                <a class="sidebar-item" href="../../../dashboard.php">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -69,7 +68,7 @@ $employeeID = $profileData['employeeID'];
             </li>
             <!-- Inventory -->
             <li class="has-submenu active">
-                <a class="sidebar-item" href="inventory.php">
+                <a class="sidebar-item" href="../inventory.php">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -93,7 +92,7 @@ $employeeID = $profileData['employeeID'];
                                 <path d="M320-280q17 0 28.5-11.5T360-320q0-17-11.5-28.5T320-360q-17 0-28.5 11.5T280-320q0 17 11.5 28.5T320-280Zm0-160q17 0 28.5-11.5T360-480q0-17-11.5-28.5T320-520q-17 0-28.5 11.5T280-480q0 17 11.5 28.5T320-440Zm0-160q17 0 28.5-11.5T360-640q0-17-11.5-28.5T320-680q-17 0-28.5 11.5T280-640q0 17 11.5 28.5T320-600Zm120 320h240v-80H440v80Zm0-160h240v-80H440v80Zm0-160h240v-80H440v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/>
                             </svg>
                         </div>
-                        <a href="#">Product list</a>
+                        <a href="../inventory/product-list/product-list.php">Product list</a>
                     </li>
                     <!-- Stock Levels -->
                     <li class="submenu-container">
@@ -126,7 +125,7 @@ $employeeID = $profileData['employeeID'];
             </li>
             <!-- Sales -->
             <li class="has-submenu">
-                <a class="sidebar-item" href="../../php/sales/sales.php">
+                <a class="sidebar-item" href="../../../php/sales/sales.php">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -174,7 +173,7 @@ $employeeID = $profileData['employeeID'];
             </li>
             <!-- Supply-chain -->
             <li class="has-submenu">
-                <a class="sidebar-item" href="../../php/supply-chain/supply-chain.php">
+                <a class="sidebar-item" href="../../../php/supply-chain/supply-chain.php">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -213,7 +212,7 @@ $employeeID = $profileData['employeeID'];
             </li>
             <!-- Staff -->
             <li class="has-submenu">
-                <a class="sidebar-item" href="../../php/staff/staff.php">
+                <a class="sidebar-item" href="../../../php/staff/staff.php">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -321,7 +320,7 @@ $employeeID = $profileData['employeeID'];
                         </div>
                     </div>
                 </div>
-                <div class="no-1">Inventory</div>
+                <div class="no-1">Products List</div>
             </div>
         </div>
         <div class="icon-container">
@@ -338,19 +337,6 @@ $employeeID = $profileData['employeeID'];
                     <div class="badge">
                     </div>
                 </div>
-
-                <!--
-                <div class="ic-container ic2" data-tooltip="Alerts">
-                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                        <path d="M280-280q17 0 28.5-11.5T320-320q0-17-11.5-28.5T280-360q-17 0-28.5 11.5T240-320q0 17 11.5 28.5T280-280Zm-40-160h80v-240h-80v240Zm200 160h280v-80H440v80Zm0-160h280v-80H440v80Zm0-160h280v-80H440v80ZM160-120q-33 0-56.5-23.5T80-200v-560q0-33 23.5-56.5T160-840h640q33 0 56.5 23.5T880-760v560q0 33-23.5 56.5T800-120H160Z"/>
-                    </svg>
-                    <svg class="icon show" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                        <path d="M280-280q17 0 28.5-11.5T320-320q0-17-11.5-28.5T280-360q-17 0-28.5 11.5T240-320q0 17 11.5 28.5T280-280Zm-40-160h80v-240h-80v240Zm200 160h280v-80H440v80Zm0-160h280v-80H440v80Zm0-160h280v-80H440v80ZM160-120q-33 0-56.5-23.5T80-200v-560q0-33 23.5-56.5T160-840h640q33 0 56.5 23.5T880-760v560q0 33-23.5 56.5T800-120H160Zm0-80h640v-560H160v560Zm0 0v-560 560Z"/>
-                    </svg>
-                    <span>Alerts</span>
-                    <div class="badge">
-                    </div>
-                </div>-->
 
                 <!-- User Activities -->
                 <div class="ic-container ic3" data-tooltip="user-activities-ic-nav"> <!--User Activities hehe-->
@@ -583,21 +569,12 @@ $employeeID = $profileData['employeeID'];
         </div>
     </div>
 
-    <div class="options-grid">
-        <div class="options-grid-item option1">
-            <span class="item-name">Product list</span>
-        </div>
-        <div class="options-grid-item option2">
-            <span class="item-name">Stock Levels</span>
-        </div>
-        <div class="options-grid-item option3">
-            <span class="item-name">Reorder points</span>s
-        </div>
-        <div class="options-grid-item option4">
-            <span class="item-name">Inventory Movements</span>
+    <div class="dashboard-grid">
+        <div class="dashboard-item title">Stock Levels</div>
+        <div class="dashboard-item">
         </div>
     </div>
-
+    
 
 </body>
 </html>

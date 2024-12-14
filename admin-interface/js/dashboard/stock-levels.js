@@ -71,7 +71,7 @@ const dashboardStockLevelChart = new Chart(ctxDashboard, {
         datasets: [{
             data: stockDataDashboard,
             backgroundColor: [
-                'rgb(67, 122, 22)', // Overstocked (Green)
+                'rgb(22, 122, 67)', // Overstocked (Green)
                 'rgb(67, 122, 22)', // Normal (Lighter Green)
                 'rgb(218, 201, 55)', // Low (Yellow)
                 'rgb(187, 92, 28)', // Critical (Amber)
