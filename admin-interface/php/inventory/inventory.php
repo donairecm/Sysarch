@@ -615,8 +615,8 @@ $employeeID = $profileData['employeeID'];
                 <span>+1.2</span> more than last week
             </div>
         </div>
-        <div class="dashboard-item inventory-activities i3">
-            <span class="item-name">Inventory Activities</span>
+        <div class="inventory-item inventory-activities i3">
+            <span class="item-name">Inventory Movements</span>
 
             <div class="inventory-activities-container">
                 <ul class="inventory-activities-list">
@@ -634,7 +634,7 @@ $employeeID = $profileData['employeeID'];
         </div>
 
         <div class="inventory-item i4">
-            <div class="item-name">Inventory Movements</div>
+            <div class="item-name">Inventory Movements History</div>
             <div class="container">
                 <canvas id="inventorydashboardInventoryMovements"></canvas>
             </div>
