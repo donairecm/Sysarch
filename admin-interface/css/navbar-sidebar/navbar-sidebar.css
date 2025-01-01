@@ -28,6 +28,7 @@
 body {
     /* background: linear-gradient(to right, #02242e, #002b36); */
     background: linear-gradient(to right, #e6e6e6, #d7e1ff);
+    overflow-y: hidden;
 }
 /* #endregion */
 
@@ -1450,5 +1451,43 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-thumb:hover {
     background-color: #555; /* Color on hover */
 }
+
+/* #region Scrollbar Design for All Grids */
+.dashboard-grid::-webkit-scrollbar,
+.inventory-grid::-webkit-scrollbar,
+.sales-grid::-webkit-scrollbar,
+.supply-chain-grid::-webkit-scrollbar,
+.staff-grid::-webkit-scrollbar {
+    width: 7px; /* Width of the scrollbar */
+}
+
+.dashboard-grid::-webkit-scrollbar-track,
+.inventory-grid::-webkit-scrollbar-track,
+.sales-grid::-webkit-scrollbar-track,
+.supply-chain-grid::-webkit-scrollbar-track,
+.staff-grid::-webkit-scrollbar-track {
+    background: transparent; /* Track color */
+    border-radius: 5px; /* Optional: Rounded track corners */
+    margin: 2px;
+}
+
+.dashboard-grid::-webkit-scrollbar-thumb,
+.inventory-grid::-webkit-scrollbar-thumb,
+.sales-grid::-webkit-scrollbar-thumb,
+.supply-chain-grid::-webkit-scrollbar-thumb,
+.staff-grid::-webkit-scrollbar-thumb {
+    background-color: #888; /* Thumb color */
+    border-radius: 5px; /* Optional: Rounded thumb corners */
+}
+
+.dashboard-grid::-webkit-scrollbar-thumb:hover,
+.inventory-grid::-webkit-scrollbar-thumb:hover,
+.sales-grid::-webkit-scrollbar-thumb:hover,
+.supply-chain-grid::-webkit-scrollbar-thumb:hover,
+.staff-grid::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Darker color on hover */
+}
+/* #endregion */
+
 
 /* #endregion */
