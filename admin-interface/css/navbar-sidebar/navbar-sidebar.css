@@ -16,7 +16,7 @@
     --base-clr: #11121a;
     --line-clr: #42434a;
     --hover-clr: #05313f;
-    --text-clr: rgb(191, 191, 206);
+    --text-clr: #bfbfce;
     --accent-clr: #5be400;
     --secondary-text-clr: #b0b3c1;
     --test-color: #c71f1f;
@@ -285,7 +285,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #3d3d3dc9; /* Dark gray background */
+    background-color: #70bcd333; /* Dark gray background */
     color: #eeeeeed7; /* White text */
     border: none;
     width: 75px;
@@ -354,7 +354,7 @@ body {
 
 .profile-menu li a:hover,
 .logout li a:hover  {
-    background-color: #464646a8;
+    background-color: #ffffff10;
 }
 
 .profile-menu li a:hover span{
