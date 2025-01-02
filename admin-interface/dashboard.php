@@ -6,6 +6,7 @@ $profileData = include 'php/profile.php';
 // Extract variables from the array
 $firstName = $profileData['firstName'];
 $lastName = $profileData['lastName'];
+$middleInitial = $profileData['middleInitial'];
 $profilePic = $profileData['profilePic'];
 $profileCover = $profileData['profileCover']; 
 $employeeID = $profileData['employeeID'];
@@ -405,7 +406,14 @@ $employeeID = $profileData['employeeID'];
                     <img src="<?php echo htmlspecialchars($profilePic); ?>" alt="Profile Picture">
                 </div>
                 <div class="profile-details">
-                    <span class="employee-name"><?php echo htmlspecialchars($lastName) . ', ' . htmlspecialchars($firstName); ?></span>
+                <span class="employee-name">
+                    <?php 
+                        echo htmlspecialchars($lastName) . ', ' . htmlspecialchars($firstName); 
+                        if (!empty($middleInitial)) {
+                            echo ' ' . htmlspecialchars($middleInitial) . '.'; // Add middle initial with a period
+                        }
+                    ?>
+                </span>
                     <span class="employee-ID"><?php echo htmlspecialchars($employeeID); ?></span>
                     <div class="view-button">Edit Profile</div>
                 </div>

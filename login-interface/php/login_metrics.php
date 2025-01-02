@@ -17,7 +17,7 @@ if (isset($_POST['login'])) {
     }
 
     if (empty($error)) {
-        $stmt = $conn->prepare("SELECT employee_id, password_hash, user_role FROM user_tbl WHERE username = ?");
+        $stmt = $conn->prepare("SELECT employee_id, password_hash, user_role FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $stmt->store_result();
@@ -32,7 +32,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['user_role'] = $user_role;
 
                 // Successful login, send a success response with redirect URL
-                echo json_encode(['success' => true, 'redirect_url' => $user_role === 'admin' ? 'admin-interface/dashboard.php' : 'some_other_page.html']);
+                echo json_encode(['success' => true, 'redirect_url' => $user_role === 'super_admin' ? 'admin-interface/dashboard.php' : 'some_other_page.html']);
                 exit;
             } else {
                 // Incorrect password
