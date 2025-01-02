@@ -1,0 +1,133 @@
+
+/* #region Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+/* #endregion */
+
+/* #region Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* #endregion */
+
+/* #region Root Variables */
+:root {
+    --main-color: #02242e;
+    --base-clr: #11121a;
+    --line-clr: #42434a;
+    --hover-clr: #05313f;
+    --text-clr: #bfbfce;
+    --accent-clr: #5be400;
+    --secondary-text-clr: #b0b3c1;
+    --test-color: #c71f1f;
+}
+
+/* #endregion */
+
+/* #region Body Styling */
+body {
+    /* background: linear-gradient(to right, #02242e, #002b36); */
+    background: linear-gradient(to right, #e6e6e6, #d7e1ff);
+    overflow-y: hidden;
+}
+/* #endregion */
+
+/* #region Scrollbar */
+body::-webkit-scrollbar {
+    width: 6px; /* Width of the scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+    background: transparent; /* Scrollbar track (background) */
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #888; /* Scrollbar thumb (handle) */
+    border-radius: 10px; /* Rounded corners for thumb */
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Color on hover */
+}
+
+/* #region Scrollbar Design for All Grids */
+.dashboard-grid::-webkit-scrollbar,
+.inventory-grid::-webkit-scrollbar,
+.sales-grid::-webkit-scrollbar,
+.supply-chain-grid::-webkit-scrollbar,
+.staff-grid::-webkit-scrollbar {
+    width: 7px; /* Width of the scrollbar */
+}
+
+.dashboard-grid::-webkit-scrollbar-track,
+.inventory-grid::-webkit-scrollbar-track,
+.sales-grid::-webkit-scrollbar-track,
+.supply-chain-grid::-webkit-scrollbar-track,
+.staff-grid::-webkit-scrollbar-track {
+    background: transparent; /* Track color */
+    border-radius: 5px; /* Optional: Rounded track corners */
+    margin: 2px;
+}
+
+.dashboard-grid::-webkit-scrollbar-thumb,
+.inventory-grid::-webkit-scrollbar-thumb,
+.sales-grid::-webkit-scrollbar-thumb,
+.supply-chain-grid::-webkit-scrollbar-thumb,
+.staff-grid::-webkit-scrollbar-thumb {
+    background-color: #888; /* Thumb color */
+    border-radius: 5px; /* Optional: Rounded thumb corners */
+}
+
+.dashboard-grid::-webkit-scrollbar-thumb:hover,
+.inventory-grid::-webkit-scrollbar-thumb:hover,
+.sales-grid::-webkit-scrollbar-thumb:hover,
+.supply-chain-grid::-webkit-scrollbar-thumb:hover,
+.staff-grid::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Darker color on hover */
+}
+/* #endregion */
+/* #endregion */
+
+/* #region chart sizing */
+#canvas{
+    width: 100% !important;
+    height: 100% !important;
+    /* color: #376b15; */
+    margin-top: 10px;
+}
+/* #endregion */
+
+/* #region For page hopping*/
+.page {
+    display: none;
+}
+.page.active {
+    display: block;
+}
+/* #endregion */
+
+/* #region For containers with scrollbar */
+.container_scrollbar_design::-webkit-scrollbar {
+    width: 8px;
+}
+
+.container_scrollbar_design::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.container_scrollbar_design::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+    border: 2px solid #f1f1f1;
+}
+
+.container_scrollbar_design::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+/* #endregion */

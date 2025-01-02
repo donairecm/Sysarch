@@ -32,7 +32,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['user_role'] = $user_role;
 
                 // Successful login, send a success response with redirect URL
-                echo json_encode(['success' => true, 'redirect_url' => $user_role === 'super_admin' ? 'admin-interface/dashboard.php' : 'some_other_page.html']);
+                echo json_encode(['success' => true, 'redirect_url' => $user_role === 'super_admin' ? 'super_admin-interface/mainpage.php' : 'some_other_page.html']);
                 exit;
             } else {
                 // Incorrect password

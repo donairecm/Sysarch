@@ -1,0 +1,256 @@
+
+/* #region sales grid designs */
+.sales-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr); 
+    gap: 20px;
+    margin: 0;
+    padding: 20px 20px 20px 100px;
+    height: calc(100vh - 60px);
+    grid-template-rows: 50px 120px 380px;
+    overflow-y: auto;
+}
+
+/* #region Grid Layout*/
+.sm1{
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+.sm2{
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 4;
+    grid-column-end: 7;
+}
+
+.sm3{
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 7;
+    grid-column-end: 10;
+}
+
+.sm4{
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 10;
+    grid-column-end: 13;
+}
+
+.sm5{
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 9;
+}
+
+.sm6{
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-column-start: 9;
+    grid-column-end: 13;
+}
+
+.sm7{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 11;
+    grid-column-end: 13;
+}
+
+
+/* #endregion */
+
+/* #endregion */
+
+/* #region Sales item styles */
+.sales-item {
+    padding: 10px;
+    background-color: #f0f0f0;
+    font-family: 'Afacad Flux', sans-serif;
+    transition: transform 0.2s, box-shadow 0.2s; 
+    border: 1px solid rgba(90, 90, 90, 0.253);
+    border-radius: 8px;
+}
+
+.sales-item:hover {
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+    cursor: pointer;
+}
+
+.sales-item .item-name{
+    letter-spacing: .8px;
+    font-size: 1.18rem;
+    font-weight: 500;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+/* #region Title style*/
+.sales-item.title{
+    background: transparent;
+    box-shadow: none;
+    font-size: 1.85rem;
+    font-weight: 500;
+    letter-spacing: .85px;
+    border: none;
+
+}
+
+.sales-item.title:hover {
+    transform: none; 
+    box-shadow: none; 
+    cursor:default;
+}
+/* #endregion */
+
+
+/* #endregion */
+
+/* #region Recent Orders Styling */
+
+/* i dont faking know what this is for like braaah
+.table-title {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+*/
+
+.recent-orders-list-container {
+    overflow-y: auto;
+    padding-right: 10px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    position: relative;
+    padding-left: 10px;
+    height: 325px;
+}
+
+.recent-orders-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Header row with sticky position */
+.recent-orders-header {
+    background-color: #f1f1f1;
+    border-bottom: 2px solid #ccc;
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+/* Each row for recent orders */
+.recent-orders-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-family: 'Afacad Flux', sans-serif;
+    background-color: #fff;
+    border-radius: 8px;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    margin-bottom: 5px;
+}
+
+/* Hover effect for rows */
+.recent-orders-item:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+/* Alternating row background */
+.recent-orders-item:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* Column spaces */
+.recent-orders-item .product-id, .recent-orders-header .recent-orders-header-product-id {
+    flex-basis: 20%;
+    text-align: left;
+}
+
+.recent-orders-item .quantity, .recent-orders-header .recent-orders-header-quantity {
+    flex-basis: 20%;
+    text-align: center;
+}
+
+.recent-orders-item .sale, .recent-orders-header .recent-orders-header-sale {
+    flex-basis: 30%;
+    text-align: center;
+}
+
+.recent-orders-item .status, .recent-orders-header .recent-orders-header-status {
+    flex-basis: 30%;
+    text-align: center;
+}
+
+/* #endregion */
+
+.sm6{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.sm6 .container{
+    margin-top: 10px;
+    height: 300px;
+    width: 90%;
+}
+
+/* #region Chart tabs */
+.sales-item.chart-tab{
+    font-size: 1.1rem;
+    text-align: center;
+    color: #02242e;
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0;
+    margin-top: 15px;
+    margin-bottom: -5px;
+    background-color: #45a14377;
+    border: none;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); 
+}
+
+.sales-item.chart-tab.sm7 {
+    margin-left: 20px;
+}
+
+.sales-item > .svg-container{
+    background-color: #02242e;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    margin-right: 12px;
+}
+
+.sales-item > .svg-container svg{
+    height: 23px;
+    width: 23px;
+}
+
+/* #endregion */
+
+

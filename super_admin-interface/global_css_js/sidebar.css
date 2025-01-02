@@ -1,0 +1,518 @@
+
+/* #region Logo Styling */
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 15px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 13px;
+    margin-bottom: 20px;
+    transition: width 0.27s ease; 
+}
+
+.squares {
+    position: relative;
+    width: 37px;
+    height: 37px;
+    flex-shrink: 0; 
+}
+
+.square {
+    width: 25px;
+    height: 27px;
+    border: 3px solid;
+    border-image: linear-gradient(to top right, #4a4a4a, #d3d3d3) 1;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    position: absolute;
+}
+
+.square:nth-child(1) {
+    top: 0;
+    left: 0;
+}
+
+.square:nth-child(2) {
+    top: 13px;
+    left: 13px;
+}
+
+.logo-text .b {
+    font-size: 2.5rem;
+    line-height: 0.9;
+    font-weight: 600;
+    display: inline-block;
+    background: linear-gradient(to top right, #b4b4b4, #ffffff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.logo-text {
+    font-size: 1.7rem;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    background: linear-gradient(to top right, #b4b4b4, #ffffff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    text-transform: uppercase;
+    margin-bottom: -4px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.logo-subtext {
+    font-size: .49rem;
+    font-weight: 900;
+    font-family: "Playwrite DE Grund", cursive;
+    background: linear-gradient(to top right, #cfcfcf, #ffffff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-left: 2px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+/* #endregion */
+
+/* #region Logo Styling responsive */
+#navbar .navbarleft{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#navbar .no-1{
+    margin-left: 20px;
+}
+
+#navbar .logo-wrapper {
+    padding-left: 0;
+    display: none;
+}
+
+#navbar .logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#navbar .squares {
+    position: relative;
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0; 
+}
+
+#navbar .square {
+    width: 25px;
+    height: 27px;
+    border: 3px solid;
+    border-image: linear-gradient(to top right, #4a4a4a, #d3d3d3) 1;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    position: absolute;
+}
+
+#navbar .square:nth-child(1) {
+    top: 0;
+    left: 0;
+}
+
+#navbar .square:nth-child(2) {
+    top: 13px;
+    left: 13px;
+}
+
+/* #endregion */
+
+/* #region Sidebar Styling */
+#sidebar {
+    width: 70px;
+    background-color: var(--main-color);
+    border-right: 1px solid #054e63;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 11;
+    transition: width .27s ease-in-out;
+}
+
+#sidebar ul {
+    list-style: none;
+}
+
+#sidebar ul li:not(.submenu li) {
+    margin: 15px 0;
+}
+
+#sidebar ul li a .left{
+    display: flex;
+    flex-direction: row;
+}
+
+#sidebar ul li:not(.submenu li):first-child {
+    margin-top: 0;
+}
+
+.sidebar-item{
+    display: flex;
+    align-self: start;
+    justify-content: space-between;
+    margin: 3px 11px;
+    padding: 10px;
+    color: var(--text-clr);
+    text-decoration: none;
+    font-family: 'Afacad Flux', sans-serif;
+    font-size: 1.1rem;
+    background-color: transparent;
+    border-radius: 8px;
+}
+
+#sidebar ul li a span.sidebar-hover {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-width 0.05s ease, opacity 0.45s ease, margin-left 0.3s ease;
+    display: inline-block; 
+    text-align: center; 
+    white-space: nowrap; 
+    flex-shrink: 0; 
+    align-self: center; 
+}
+
+#sidebar ul li a .right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#sidebar ul li a .right svg.sidebar-hover {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-width 0.05s ease, opacity 0.45s ease;
+    display: inline-block; 
+    text-align: center; 
+    white-space: nowrap; 
+    flex-shrink: 0; 
+    align-self: center; 
+    margin-top: 1px;
+}
+
+#sidebar ul li .sidebar-item .icon-container {
+    width: 25px;
+    height: 25px;
+}
+
+#sidebar .logo-text-container {
+    display: inline-block; 
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: max-width 0.01s ease, opacity 1s ease;
+    margin-top: 6px;
+    margin-left: 8px;
+}
+
+/* Sidebar Icon Styling */
+#sidebar ul li a svg.sidebar-hover {
+    width: 23px;
+    height: 23px;
+    fill: var(--text-clr);
+    margin-left: 2px;
+}
+/* #region Overlay Styling */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#sidebar:hover ~ #overlay {
+    opacity: 1;
+    visibility: visible;
+}
+/* #endregion */
+/* #endregion */
+
+/* #region Sidebar Hover & Active States */
+#sidebar ul li .sidebar-item:hover {
+    background-color: var(--hover-clr);
+}
+
+#sidebar ul li:hover a svg.sidebar-hover {
+    fill: var(--accent-clr);
+}
+
+#sidebar ul li:hover a span.sidebar-hover {
+    color: var(--accent-clr);
+}
+
+#sidebar ul li.active a.sidebar-item {
+    background-color: var(--hover-clr);
+    border-radius: 8px;
+}
+
+#sidebar ul li.active a svg.sidebar-hover {
+    fill: var(--accent-clr);
+}
+
+#sidebar ul li.active a span.sidebar-hover {
+    color: var(--accent-clr);
+}
+/* #endregion */
+
+/* #region Sidebar Expanded State */
+#sidebar:hover {
+    width: 240px;
+}
+
+#sidebar:hover .logo-text-container {
+    max-width: 200px; 
+    opacity: 1; 
+}
+
+#sidebar:hover ul li a span {
+    max-width: 150px;
+    opacity: 1;
+    margin-left: 10px;
+}
+
+#sidebar:hover ul li a .right svg.sidebar-hover {
+    max-width: 50px;
+    opacity: 1;
+}
+
+/* #endregion */
+
+/* #region Sidebar submenu styling */
+.submenu {
+    display: block;
+    position: absolute;
+    width: auto;
+    left: calc(70px + 5px); 
+    background-color: var(--main-color);
+    padding: 4px 10px;
+    top: -25%;
+    list-style: none;
+    border: 1px solid #054e63;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, left 0.3s ease-in-out; /* Added smooth left transition */
+    transform: translateX(-20px); 
+    border-radius: 10px;
+}
+
+.submenu .submenu-icon-container > svg{
+    height: 23px;
+    width: 23px;
+    fill: var(--text-clr);
+}
+
+.submenu .submenu-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.submenu .submenu-container:hover{
+    background-color: var(--hover-clr);
+}
+
+.submenu .submenu-container:hover > a {
+    color: var(--accent-clr);
+}
+
+.submenu .submenu-container:hover > .submenu-icon-container svg{
+    fill: var(--accent-clr);
+}
+
+.submenu .submenu-container > a{
+    text-decoration: none;
+    color: var(--text-clr);
+    margin-left: 10px;
+    font-family: 'Afacad Flux', sans-serif;
+    font-size: 1.15rem;
+    
+}
+
+/* Show submenu when hovering over the parent li */
+.has-submenu:hover .submenu {
+    display: block;
+    visibility: visible;
+    opacity: 1; 
+    transform: translateX(0); 
+}
+
+/* Position submenu relative to the hovered item */
+.has-submenu {
+    position: relative; 
+}
+
+/* Adjust the positioning when the sidebar expands */
+#sidebar:hover .submenu {
+    left: calc(240px + 1px); 
+}
+
+/* Animations for smooth transition */
+.submenu {
+    opacity: 0;
+    transform: translateX(-20px); 
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, left 0.3s ease-in-out; /* Smooth fade/slide */
+}
+
+.has-submenu:hover .submenu {
+    opacity: 1;
+    transform: translateX(0); 
+    visibility: visible;
+}
+/* #endregion */
+
+/* #region Dropdown related stuff */
+.dropdown {
+    position: absolute;
+    right: 0;
+    top: 62px;
+    right: 15px;
+    width: 300px;
+    background-color: var(--main-color);
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 15px;
+    z-index: 10;
+    transform: scale(0); 
+    transform-origin: top right; 
+    transition: transform 0.3s ease, opacity 0.3s ease; 
+    opacity: 0; 
+    pointer-events: none; 
+    font-family: 'Afacad Flux', sans-serif;
+}
+
+.dropdown-tabs {
+    display: flex;
+    justify-content: start;
+    font-size: .85rem;
+    padding: 8px 0 8px 0;
+}
+
+.tab:hover:not(.active) {
+    background-color: var(--hover-clr); 
+    color: var(--accent-clr);
+    border-radius: 20px;
+}
+
+.tab {
+    text-align: center;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--text-clr);
+    margin-right: 7px;
+    transition: all .2s ease;
+    border-radius: 20px;
+}
+
+.tab.active {
+    background-color: var(--main-color);
+    color: var(--accent-clr);
+    
+}
+
+/* Notifications Sections */
+.section-header {
+    font-weight: bold;
+    padding-bottom: 5px;
+    font-size: 1rem;
+    color: var(--text-clr);
+}
+
+.dropdown.show {
+    transform: scale(1); 
+    opacity: 1;
+    pointer-events: auto; 
+}
+
+.dropdown.hide {
+    transform: scale(0); 
+    opacity: 0; 
+    pointer-events: none;
+}
+
+.dropdown.active {
+    transform: scale(1);
+    opacity: 1; 
+    pointer-events: auto; 
+}
+
+
+.dropdown-header {
+    font-weight: bold;
+    color: var(--text-clr);
+    font-size: 1.2rem;
+}
+
+.dropdown-body {
+    margin-top: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.dropdown-item {
+    height: 50px;
+    padding: 10px;
+    color: var(--text-clr);
+    background-color: transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.1s;
+    font-size: .8rem;
+}
+.dropdown-item:hover {
+    background-color: var(--hover-clr);
+}
+
+/* #regionon For webkit browsers (Chrome, Safari, Edge) */
+.dropdown-body::-webkit-scrollbar {
+    width: 10px; 
+}
+
+.dropdown-body::-webkit-scrollbar-track {
+    background: var(--main-color); 
+    border-radius: 10px; 
+}
+
+.dropdown-body::-webkit-scrollbar-thumb {
+    background-color: rgb(116, 116, 116); 
+    border-radius: 6px; 
+    border: 2px solid var(--main-color); 
+}
+
+.dropdown-body::-webkit-scrollbar-thumb:hover {
+    background-color: var(--hover-clr);
+}
+/* #endregion */
+
+

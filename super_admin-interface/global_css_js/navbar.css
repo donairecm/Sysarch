@@ -1,0 +1,758 @@
+/* #region Navbar Styling */
+#navbar {
+    height: 60px;
+    width: 100%;
+    background-color: var(--main-color);
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: 300ms ease-in-out;
+    padding: 5px 18px 5px 74px;
+    z-index: 9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+/* #endregion */
+
+/* #region Navbar Title stuff */
+#navbar .no-1{
+    color: var(--text-clr);
+    font-family: 'Afacad Flux', sans-serif;
+    font-size: 1.03rem;
+    letter-spacing: .8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#navbar .no-1 svg{
+    fill: var(--text-clr);
+    width: 17px;
+    height: 17px;
+    margin: 0 13px;
+}
+
+#navbar .no-1 span{
+    cursor: pointer;
+}
+
+#navbar .no-1 span:hover{
+    color: var(--accent-clr);
+} 
+/* #endregion */
+
+/* #region Profile styling */
+.profile-container{
+    display: flex;
+    flex-direction: row;
+    height: 43px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 17px;
+    position: relative;
+    margin-left: 10px;
+}
+
+.profile-container:hover{
+    cursor: pointer;
+}
+
+.profile-container .pic {
+    height: 35px;
+    width: 35px;
+    margin-right: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-container .pic img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+.profile-container .info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'Afacad Flux', sans-serif;
+    color: rgb(243, 243, 243);
+}
+
+.profile-container .info span:first-child{
+    font-size: .85rem;
+    line-height: .85rem;
+    margin-top: 3px;
+}
+.profile-container .info span:last-child{
+    line-height: .75rem;
+    font-size: .75rem;
+    color: var(--text-clr);
+}
+
+.chevron-container{
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    bottom: 1px;
+    right: 2px;
+   
+}
+
+#chevron{
+    fill: rgb(243, 243, 243);
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+    background-color: var(--main-color);
+    border-radius: 80%;
+}
+
+.rotate {
+    transform: rotate(180deg); 
+}
+
+/* #region Pop Over styling */
+.layer{
+    position: absolute;
+}
+
+.profile-pop-over {
+    font-family: 'Afacad Flux', sans-serif;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    min-width: 310px;
+    top: 10px;
+    right: 78px;
+    background-color: var(--main-color);
+    color: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    border: 1px solid rgba(75, 75, 75, 0.651);
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8); /* Start with a slightly smaller scale */
+    transition: opacity 0.1s ease, visibility 0.1s ease, transform 0.1s ease;
+}
+
+.profile-pop-over.show {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1); 
+}
+
+/* Pop-out effect when closing */
+.profile-pop-over.hide {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.9); 
+}
+
+/* #region Border of the corners */
+/* Add curved corner borders using pseudo-elements */
+.profile-pop-over::before,
+.profile-pop-over::after,
+.profile-pop-over .corner-bottom-left,
+.profile-pop-over .corner-bottom-right {
+    content: '';
+    position: absolute;
+    width: 10px; /* Corner border width */
+    height: 10px; /* Corner border height */
+    border: 1px solid #ffffff77; /* Custom border color */
+    border-radius: 1px;
+}
+
+/* Top-left corner */
+.profile-pop-over::before {
+    top: -1px;
+    left: -1px;
+    border-right: none;
+    border-bottom: none;
+    border-top-left-radius: 8px; /* Apply the curve */
+}
+
+/* Top-right corner */
+.profile-pop-over::after {
+    top: -1px;
+    right: -1px;
+    border-left: none;
+    border-bottom: none;
+    border-top-right-radius: 8px; /* Apply the curve */
+}
+
+/* Bottom-left corner */
+.profile-pop-over .corner-bottom-left {
+    bottom: -1px;
+    left: -1px;
+    border-top: none;
+    border-right: none;
+    border-bottom-left-radius: 8px; /* Apply the curve */
+}
+
+/* Bottom-right corner */
+.profile-pop-over .corner-bottom-right {
+    bottom: -1px;
+    right: -1px;
+    border-top: none;
+    border-left: none;
+    border-bottom-right-radius: 8px; /* Apply the curve */
+}
+/* #endregion */
+
+/* #region Inside Contents */
+.profile-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-radius: 12px;
+    overflow: hidden; /* Ensures background effects don't overflow the container */
+    color: #fff;
+    z-index: 1;
+}
+
+.profile-header .pic {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 12px;
+}
+
+.profile-header .pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-header .profile-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-header .profile-details .employee-name {
+    color: rgba(255, 255, 255, 0.884);
+    font-size: .9rem;
+    letter-spacing: .5px;
+    font-weight: bold;
+}
+
+.profile-header .profile-details .employee-ID {
+    font-size: .8rem;
+    letter-spacing: .5px;
+    color: #aaa;
+}
+
+.view-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #70bcd333; /* Dark gray background */
+    color: #eeeeeed7; /* White text */
+    border: none;
+    width: 75px;
+    padding: 5px 2px; 
+    height: 21px;
+    margin-top: 3px;
+    border-radius: 5px; 
+    font-size: .70rem; 
+    font-weight: 800; 
+    letter-spacing: .7px;
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+}
+
+/* Hover effect for the button */
+.view-button:hover {
+    background-color: #ffffff60; /* Bright blue background */
+}
+.background-img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -2;
+    border-radius: 8px;
+}
+
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.582); 
+    backdrop-filter: blur(7px) brightness(.5)  ; /* Applies the blur effect */
+    z-index: -1;
+    border-radius: 8px;
+}
+
+/* Menu Links */
+.profile-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0 20px;
+}
+
+.profile-menu li {
+    margin: 5px 0;
+}
+
+.profile-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    padding: 10px 8px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.profile-menu li a:hover,
+.logout li a:hover  {
+    background-color: #ffffff10;
+}
+
+.profile-menu li a:hover span{
+    color: white;
+}
+
+.profile-menu li a:hover svg{
+    fill: white;
+}
+
+.profile-menu li a svg,
+.logout li a svg{
+    fill: var(--text-clr);
+    height: 22px;
+    width: 22px;
+    margin-right: 8px;
+}
+
+.profile-menu li a span,
+.logout li a span{
+    letter-spacing: 1px;
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--text-clr);
+}
+
+.logout {
+    list-style: none;
+    padding: 0;
+    margin: 0 20px 17px 20px;
+}
+
+.logout a {
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    padding: 10px 8px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.logout li a svg,
+.logout li a span{
+    color: rgba(255, 45, 45, 0.884);
+    fill: rgba(255, 45, 45, 0.884);
+}
+
+
+.divider {
+    width: auto; /* Full width of the container */
+    height: 1px; /* Thickness of the line */
+    background-color: #ddddddb7; /* Light gray color for the line */
+    margin: 15px 20px; /* Space around the line */
+    display: block;
+}
+
+/* #endregion */
+
+/* #endregion */
+
+/* #endregion */
+
+/* #region Alerts & Notification Popover */
+.alerts-pop-over,
+.notifications-pop-over,
+.user-activities-nav,
+.action-tools-pop-over {
+    font-family: 'Afacad Flux', sans-serif;
+    background-color: #f0f0f0;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: 380px;
+    height: 400px;
+    top: 55px;
+    right: 15px;
+    /* background-color: #172029; */
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.349);
+    border-radius: 8px;
+    z-index: 9;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8); 
+    transition: opacity 0.1s ease, visibility 0.1s ease, transform 0.1s ease;
+}
+
+.notifications-pop-over::after,
+.alerts-pop-over::after,
+.user-activities-nav::after,
+.action-tools-pop-over::after {
+    content: '';
+    position: absolute;
+    top: -9px; 
+    right: 351px;
+    width: 0;
+    height: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent; 
+    border-bottom: 9px solid #f0f0f0; 
+    z-index: -1;
+}
+
+.alerts-pop-over::after{
+    right: 127px;
+}
+
+.user-activities-nav::after{
+    right: 209px;
+}
+
+.action-tools-pop-over::after{
+    right: 68px;
+}
+
+
+.alerts-pop-over.show,
+.notifications-pop-over.show,
+.user-activities-nav.show,
+.action-tools-pop-over.show {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.alerts-pop-over.hide,
+.notifications-pop-over.hide,
+.user-activities-nav.hide,
+.action-tools-pop-over.hide {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.9);
+}
+
+/* #endregion */
+
+/* #region Notification and Logs popover content styling */
+.layer .header{
+    font-size: 1.1rem;
+    letter-spacing: .5px;
+    margin: 15px 15px 10px 15px;
+    font-weight: 500;
+}
+
+.layer .row2 .filters{
+    display: flex;
+    flex-direction: row;
+    padding: 5px 15px 0px 15px;
+    border-top: 1px solid #55555541;
+    border-bottom: 1px solid #55555541;
+    color: rgba(105, 105, 105, 0.493);
+    font-size: .95rem;
+}
+
+.filters .f{
+    margin-right: 10px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+.filters .active{
+    color: black;
+    border-bottom: 2px solid black;
+}
+
+.layer .contents{
+    height: 100%;
+}
+
+.layer .contents .empty{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    margin-top: 30px;
+}
+
+.layer .contents .empty .icon svg{
+    fill: rgba(73, 73, 73, 0.541);
+    height: 140px;
+    width: 140px;
+}
+
+.layer .contents .empty .message{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px 0 20px;
+}
+
+.layer .contents .empty .message .top{
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 7px;
+    margin-top: 10px;
+}
+
+.layer .contents .empty .message .bot{
+    font-size: .9rem;
+    line-height: .9rem;
+}
+
+
+
+.layer .previous-notifs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    background-color: rgb(223, 223, 223);
+    cursor: pointer;
+    display: none;
+}
+
+
+/* #endregion */
+
+/* #region Action Tools popover */
+.action-tools-pop-over{
+    width: 690px;
+    height: 335px;
+}
+.action-tools-pop-over .orientation{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 25px;
+}
+.action-tools-pop-over li {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    height: 75px;
+    width: 310px;
+    padding: 15px 0 10px 15px;
+    border-radius: 15px;
+    background-color: rgba(24, 81, 155, 0.116);
+}
+
+.action-tools-pop-over li:hover { 
+    transform: scale(1.02); 
+    cursor: pointer; 
+}
+
+.action-tools-pop-over li:not(:first-child) {
+    margin: 20px 0;
+}
+.action-tools-pop-over li:first-child {
+    margin-top: 0;
+}
+.action-tools-pop-over .icon{
+    background-color: rgba(14, 43, 90, 0.877);
+    border-radius: 10px;
+    margin-right: 15px;
+    padding: 10px;
+}
+.action-tools-pop-over .icon{
+    display: flex;
+    justify-content: center;
+}
+.action-tools-pop-over .icon svg{
+    fill: white;
+    height: 20px;
+    width: 20px;
+}
+.action-tools-pop-over ul li .text .title{
+    font-size: 1.05rem;
+    line-height: 1.05rem;
+    font-weight: 500;
+    letter-spacing: .4px;
+    margin-bottom: 3px;
+}
+
+.action-tools-pop-over ul li .text .info{
+    font-size: .86rem;
+    line-height: .75rem;
+    letter-spacing: .4px;
+    color: rgb(19, 19, 19);
+}
+
+/* #endregion */
+
+/* #region Navbar Icons */
+.left-container {
+    height: 35px;
+    display: flex;
+    align-items: center;
+}
+
+#navbar .icon-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.ic-container{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    margin-right: 4px;
+    cursor: pointer;
+    position: relative;
+}
+
+.ic-container span{
+    font-family: 'Afacad Flux', sans-serif;
+    color: var(--text-clr);
+    font-size: .95rem;
+    transition: color 0.3s ease;
+}
+
+.ic1{
+    width: 135px;
+    height: 39px;
+    padding-left: 10px;
+}
+
+.ic1 span{
+    margin-left: 6px;
+}
+
+.ic2{
+    width: 95px;
+    height: 39px;
+    padding-left: 13px;
+}
+
+.ic2 span{
+    margin-left: 9px;
+}
+
+.ic3{
+    width: 143px;
+    height: 39px;
+    padding-left: 13px;
+}
+
+.ic3 span{
+    margin-left: 8px;
+}
+
+.ic-container svg {
+    width: 25px;
+    height: 25px;
+    fill: var(--text-clr);
+    transition: fill .3s ease;
+}
+
+.ic3 svg{
+    width: 26px;
+    height: 26px;
+}
+
+.ic4{
+    width: 40px;
+    height: 39px;
+    justify-content: center;
+}
+
+.ic4 svg{
+    width: 25px;
+    height: 25px;
+    margin-left: 1px;
+}
+
+.ic-container:hover svg{
+    fill: var(--accent-clr); 
+}
+
+.ic-container:hover span{
+    color: var(--accent-clr);
+}
+
+.ic-container.active svg {
+    fill: var(--accent-clr);
+}
+
+.ic-container:hover {
+    background-color: var(--hover-clr);
+}
+
+.ic-container .icon{
+    display: none;
+}
+
+/* #region Badge */
+.ic-container .badge{
+    color: white;
+    position: absolute;
+    background-color: rgb(253, 40, 40);
+    height: 8px;
+    width: 8px;
+    border-radius: 80%;
+    display: none;
+    border: 2px solid var(--text-clr);
+    transition: border .3s ease;
+}
+
+.ic1 .badge{
+    top: 8px;
+    left: 26px;
+}
+
+.ic2 .badge{
+    top: 8px;
+    left: 35px;
+}
+
+.ic3 .badge{
+    top: 6px;
+    left: 34px;
+}
+
+.ic-container .show{
+    display: block;
+}
+
+.ic-container:hover .badge{
+    border: 2px solid var(--accent-clr);
+}
+
+.ic-container.active .badge{
+    border: 2px solid var(--accent-clr);
+}
+
+/* #endregion */
+
+/* #endregion */
