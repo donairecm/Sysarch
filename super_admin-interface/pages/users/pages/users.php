@@ -1,5 +1,5 @@
 
-<div class="dashboard-grid">
+<div class="dashboard-grid grid-scrollbar-design">
         <div class="dashboard-item title">Users</div>
 
         <!-- Revenue -->

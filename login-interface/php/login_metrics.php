@@ -27,29 +27,35 @@ if (isset($_POST['login'])) {
             $stmt->fetch();
 
             if (password_verify($password, $password_hash)) {
-                // Store only the employee_id and user_role in session
                 $_SESSION['employee_id'] = $employee_id;
                 $_SESSION['user_role'] = $user_role;
 
-                // Successful login, send a success response with redirect URL
+                // Added logging for debugging
+                error_log("Updating user with employee_id: " . $employee_id);
+
+                $update_stmt = $conn->prepare("UPDATE users SET last_login = NOW(), user_status = 'online' WHERE employee_id = ?");
+                $update_stmt->bind_param("s", $employee_id);
+                $update_stmt->execute();
+                $update_stmt->close();
+
                 echo json_encode(['success' => true, 'redirect_url' => $user_role === 'super_admin' ? 'super_admin-interface/mainpage.php' : 'some_other_page.html']);
                 exit;
             } else {
-                // Incorrect password
-                $error['password'] = 'You entered an incorrect password';
+                $error['password'] = 'Incorrect password.';
             }
         } else {
-            // Username does not exist
-            $error['username'] = 'Account credentials do not exist in our system';
+            $error['username'] = 'No account found with the entered username.';
         }
         $stmt->close();
     }
 
-    // If there are errors, send them back in JSON format
     echo json_encode(['success' => false, 'errors' => $error]);
     exit;
 }
+
 ?>
+
+
 
 
 

@@ -1,7 +1,7 @@
 
-<div class="sales-grid">
-        <div class="sales-item title">Sales Management</div>
-        <div class="sales-item sm1 top-row">
+<div class="sales-grid grid-scrollbar-design">
+        <div class="sales-item grid-item-design title">Sales Management</div>
+        <div class="sales-item sm1 top-row grid-item-design">
             <div class="top">
                 <div class="text">
                     <div class="name">Revenue</div>
@@ -17,7 +17,7 @@
                 <span>+51%</span> more than last month
             </div>
         </div>
-        <div class="sales-item sm2 top-row">
+        <div class="sales-item sm2 top-row grid-item-design">
             <div class="top">
                 <div class="text">
                     <div class="name">Total Units Sold</div>
@@ -33,7 +33,7 @@
                 <span>+11%</span> more than last month
             </div>
         </div>
-        <div class="sales-item sm3 top-row">
+        <div class="sales-item sm3 top-row grid-item-design">
             <div class="top">
                 <div class="text">
                     <div class="name">Total Transactions</div>
@@ -49,7 +49,7 @@
                 <span>+7%</span> more than last month
             </div>
         </div>
-        <div class="sales-item sm4 top-row">
+        <div class="sales-item sm4 top-row grid-item-design">
             <div class="top">
                 <div class="text">
                     <div class="name">New Customers</div>
@@ -65,7 +65,7 @@
                 <span>+1%</span> more than last week
             </div>
         </div>
-        <div class="sales-item sm5 recent-orders-container">
+        <div class="sales-item sm5 recent-orders-container grid-item-design">
             <span class="item-name">Recent Orders</span>
             <div class="recent-orders-list-container container_scrollbar_design">
                 <ul class="recent-orders-list">
@@ -80,14 +80,14 @@
                 </ul>
             </div>
         </div>
-        <div class="sales-item sm6">
+        <div class="sales-item sm6 grid-item-design">
             <span class="item-name">Order Status</span>
             <div class="container">
                 <canvas id="salesdashboardOrderStatus"></canvas>
             </div>
         </div>
 
-        <div class="sales-item sm7 chart-tab">
+        <div class="sales-item sm7 chart-tab grid-item-design">
             <div class="svg-container">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
                     <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h360v80H200v560h560v-360h80v360q0 33-23.5 56.5T760-120H200Zm120-160v-80h320v80H320Zm0-120v-80h320v80H320Zm0-120v-80h320v80H320Zm360-80v-80h-80v-80h80v-80h80v80h80v80h-80v80h-80Z"/>

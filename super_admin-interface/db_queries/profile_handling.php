@@ -7,11 +7,16 @@ if (!isset($_SESSION['employee_id'])) {
     exit;
 }
 
+// Ensure the global $conn variable is accessible
+global $conn;
+
+// Debug: Check if $conn is accessible
+if (!isset($conn)) {
+    die("Error: Database connection not available in profile_handling.php.");
+}
+
 // Retrieve the employee_id from the session
 $employee_id = $_SESSION['employee_id'];
-
-// Fetch specific details from the database using the employee_id
-require_once $_SERVER['DOCUMENT_ROOT'] . '/best_aluminum_sales_corps/Sysarch/login-interface/php/db_connection.php';
 
 $stmt = $conn->prepare("SELECT first_name, middle_name, last_name, profile_pic, profile_cover FROM users WHERE employee_id = ?");
 $stmt->bind_param("s", $employee_id);

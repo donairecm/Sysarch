@@ -1,0 +1,91 @@
+
+/* #region Inventory grid designs */
+.product-details-grid {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr); 
+    gap: 20px;
+    margin: 0;
+    padding: 20px 20px 20px 100px;
+    height: calc(100vh - 60px);
+    grid-template-rows: 50px 120px 380px;
+    overflow-y: auto;
+}
+
+/* #region Grid Layout*/
+.pd1{
+    grid-row-start: 2;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 10;
+}
+
+.pd2{
+    grid-row-start: 2;
+    grid-row-end: 4;
+    grid-column-start: 10;
+    grid-column-end: 16;
+}
+
+.pd3{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 9;
+    grid-column-end: 10;
+}
+
+.pd4{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 10;
+    grid-column-end: 12;
+}
+
+.pd5{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 12;
+    grid-column-end: 14;
+}
+
+.pd6{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 14;
+    grid-column-end: 16;
+}
+
+/* #endregion */
+
+/* #endregion */
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+.product-table thead tr {
+    background-color: #f4f4f4;
+    color: #333;
+}
+.product-table th, .product-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+}
+.product-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+.product-table tr:hover {
+    background-color: #f1f1f1;
+}
+.product-table th {
+    font-weight: bold;
+}
+.product-details-item {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+

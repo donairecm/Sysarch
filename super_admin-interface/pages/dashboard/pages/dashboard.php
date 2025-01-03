@@ -1,9 +1,9 @@
 
-    <div class="dashboard-grid">
-        <div class="dashboard-item title">Dashboard</div>
+    <div class="dashboard-grid grid-scrollbar-design">
+        <div class="dashboard-item grid-item-design title">Dashboard</div>
 
         <!-- Revenue -->
-        <div class="dashboard-item top-row revenue">
+        <div class="dashboard-item grid-item-design top-row revenue">
             <div class="top">
                 <div class="text">
                     <div class="name">Revenue</div>
@@ -21,7 +21,7 @@
         </div>
 
         <!-- Inventory Value -->
-        <div class="dashboard-item top-row inventory-value">
+        <div class="dashboard-item grid-item-design top-row inventory-value">
             <div class="top">
                 <div class="text">
                     <div class="name">Inventory Value</div>
@@ -41,7 +41,7 @@
         
 
         <!-- Inventory Turnover Rate -->
-        <div class="dashboard-item top-row inventory-turnover-rate">
+        <div class="dashboard-item grid-item-design top-row inventory-turnover-rate">
             <div class="top">
                 <div class="text">
                     <div class="name">Inventory Turnover</div>
@@ -59,7 +59,7 @@
         </div>
 
         <!-- Orders in Transit -->
-        <div class="dashboard-item top-row orders-in-transit">
+        <div class="dashboard-item grid-item-design top-row orders-in-transit">
             <div class="top">
                 <div class="text">
                     <div class="name">Orders in Transit</div>
@@ -77,7 +77,7 @@
         </div>
 
         <!-- Stock Levels -->
-        <div class="dashboard-item ex1">
+        <div class="dashboard-item grid-item-design ex1">
             <div class="item-name">Stock Levels</div>
             <div class="frame">
                 <div class="text">*There are<div class="needs-restocking"></div>products that needs restocking</div>
@@ -88,7 +88,7 @@
         </div>
 
         <!-- Units Sold per Product -->
-        <div class="dashboard-item ex2">
+        <div class="dashboard-item grid-item-design ex2">
             <div class="item-name">Units Sold per Product</div>
             <div class="frame">
                 <div class="text">*Almost 3% of the products underperformed last month</div>
