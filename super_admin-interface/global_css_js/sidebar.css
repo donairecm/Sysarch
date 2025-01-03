@@ -306,9 +306,10 @@
     display: block;
     position: absolute;
     width: auto;
+    min-width: 200px;
     left: calc(70px + 5px); 
     background-color: var(--main-color);
-    padding: 4px 10px;
+    padding: 10px 10px;
     top: -25%;
     list-style: none;
     border: 1px solid #054e63;
@@ -320,44 +321,49 @@
     border-radius: 10px;
 }
 
-.submenu .submenu-icon-container > svg{
+.submenu-container{
+    margin: 8px 0;
+}
+
+.sidebar-sub-item{
+    display: flex;
+    align-self: start;
+    padding: 10px 20px;
+    background-color: transparent;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.sidebar-sub-item:hover{
+    background-color: var(--hover-clr);
+}
+
+.sidebar-sub-item .submenu-icon-container > svg{
     height: 23px;
     width: 23px;
     fill: var(--text-clr);
 }
 
-.submenu .submenu-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 5px 10px;
-    margin: 10px 0;
-    border-radius: 10px;
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.submenu .submenu-container:hover{
-    background-color: var(--hover-clr);
-}
-
-.submenu .submenu-container:hover > a {
-    color: var(--accent-clr);
-}
-
-.submenu .submenu-container:hover > .submenu-icon-container svg{
+.sidebar-sub-item:hover .submenu-icon-container > svg{
     fill: var(--accent-clr);
 }
 
-.submenu .submenu-container > a{
-    text-decoration: none;
+.sidebar-sub-item > span{
+    text-align: flex-start;
+    white-space: nowrap;
     color: var(--text-clr);
     margin-left: 10px;
     font-family: 'Afacad Flux', sans-serif;
     font-size: 1.15rem;
-    
 }
+
+.sidebar-sub-item:hover span{
+    color: var(--accent-clr);
+}
+
+
+
+
 
 /* Show submenu when hovering over the parent li */
 .has-submenu:hover .submenu {
