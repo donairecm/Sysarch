@@ -119,7 +119,7 @@ $employeeID = $profileData['employeeID'];
                                 <path d="M320-280q17 0 28.5-11.5T360-320q0-17-11.5-28.5T320-360q-17 0-28.5 11.5T280-320q0 17 11.5 28.5T320-280Zm0-160q17 0 28.5-11.5T360-480q0-17-11.5-28.5T320-520q-17 0-28.5 11.5T280-480q0 17 11.5 28.5T320-440Zm0-160q17 0 28.5-11.5T360-640q0-17-11.5-28.5T320-680q-17 0-28.5 11.5T280-640q0 17 11.5 28.5T320-600Zm120 320h240v-80H440v80Zm0-160h240v-80H440v80Zm0-160h240v-80H440v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/>
                             </svg>
                         </div>
-                        <a href="#">Product list</a>
+                        <a href="#" data-page="product_details">Product Details</a>
                     </li>
                     <!-- Stock Levels -->
                     <li class="submenu-container">
@@ -128,7 +128,7 @@ $employeeID = $profileData['employeeID'];
                                 <path d="M160-160v-120h160v120H160Zm0-160v-160h160v160H160Zm0-200v-280h160v280H160Zm240 360v-280h160v280H400Zm0-320v-160h160v160H400Zm0-200v-120h160v120H400Zm240 520v-80h160v80H640Zm0-120v-160h160v160H640Zm0-200v-320h160v320H640Z"/>
                             </svg>
                         </div>
-                        <a href="#">Stock levels</a>
+                        <a href="#" data-page="stock_levels">Stock levels</a>
                     </li>
                     <!-- Reorder Ponts -->
                     <li class="submenu-container">
@@ -137,7 +137,7 @@ $employeeID = $profileData['employeeID'];
                                 <path d="M40-160v-80h200v-80H80v-80h160v-80H122v-80h118v-118l-78-168 72-34 94 200h464l-78-166 72-34 94 200v520H40Zm440-280h160q17 0 28.5-11.5T680-480q0-17-11.5-28.5T640-520H480q-17 0-28.5 11.5T440-480q0 17 11.5 28.5T480-440ZM320-240h480v-360H320v360Zm0 0v-360 360Z"/>
                             </svg>
                         </div>
-                        <a href="#">Reorder points</a>
+                        <a href="#" data-page="reorder_points">Reorder points</a>
                     </li>
                     <!-- Inventory Movements -->
                     <li class="submenu-container">
@@ -146,7 +146,7 @@ $employeeID = $profileData['employeeID'];
                                 <path d="M824-80 716-188q-22 13-46 20.5t-50 7.5q-75 0-127.5-52.5T440-340q0-75 52.5-127.5T620-520q75 0 127.5 52.5T800-340q0 26-7.5 50T772-244l108 108-56 56ZM620-240q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29Zm220-320h-80v-200h-80v120H280v-120h-80v560h200v80H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h167q11-35 43-57.5t70-22.5q40 0 71.5 22.5T594-840h166q33 0 56.5 23.5T840-760v200ZM480-760q17 0 28.5-11.5T520-800q0-17-11.5-28.5T480-840q-17 0-28.5 11.5T440-800q0 17 11.5 28.5T480-760Z"/>
                             </svg>
                         </div>
-                        <a href="#">Inventory Movements</a>
+                        <a href="#" data-page="inventory_movements">Inventory Movements</a>
                     </li>
                 </ul>
             </li>
@@ -176,7 +176,7 @@ $employeeID = $profileData['employeeID'];
                                 <path d="m787-145 28-28-75-75v-112h-40v128l87 87Zm-587 25q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v268q-19-9-39-15.5t-41-9.5v-243H200v560h242q3 22 9.5 42t15.5 38H200Zm0-120v40-560 243-3 280Zm80-40h163q3-21 9.5-41t14.5-39H280v80Zm0-160h244q32-30 71.5-50t84.5-27v-3H280v80Zm0-160h400v-80H280v80ZM720-40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Z"/>
                             </svg>
                         </div>
-                        <a href="#">Sales Overview</a>
+                        <a href="#" data-page="sales_overview">Sales Overview</a>
                     </li>
                     <!-- Manage Orders -->
                     <li class="submenu-container">
@@ -185,7 +185,7 @@ $employeeID = $profileData['employeeID'];
                                 <path d="M160-160v-516L82-846l72-34 94 202h464l94-202 72 34-78 170v516H160Zm240-280h160q17 0 28.5-11.5T600-480q0-17-11.5-28.5T560-520H400q-17 0-28.5 11.5T360-480q0 17 11.5 28.5T400-440ZM240-240h480v-358H240v358Zm0 0v-358 358Z"/>
                             </svg>
                         </div>
-                        <a href="#">Manage Orders</a>
+                        <a href="#" data-page="manage_orders">Manage Orders</a>
                     </li>
                     <!-- Customer Details -->
                     <li class="submenu-container">
@@ -194,7 +194,7 @@ $employeeID = $profileData['employeeID'];
                                 <path d="M680-320q-50 0-85-35t-35-85q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35Zm0-80q17 0 28.5-11.5T720-440q0-17-11.5-28.5T680-480q-17 0-28.5 11.5T640-440q0 17 11.5 28.5T680-400ZM440-40v-116q0-21 10-39.5t28-29.5q32-19 67.5-31.5T618-275l62 75 62-75q37 6 72 18.5t67 31.5q18 11 28.5 29.5T920-156v116H440Zm79-80h123l-54-66q-18 5-35 13t-34 17v36Zm199 0h122v-36q-16-10-33-17.5T772-186l-54 66Zm-76 0Zm76 0Zm-518 0q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v200q-16-20-35-38t-45-24v-138H200v560h166q-3 11-4.5 22t-1.5 22v36H200Zm80-480h280q26-20 57-30t63-10v-40H280v80Zm0 160h200q0-21 4.5-41t12.5-39H280v80Zm0 160h138q11-9 23.5-16t25.5-13v-51H280v80Zm-80 80v-560 137-17 440Zm480-240Z"/>
                             </svg>
                         </div>
-                        <a href="#">Customer details</a>
+                        <a href="#" data-page="customer_details">Customer details</a>
                     </li>
                 </ul>
             </li>
@@ -224,7 +224,7 @@ $employeeID = $profileData['employeeID'];
                                 <path d="M440-183v-274L200-596v274l240 139Zm80 0 240-139v-274L520-457v274Zm-80 92L160-252q-19-11-29.5-29T120-321v-318q0-22 10.5-40t29.5-29l280-161q19-11 40-11t40 11l280 161q19 11 29.5 29t10.5 40v318q0 22-10.5 40T800-252L520-91q-19 11-40 11t-40-11Zm200-528 77-44-237-137-78 45 238 136Zm-160 93 78-45-237-137-78 45 237 137Z"/>
                             </svg>
                         </div>
-                        <a href="#">Order Processing</a>
+                        <a href="#" data-page="order_processing">Order Processing</a>
                     </li>
                     <!-- Supplier Details -->
                     <li class="submenu-container">
@@ -233,7 +233,7 @@ $employeeID = $profileData['employeeID'];
                                 <path d="M80-120q-33 0-56.5-23.5T0-200v-560q0-33 23.5-56.5T80-840h800q33 0 56.5 23.5T960-760v560q0 33-23.5 56.5T880-120H80Zm556-80h244v-560H80v560h4q42-75 116-117.5T360-360q86 0 160 42.5T636-200ZM360-400q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Zm400 160 80-80-60-80h-66q-6-18-10-38.5t-4-41.5q0-21 4-40.5t10-39.5h66l60-80-80-80q-54 42-87 106.5T640-480q0 69 33 133.5T760-240Zm-578 40h356q-34-38-80.5-59T360-280q-51 0-97 21t-81 59Zm178-280q-17 0-28.5-11.5T320-520q0-17 11.5-28.5T360-560q17 0 28.5 11.5T400-520q0 17-11.5 28.5T360-480Zm120 0Z"/>
                             </svg>
                         </div>
-                        <a href="#">Supplier details</a>
+                        <a href="#" data-page="supplier_details">Supplier details</a>
                     </li>
                 </ul>
             </li>
@@ -263,7 +263,7 @@ $employeeID = $profileData['employeeID'];
                                 <path d="M120-200q-33 0-56.5-23.5T40-280v-400q0-33 23.5-56.5T120-760h400q33 0 56.5 23.5T600-680v400q0 33-23.5 56.5T520-200H120Zm0-146q44-26 94-40t106-14q56 0 106 14t94 40v-334H120v334Zm200 26q-41 0-80 10t-74 30h308q-35-20-74-30t-80-10Zm0-110q-45 0-77.5-32.5T210-540q0-45 32.5-77.5T320-650q45 0 77.5 32.5T430-540q0 45-32.5 77.5T320-430Zm0-74q15 0 25.5-10.5T356-540q0-15-10.5-25.5T320-576q-15 0-25.5 10.5T284-540q0 15 10.5 25.5T320-504Zm360 304v-560h80v560h-80Zm160 0v-560h80v560h-80ZM320-540Zm0 260Z"/>
                             </svg>
                         </div>
-                        <a href="#">User Profiles</a>
+                        <a href="#" data-page="user_profiles">User Profiles</a>
                     </li>
                     <!-- Activity Logs -->
                     <li class="submenu-container">
@@ -272,7 +272,7 @@ $employeeID = $profileData['employeeID'];
                                 <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-480H200v480Zm80-280v-80h400v80H280Zm0 160v-80h240v80H280Z"/>
                             </svg>
                         </div>
-                        <a href="#">Activity logs</a>
+                        <a href="#" data-page="activity_logs">Activity logs</a>
                     </li>
                 </ul>
             </li>
@@ -560,14 +560,40 @@ $employeeID = $profileData['employeeID'];
         </div>
     </div>
 
-    <!-- Content -->
+    <!-- #region Content -->
     <div id="content">
+        <!-- #region Dashboard -->
         <div class="page" id="dashboard"><?php include 'pages/dashboard/pages/dashboard.php'; ?></div>
+    
+        <!-- #region Inventory -->
         <div class="page" id="inventory"><?php include 'pages/inventory/pages/inventory.php'; ?></div>
+        <div class="page" id="product_details"><?php include 'pages/inventory/pages/product_details.php'; ?></div>
+        <div class="page" id="stock_levels"><?php include 'pages/inventory/pages/stock_levels.php'; ?></div>
+        <div class="page" id="reorder_points"><?php include 'pages/inventory/pages/reorder_points.php'; ?></div>
+        <div class="page" id="inventory_movements"><?php include 'pages/inventory/pages/inventory_movements.php'; ?></div>
+        <!-- #endregion -->
+    
+        <!-- #region Sales -->
         <div class="page" id="sales"><?php include 'pages/sales/pages/sales.php'; ?></div>
+        <div class="page" id="sales_overview"><?php include 'pages/sales/pages/sales_overview.php'; ?></div>
+        <div class="page" id="manage_orders"><?php include 'pages/sales/pages/manage_orders.php'; ?></div>
+        <div class="page" id="customer_details"><?php include 'pages/sales/pages/customer_details.php'; ?></div>
+        <!-- #endregion -->
+    
+        <!-- #region Supply Chain -->
         <div class="page" id="supply_chain"><?php include 'pages/supply_chain/pages/supply_chain.php'; ?></div>
+        <div class="page" id="order_processing"><?php include 'pages/supply_chain/pages/order_processing.php'; ?></div>
+        <div class="page" id="supplier_details"><?php include 'pages/supply_chain/pages/supplier_details.php'; ?></div>
+        <!-- #endregion -->
+    
+        <!-- #region Users -->
         <div class="page" id="users"><?php include 'pages/users/pages/users.php'; ?></div>
+        <div class="page" id="user_profiles"><?php include 'pages/users/pages/user_profiles.php'; ?></div>
+        <div class="page" id="activity_logs"><?php include 'pages/users/pages/activity_logs.php'; ?></div>
+        <!-- #endregion -->
     </div>
+    <!-- #endregion -->
+
   
 </body>
 </html>

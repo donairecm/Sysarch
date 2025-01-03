@@ -1,27 +1,49 @@
 document.addEventListener('DOMContentLoaded', () => {
     const sidebarItems = document.querySelectorAll('.sidebar-item');
+    const submenuItems = document.querySelectorAll('.submenu-container a');
     const pages = document.querySelectorAll('.page');
 
+    function activatePage(targetPage) {
+        // Remove 'active' from all pages
+        pages.forEach(page => page.classList.remove('active'));
+
+        // Add 'active' to the selected page
+        const pageToActivate = document.getElementById(targetPage);
+        if (pageToActivate) {
+            pageToActivate.classList.add('active');
+        }
+    }
+
+    function activateSidebarItem(targetItem) {
+        // Remove 'active' from all sidebar items and submenu items
+        sidebarItems.forEach(link => link.classList.remove('active'));
+        submenuItems.forEach(link => link.classList.remove('active'));
+
+        // Add 'active' to the clicked item
+        targetItem.classList.add('active');
+    }
+
+    // Main sidebar item click handling
     sidebarItems.forEach(item => {
         item.addEventListener('click', (e) => {
             e.preventDefault();
             const targetPage = item.getAttribute('data-page');
-
-            // Remove 'active' from all pages
-            pages.forEach(page => page.classList.remove('active'));
-
-            // Add 'active' to the selected page
-            document.getElementById(targetPage).classList.add('active');
-
-            // Remove 'active' from all sidebar items
-            sidebarItems.forEach(link => link.classList.remove('active'));
-
-            // Add 'active' to the clicked item
-            item.classList.add('active');
+            activatePage(targetPage);
+            activateSidebarItem(item);
         });
     });
 
-    // Optional: Set the first item active by default
-    sidebarItems[0].classList.add('active');
-    pages[0].classList.add('active');
+    // Submenu item click handling
+    submenuItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetPage = item.getAttribute('data-page');
+            activatePage(targetPage);
+            activateSidebarItem(item);
+        });
+    });
+
+    // Optional: Set the first main item active by default
+    sidebarItems[0]?.classList.add('active');
+    pages[0]?.classList.add('active');
 });
