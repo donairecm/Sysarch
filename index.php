@@ -1,9 +1,9 @@
 <?php
-include 'login-interface/php/db_connection.php';
+include 'php/db_connection.php';
 ?>
 
 <?php
-include 'login-interface/php/login_metrics.php';
+include 'php/login_metrics.php';
 ?>
 
 <!DOCTYPE html>

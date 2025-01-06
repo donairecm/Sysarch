@@ -31,7 +31,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     }
 
     // Send AJAX request to `login_metrics.php` if fields are not both empty
-    fetch('login-interface/php/login_metrics.php', {
+    fetch('php/login_metrics.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'

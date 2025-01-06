@@ -38,7 +38,17 @@ if (isset($_POST['login'])) {
                 $update_stmt->execute();
                 $update_stmt->close();
 
-                echo json_encode(['success' => true, 'redirect_url' => $user_role === 'super_admin' ? 'super_admin-interface/mainpage.php' : 'some_other_page.html']);
+                // Determine the redirect URL based on user role
+                $redirect_url = match ($user_role) {
+                    'super_admin' => 'super_admin-interface/mainpage.php',
+                    'sales_manager' => 'sales_manager-interface/dashboard.php',
+                    'inventory_manager' => 'inventory_manager-interface/dashboard.php',
+                    'admin' => 'admin-interface/dashboard.php',
+                    'supply_chain_manager' => 'supply_chain_manager-interface/dashboard.php',
+                    default => 'default_page.html',
+                };
+
+                echo json_encode(['success' => true, 'redirect_url' => $redirect_url]);
                 exit;
             } else {
                 $error['password'] = 'Incorrect password.';
@@ -52,22 +62,4 @@ if (isset($_POST['login'])) {
     echo json_encode(['success' => false, 'errors' => $error]);
     exit;
 }
-
 ?>
-
-
-
-
-
-<script>
-// Display server-side errors using JavaScript to trigger tooltips
-document.addEventListener('DOMContentLoaded', function() {
-    <?php if (!empty($error['username'])): ?>
-        showTooltip(document.getElementById('username-error'), "<?php echo $error['username']; ?>");
-    <?php endif; ?>
-    
-    <?php if (!empty($error['password'])): ?>
-        showTooltip(document.getElementById('password-error'), "<?php echo $error['password']; ?>");
-    <?php endif; ?>
-});
-</script>

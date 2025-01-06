@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../../login-interface/php/db_connection.php';
+require_once '../php/db_connection.php';
 
 // Check if the user is logged in
 if (isset($_SESSION['employee_id'])) {
@@ -18,6 +18,6 @@ if (isset($_SESSION['employee_id'])) {
 }
 
 // Redirect to the login page
-header("Location: ../../index.php");
+header("Location: ../index.php");
 exit;
 ?>

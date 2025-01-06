@@ -3,7 +3,7 @@ session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['employee_id'])) {
-    header('Location: ../../login-interface/index.php');
+    header('Location: ../login-interface/index.php');
     exit;
 }
 
