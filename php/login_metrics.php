@@ -41,10 +41,10 @@ if (isset($_POST['login'])) {
                 // Determine the redirect URL based on user role
                 $redirect_url = match ($user_role) {
                     'super_admin' => 'super_admin-interface/mainpage.php',
-                    'sales_manager' => 'not set',
+                    'sales_manager' => 'sales-interface/mainpage.php',
                     'inventory_manager' => 'inventory-interface/mainpage.php',
                     'admin' => 'not set',
-                    'supply_chain_manager' => 'not set',
+                    'supply_chain_manager' => 'supply_chain-interface/mainpage.php',
                     default => 'default_page.html',
                 };
 

@@ -23,7 +23,7 @@ $employeeID = $profileData['employeeID'];
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Inventory Interface</title>
+        <title>Supply-chain Interface</title>
 
         <link rel="stylesheet" href="../global_css_js/global.css">
         <script type="text/javascript" src="../global_css_js/page_switching.js" defer></script>
@@ -36,9 +36,13 @@ $employeeID = $profileData['employeeID'];
         <!-- #endregion -->
 
         <!-- #region Dashboard CSS/JS-->
-        <link rel="stylesheet" href="../super_admin-interface/pages/dashboard/css/dashboard_grid.css">
-        <link rel="stylesheet" href="pages/dashboard/css/inventory_grid.css">
+        <link rel="stylesheet" href="pages/dashboard/css/dashboard_grid.css">
         <script type="text/javascript" src="pages/dashboard/js/stock_levels.js" defer></script>
+        <script type="text/javascript" src="pages/dashboard/js/units_sold_per_product.js" defer></script>
+        <!-- #endregion -->
+
+        <!-- #region Inventory CSS/JS-->
+        
         <!-- #endregion -->
 
         <!-- #region Sales CSS/JS-->
@@ -578,7 +582,7 @@ $employeeID = $profileData['employeeID'];
     <div id="content">
     
         <!-- #region Dashboard -->
-        <div class="page" id="dashboard"><?php include 'pages/dashboard/dashboard.php'; ?></div>
+        <div class="page" id="dashboard"><?php include 'pages/dashboard/pages/dashboard.php'; ?></div>
     
         <!-- #region Inventory -->
         
