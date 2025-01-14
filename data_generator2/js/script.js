@@ -91,10 +91,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Open a new tab to generate data
     generateDataButton.addEventListener('click', () => {
         if (confirm('Generate new data?')) {
-            window.open('generator/logs.php', '_blank');
-            console.log('Data generation initiated.');
+            const newWindow = window.open('generator/logs.php', '_blank'); // Open logs.php in a new window
+            
+            if (newWindow) {
+                newWindow.addEventListener('load', () => {
+                    console.log('Logs window fully loaded.');
+                    // You can add additional actions here if needed
+                });
+            } else {
+                alert('Failed to open logs window. Please allow pop-ups for this site.');
+            }
         }
     });
+    
 
     // Reset product quantities
     resetQuantityButton.addEventListener('click', async () => {

@@ -9,7 +9,8 @@ $tables = [
     'reorder_requests',
     'sales_orders',
     'supply_chain_orders',
-    'user_activities'
+    'user_activities',
+    'progress_log'
 ];
 
 foreach ($tables as $table) {

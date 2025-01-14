@@ -4,13 +4,13 @@
 global $conn;
 set_time_limit(0);
 
+$startTime = microtime(true); // Store the start time in seconds since Unix epoch
+
 ob_start();
-// Current real-time
 echo "Current real-time: " . date('Y-m-d H:i:s');
 ob_flush();
 flush();
 
-// Initialization
 echo "Initializing script";
 for ($i = 5; $i > 0; $i--) {
     echo "Starting in $i...";
@@ -19,22 +19,36 @@ for ($i = 5; $i > 0; $i--) {
     sleep(1); // Pause for 1 second
 }
 
-// Function to log the current date for continuation
-function logCurrentDate($currentDate)
+// Function to log the last date in the database
+function logCurrentDateToDB($currentDate)
 {
-    file_put_contents('progress_log.txt', $currentDate);
-    echo "Progress saved. You can resume from this date: " . date('Y-m-d', $currentDate);
+    global $conn;
+
+    $formattedDate = date('Y-m-d', $currentDate);
+    $query = $conn->prepare("REPLACE INTO progress_log (id, last_logged_date) VALUES (1, ?)");
+    $query->bind_param('s', $formattedDate);
+
+    if (!$query->execute()) {
+        die("Failed to log progress: " . $query->error);
+    }
+
+    echo "Progress saved for the last date: $formattedDate\n";
     ob_flush();
     flush();
 }
 
-// Function to check for a saved log
-function getSavedDate()
+// Function to get the last logged date from the database
+function getSavedDateFromDB()
 {
-    if (file_exists('progress_log.txt')) {
-        $savedDate = file_get_contents('progress_log.txt');
-        return strtotime($savedDate);
+    global $conn;
+
+    $query = "SELECT last_logged_date FROM progress_log WHERE id = 1";
+    $result = $conn->query($query);
+
+    if ($result && $row = $result->fetch_assoc()) {
+        return strtotime($row['last_logged_date']);
     }
+
     return false;
 }
 
@@ -43,13 +57,28 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Helper function to generate random time between given hours
-function generateRandomTime($startHour, $endHour)
+// Helper function to generate a list of times between two hours
+function generateTimeSlots($startHour, $endHour)
 {
-    $randomHour = rand($startHour, $endHour - 1);
-    $randomMinute = rand(0, 59);
-    $randomSecond = rand(0, 59);
-    return sprintf('%02d:%02d:%02d', $randomHour, $randomMinute, $randomSecond);
+    $timeSlots = [];
+    for ($hour = $startHour; $hour < $endHour; $hour++) {
+        for ($minute = 0; $minute < 60; $minute += 1) { // 1-minute interval
+            $timeSlots[] = sprintf('%02d:%02d:00', $hour, $minute);
+        }
+    }
+    return $timeSlots;
+}
+
+// Helper function to generate random time between given hours
+function generateRandomTime(&$timeSlots)
+{
+    if (empty($timeSlots)) {
+        throw new Exception("No available timeslots for today.");
+    }
+    $randomIndex = array_rand($timeSlots);
+    $randomTime = $timeSlots[$randomIndex];
+    unset($timeSlots[$randomIndex]); // Remove the chosen time
+    return $randomTime;
 }
 
 // Function to generate a random birthdate between two years
@@ -60,7 +89,8 @@ function generateRandomDate($startYear, $endYear)
 }
 
 // Insert customers
-function createCustomer($createdOn){
+function createCustomer($createdOn)
+{
     global $conn;
 
     $firstName = "sample_first_name_" . rand(1000, 9999);
@@ -111,104 +141,51 @@ function createSalesOrder($customerId, $totalAmount, $createdOn)
     }
 }
 
-// Insert order items
-function createOrderItems($salesOrderId, $createdOn)
-{
-    global $conn;
-    $totalAmount = 0;
-    $itemCount = rand(1, 3);
-
-    for ($i = 0; $i < $itemCount; $i++) {
-        // Select a random product
-        $query = "SELECT product_id, price, quantity FROM products ORDER BY RAND() LIMIT 1";
-        $result = $conn->query($query);
-        $row = $result->fetch_assoc();
-        $productId = $row['product_id'];
-        $price = $row['price'];
-        $currentStock = $row['quantity'];
-
-        // Generate a random quantity for the order item
-        $quantity = rand(1, 30);
-
-        // Ensure the quantity does not exceed available stock
-        if ($quantity > $currentStock) {
-            $quantity = $currentStock; // Limit to available stock
-        }
-
-        $totalPrice = $price * $quantity;
-        $totalAmount += $totalPrice;
-
-        // Insert the order item
-        $query = $conn->prepare("INSERT INTO order_items (sales_order_id, product_id, quantity, created_on) 
-                  VALUES (?, ?, ?, ?)");
-        $query->bind_param('iiis', $salesOrderId, $productId, $quantity, $createdOn);
-
-        if (!$query->execute()) {
-            die("Order item creation failed: " . $query->error);
-        }
-
-        // Deduct the ordered quantity from the product's stock
-        $query = $conn->prepare("UPDATE products SET quantity = quantity - ? WHERE product_id = ?");
-        $query->bind_param('ii', $quantity, $productId);
-
-        if (!$query->execute()) {
-            die("Failed to update product stock: " . $query->error);
-        }
-    }
-
-    return $totalAmount;
-}
-
-
 // Main script
-$currentDate = getSavedDate() ?: strtotime('2020-01-01'); // Resume from saved date or start from Jan 1, 2020
-$endDate = strtotime('2020-12-31');
+$currentDate = getSavedDateFromDB() ?: strtotime('2020-01-01'); // Resume from saved date or start from Jan 1, 2020
+$endDate = strtotime('2020-02-29');
 
 while ($currentDate <= $endDate) {
     $month = date('F', $currentDate);
     $year = date('Y', $currentDate);
     $monthDays = date('t', $currentDate); // Number of days in the current month
 
+    $timeSlots = generateTimeSlots(7, 21); // Available times for the day
     $daySales = rand(1, 3); // Sales per day logic
 
     for ($i = 0; $i < $daySales; $i++) {
-        $time = generateRandomTime(7, 21);
+        try {
+            $time = generateRandomTime($timeSlots);
+        } catch (Exception $e) {
+            echo "No more available times for " . date('Y-m-d', $currentDate) . ". Skipping remaining sales.\n";
+            break;
+        }
+
         $createdOn = date('Y-m-d', $currentDate) . " $time";
 
-        $customerId = (rand(1, 100) <= 40)
-            ? rand(1, 1000)
-            : createCustomer($createdOn);
+        $timeSlots = array_filter($timeSlots, fn($slot) => $slot > $time);
+
+        $useExistingCustomer = rand(1, 100) <= 40;
+
+        if ($useExistingCustomer) {
+            $query = "SELECT customer_id FROM customers ORDER BY RAND() LIMIT 1";
+            $result = $conn->query($query);
+
+            $customerId = ($result && $result->num_rows > 0) ? $result->fetch_assoc()['customer_id'] : createCustomer($createdOn);
+        } else {
+            $customerId = createCustomer($createdOn);
+        }
 
         $salesOrderId = createSalesOrder($customerId, 0, $createdOn);
-        $totalAmount = createOrderItems($salesOrderId, $createdOn);
-
-        $query = $conn->prepare("UPDATE sales_orders SET total_amount = ? WHERE sales_order_id = ?");
-        $query->bind_param('di', $totalAmount, $salesOrderId);
-        if (!$query->execute()) {
-            die("Failed to update sales order total: " . $query->error);
-        }
     }
 
-    // End of the month logic
     if (date('j', $currentDate) == $monthDays) {
-        echo "Finished generating data for $month in $year.";
-        echo "Continue? (yes/no): ";
-        $handle = fopen("php://stdin", "r");
-        $input = trim(fgets($handle));
-        fclose($handle);
-
-        if (strtolower($input) === 'no') {
-            logCurrentDate($currentDate);
-            exit("Script stopped. Progress saved.");
-        }
+        logCurrentDateToDB($currentDate);
     }
 
     $currentDate = strtotime('+1 day', $currentDate);
 }
 
-echo "Data generation complete.";
-ob_flush();
-flush();
-
-// Close the connection
+$executionTime = microtime(true) - $startTime;
+echo "Execution Time: " . gmdate("H:i:s", $executionTime) . "\n";
 $conn->close();
