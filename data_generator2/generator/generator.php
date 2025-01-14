@@ -208,14 +208,99 @@ function createSupplyChainOrder($source, $relatedId, $handledBy, $acceptedOn, $d
 {
     global $conn;
 
-    $query = $conn->prepare("INSERT INTO supply_chain_orders (source, related_id, handled_by, accepted_on, details) 
-              VALUES (?, ?, ?, ?, ?)");
-    $query->bind_param('siiss', $source, $relatedId, $handledBy, $acceptedOn, $details);
+    $status = 'on_process'; // Set default status to "on_process"
+
+    $query = $conn->prepare("INSERT INTO supply_chain_orders (source, related_id, handled_by, accepted_on, details, status) 
+              VALUES (?, ?, ?, ?, ?, ?)");
+    $query->bind_param('siisss', $source, $relatedId, $handledBy, $acceptedOn, $details, $status);
 
     if (!$query->execute()) {
         die("Supply chain order creation failed: " . $query->error);
     }
 }
+
+function updateSupplyChainOrdersStatus()
+{
+    global $conn;
+
+    // Fetch all orders in the "on_process" or "in_transit" states
+    $query = "SELECT * FROM supply_chain_orders WHERE status IN ('on_process', 'in_transit')";
+    $result = $conn->query($query);
+
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $id = $row['sc_order_id'];
+            $source = $row['source'];
+            $acceptedOn = strtotime($row['accepted_on']);
+            $status = $row['status'];
+
+            $nextStatus = null;
+            $nextTransitionTime = null;
+
+            // Determine the next status and transition time
+            if ($status === 'on_process') {
+                $nextStatus = 'in_transit';
+                $nextTransitionTime = $acceptedOn + rand(10 * 60, 25 * 60); // Add 10-25 minutes
+            } elseif ($status === 'in_transit') {
+                $nextStatus = 'completed';
+                $nextTransitionTime = ($source === 'sales_order') 
+                    ? $acceptedOn + rand(60 * 60, 180 * 60) // Add 1-3 hours
+                    : $acceptedOn + rand(86400, 432000);   // Add 1-5 days
+            }
+
+            // Update the status and transition time
+            if ($nextStatus) {
+                $deliveredOn = date('Y-m-d H:i:s', $nextTransitionTime);
+                $query = $conn->prepare("UPDATE supply_chain_orders 
+                                          SET status = ?, delivered_on = ? 
+                                          WHERE sc_order_id = ?");
+                $query->bind_param('ssi', $nextStatus, $deliveredOn, $id);
+
+                if (!$query->execute()) {
+                    die("Failed to update supply chain order status: " . $query->error);
+                }
+
+                // If completed and source is "inventory_reorder", update related records
+                if ($nextStatus === 'completed' && $source === 'inventory_reorder') {
+                    handleReorderCompletion($row['related_id'], $deliveredOn);
+                }
+            }
+        }
+    }
+}
+
+function handleReorderCompletion($requestId, $deliveredOn)
+{
+    global $conn;
+
+    // Update reorder_requests table
+    $query = $conn->prepare("UPDATE reorder_requests SET completed_on = ? WHERE request_id = ?");
+    $query->bind_param('si', $deliveredOn, $requestId);
+
+    if (!$query->execute()) {
+        die("Failed to update reorder request: " . $query->error);
+    }
+
+    // Fetch quantity and product_id from reorder_requests
+    $query = $conn->prepare("SELECT product_id, quantity FROM reorder_requests WHERE request_id = ?");
+    $query->bind_param('i', $requestId);
+    $query->execute();
+    $result = $query->get_result();
+
+    if ($row = $result->fetch_assoc()) {
+        $productId = $row['product_id'];
+        $quantity = $row['quantity'];
+
+        // Update products table
+        $query = $conn->prepare("UPDATE products SET quantity = quantity + ? WHERE product_id = ?");
+        $query->bind_param('ii', $quantity, $productId);
+
+        if (!$query->execute()) {
+            die("Failed to update product stock: " . $query->error);
+        }
+    }
+}
+
 
 
 
@@ -328,31 +413,34 @@ while ($currentDate <= $endDate) {
 
         $salesOrderId = createSalesOrder($customerId, 0, $createdOn);
 
-// 10% chance to insert a supply chain order for sales orders
-if (rand(1, 100) <= 10) {
-    $handledByQuery = "SELECT employee_id FROM users WHERE user_role = 'supply_chain_manager' ORDER BY RAND() LIMIT 1";
-    $handledByResult = $conn->query($handledByQuery);
-    $handledBy = $handledByResult->fetch_assoc()['employee_id'] ?? null;
+        // 10% chance to insert a supply chain order for sales orders
+        if (rand(1, 100) <= 10) {
+            $handledByQuery = "SELECT employee_id FROM users WHERE user_role = 'supply_chain_manager' ORDER BY RAND() LIMIT 1";
+            $handledByResult = $conn->query($handledByQuery);
+            $handledBy = $handledByResult->fetch_assoc()['employee_id'] ?? null;
 
-    if (!$handledBy) {
-        die("No supply chain manager found. Check the users table.");
-    }
+            if (!$handledBy) {
+                die("No supply chain manager found. Check the users table.");
+            }
 
-    $acceptedOn = date('Y-m-d H:i:s', strtotime($createdOn) + rand(20, 120));
-    $routes = ['Route 1', 'Route 2', 'Route 3', 'Route 4', 'Route 5', 'Route 6'];
-    $details = (rand(1, 100) <= 90) ? $routes[array_rand(['Route 1', 'Route 2'])] : $routes[array_rand($routes)];
+            $acceptedOn = date('Y-m-d H:i:s', strtotime($createdOn) + rand(20, 120));
+            $routes = ['Route 1', 'Route 2', 'Route 3', 'Route 4', 'Route 5', 'Route 6'];
+            $details = (rand(1, 100) <= 90) ? $routes[array_rand(['Route 1', 'Route 2'])] : $routes[array_rand($routes)];
 
-    createSupplyChainOrder('sales_order', $salesOrderId, $handledBy, $acceptedOn, $details);
-}
-
+            createSupplyChainOrder('sales_order', $salesOrderId, $handledBy, $acceptedOn, $details);
+        }
     }
 
     if (date('j', $currentDate) == $monthDays) {
         logCurrentDateToDB($currentDate);
     }
 
+    // Update statuses for supply chain orders
+    updateSupplyChainOrdersStatus();
+
     $currentDate = strtotime('+1 day', $currentDate);
 }
+
 
 $executionTime = microtime(true) - $startTime;
 echo "Execution Time: " . gmdate("H:i:s", $executionTime) . "\n";
