@@ -200,8 +200,32 @@ function createSalesOrder($customerId, $totalAmount, $createdOn)
         die("Failed to update sales order total: " . $query->error);
     }
 
+    // Log the sale to user_activities
+    $detail = "Made a sale";
+    $activityType = "sales";
+
+    // Check if an SCO was triggered for this sale
+    $triggeredSCO = rand(1, 100) <= 10; // Same logic as in the while loop
+    if ($triggeredSCO) {
+        $handledByQuery = "SELECT employee_id FROM users WHERE user_role = 'supply_chain_manager' ORDER BY RAND() LIMIT 1";
+        $handledByResult = $conn->query($handledByQuery);
+        $handledBy = $handledByResult->fetch_assoc()['employee_id'] ?? null;
+
+        if ($handledBy) {
+            $acceptedOn = date('Y-m-d H:i:s', strtotime($createdOn) + rand(20, 120));
+            $routes = ['Route 1', 'Route 2', 'Route 3', 'Route 4', 'Route 5', 'Route 6'];
+            $details = (rand(1, 100) <= 90) ? $routes[array_rand(['Route 1', 'Route 2'])] : $routes[array_rand($routes)];
+
+            createSupplyChainOrder('sales_order', $salesOrderId, $handledBy, $acceptedOn, $details);
+            $detail = "Made a sale and requested a delivery";
+        }
+    }
+
+    logUserActivity($managedBy, $activityType, $detail, $salesOrderId, $createdOn);
+
     return $salesOrderId;
 }
+
 
 // Insert supply chain orders
 function createSupplyChainOrder($source, $relatedId, $handledBy, $acceptedOn, $details)
@@ -373,6 +397,18 @@ function createReorderRequest($productId, $requestedOn)
     createSupplyChainOrder('inventory_reorder', $requestId, $handledBy, $acceptedOn, $details);
 }
 
+function logUserActivity($performedBy, $activityType, $details, $referenceId, $dateOfActivity)
+{
+    global $conn;
+
+    $query = $conn->prepare("INSERT INTO user_activities (performed_by, activity_type, details, reference_id, date_of_activity) 
+              VALUES (?, ?, ?, ?, ?)");
+    $query->bind_param('sssis', $performedBy, $activityType, $details, $referenceId, $dateOfActivity);
+
+    if (!$query->execute()) {
+        die("Failed to log user activity: " . $query->error);
+    }
+}
 
 
 
