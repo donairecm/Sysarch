@@ -117,6 +117,7 @@ function createSalesOrder($customerId, $totalAmount, $createdOn)
 {
     global $conn;
 
+    // Get a random sales manager
     $query = "SELECT employee_id FROM users WHERE user_role = 'sales_manager' ORDER BY RAND() LIMIT 1";
     $result = $conn->query($query);
 
@@ -134,12 +135,128 @@ function createSalesOrder($customerId, $totalAmount, $createdOn)
               VALUES (?, ?, ?, ?, ?)");
     $query->bind_param('idiss', $customerId, $totalAmount, $managedBy, $paymentMethod, $createdOn);
 
-    if ($query->execute()) {
-        return $conn->insert_id;
-    } else {
+    if (!$query->execute()) {
         die("Sales order creation failed: " . $query->error);
     }
+
+    $salesOrderId = $conn->insert_id;
+
+    // Process order items and update stock
+    $itemCount = rand(1, 3); // Number of items per order
+    for ($i = 0; $i < $itemCount; $i++) {
+        // Select a random product
+        $query = "SELECT product_id, price, quantity, reorder_point FROM products ORDER BY RAND() LIMIT 1";
+        $result = $conn->query($query);
+        if (!$result || $result->num_rows === 0) {
+            die("No products found in the database. Please check the products table.");
+        }
+        $product = $result->fetch_assoc();
+
+        $productId = $product['product_id'];
+        $price = $product['price'];
+        $currentStock = $product['quantity'];
+        $reorderPoint = $product['reorder_point'];
+
+        // Generate a random quantity for the order item
+        $quantity = rand(1, 30);
+
+        // Ensure the quantity does not exceed available stock
+        if ($quantity > $currentStock) {
+            $quantity = $currentStock; // Limit to available stock
+        }
+
+        $totalPrice = $price * $quantity;
+        $totalAmount += $totalPrice;
+
+        // Insert order item
+        $query = $conn->prepare("INSERT INTO order_items (sales_order_id, product_id, quantity, created_on) 
+                  VALUES (?, ?, ?, ?)");
+        $query->bind_param('iiis', $salesOrderId, $productId, $quantity, $createdOn);
+
+        if (!$query->execute()) {
+            die("Order item creation failed: " . $query->error);
+        }
+
+        // Deduct the ordered quantity from the product's stock
+        $query = $conn->prepare("UPDATE products SET quantity = quantity - ? WHERE product_id = ?");
+        $query->bind_param('ii', $quantity, $productId);
+
+        if (!$query->execute()) {
+            die("Failed to update product stock: " . $query->error);
+        }
+
+        // Check if the product's stock has reached the reorder point
+        $currentStock -= $quantity;
+        if ($currentStock <= $reorderPoint) {
+            createReorderRequest($productId, $createdOn);
+        }
+    }
+
+    // Update total amount in the sales order
+    $query = $conn->prepare("UPDATE sales_orders SET total_amount = ? WHERE sales_order_id = ?");
+    $query->bind_param('di', $totalAmount, $salesOrderId);
+
+    if (!$query->execute()) {
+        die("Failed to update sales order total: " . $query->error);
+    }
+
+    return $salesOrderId;
 }
+
+
+// Reorder request creation
+function createReorderRequest($productId, $requestedOn)
+{
+    global $conn;
+
+    $query = "SELECT supplier_id FROM products WHERE product_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('i', $productId);
+    $stmt->execute();
+    $stmt->bind_result($supplierId);
+    $stmt->fetch();
+    $stmt->close();
+
+    if (!$supplierId) {
+        die("Supplier ID not found for product ID: $productId");
+    }
+
+    // Get a random employee for `requested_by`
+    $roleChance = rand(1, 100);
+    $userRole = $roleChance <= 5 ? 'admin' : 'inventory_manager';
+    $query = "SELECT employee_id FROM users WHERE user_role = ? ORDER BY RAND() LIMIT 1";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('s', $userRole);
+    $stmt->execute();
+    $stmt->bind_result($requestedBy);
+    $stmt->fetch();
+    $stmt->close();
+
+    if (!$requestedBy) {
+        die("No user found with role: $userRole");
+    }
+
+    // Determine priority and reason
+    $priorities = ['low', 'medium', 'high'];
+    $priority = $priorities[array_rand($priorities)];
+    $reorderReason = match ($priority) {
+        'low' => 'Reached its reorder point',
+        'medium' => 'For preparation on the following events',
+        'high' => 'Stocks depleting very fast',
+    };
+
+    $quantity = 60;
+
+    $query = $conn->prepare("INSERT INTO reorder_requests (product_id, quantity, requested_by, date_of_request, supplier_id, priority, reorder_reason) 
+              VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $query->bind_param('iiissss', $productId, $quantity, $requestedBy, $requestedOn, $supplierId, $priority, $reorderReason);
+
+    if (!$query->execute()) {
+        die("Failed to create reorder request: " . $query->error);
+    }
+}
+
+
 
 // Main script
 $currentDate = getSavedDateFromDB() ?: strtotime('2020-01-01'); // Resume from saved date or start from Jan 1, 2020
