@@ -203,6 +203,21 @@ function createSalesOrder($customerId, $totalAmount, $createdOn)
     return $salesOrderId;
 }
 
+// Insert supply chain orders
+function createSupplyChainOrder($source, $relatedId, $handledBy, $acceptedOn, $details)
+{
+    global $conn;
+
+    $query = $conn->prepare("INSERT INTO supply_chain_orders (source, related_id, handled_by, accepted_on, details) 
+              VALUES (?, ?, ?, ?, ?)");
+    $query->bind_param('siiss', $source, $relatedId, $handledBy, $acceptedOn, $details);
+
+    if (!$query->execute()) {
+        die("Supply chain order creation failed: " . $query->error);
+    }
+}
+
+
 
 // Reorder request creation
 function createReorderRequest($productId, $requestedOn)
@@ -254,13 +269,31 @@ function createReorderRequest($productId, $requestedOn)
     if (!$query->execute()) {
         die("Failed to create reorder request: " . $query->error);
     }
+
+    // Trigger a supply chain order for the new reorder request
+    $requestId = $conn->insert_id; // Get the ID of the newly inserted reorder request
+
+    $handledByQuery = "SELECT employee_id FROM users WHERE user_role = 'supply_chain_manager' ORDER BY RAND() LIMIT 1";
+    $handledByResult = $conn->query($handledByQuery);
+    $handledBy = $handledByResult->fetch_assoc()['employee_id'] ?? null;
+
+    if (!$handledBy) {
+        die("No supply chain manager found. Check the users table.");
+    }
+
+    $acceptedOn = date('Y-m-d H:i:s', strtotime($requestedOn) + rand(20, 240));
+    $routes = ['Route 1', 'Route 2', 'Route 3', 'Route 4', 'Route 5', 'Route 6'];
+    $details = (rand(1, 100) <= 90) ? $routes[array_rand(['Route 1', 'Route 2'])] : $routes[array_rand($routes)];
+
+    createSupplyChainOrder('inventory_reorder', $requestId, $handledBy, $acceptedOn, $details);
 }
+
 
 
 
 // Main script
 $currentDate = getSavedDateFromDB() ?: strtotime('2020-01-01'); // Resume from saved date or start from Jan 1, 2020
-$endDate = strtotime('2020-02-29');
+$endDate = strtotime('2020-01-31');
 
 while ($currentDate <= $endDate) {
     $month = date('F', $currentDate);
@@ -294,6 +327,24 @@ while ($currentDate <= $endDate) {
         }
 
         $salesOrderId = createSalesOrder($customerId, 0, $createdOn);
+
+// 10% chance to insert a supply chain order for sales orders
+if (rand(1, 100) <= 10) {
+    $handledByQuery = "SELECT employee_id FROM users WHERE user_role = 'supply_chain_manager' ORDER BY RAND() LIMIT 1";
+    $handledByResult = $conn->query($handledByQuery);
+    $handledBy = $handledByResult->fetch_assoc()['employee_id'] ?? null;
+
+    if (!$handledBy) {
+        die("No supply chain manager found. Check the users table.");
+    }
+
+    $acceptedOn = date('Y-m-d H:i:s', strtotime($createdOn) + rand(20, 120));
+    $routes = ['Route 1', 'Route 2', 'Route 3', 'Route 4', 'Route 5', 'Route 6'];
+    $details = (rand(1, 100) <= 90) ? $routes[array_rand(['Route 1', 'Route 2'])] : $routes[array_rand($routes)];
+
+    createSupplyChainOrder('sales_order', $salesOrderId, $handledBy, $acceptedOn, $details);
+}
+
     }
 
     if (date('j', $currentDate) == $monthDays) {
