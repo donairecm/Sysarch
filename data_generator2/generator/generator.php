@@ -241,57 +241,70 @@ function createSupplyChainOrder($source, $relatedId, $handledBy, $acceptedOn, $d
     if (!$query->execute()) {
         die("Supply chain order creation failed: " . $query->error);
     }
+
+    $scOrderId = $conn->insert_id; // Get the ID of the newly created SCO
+
+    // Log the initial "on_process" status for source 'sales_order' only
+    if ($source === 'sales_order') {
+        $activityType = 'supply_chain';
+        $logDetails = 'Accepted SCO-SD'; // Initial status detail
+        logUserActivity($handledBy, $activityType, $logDetails, $scOrderId, $acceptedOn);
+    }
 }
+
+
 
 function updateSupplyChainOrdersStatus()
 {
     global $conn;
 
-    // Fetch all orders in the "on_process" or "in_transit" states
-    $query = "SELECT * FROM supply_chain_orders WHERE status IN ('on_process', 'in_transit')";
+    // Fetch all SCOs with source 'sales_order' in the "on_process" or "in_transit" states
+    $query = "SELECT * FROM supply_chain_orders WHERE source = 'sales_order' AND status IN ('on_process', 'in_transit')";
     $result = $conn->query($query);
 
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $id = $row['sc_order_id'];
-            $source = $row['source'];
+            $id = $row['sc_order_id']; // Supply chain order ID (reference_id for logging)
             $acceptedOn = strtotime($row['accepted_on']);
             $status = $row['status'];
+            $handledBy = $row['handled_by']; // Employee handling the SCO
 
             $nextStatus = null;
             $nextTransitionTime = null;
+            $logDetails = '';
 
-            // Determine the next status and transition time
+            // Determine the next status, transition time, and log details
             if ($status === 'on_process') {
                 $nextStatus = 'in_transit';
                 $nextTransitionTime = $acceptedOn + rand(10 * 60, 25 * 60); // Add 10-25 minutes
+                $logDetails = 'SCO-SD out for delivery';
             } elseif ($status === 'in_transit') {
                 $nextStatus = 'completed';
-                $nextTransitionTime = ($source === 'sales_order') 
-                    ? $acceptedOn + rand(60 * 60, 180 * 60) // Add 1-3 hours
-                    : $acceptedOn + rand(86400, 432000);   // Add 1-5 days
+                $nextTransitionTime = $acceptedOn + rand(60 * 60, 180 * 60); // Add 1-3 hours
+                $logDetails = 'SCO-SD delivered';
             }
 
             // Update the status and transition time
             if ($nextStatus) {
-                $deliveredOn = date('Y-m-d H:i:s', $nextTransitionTime);
+                $transitionTime = date('Y-m-d H:i:s', $nextTransitionTime);
                 $query = $conn->prepare("UPDATE supply_chain_orders 
                                           SET status = ?, delivered_on = ? 
                                           WHERE sc_order_id = ?");
-                $query->bind_param('ssi', $nextStatus, $deliveredOn, $id);
+                $query->bind_param('ssi', $nextStatus, $transitionTime, $id);
 
                 if (!$query->execute()) {
                     die("Failed to update supply chain order status: " . $query->error);
                 }
 
-                // If completed and source is "inventory_reorder", update related records
-                if ($nextStatus === 'completed' && $source === 'inventory_reorder') {
-                    handleReorderCompletion($row['related_id'], $deliveredOn);
-                }
+                // Log the status transition in user_activities
+                $activityType = 'supply_chain';
+                logUserActivity($handledBy, $activityType, $logDetails, $id, $transitionTime);
             }
         }
     }
 }
+
+
 
 function handleReorderCompletion($requestId, $deliveredOn)
 {
