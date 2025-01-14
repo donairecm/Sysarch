@@ -436,6 +436,69 @@ function logUserActivity($performedBy, $activityType, $details, $referenceId, $d
     }
 }
 
+function logInventoryMovementsForSales()
+{
+    global $conn;
+
+    // Fetch rows from order_items that haven't been logged in inventory_movements
+    $query = "SELECT oi.product_id, oi.quantity, so.created_on AS date_of_movement, oi.sales_order_id AS reference_id 
+              FROM order_items oi 
+              JOIN sales_orders so ON oi.sales_order_id = so.sales_order_id 
+              LEFT JOIN inventory_movements im ON im.reference_id = oi.sales_order_id AND im.movement_type = 'sale'
+              WHERE im.movement_id IS NULL";
+
+    $result = $conn->query($query);
+
+    if ($result && $result->num_rows > 0) {
+        $insertQuery = $conn->prepare("INSERT INTO inventory_movements (movement_type, product_id, quantity, date_of_movement, reference_id) 
+                                       VALUES ('sale', ?, ?, ?, ?)");
+        while ($row = $result->fetch_assoc()) {
+            $insertQuery->bind_param(
+                'iisi',
+                $row['product_id'],
+                $row['quantity'],
+                $row['date_of_movement'],
+                $row['reference_id']
+            );
+
+            if (!$insertQuery->execute()) {
+                die("Failed to log inventory movement for sale: " . $insertQuery->error);
+            }
+        }
+    }
+}
+
+function logInventoryMovementsForRestocks()
+{
+    global $conn;
+
+    // Fetch rows from reorder_requests that haven't been logged in inventory_movements
+    $query = "SELECT rr.product_id, rr.quantity, rr.completed_on AS date_of_movement, rr.request_id AS reference_id 
+              FROM reorder_requests rr
+              LEFT JOIN inventory_movements im ON im.reference_id = rr.request_id AND im.movement_type = 'restock'
+              WHERE rr.completed_on IS NOT NULL AND im.movement_id IS NULL";
+
+    $result = $conn->query($query);
+
+    if ($result && $result->num_rows > 0) {
+        $insertQuery = $conn->prepare("INSERT INTO inventory_movements (movement_type, product_id, quantity, date_of_movement, reference_id) 
+                                       VALUES ('restock', ?, ?, ?, ?)");
+        while ($row = $result->fetch_assoc()) {
+            $insertQuery->bind_param(
+                'iisi',
+                $row['product_id'],
+                $row['quantity'],
+                $row['date_of_movement'],
+                $row['reference_id']
+            );
+
+            if (!$insertQuery->execute()) {
+                die("Failed to log inventory movement for restock: " . $insertQuery->error);
+            }
+        }
+    }
+}
+
 
 
 // Main script
@@ -500,8 +563,13 @@ while ($currentDate <= $endDate) {
     // Update statuses for supply chain orders
     updateSupplyChainOrdersStatus();
 
+    // Log inventory movements for sales and restocks
+    logInventoryMovementsForSales();
+    logInventoryMovementsForRestocks();
+
     $currentDate = strtotime('+1 day', $currentDate);
 }
+
 
 
 $executionTime = microtime(true) - $startTime;
