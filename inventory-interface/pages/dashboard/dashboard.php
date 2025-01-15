@@ -21,7 +21,7 @@
             <div class="top">
                 <div class="text">
                     <div class="name">Inventory Turnover</div>
-                    <div class="value">4.7</div>
+                    <div class="value">...</div>
                 </div>
                 <div class="svg-container">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="dashboard-analytics">
-                <span></span> loading values...
+                <span></span>loading values...
             </div>
         </div>
         <div class="inventory-item grid-item-design inventory-activities im3">
