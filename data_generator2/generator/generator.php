@@ -88,7 +88,6 @@ function generateRandomDate($startYear, $endYear)
     return date('Y-m-d', $timestamp);
 }
 
-// Insert customers
 function createCustomer($createdOn)
 {
     global $conn;
@@ -112,7 +111,6 @@ function createCustomer($createdOn)
     }
 }
 
-// Insert sales order
 function createSalesOrder($customerId, $totalAmount, $createdOn)
 {
     global $conn;
@@ -226,8 +224,6 @@ function createSalesOrder($customerId, $totalAmount, $createdOn)
     return $salesOrderId;
 }
 
-
-// Insert supply chain orders
 function createSupplyChainOrder($source, $relatedId, $handledBy, $acceptedOn, $details)
 {
     global $conn;
@@ -249,9 +245,6 @@ function createSupplyChainOrder($source, $relatedId, $handledBy, $acceptedOn, $d
     $logDetails = ($source === 'sales_order') ? 'Accepted SCO-SD' : 'Accepted SCO-RR';
     logUserActivity($handledBy, $activityType, $logDetails, $scOrderId, $acceptedOn);
 }
-
-
-
 
 function updateSupplyChainOrdersStatus()
 {
@@ -315,9 +308,6 @@ function updateSupplyChainOrdersStatus()
     }
 }
 
-
-
-
 function handleReorderCompletion($requestId, $deliveredOn)
 {
     global $conn;
@@ -350,11 +340,6 @@ function handleReorderCompletion($requestId, $deliveredOn)
     }
 }
 
-
-
-
-
-// Reorder request creation
 function createReorderRequest($productId, $requestedOn)
 {
     global $conn;
@@ -435,7 +420,7 @@ function logUserActivity($performedBy, $activityType, $details, $referenceId, $d
         die("Failed to log user activity: " . $query->error);
     }
 }
-
+//----------------------------------------------
 function logInventoryMovementsForSales()
 {
     global $conn;
@@ -499,11 +484,9 @@ function logInventoryMovementsForRestocks()
     }
 }
 
-
-
 // Main script
-$currentDate = getSavedDateFromDB() ?: strtotime('2020-01-01'); // Resume from saved date or start from Jan 1, 2020
-$endDate = strtotime('2025-01-14');
+$currentDate = getSavedDateFromDB() ?: strtotime('2024-01-01'); // Resume from saved date or start from Jan 1, 2020
+$endDate = strtotime('2024-12-31');
 // remember to change the getSavedDateFromDB before running the script again
 while ($currentDate <= $endDate) {
     $month = date('F', $currentDate);
