@@ -503,8 +503,8 @@ function logInventoryMovementsForRestocks()
 
 // Main script
 $currentDate = getSavedDateFromDB() ?: strtotime('2020-01-01'); // Resume from saved date or start from Jan 1, 2020
-$endDate = strtotime('2024-06-30');
-
+$endDate = strtotime('2025-01-14');
+// remember to change the getSavedDateFromDB before running the script again
 while ($currentDate <= $endDate) {
     $month = date('F', $currentDate);
     $year = date('Y', $currentDate);
