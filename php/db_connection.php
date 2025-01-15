@@ -2,7 +2,7 @@
 $host = 'localhost';              // Server host
 $user = 'root';                   // Default username for XAMPP
 $password = '';                   // Default password for XAMPP (leave empty)
-$database = 'bestaluminumsalescorps-db';  // Your database name
+$database = 'bestaluminumsalescorps_db';  // Your database name
 
 // Create connection
 $conn = new mysqli($host, $user, $password, $database);
