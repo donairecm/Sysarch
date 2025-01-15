@@ -664,6 +664,12 @@
     height: 39px;
     padding-left: 13px;
 }
+/* inventory movements in the navbar */
+.ic3.in{
+    width: 183px;
+    height: 39px;
+    padding-left: 13px;
+}
 
 .ic3 span{
     margin-left: 8px;

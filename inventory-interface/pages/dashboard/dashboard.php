@@ -5,10 +5,10 @@
             <div class="top">
                 <div class="text">
                     <div class="name">Inventory Value</div>
-                    <div class="value"><span>₱</span>24,051</div>
+                    <div class="value"></div>
                 </div>
                 <div class="svg-container">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                        <path d="M160-160v-440h160v440H160Zm0-480v-160h160v160H160Zm240 480v-320h160v320H400Zm0-360v-160h160v160H400Zm240 360v-200h160v200H640Zm0-240v-160h160v160H640Z"/>
                     </svg>
                 </div>
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="dashboard-analytics">
-                <span>+1.2</span> more than last week
+                <span></span> loading values...
             </div>
         </div>
         <div class="inventory-item grid-item-design inventory-activities im3">

@@ -39,6 +39,8 @@ $employeeID = $profileData['employeeID'];
         <link rel="stylesheet" href="../super_admin-interface/pages/dashboard/css/dashboard_grid.css">
         <link rel="stylesheet" href="pages/dashboard/css/inventory_grid.css">
         <script type="text/javascript" src="pages/dashboard/js/stock_levels.js" defer></script>
+        <script type="text/javascript" src="pages/dashboard/js/get_in_val.js" defer></script>
+        <script type="text/javascript" src="pages/dashboard/js/get_in_turno.js" defer></script>
         <!-- #endregion -->
 
         <!-- #region Sales CSS/JS-->
@@ -91,15 +93,10 @@ $employeeID = $profileData['employeeID'];
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                                <path d="M620-163 450-333l56-56 114 114 226-226 56 56-282 282Zm220-397h-80v-200h-80v120H280v-120h-80v560h240v80H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h167q11-35 43-57.5t70-22.5q40 0 71.5 22.5T594-840h166q33 0 56.5 23.5T840-760v200ZM480-760q17 0 28.5-11.5T520-800q0-17-11.5-28.5T480-840q-17 0-28.5 11.5T440-800q0 17 11.5 28.5T480-760Z"/>
+                                <path d="M320-440h320v-80H320v80Zm0 120h320v-80H320v80Zm0 120h200v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/>
                             </svg>
                         </div>
                         <span class="sidebar-hover">Product Details</span>
-                    </div>
-                    <div class="right">
-                        <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                            <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/>
-                        </svg>
                     </div>
                 </a>
             </li>
@@ -108,22 +105,36 @@ $employeeID = $profileData['employeeID'];
                 <a class="sidebar-item" href="#" data-page="product_details">
                     <div class="left">
                         <div class="icon-container">
-                            <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                                <path d="M620-163 450-333l56-56 114 114 226-226 56 56-282 282Zm220-397h-80v-200h-80v120H280v-120h-80v560h240v80H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h167q11-35 43-57.5t70-22.5q40 0 71.5 22.5T594-840h166q33 0 56.5 23.5T840-760v200ZM480-760q17 0 28.5-11.5T520-800q0-17-11.5-28.5T480-840q-17 0-28.5 11.5T440-800q0 17 11.5 28.5T480-760Z"/>
-                            </svg>
+                            <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M740-208v-112h-40v128l86 86 28-28-74-74ZM480-800 243-663l237 137 237-137-237-137ZM120-321v-318q0-22 10.5-40t29.5-29l280-161q10-5 19.5-8t20.5-3q11 0 21 3t19 8l280 161q19 11 29.5 29t10.5 40v159h-80v-116L479-434 200-596v274l240 139v92L160-252q-19-11-29.5-29T120-321ZM720 0q-83 0-141.5-58.5T520-200q0-83 58.5-141.5T720-400q83 0 141.5 58.5T920-200q0 83-58.5 141.5T720 0ZM480-491Z"/></svg>
                         </div>
-                        <span class="sidebar-hover">Product Details</span>
-                    </div>
-                    <div class="right">
-                        <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                            <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/>
-                        </svg>
+                        <span class="sidebar-hover">Inventory Movements</span>
                     </div>
                 </a>
             </li>
-
-           
-          
+             <!-- Stock Levels -->
+             <li class="has-submenu">
+                <a class="sidebar-item" href="#" data-page="product_details">
+                    <div class="left">
+                        <div class="icon-container">
+                            <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                <path d="M640-160v-280h160v280H640Zm-240 0v-640h160v640H400Zm-240 0v-440h160v440H160Z"/>
+                            </svg>
+                        </div>
+                        <span class="sidebar-hover">Stock Levels</span>
+                    </div>
+                </a>
+            </li>
+             <!-- Reorder Points -->
+             <li class="has-submenu">
+                <a class="sidebar-item" href="#" data-page="product_details">
+                    <div class="left">
+                        <div class="icon-container">
+                            <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M320-160q-117 0-198.5-81.5T40-440q0-107 70.5-186.5T287-718l-63-66 56-56 160 160-160 160-56-57 59-59q-71 14-117 69t-46 127q0 83 58.5 141.5T320-240h120v80H320Zm200-360v-280h360v280H520Zm0 360v-280h360v280H520Zm80-80h200v-120H600v120Z"/></svg>
+                        </div>
+                        <span class="sidebar-hover">Reorder Points</span>
+                    </div>
+                </a>
+            </li>
         </ul>
     </nav>
 
@@ -157,28 +168,15 @@ $employeeID = $profileData['employeeID'];
                     </div>
                 </div>
 
-                <!--
-                <div class="ic-container ic2" data-tooltip="Alerts">
-                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                        <path d="M280-280q17 0 28.5-11.5T320-320q0-17-11.5-28.5T280-360q-17 0-28.5 11.5T240-320q0 17 11.5 28.5T280-280Zm-40-160h80v-240h-80v240Zm200 160h280v-80H440v80Zm0-160h280v-80H440v80Zm0-160h280v-80H440v80ZM160-120q-33 0-56.5-23.5T80-200v-560q0-33 23.5-56.5T160-840h640q33 0 56.5 23.5T880-760v560q0 33-23.5 56.5T800-120H160Z"/>
-                    </svg>
-                    <svg class="icon show" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                        <path d="M280-280q17 0 28.5-11.5T320-320q0-17-11.5-28.5T280-360q-17 0-28.5 11.5T240-320q0 17 11.5 28.5T280-280Zm-40-160h80v-240h-80v240Zm200 160h280v-80H440v80Zm0-160h280v-80H440v80Zm0-160h280v-80H440v80ZM160-120q-33 0-56.5-23.5T80-200v-560q0-33 23.5-56.5T160-840h640q33 0 56.5 23.5T880-760v560q0 33-23.5 56.5T800-120H160Zm0-80h640v-560H160v560Zm0 0v-560 560Z"/>
-                    </svg>
-                    <span>Alerts</span>
-                    <div class="badge">
-                    </div>
-                </div>-->
-
-                <!-- User Activities -->
-                <div class="ic-container ic3" data-tooltip="user-activities-ic-nav"> <!--User Activities hehe-->
+                <!-- Inventory Movements -->
+                <div class="ic-container ic3 in" data-tooltip="user-activities-ic-nav"> <!--User Activities hehe-->
                     <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
                         <path d="M560-440h200v-80H560v80Zm0-120h200v-80H560v80ZM200-320h320v-22q0-45-44-71.5T360-440q-72 0-116 26.5T200-342v22Zm160-160q33 0 56.5-23.5T440-560q0-33-23.5-56.5T360-640q-33 0-56.5 23.5T280-560q0 33 23.5 56.5T360-480ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Z"/>
                     </svg>
                     <svg class="icon show" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                        <path d="M560-440h200v-80H560v80Zm0-120h200v-80H560v80ZM200-320h320v-22q0-45-44-71.5T360-440q-72 0-116 26.5T200-342v22Zm160-160q33 0 56.5-23.5T440-560q0-33-23.5-56.5T360-640q-33 0-56.5 23.5T280-560q0 33 23.5 56.5T360-480ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm0-80h640v-480H160v480Zm0 0v-480 480Z"/>
+                        <path d="M240-440h360v-80H240v80Zm0-120h360v-80H240v80Zm-80 400q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm0-80h640v-480H160v480Zm0 0v-480 480Z"/>
                     </svg>
-                    <span>User Activities</span>
+                    <span>Inventory Movements</span>
                     <div class="badge">
                     </div>
                 </div>
