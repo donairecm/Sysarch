@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="dashboard-analytics">
-                <span>+3%</span> more than last month
+                <span></span>loading values...
             </div>
         </div>
         <div class="inventory-item grid-item-design top-row im2">
@@ -34,16 +34,17 @@
             </div>
         </div>
         <div class="inventory-item grid-item-design inventory-activities im3">
-            <span class="item-name">Inventory Movements</span>
+            <div class="item-name">Inventory Movements</div>
 
             <div class="inventory-activities-container container_scrollbar_design">
                 <ul class="inventory-activities-list">
                     <!-- Header Row -->
                     <li class="inventory-activities-header">
+                    <span class="inventory-activities-header-movement-id">Movement ID</span>
                         <span class="inventory-activities-header-product-id">Product ID</span>
                         <span class="inventory-activities-header-quantity">Quantity</span>
                         <span class="inventory-activities-header-activity">Activity</span>
-                        <span class="inventory-activities-header-date">Date</span>
+                        <span class="inventory-activities-header-date">Time</span>
                     </li>
                     <!-- Rows will be dynamically inserted here -->
                 </ul>

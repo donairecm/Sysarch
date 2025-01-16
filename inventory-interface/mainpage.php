@@ -38,9 +38,11 @@ $employeeID = $profileData['employeeID'];
         <!-- #region Dashboard CSS/JS-->
         <link rel="stylesheet" href="../super_admin-interface/pages/dashboard/css/dashboard_grid.css">
         <link rel="stylesheet" href="pages/dashboard/css/inventory_grid.css">
-        <script type="text/javascript" src="pages/dashboard/js/stock_levels.js" defer></script>
+        <script type="text/javascript" src="pages/dashboard/js/get_stock_lvl.js" defer></script>
         <script type="text/javascript" src="pages/dashboard/js/get_in_val.js" defer></script>
         <script type="text/javascript" src="pages/dashboard/js/get_in_turno.js" defer></script>
+        <script type="text/javascript" src="pages/dashboard/js/get_in_mv.js" defer></script>
+        <script type="text/javascript" src="pages/dashboard/js/db_modal.js" defer></script>
         <!-- #endregion -->
 
         <!-- #region Sales CSS/JS-->
@@ -404,6 +406,16 @@ $employeeID = $profileData['employeeID'];
                 </div>
                 <div class="previous-notifs">See previous notifications</div>
         </div>
+    
+        <!-- Add Close Button to Modal -->
+        <div class="dashboard-modal-overlay" id="dashboardModal">
+            <div class="top-row-modal" id="topRowModal">
+                <button class="close-modal" id="closeModal">X</button>
+                <div id="modalContent">
+                    <!-- Dynamic Content Here -->
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- #region Content -->
@@ -429,6 +441,8 @@ $employeeID = $profileData['employeeID'];
         <!-- #endregion -->
     </div>
     <!-- #endregion -->
+
+
 
 </body>
 </html>
