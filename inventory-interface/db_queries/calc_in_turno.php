@@ -8,109 +8,122 @@ $database = 'bestaluminumsalescorps_db';
 // Create connection
 $conn = new mysqli($host, $user, $password, $database);
 
-// Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die(json_encode(['error' => "Connection failed: " . $conn->connect_error]));
 }
 
-// Helper function to get the start of the current month
-function getStartOfMonth($currentDate) {
-    return date("Y-m-01", strtotime($currentDate));
+// Helper function to get the start and end dates of ranges
+function getDateRanges() {
+    $currentDate = new DateTime();
+    $startOfCurrentMonth = $currentDate->format('Y-m-01');
+    $currentDateStr = $currentDate->format('Y-m-d');
+
+    $lastMonthDate = (new DateTime())->modify('-1 month')->format('Y-m-d');
+    $startOfLastMonth = (new DateTime($lastMonthDate))->modify('first day of this month')->format('Y-m-d');
+
+    return [
+        'currentDate' => ['start' => $startOfCurrentMonth, 'end' => $currentDateStr],
+        'lastMonthDate' => ['start' => $startOfLastMonth, 'end' => $lastMonthDate]
+    ];
 }
 
-// Helper function to get the range for the same day last month
-function getLastMonthRange($currentDate) {
-    $lastMonthDate = date("Y-m-d", strtotime("-1 month", strtotime($currentDate)));
-    $startOfLastMonth = date("Y-m-01", strtotime($lastMonthDate));
-    $sameDayLastMonth = date("Y-m-d H:i:s", strtotime("-1 month", strtotime($currentDate)));
-    return [$startOfLastMonth, $sameDayLastMonth];
-}
+// Function to calculate inventory turnover
+function calculateInventoryTurnover($conn, $startDate, $endDate, $snapshotDate) {
+    // Fetch Beginning Inventory
+    $beginningInventoryQuery = "
+        SELECT SUM(quantity * price) AS beginning_inventory 
+        FROM products_history 
+        WHERE snapshot_date = '$snapshotDate'";
+    $beginningInventoryResult = $conn->query($beginningInventoryQuery);
+    $beginningInventory = $beginningInventoryResult->fetch_assoc()['beginning_inventory'] ?? 0;
 
-// Get the current date and time
-$currentDate = date("Y-m-d H:i:s");
-$startOfMonth = getStartOfMonth($currentDate);
-list($startOfLastMonth, $endOfLastMonth) = getLastMonthRange($currentDate);
+    // Fetch Purchases during the period
+    $purchasesQuery = "
+        SELECT im.quantity, im.product_id, ph.reorder_cost 
+        FROM inventory_movements im
+        JOIN products_history ph ON im.product_id = ph.product_id
+        WHERE im.movement_type = 'restock' 
+          AND im.date_of_movement BETWEEN '$startDate' AND '$endDate'
+          AND ph.snapshot_date = '$snapshotDate'";
+    $purchasesResult = $conn->query($purchasesQuery);
 
-// Function to reconstruct inventory state at a given date
-function getInventoryAtDate($targetDate, $conn) {
-    $query = "
-        SELECT 
-            p.product_id, 
-            p.price,
-            p.quantity - COALESCE(SUM(CASE WHEN im.date_of_movement <= '$targetDate' AND im.movement_type = 'sale' THEN im.quantity ELSE 0 END), 0)
-            + COALESCE(SUM(CASE WHEN im.date_of_movement <= '$targetDate' AND im.movement_type = 'restock' THEN im.quantity ELSE 0 END), 0) AS adjusted_quantity
-        FROM 
-            products p
-        LEFT JOIN 
-            inventory_movements im ON p.product_id = im.product_id
-        GROUP BY 
-            p.product_id
-    ";
-
-    $result = $conn->query($query);
-    $inventoryValue = 0;
-
-    while ($row = $result->fetch_assoc()) {
-        $inventoryValue += $row['adjusted_quantity'] * $row['price'];
-    }
-
-    return $inventoryValue;
-}
-
-function calculatePurchases($startDate, $endDate, $conn) {
-    $query = "
-        SELECT 
-            im.product_id, 
-            im.quantity, 
-            p.reorder_cost
-        FROM 
-            inventory_movements im
-        INNER JOIN 
-            products p ON im.product_id = p.product_id
-        WHERE 
-            im.movement_type = 'restock'
-            AND im.date_of_movement BETWEEN '$startDate' AND '$endDate'
-    ";
-
-    $result = $conn->query($query);
     $purchases = 0;
-
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $purchasesResult->fetch_assoc()) {
         $purchases += $row['quantity'] * $row['reorder_cost'];
     }
 
-    return $purchases;
-}
+    // Fetch Ending Inventory
+    $inventoryMovementsQuery = "
+        SELECT im.product_id, im.movement_type, im.quantity, ph.quantity AS base_quantity, ph.price 
+        FROM inventory_movements im
+        JOIN products_history ph ON im.product_id = ph.product_id
+        WHERE im.date_of_movement BETWEEN '$startDate' AND '$endDate'
+          AND ph.snapshot_date = '$snapshotDate'";
+    $inventoryMovementsResult = $conn->query($inventoryMovementsQuery);
 
-function calculateInventoryTurnover($startDate, $endDate, $conn) {
-    // Get Beginning Inventory at the start date
-    $beginningInventory = getInventoryAtDate($startDate, $conn);
+    $endingInventoryData = [];
+    while ($row = $inventoryMovementsResult->fetch_assoc()) {
+        $productId = $row['product_id'];
+        $currentQuantity = $row['base_quantity'];
 
-    // Get Purchases during the date range
-    $purchases = calculatePurchases($startDate, $endDate, $conn);
+        if ($row['movement_type'] == 'sale') {
+            $currentQuantity -= $row['quantity'];
+        } elseif ($row['movement_type'] == 'restock') {
+            $currentQuantity += $row['quantity'];
+        }
 
-    // Get Ending Inventory at the end date
-    $endingInventory = getInventoryAtDate($endDate, $conn);
+        $endingInventoryData[$productId] = $currentQuantity * $row['price'];
+    }
+    $endingInventory = array_sum($endingInventoryData);
 
-    // Calculate Average Inventory, COGS, and Turnover
-    $averageInventory = ($beginningInventory + $endingInventory) / 2;
+    // Calculate COGS
     $cogs = $beginningInventory + $purchases - $endingInventory;
-    $inventoryTurnover = $averageInventory > 0 ? $cogs / $averageInventory : 0;
 
-    return $inventoryTurnover;
+    // Calculate Average Inventory
+    $averageInventory = ($beginningInventory + $endingInventory) / 2;
+
+    // Calculate Inventory Turnover
+    $inventoryTurnover = ($averageInventory > 0) ? $cogs / $averageInventory : 0;
+
+    return [
+        'inventoryTurnover' => $inventoryTurnover
+    ];
 }
 
-// Calculate turnovers for the current and last month
-$currentMonthTurnover = calculateInventoryTurnover($startOfMonth, $currentDate, $conn);
-$lastMonthTurnover = calculateInventoryTurnover($startOfLastMonth, $endOfLastMonth, $conn);
+// Main process
+try {
+    $dateRanges = getDateRanges();
 
-// Close the database connection
+    // Current Date Inventory Turnover
+    $currentDateRange = $dateRanges['currentDate'];
+    $currentSnapshotDate = (new DateTime($currentDateRange['start']))->modify('-1 day')->format('Y-m-d');
+    $currentDateInventoryTurnover = calculateInventoryTurnover(
+        $conn,
+        $currentDateRange['start'],
+        $currentDateRange['end'],
+        $currentSnapshotDate
+    );
+
+    // Last Month Date Inventory Turnover
+    $lastMonthEndDate = (new DateTime())->modify('-1 month')->format('Y-m-d');
+    $lastMonthStart = (new DateTime($lastMonthEndDate))->modify('first day of this month')->format('Y-m-d');
+    $lastMonthSnapshotDate = (new DateTime($lastMonthStart))->modify('-1 day')->format('Y-m-d');
+
+    $lastMonthInventoryTurnover = calculateInventoryTurnover(
+        $conn,
+        $lastMonthStart,
+        $lastMonthEndDate,
+        $lastMonthSnapshotDate
+    );
+
+    // Return JSON Response
+    echo json_encode([
+        'current_inventory_turnover' => $currentDateInventoryTurnover['inventoryTurnover'],
+        'last_inventory_turnover' => $lastMonthInventoryTurnover['inventoryTurnover']
+    ]);
+} catch (Exception $e) {
+    echo json_encode(['error' => $e->getMessage()]);
+}
+
 $conn->close();
-
-// Output as JSON
-header('Content-Type: application/json');
-echo json_encode([
-    'current_inventory_turnover' => $currentMonthTurnover,
-    'last_inventory_turnover' => $lastMonthTurnover,
-]);
 ?>

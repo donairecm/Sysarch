@@ -5,7 +5,7 @@
             <div class="top">
                 <div class="text">
                     <div class="name">Inventory Value</div>
-                    <div class="value"></div>
+                    <div class="value">...</div>
                 </div>
                 <div class="svg-container">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
