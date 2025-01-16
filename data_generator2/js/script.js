@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Reset product quantities
     resetQuantityButton.addEventListener('click', async () => {
-        if (confirm('Reset all product quantities to 170?')) {
+        if (confirm('Reset all product quantities to 80-95?')) {
             try {
                 const response = await fetch('db/reset_quantity.php');
                 if (!response.ok) throw new Error('Failed to reset quantities.');

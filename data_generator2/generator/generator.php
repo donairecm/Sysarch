@@ -111,11 +111,10 @@ function createCustomer($createdOn)
     }
 }
 
-function createSalesOrder($customerId, $totalAmount, $createdOn)
+function createSalesOrder($customerId, $totalAmount, $createdOn, &$totalUnitsSold, &$totalRevenue)
 {
     global $conn;
 
-    // Get a random sales manager
     $query = "SELECT employee_id FROM users WHERE user_role = 'sales_manager' ORDER BY RAND() LIMIT 1";
     $result = $conn->query($query);
 
@@ -139,10 +138,10 @@ function createSalesOrder($customerId, $totalAmount, $createdOn)
 
     $salesOrderId = $conn->insert_id;
 
-    // Process order items and update stock
-    $itemCount = rand(1, 3); // Number of items per order
+    $randPercent = rand(1, 100);
+    $itemCount = ($randPercent <= 70) ? rand(1, 3) : rand(3, 5);
+
     for ($i = 0; $i < $itemCount; $i++) {
-        // Select a random product
         $query = "SELECT product_id, price, quantity, reorder_point FROM products ORDER BY RAND() LIMIT 1";
         $result = $conn->query($query);
         if (!$result || $result->num_rows === 0) {
@@ -155,27 +154,24 @@ function createSalesOrder($customerId, $totalAmount, $createdOn)
         $currentStock = $product['quantity'];
         $reorderPoint = $product['reorder_point'];
 
-        // Generate a random quantity for the order item
-        $quantity = rand(1, 30);
+        $randPercent = rand(1, 100);
+        $quantity = ($randPercent <= 70) ? rand(5, 10) : rand(10, 20);
 
-        // Ensure the quantity does not exceed available stock
         if ($quantity > $currentStock) {
-            $quantity = $currentStock; // Limit to available stock
+            $quantity = $currentStock;
         }
 
         $totalPrice = $price * $quantity;
         $totalAmount += $totalPrice;
 
-        // Insert order item
-        $query = $conn->prepare("INSERT INTO order_items (sales_order_id, product_id, quantity, created_on) 
-                  VALUES (?, ?, ?, ?)");
-        $query->bind_param('iiis', $salesOrderId, $productId, $quantity, $createdOn);
+        $query = $conn->prepare("INSERT INTO order_items (sales_order_id, product_id, quantity, total_price, created_on) 
+                  VALUES (?, ?, ?, ?, ?)");
+        $query->bind_param('iiids', $salesOrderId, $productId, $quantity, $totalPrice, $createdOn);
 
         if (!$query->execute()) {
             die("Order item creation failed: " . $query->error);
         }
 
-        // Deduct the ordered quantity from the product's stock
         $query = $conn->prepare("UPDATE products SET quantity = quantity - ? WHERE product_id = ?");
         $query->bind_param('ii', $quantity, $productId);
 
@@ -188,9 +184,19 @@ function createSalesOrder($customerId, $totalAmount, $createdOn)
         if ($currentStock <= $reorderPoint) {
             createReorderRequest($productId, $createdOn);
         }
+
+        // Ensure the product ID key exists in the tracking arrays before incrementing
+        if (!isset($totalUnitsSold[$productId])) {
+            $totalUnitsSold[$productId] = 0;
+        }
+        if (!isset($totalRevenue[$productId])) {
+            $totalRevenue[$productId] = 0.0;
+        }
+
+        $totalUnitsSold[$productId] += $quantity;
+        $totalRevenue[$productId] += $totalPrice;
     }
 
-    // Update total amount in the sales order
     $query = $conn->prepare("UPDATE sales_orders SET total_amount = ? WHERE sales_order_id = ?");
     $query->bind_param('di', $totalAmount, $salesOrderId);
 
@@ -203,7 +209,7 @@ function createSalesOrder($customerId, $totalAmount, $createdOn)
     $activityType = "sales";
 
     // Check if an SCO was triggered for this sale
-    $triggeredSCO = rand(1, 100) <= 10; // Same logic as in the while loop
+    $triggeredSCO = rand(1, 100) <= 10;
     if ($triggeredSCO) {
         $handledByQuery = "SELECT employee_id FROM users WHERE user_role = 'supply_chain_manager' ORDER BY RAND() LIMIT 1";
         $handledByResult = $conn->query($handledByQuery);
@@ -223,6 +229,7 @@ function createSalesOrder($customerId, $totalAmount, $createdOn)
 
     return $salesOrderId;
 }
+
 
 function createSupplyChainOrder($source, $relatedId, $handledBy, $acceptedOn, $details)
 {
@@ -380,7 +387,16 @@ function createReorderRequest($productId, $requestedOn)
         'high' => 'Stocks depleting very fast',
     };
 
-    $quantity = 60;
+    // Weighted ranges for quantity: 40-45, 45-50, 55-60 (each 33% chance)
+    $randPercent = rand(1, 100);
+
+    if ($randPercent <= 33) {
+        $quantity = rand(60, 65);
+    } elseif ($randPercent <= 66) {
+        $quantity = rand(65, 70);
+    } else {
+        $quantity = rand(70, 75);
+    }
 
     $query = $conn->prepare("INSERT INTO reorder_requests (product_id, quantity, requested_by, date_of_request, supplier_id, priority, reorder_reason) 
               VALUES (?, ?, ?, ?, ?, ?, ?)");
@@ -486,15 +502,43 @@ function logInventoryMovementsForRestocks()
 
 // Main script
 $currentDate = getSavedDateFromDB() ?: strtotime('2024-01-01'); // Resume from saved date or start from Jan 1, 2020
-$endDate = strtotime('2024-12-31');
-// remember to change the getSavedDateFromDB before running the script again
+$endDate = strtotime('2025-01-17');
+
+
+$totalUnitsSold = [];
+$totalRevenue = [];
+
+// Create product_history table if it doesn't exist
+$query = "
+CREATE TABLE IF NOT EXISTS products_history AS 
+SELECT *, NULL AS snapshot_date FROM products WHERE 1=0;
+";
+$conn->query($query);
+
+// Add snapshot_date column if it doesn't exist
+$query = "ALTER TABLE products_history ADD COLUMN IF NOT EXISTS snapshot_date DATETIME";
+$conn->query($query);
+
+
 while ($currentDate <= $endDate) {
     $month = date('F', $currentDate);
     $year = date('Y', $currentDate);
     $monthDays = date('t', $currentDate); // Number of days in the current month
 
     $timeSlots = generateTimeSlots(7, 21); // Available times for the day
-    $daySales = rand(1, 3); // Sales per day logic
+    $month = date('F', $currentDate); // Get the current month as a string
+
+// Adjust daily sales based on the month
+if (in_array($month, ['April', 'May', 'June', 'July', 'August'])) {
+    // Special months: 50% chance for 2-3 or 3-4 sales
+    $randPercent = rand(1, 100);
+    $daySales = ($randPercent <= 50) ? rand(3, 4) : rand(4, 6);
+} else {
+    // Normal days: 80% chance for 0-2 sales, 20% chance for 2-3 sales
+    $randPercent = rand(1, 100);
+    $daySales = ($randPercent <= 80) ? rand(0, 2) : rand(2, 3);
+}
+
 
     for ($i = 0; $i < $daySales; $i++) {
         try {
@@ -519,28 +563,35 @@ while ($currentDate <= $endDate) {
             $customerId = createCustomer($createdOn);
         }
 
-        $salesOrderId = createSalesOrder($customerId, 0, $createdOn);
-
-        // 10% chance to insert a supply chain order for sales orders
-        if (rand(1, 100) <= 10) {
-            $handledByQuery = "SELECT employee_id FROM users WHERE user_role = 'supply_chain_manager' ORDER BY RAND() LIMIT 1";
-            $handledByResult = $conn->query($handledByQuery);
-            $handledBy = $handledByResult->fetch_assoc()['employee_id'] ?? null;
-
-            if (!$handledBy) {
-                die("No supply chain manager found. Check the users table.");
-            }
-
-            $acceptedOn = date('Y-m-d H:i:s', strtotime($createdOn) + rand(20, 120));
-            $routes = ['Route 1', 'Route 2', 'Route 3', 'Route 4', 'Route 5', 'Route 6'];
-            $details = (rand(1, 100) <= 90) ? $routes[array_rand(['Route 1', 'Route 2'])] : $routes[array_rand($routes)];
-
-            createSupplyChainOrder('sales_order', $salesOrderId, $handledBy, $acceptedOn, $details);
-        }
+        $salesOrderId = createSalesOrder($customerId, 0, $createdOn, $totalUnitsSold, $totalRevenue);
     }
 
     if (date('j', $currentDate) == $monthDays) {
         logCurrentDateToDB($currentDate);
+
+        // Update products table with total_units_sold and total_revenue
+        foreach ($totalUnitsSold as $productId => $unitsSold) {
+            $query = $conn->prepare("UPDATE products SET total_units_sold = total_units_sold + ? WHERE product_id = ?");
+            $query->bind_param('ii', $unitsSold, $productId);
+            $query->execute();
+        }
+
+        foreach ($totalRevenue as $productId => $revenue) {
+            $query = $conn->prepare("UPDATE products SET total_revenue = total_revenue + ? WHERE product_id = ?");
+            $query->bind_param('di', $revenue, $productId);
+            $query->execute();
+        }
+
+        // Snapshot the products table into product_history
+        $snapshotDate = date('Y-m-d', $currentDate);
+        $query = "INSERT INTO products_history SELECT *, ? AS snapshot_date FROM products";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param('s', $snapshotDate);
+        $stmt->execute();
+
+        // Reset tracking arrays for the next month
+        $totalUnitsSold = [];
+        $totalRevenue = [];
     }
 
     // Update statuses for supply chain orders
@@ -552,8 +603,6 @@ while ($currentDate <= $endDate) {
 
     $currentDate = strtotime('+1 day', $currentDate);
 }
-
-
 
 $executionTime = microtime(true) - $startTime;
 echo "Execution Time: " . gmdate("H:i:s", $executionTime) . "\n";

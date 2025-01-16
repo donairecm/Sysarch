@@ -5,7 +5,7 @@ if (isset($_GET['table'])) {
     $table = $_GET['table'];
 
     // Sanitize table name to prevent SQL injection
-    $allowedTables = ['sales_orders', 'order_items', 'supply_chain_orders', 'reorder_requests', 'inventory_movements', 'user_activities', 'products', 'customers', 'users'];
+    $allowedTables = ['sales_orders', 'order_items', 'supply_chain_orders', 'reorder_requests', 'inventory_movements', 'user_activities', 'products', 'customers', 'users', 'products_history'];
     if (!in_array($table, $allowedTables)) {
         echo '<p>Invalid table name.</p>';
         exit;

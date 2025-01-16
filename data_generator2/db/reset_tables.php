@@ -10,9 +10,11 @@ $tables = [
     'sales_orders',
     'supply_chain_orders',
     'user_activities',
-    'progress_log'
+    'progress_log',
+    'products_history'
 ];
 
+// Truncate other tables
 foreach ($tables as $table) {
     $query = "TRUNCATE TABLE $table";
     if (!$conn->query($query)) {
@@ -23,6 +25,15 @@ foreach ($tables as $table) {
     }
 }
 
-echo "All tables reset successfully.";
+// Reset total_units_sold and total_revenue in the products table
+$resetProductsQuery = "UPDATE products SET total_units_sold = 0, total_revenue = 0";
+if (!$conn->query($resetProductsQuery)) {
+    http_response_code(500);
+    echo "Error resetting products table: " . $conn->error;
+    $conn->close();
+    exit;
+}
+
+echo "All tables reset successfully, and products table updated.";
 $conn->close();
 ?>

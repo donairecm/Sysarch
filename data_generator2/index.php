@@ -57,9 +57,14 @@ require_once 'db/db_connection.php';
         <div class="item-name">Customers</div>
     </div>
 
-    <!-- Customers -->
+    <!-- Users -->
     <div class="option-item oi9" data-table="users">
         <div class="item-name">Users</div>
+    </div>
+
+    <!-- Products History -->
+    <div class="option-item oi10" data-table="products_history">
+        <div class="item-name">History</div>
     </div>
 </div>
 <div class="overlay" id="overlay">
