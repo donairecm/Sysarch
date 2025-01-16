@@ -42,11 +42,12 @@ $employeeID = $profileData['employeeID'];
         <script type="text/javascript" src="pages/dashboard/js/get_in_val.js" defer></script>
         <script type="text/javascript" src="pages/dashboard/js/get_in_turno.js" defer></script>
         <script type="text/javascript" src="pages/dashboard/js/get_in_mv.js" defer></script>
-        <script type="text/javascript" src="pages/dashboard/js/db_modal.js" defer></script>
         <!-- #endregion -->
 
-        <!-- #region Sales CSS/JS-->
-        
+        <!-- #region Product Details-->
+        <link rel="stylesheet" href="pages/product_details/css/product_details.css">
+        <script type="text/javascript" src="pages/product_details/js/get_pd.js" defer></script>
+        <script type="text/javascript" src="pages/product_details/js/filters.js" defer></script>
         <!-- #endregion -->
 
         <!-- #region Supply-chain CSS/JS-->
@@ -98,7 +99,7 @@ $employeeID = $profileData['employeeID'];
                                 <path d="M320-440h320v-80H320v80Zm0 120h320v-80H320v80Zm0 120h200v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/>
                             </svg>
                         </div>
-                        <span class="sidebar-hover">Product Details</span>
+                        <span class="sidebar-hover">Manage Products</span>
                     </div>
                 </a>
             </li>
@@ -407,26 +408,29 @@ $employeeID = $profileData['employeeID'];
                 <div class="previous-notifs">See previous notifications</div>
         </div>
     
-        <!-- Add Close Button to Modal -->
+        <!-- Add Close Button to Modal 
         <div class="dashboard-modal-overlay" id="dashboardModal">
             <div class="top-row-modal" id="topRowModal">
                 <button class="close-modal" id="closeModal">X</button>
                 <div id="modalContent">
-                    <!-- Dynamic Content Here -->
+                    <!-- Dynamic Content Here 
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
 
     <!-- #region Content -->
     <div id="content">
+
+        <!-- #region Inventory -->
+        <div class="page" id="product_details"><?php include 'pages/product_details/product_details.php'; ?></div>
+        <!-- #endregion -->
     
         <!-- #region Dashboard -->
         <div class="page" id="dashboard"><?php include 'pages/dashboard/dashboard.php'; ?></div>
-    
-        <!-- #region Inventory -->
-        
         <!-- #endregion -->
+    
+        
     
         <!-- #region Sales -->
         

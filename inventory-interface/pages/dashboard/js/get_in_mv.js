@@ -46,4 +46,5 @@ function fetchInventoryData() {
 // Fetch and populate data on page load
 document.addEventListener("DOMContentLoaded", () => {
     fetchInventoryData();
+    setInterval(fetchInventoryData, 5000);
 });
