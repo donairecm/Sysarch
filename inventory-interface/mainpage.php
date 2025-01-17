@@ -42,6 +42,8 @@ $employeeID = $profileData['employeeID'];
         <script type="text/javascript" src="pages/dashboard/js/get_in_val.js" defer></script>
         <script type="text/javascript" src="pages/dashboard/js/get_in_turno.js" defer></script>
         <script type="text/javascript" src="pages/dashboard/js/get_in_mv.js" defer></script>
+        <script type="text/javascript" src="pages/dashboard/js/get_in_tus.js" defer></script>
+        <script type="text/javascript" src="pages/dashboard/js/get_in_tur.js" defer></script>
         <!-- #endregion -->
 
         <!-- #region Product Details-->
