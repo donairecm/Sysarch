@@ -50,9 +50,12 @@ $employeeID = $profileData['employeeID'];
         <script type="text/javascript" src="pages/product_details/js/filters.js" defer></script>
         <!-- #endregion -->
 
-        <!-- #region Supply-chain CSS/JS-->
-        
+        <!-- #region Inventory Movements-->
+        <link rel="stylesheet" href="pages/inventory_movements/css/inventory_movements.css">
+        <script type="text/javascript" src="pages/inventory_movements/js/filters.js" defer></script>
+        <script type="text/javascript" src="pages/inventory_movements/js/get_imv_rr.js" defer></script>
         <!-- #endregion -->
+
 
         <!-- #region chart.js scripts-->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -105,7 +108,7 @@ $employeeID = $profileData['employeeID'];
             </li>
             <!-- Inventory Movements -->
             <li class="has-submenu">
-                <a class="sidebar-item" href="#" data-page="product_details">
+                <a class="sidebar-item" href="#" data-page="inventory_movements">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M740-208v-112h-40v128l86 86 28-28-74-74ZM480-800 243-663l237 137 237-137-237-137ZM120-321v-318q0-22 10.5-40t29.5-29l280-161q10-5 19.5-8t20.5-3q11 0 21 3t19 8l280 161q19 11 29.5 29t10.5 40v159h-80v-116L479-434 200-596v274l240 139v92L160-252q-19-11-29.5-29T120-321ZM720 0q-83 0-141.5-58.5T520-200q0-83 58.5-141.5T720-400q83 0 141.5 58.5T920-200q0 83-58.5 141.5T720 0ZM480-491Z"/></svg>
@@ -421,28 +424,19 @@ $employeeID = $profileData['employeeID'];
 
     <!-- #region Content -->
     <div id="content">
-
-        <!-- #region Inventory -->
-        <div class="page" id="product_details"><?php include 'pages/product_details/product_details.php'; ?></div>
-        <!-- #endregion -->
-    
         <!-- #region Dashboard -->
         <div class="page" id="dashboard"><?php include 'pages/dashboard/dashboard.php'; ?></div>
         <!-- #endregion -->
     
-        
-    
-        <!-- #region Sales -->
-        
+        <!-- #region Inventory -->
+        <div class="page" id="product_details"><?php include 'pages/product_details/product_details.php'; ?></div>
+        <!-- #endregion -->
+
+        <!-- #region Inventory -->
+        <div class="page" id="inventory_movements"><?php include 'pages/inventory_movements/inventory_movements.php'; ?></div>
         <!-- #endregion -->
     
-        <!-- #region Supply Chain -->
-        
-        <!-- #endregion -->
-    
-        <!-- #region Users -->
-        
-        <!-- #endregion -->
+
     </div>
     <!-- #endregion -->
 

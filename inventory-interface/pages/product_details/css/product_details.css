@@ -261,30 +261,42 @@
 }
 
 /* #region product filter alignment */
-.hd-product-id, .product-id { flex-basis: 10%; }
-.hd-product-name, .product-name { flex-basis: 30%; }
-.hd-quantity, .quantity { flex-basis: 10%; }
-.hd-price, .price { flex-basis: 15%; }
-.hd-product-status, .product-status { flex-basis: 20%; }
-.hd-created-on, .created-on { flex-basis: 20%; }
-.actions { flex-basis: 5%; }
+.products-filter > .hd-product-id, 
+.products-filter > .product-id { flex-basis: 15%; }
+.products-filter > .hd-product-name, 
+.products-filter > .product-name { flex-basis: 30%; }
+.products-filter > .hd-quantity, 
+.products-filter > .quantity { flex-basis: 10%; }
+.products-filter > .hd-price, 
+.products-filter > .price { flex-basis: 10%; }
+.products-filter > .hd-product-status, 
+.products-filter > .product-status { flex-basis: 15%; }
+.products-filter > .hd-created-on, 
+.products-filter > .created-on { flex-basis: 20%; }
 /* #endregion */
 
 /* #region product reorder alignment */
-.hd-product-id, .product-id { flex-basis: 10%; }
-.hd-product-name, .product-name { flex-basis: 35%; }
-.hd-quantity, .quantity { flex-basis: 10%; }
-.hd-reorder-point, .reorder-point { flex-basis: 15%; }
-.hd-reorder-cost, .reorder-cost { flex-basis: 15%; }
-.hd-last-restocked, .last-restocked { flex-basis: 20%; }
-.actions { flex-basis: 5%; }
+.reorder-filter > .hd-product-id, 
+.reorder-filter > .product-id { flex-basis: 15%; }
+.reorder-filter > .hd-product-name, 
+.reorder-filter > .product-name { flex-basis: 35%; }
+.reorder-filter > .hd-quantity, 
+.reorder-filter > .quantity { flex-basis: 10%; }
+.reorder-filter > .hd-reorder-point, 
+.reorder-filter > .reorder-point { flex-basis: 15%; }
+.reorder-filter > .hd-reorder-cost, 
+.reorder-filter > .reorder-cost { flex-basis: 15%; }
+.reorder-filter > .hd-last-restocked, 
+.reorder-filter > .last-restocked { flex-basis: 20%; }
 /* #endregion */
 
 /* #region product location alignment */
-.hd-product-id, .product-id { flex-basis: 10%; }
-.hd-product-name, .product-name { flex-basis: 50%; }
-.hd-location, .location { flex-basis: 35%; }
-.actions { flex-basis: 5%; }
+.location-filter > .hd-product-id, 
+.location-filter > .product-id { flex-basis: 15%; }
+.location-filter > .hd-product-name, 
+.location-filter > .product-name { flex-basis: 50%; }
+.location-filter > .hd-location, 
+.location-filter > .location { flex-basis: 35%; }
 /* #endregion */
 
 
@@ -362,6 +374,5 @@
 .location-filter.active{
     display: flex;
 }
-
 
 /* #endregion */

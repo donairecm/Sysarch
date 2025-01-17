@@ -124,8 +124,7 @@
 
 /* Header row with sticky position */
 .inventory-activities-header {
-    background-color: #f1f1f1;
-    border-bottom: 2px solid #ccc;
+    border-bottom: 1px solid #cecece;
     position: sticky;
     top: 0;
     z-index: 4;
@@ -144,12 +143,9 @@
     justify-content: space-between;
     align-items: center;
     padding: 12px 10px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #cecece;
     font-family: 'Afacad Flux', sans-serif;
-    background-color: #fff;
-    border-radius: 8px;
     transition: background-color 0.2s, box-shadow 0.2s;
-    margin-bottom: 5px;
     font-weight: 400;
     font-size: .90rem;
 }
@@ -157,15 +153,7 @@
 /* Hover effect for rows */
 .inventory-activities-item:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transform: scale(1.02);
     cursor: pointer;
-    font-weight: 500;
-    font-size: .92rem;
-}
-
-/* Alternating row background */
-.inventory-activities-item:nth-child(even) {
-    background-color: #fafafa;
 }
 
 /* Columns alignment */
@@ -200,27 +188,4 @@
 }
 /* #endregion */
 
-/* #region Modal */
-.dashboard-modal-overlay{
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    z-index: 11;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
 
-.top-row-modal{
-    display: flex;
-    padding: 10px 20px;
-    background-color: #f1f1f1;
-    height: 80%;
-    width: 80%;
-    border-radius: 15px;
-}
-/* #endregion */

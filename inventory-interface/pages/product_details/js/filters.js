@@ -8,40 +8,56 @@ const filterMapping = {
     pd5: ['location-filter', 'location-filter-2']
 };
 
+// Function to apply active state to a given item
+function activateFilter(item) {
+    if (!item) return; // Ensure item is valid
+
+    // Remove 'active' class from all items
+    items.forEach(i => i.classList.remove('active'));
+
+    // Add 'active' class to the selected item
+    item.classList.add('active');
+
+    // Reset all filters
+    Object.values(filterMapping).flat().forEach(filter => {
+        const filterElements = document.querySelectorAll(`li.${filter}`);
+        filterElements.forEach(filterElement => {
+            filterElement.classList.remove('active');
+        });
+    });
+
+    // Identify the corresponding filter classes and activate them
+    const itemClass = [...item.classList].find(cls => filterMapping[cls]);
+    if (itemClass) {
+        const correspondingFilters = filterMapping[itemClass];
+        correspondingFilters.forEach(filter => {
+            const filterElements = document.querySelectorAll(`li.${filter}`);
+            filterElements.forEach(filterElement => {
+                filterElement.classList.add('active');
+            });
+        });
+    }
+}
+
 // Add click event listener to each item
 items.forEach(item => {
     item.addEventListener('click', () => {
-        // Remove 'active' class from all items
-        items.forEach(i => i.classList.remove('active'));
-
-        // Add 'active' class to the clicked item
-        item.classList.add('active');
-
-        // Update the filters' active state
-        Object.values(filterMapping).flat().forEach(filter => {
-            const filterElements = document.querySelectorAll(`li.${filter}`);
-            filterElements.forEach(filterElement => {
-                filterElement.classList.remove('active');
-            });
-        });
-
-        // Identify the corresponding filter classes and activate them
-        const itemClass = [...item.classList].find(cls => filterMapping[cls]);
-        if (itemClass) {
-            const correspondingFilters = filterMapping[itemClass];
-            correspondingFilters.forEach(filter => {
-                const filterElements = document.querySelectorAll(`li.${filter}`);
-                filterElements.forEach(filterElement => {
-                    filterElement.classList.add('active');
-                });
-            });
-        }
+        activateFilter(item);
     });
 });
 
-//search 
+// Initialize the default filter and search on DOMContentLoaded
 document.addEventListener("DOMContentLoaded", () => {
-    const searchInput = document.querySelector(".search-input");
+    // Activate default filter
+    const defaultActiveItem = document.querySelector('.inventory-product-details-item.filter.active');
+    if (defaultActiveItem) {
+        activateFilter(defaultActiveItem); // Activate the default filter
+    } else {
+        console.warn('No default active filter found!');
+    }
+
+    // Search logic
+    const searchInput = document.querySelector(".pd1 .search-input");
     const productDetailsContainer = document.querySelector(".product-details-container");
 
     searchInput.addEventListener("input", () => {
@@ -63,4 +79,3 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
-

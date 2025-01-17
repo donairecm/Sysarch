@@ -43,9 +43,6 @@
                     <span class="product-details-header-hd hd-created-on">
                         <span>Created on</span>
                     </span>
-                    <span class="product-details-header-hd hd-actions">
-                        <span>Actions</span>
-                    </span>
                 </li>
 
                 <!-- Rows be dynamically inserted here -->
@@ -74,9 +71,6 @@
                     <span class="product-details-header-hd hd-last-restocked">
                         <span>Last Restocked</span>
                     </span>
-                    <span class="product-details-header-hd hd-actions">
-                        <span>Actions</span>
-                    </span>
                 </li>
 
                 <!-- Rows will be dynamically inserted here -->
@@ -94,23 +88,10 @@
                     <span class="product-details-header-hd hd-location">
                         <span>Location</span>
                     </span>
-                    <span class="product-details-header-hd hd-actions">
-                        <span>Actions</span>
-                    </span>
                 </li>
 
                 <!-- Rows for filter reorder will be dynamically inserted here -->
                  <!-- sample of row -->
-                <li class="product-details-item location-filter">
-                    <span class="product-id">PRD-347</span>
-                    <span class="product-name">Product B23</span>
-                    <span class="location">shelf 2</span>
-                    <span class="actions">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
-                            <path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"/>
-                        </svg>
-                    </span>
-                </li>
                 <!-- #endregion-->
 
                 
