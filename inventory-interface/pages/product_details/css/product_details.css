@@ -307,49 +307,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
     border-radius: 10px;
     padding: 5px 0;
 }
 
-.product-details-container .svg-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2px;
-    margin-left: 3px;
-}
-
-.product-details-container .svg-container svg{
-    fill: black;
-    width: 15px;
-    height: 15px;
-}
-
-.actions{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.actions svg{
-    fill: black;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-}
-
-.hd-actions > .svg-container svg{
-    fill: white;
-}
-
-.hd-actions > .svg-container:hover{
-    cursor: default;
-}
-
-.hd-actions > .svg-container svg:hover{
-    cursor: default;
-}
 /* #endregion */
 
 /* #region Filter */
@@ -376,3 +337,4 @@
 }
 
 /* #endregion */
+
