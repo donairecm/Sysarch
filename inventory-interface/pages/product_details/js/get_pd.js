@@ -51,6 +51,8 @@ function populateLocationDetails(data) {
         listItem.innerHTML = `
             <span class="product-id">${product.product_id}</span>
             <span class="product-name">${product.product_name}</span>
+            <span class="units-sold">${product.total_units_sold}</span>
+            <span class="supplier">${product.supplier_name}</span>
             <span class="location">${product.stock_location}</span>
         `;
 

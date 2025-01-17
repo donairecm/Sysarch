@@ -19,7 +19,7 @@
         <div class="inventory-product-details-item grid-item-design-pd pd7 button">Product changes</div>
         <div class="inventory-product-details-item grid-item-design-pd pd3 filter active">Product</div>
         <div class="inventory-product-details-item grid-item-design-pd pd4 filter">Reorder</div>
-        <div class="inventory-product-details-item grid-item-design-pd pd5 filter">Location</div>
+        <div class="inventory-product-details-item grid-item-design-pd pd5 filter">Others</div>
         <div class="inventory-product-details-item grid-item-design-pd pd6">
             <ul class="product-details-container container_scrollbar_design">
                 <!-- #region filter products-->
@@ -85,6 +85,12 @@
                     <span class="product-details-header-hd hd-product-name">
                         <span>Product name</span>
                     </span>
+                    <span class="product-details-header-hd hd-units-sold">
+                        <span>Units Sold</span>
+                    </span>
+                    <span class="product-details-header-hd hd-supplier">
+                        <span>Supplier</span>
+                    </span>
                     <span class="product-details-header-hd hd-location">
                         <span>Location</span>
                     </span>
@@ -94,6 +100,51 @@
                  <!-- sample of row -->
                 <!-- #endregion-->
 
+                <div class="modal-product-details">
+                    <div class="modal-content">
+                        <form action="">
+                        <div class="mc-grid">
+                            <div class="mcgi mcgi-1">PRD-000</div>
+                            <div class="mcgi mcgi-2">
+                                <div class="input-group">
+                                    <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
+                                    <label for="username">Location</label>
+                                </div>
+                            </div>
+                            <div class="mcgi mcgi-3">Active</div>
+                            <div class="mcgi mcgi-4">
+                                <div class="input-group">
+                                    <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
+                                    <label for="username">Quantity</label>
+                                </div>
+                            </div>
+                            <div class="mcgi mcgi-5">
+                                <div class="input-group">
+                                    <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
+                                    <label for="username">Reorder point</label>
+                                </div>
+                            </div>
+                            <div class="mcgi mcgi-6">
+                                <div class="input-group">
+                                    <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
+                                    <label for="username">Reorder cost</label>
+                                </div>
+                            </div>
+                            <div class="mcgi mcgi-7">
+                                <div class="input-group">
+                                    <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
+                                    <label for="username">Supplier</label>
+                                </div>
+                            </div>
+                            <div class="mcgi mcgi-8">Last Restocked</div>
+                            <div class="mcgi mcgi-9">Save</div>
+                            <div class="mcgi mcgi-10">Cancel</div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+
+                
                 
             </ul>
         </div>

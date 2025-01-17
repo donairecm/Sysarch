@@ -292,11 +292,15 @@
 
 /* #region product location alignment */
 .location-filter > .hd-product-id, 
-.location-filter > .product-id { flex-basis: 15%; }
+.location-filter > .product-id { flex-basis: 20%; }
 .location-filter > .hd-product-name, 
-.location-filter > .product-name { flex-basis: 50%; }
+.location-filter > .product-name { flex-basis: 30%; }
+.location-filter > .hd-units-sold, 
+.location-filter > .units-sold { flex-basis: 25%; }
+.location-filter > .hd-supplier, 
+.location-filter > .supplier { flex-basis: 25%; }
 .location-filter > .hd-location, 
-.location-filter > .location { flex-basis: 35%; }
+.location-filter > .location { flex-basis: 25%; }
 /* #endregion */
 
 
@@ -338,3 +342,255 @@
 
 /* #endregion */
 
+/* #region Modal */
+.modal-product-details {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 11;
+}
+
+.modal-product-details.show{
+    display: flex;
+}
+
+.modal-product-details > .modal-content{
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    height: 450px;
+    width: 700px;
+    display: flex;
+    flex-direction: row;
+    margin-top: -70px;
+}
+
+.modal-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.mc-grid{
+    display: grid;
+    grid-template-columns: repeat(15, 1fr); 
+    gap: 15px;
+    margin: 0;
+    padding: 20px;
+    height: auto;
+    grid-template-rows: repeat(5, 50px);
+    width: 100%;
+
+}
+
+/* #region grid styles */
+
+/* Product ID */
+.mcgi-1 {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 5;
+}
+
+/* Location */
+.mcgi-2 {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 8;
+}
+
+/* Status */
+.mcgi-3 {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 13;
+    grid-column-end: 16;
+}
+
+/* Quantity */
+.mcgi-4 {
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 6;
+}
+
+/* Reorder point */
+.mcgi-5 {
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-column-start: 6;
+    grid-column-end: 11;
+}
+
+/* Supplier */
+.mcgi-6 {
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-column-start: 11;
+    grid-column-end: 16;
+}
+
+/* Last Restocked */
+.mcgi-7 {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 8;
+    grid-column-end: 13;
+}
+
+/* Last Restocked */
+.mcgi-8 {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 10;
+    grid-column-end: 16;
+}
+
+/* Save button */
+.mcgi-9 {
+    grid-row-start:4;
+    grid-row-end: 5;
+    grid-column-start: 13;
+    grid-column-end: 16;
+}
+
+/* Cancel */
+.mcgi-10 {
+    grid-row-start:4;
+    grid-row-end: 5;
+    grid-column-start: 10;
+    grid-column-end: 13;
+}
+
+/* #endregion */
+
+/* #endregion  */
+
+/* #region Form styles */
+form{
+    width: 100%;
+}
+
+form .input-group{
+    position: relative;
+    width: 100%;
+}
+
+form .input-group label{
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: .7rem;
+    letter-spacing: .5px;
+    text-transform:uppercase;
+    color: #45585c;
+    padding: 0 5px;
+    pointer-events: none;
+    transition: .3s;
+    border-radius: 40px;
+}
+
+form .input-group input{    
+    margin: 9px 0;
+    padding: 13px 15px;
+    color: black;
+    border-radius: 8px;
+    background-color: #c3dadf;
+    border: 1px solid transparent;
+    width: 100%;
+    height: 40px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+/* Password visibility */
+.toggle-password svg{
+    position: absolute;
+    top: 52%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    fill: rgba(0, 0, 0, 0.349);
+    width: 22px;
+    height: 22px;
+    display: none;
+    background-color: none;
+}
+
+.toggle-password svg:hover{
+    fill: #022a35b7;
+}
+
+/* label upon click */
+form .input-group input:focus + label,
+form .input-group input:not(:placeholder-shown) + label {
+    top: 8px;
+    left: 8px;
+    background: white;
+    color: #022a35;
+}
+
+/* input upon click */
+.input-group input:focus {
+    background-color: white;
+    border: 1px solid #022a35;
+}
+
+.input-group input.has-value {
+    background-color: white;
+    border: 1px solid #022a35;
+}
+
+/* error handling */
+.input-group input.has-error {
+    background-color: rgb(255, 184, 184);
+    border: 1px solid rgb(255, 0, 0);
+}
+
+form .input-group input.has-error + label {
+   
+    color: rgb(255, 0, 0); 
+}
+
+
+/* #endregion */
+
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.product-details-container li {
+    cursor: pointer;
+}

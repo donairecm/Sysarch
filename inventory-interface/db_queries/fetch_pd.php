@@ -15,8 +15,10 @@ if ($conn->connect_error) {
     exit();
 }
 
-// SQL query to fetch all products
-$sql = "SELECT product_id, product_name, price, quantity, reorder_point, reorder_cost, product_status, last_restocked, stock_location, created_on, supplier_id FROM products";
+// SQL query to fetch all products along with total_units_sold and supplier_name
+$sql = "SELECT p.product_id, p.product_name, p.price, p.quantity, p.reorder_point, p.reorder_cost, p.product_status, p.last_restocked, p.stock_location, p.created_on, p.supplier_id, p.total_units_sold, s.supplier_name 
+        FROM products p
+        LEFT JOIN suppliers s ON p.supplier_id = s.supplier_id";
 $result = $conn->query($sql);
 
 if ($result === false) {
