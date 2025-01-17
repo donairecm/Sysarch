@@ -122,70 +122,12 @@
 
 /* #endregion */
 
-/* #region Inventory Movements */
-.inventory-activities-container {
-    overflow-y: auto;
-    padding-right: 10px;
-    font-size: 0.88rem;
-    font-weight: 500;
-    height: 260px;
-    position: relative;
-    padding-left: 10px;
-    margin-top: 5px;
+/* #region Inventory Movements History*/
+.im3 .container{
+    height: 310px;
+    width: 100%;
+    margin-top: 10px;
 }
-
-.inventory-activities-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-/* Header row with sticky position */
-.inventory-activities-header {
-    border-bottom: 1px solid #cecece;
-    position: sticky;
-    top: 0;
-    z-index: 4;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 10px;
-    font-weight: 500;
-    font-size: 1.02rem;
-    color: rgba(37, 37, 37, 0.911);
-}
-
-/* Each row for inventory activity */
-.inventory-activities-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 10px;
-    border-bottom: 1px solid #cecece;
-    font-family: 'Afacad Flux', sans-serif;
-    transition: background-color 0.2s, box-shadow 0.2s;
-    font-weight: 400;
-    font-size: .90rem;
-}
-
-/* Hover effect for rows */
-.inventory-activities-item:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-}
-
-/* Columns alignment */
-.inventory-activities-header span,
-.inventory-activities-item span {
-    flex: 1; /* Ensure equal space distribution */
-    text-align: center; /* Center-align text */
-}
-
-.inventory-activities-header .inventory-activities-header-movement-id,
-.inventory-activities-item .movement-id {
-    text-align: center; /* Left-align Movement ID */
-}
-
 /* #endregion */
 
 /* #region Stock Levels */

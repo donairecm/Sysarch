@@ -1,6 +1,6 @@
 
 <div class="inventory-grid grid-scrollbar-design">
-        <div class="inventory-item grid-item-design title">Inventory Management</div>
+        <div class="inventory-item grid-item-design title">Dashboard</div>
         <div class="inventory-item grid-item-design top-row im1">
             <div class="top">
                 <div class="text">
@@ -69,21 +69,10 @@
             </div>
         </div>
         <div class="inventory-item grid-item-design inventory-activities im3">
-            <div class="item-name">Inventory Movements</div>
-
-            <div class="inventory-activities-container container_scrollbar_design">
-                <ul class="inventory-activities-list">
-                    <!-- Header Row -->
-                    <li class="inventory-activities-header">
-                    <span class="inventory-activities-header-movement-id">Movement ID</span>
-                        <span class="inventory-activities-header-product-id">Product ID</span>
-                        <span class="inventory-activities-header-quantity">Quantity</span>
-                        <span class="inventory-activities-header-activity">Activity</span>
-                        <span class="inventory-activities-header-date">Time</span>
-                    </li>
-                    <!-- Rows will be dynamically inserted here -->
-                </ul>
-            </div>
+            <div class="item-name">Inventory Movements History</div>
+                <div class="container">
+                    <canvas id="inventorydashboardInventoryMovements"></canvas>
+                </div>
         </div>
         <!-- Stock Levels -->
         <div class="inventory-item grid-item-design im4">
