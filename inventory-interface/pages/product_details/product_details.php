@@ -100,46 +100,65 @@
                  <!-- sample of row -->
                 <!-- #endregion-->
 
-                <div class="modal-product-details">
+                <div class="modal-product-details show">
                     <div class="modal-content">
                         <form action="">
-                        <div class="mc-grid">
-                            <div class="mcgi mcgi-1">PRD-000</div>
-                            <div class="mcgi mcgi-2">
-                                <div class="input-group">
-                                    <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
-                                    <label for="username">Location</label>
+                                <div class="prod-m">
+                                    <span>PRD-000</span>
                                 </div>
-                            </div>
-                            <div class="mcgi mcgi-3">Active</div>
-                            <div class="mcgi mcgi-4">
-                                <div class="input-group">
+                                <div class="">
+                                    <span>Product Name</span>
+                                    <div class="input-group">
                                     <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
-                                    <label for="username">Quantity</label>
+                                    <label for="username">Product XYZ</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mcgi mcgi-5">
-                                <div class="input-group">
+                                <div class="">
+                                    <span>Quantity</span>
+                                    <div class="input-group">
                                     <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
-                                    <label for="username">Reorder point</label>
+                                    <label for="username">102</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mcgi mcgi-6">
-                                <div class="input-group">
+                                <div class="">
+                                    <span>Reorder point</span>
+                                    <div class="input-group">
                                     <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
-                                    <label for="username">Reorder cost</label>
+                                    <label for="username">34</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mcgi mcgi-7">
-                                <div class="input-group">
+                                <div class="">
+                                    <span>Price</span>
+                                    <div class="input-group">
                                     <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
-                                    <label for="username">Supplier</label>
+                                    <label for="username">P45.00</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mcgi mcgi-8">Last Restocked</div>
-                            <div class="mcgi mcgi-9">Save</div>
-                            <div class="mcgi mcgi-10">Cancel</div>
-                        </div>
+                                <div class="">
+                                    <span>Reorder Cost</span>
+                                    <div class="input-group">
+                                    <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
+                                    <label for="username">P66.00</label>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <span>Supplier</span>
+                                    <div class="input-group">
+                                    <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
+                                    <label for="username">Aluminum Pro</label>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <span>Location</span>
+                                    <div class="input-group">
+                                    <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
+                                    <label for="username">Room 2, aisle 4, shelf 3</label>
+                                    </div>
+                                </div>
+                                <div class="save">
+                                    <span>Save changes made</span>
+                                </div>
+
                         </form>
                     </div>
                 </div>
