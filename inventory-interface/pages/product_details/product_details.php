@@ -16,7 +16,10 @@
         </div>
         </div>
         <div class="inventory-product-details-item grid-item-design-pd pd2 button">Add new product</div>
+
+        <!-- not needed but just in case
         <div class="inventory-product-details-item grid-item-design-pd pd7 button">View product changes</div>
+        -->
         
         <!-- #region modal for add product -->
         <div class="modal-style modal-add-products ">

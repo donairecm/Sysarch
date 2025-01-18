@@ -16,7 +16,11 @@
             </div>
         </div>
         <div class="inventory-inventory-movements-item grid-item-design-imv imv2 button">Reorder a product</div>
+
+        <!-- Redundant already had incoming products in dashboard
         <div class="inventory-inventory-movements-item grid-item-design-imv imv7 button">Incoming products</div>
+        -->
+        
         <div class="inventory-inventory-movements-item grid-item-design-imv imv3 filter active">Sales</div>
         <div class="inventory-inventory-movements-item grid-item-design-imv imv4 filter ">Restock</div>
         <div class="inventory-inventory-movements-item grid-item-design-pd pd6">

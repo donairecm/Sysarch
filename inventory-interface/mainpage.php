@@ -119,7 +119,7 @@ $employeeID = $profileData['employeeID'];
                     </div>
                 </a>
             </li>
-             <!-- Stock Levels -->
+             <!-- Stock Levels not needed but just in case
              <li class="has-submenu">
                 <a class="sidebar-item" href="#" data-page="product_details">
                     <div class="left">
@@ -131,8 +131,8 @@ $employeeID = $profileData['employeeID'];
                         <span class="sidebar-hover">Stock Levels</span>
                     </div>
                 </a>
-            </li>
-             <!-- Reorder Points -->
+            </li> -->
+             <!-- Reorder Points not needed but just in case
              <li class="has-submenu">
                 <a class="sidebar-item" href="#" data-page="product_details">
                     <div class="left">
@@ -142,7 +142,7 @@ $employeeID = $profileData['employeeID'];
                         <span class="sidebar-hover">Reorder Points</span>
                     </div>
                 </a>
-            </li>
+            </li> -->
         </ul>
     </nav>
 
@@ -413,34 +413,23 @@ $employeeID = $profileData['employeeID'];
                 <div class="previous-notifs">See previous notifications</div>
         </div>
     
-        <!-- Add Close Button to Modal 
-        <div class="dashboard-modal-overlay" id="dashboardModal">
-            <div class="top-row-modal" id="topRowModal">
-                <button class="close-modal" id="closeModal">X</button>
-                <div id="modalContent">
-                    <!-- Dynamic Content Here 
-                </div>
-            </div>
-        </div>-->
     </div>
 
     <!-- #region Content -->
     <div id="content">
 
-        <!-- #region Inventory Movements -->
-        <div class="page" id="inventory_movements"><?php include 'pages/inventory_movements/inventory_movements.php'; ?></div>
+        <!-- #region Product Details -->
+        <div class="page" id="product_details"><?php include 'pages/product_details/product_details.php'; ?></div>
         <!-- #endregion -->
          
         <!-- #region Dashboard -->
         <div class="page" id="dashboard"><?php include 'pages/dashboard/dashboard.php'; ?></div>
         <!-- #endregion -->
-    
-        <!-- #region Product Details -->
-        <div class="page" id="product_details"><?php include 'pages/product_details/product_details.php'; ?></div>
+
+         <!-- #region Inventory Movements -->
+         <div class="page" id="inventory_movements"><?php include 'pages/inventory_movements/inventory_movements.php'; ?></div>
         <!-- #endregion -->
 
-        
-    
 
     </div>
     <!-- #endregion -->
