@@ -32,10 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const newValue = input.value.trim();
 
             if (newValue && newValue !== label) {
-                changes.push(`${fieldId.replace("md-", "").replace("_", " ").toUpperCase()}: ${label} -> ${newValue}`);
+                changes.push(`${fieldId.replace("md-", "").replace("_", " ").toUpperCase()}: ${label} change to ${newValue}?`);
                 changesData[fieldId.replace("md-", "")] = newValue; // Add to changes data
                 const li = document.createElement("li");
-                li.textContent = `${fieldId.replace("md-", "").replace("_", " ").toUpperCase()}: ${label} -> ${newValue}`;
+                li.textContent = `${fieldId.replace("md-", "").replace("_", " ").toUpperCase()}: ${label} change to ${newValue}?`;
                 changeList.appendChild(li);
             }
         });
@@ -90,5 +90,12 @@ document.addEventListener("DOMContentLoaded", () => {
     cancelButton.addEventListener("click", () => {
         console.log("Changes canceled.");
         modal.style.display = "none"; // Close the confirmation modal
+    });
+
+    // Close modal when clicking outside of it
+    window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            modal.style.display = "none"; // Hide confirmation modal
+        }
     });
 });

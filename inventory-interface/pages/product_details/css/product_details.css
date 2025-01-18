@@ -344,7 +344,7 @@
 /* #endregion */
 
 /* #region Modal */
-.modal-product-details {
+.modal-style {
     position: fixed;
     top: 0;
     left: 0;
@@ -361,7 +361,11 @@
     display: flex;
 }
 
-.modal-product-details > .modal-content{
+.modal-add-products.show{
+    display: flex;
+}
+
+.modal-style > .modal-content{
     background: #fff;
     padding: 30px 30px 5px 30px;
     border-radius: 10px;
@@ -398,7 +402,7 @@ form .input-group{
 
 /* Smaller placeholder text */ 
 .md-placeholder::placeholder {
-    font-size: 0.85rem; /* Adjust the size as needed */ 
+    font-size: 0.8rem; /* Adjust the size as needed */ 
 }
 
 form .input-group label{
@@ -436,7 +440,6 @@ form .input-group input:not(:placeholder-shown) + label {
     font-size: .85rem;
 }
 
-
 .input-group input.has-value {
     background-color: white;
     border: 1px solid #022a35;
@@ -448,7 +451,6 @@ input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-
 
 /* #endregion */
 
@@ -530,12 +532,12 @@ form > div:not(:first-child) span:first-child{
 /* #endregion */
 
 /* #region confirm changes */
-#confirmationModal .button-container{
+.confirmmodal-style .button-container{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
-#confirmationModal .button-container button {
+.confirmmodal-style .button-container button {
     font-family: 'Afacad Flux', sans-serif;
     font-weight: 600;
     color: white;
@@ -546,22 +548,23 @@ form > div:not(:first-child) span:first-child{
     letter-spacing: 1px;
     text-transform: uppercase;
     cursor: pointer;
-    width: 160px;
+    width: 170px;
+    height: 30px;
 }
 
-#confirmationModal #confirmChanges {
+.confirmmodal-style .md-btn-1 {
     background-color: #e02a2a;
 }
 
-#confirmationModal #confirmChanges:hover {
+.confirmmodal-style .md-btn-1:hover {
     background-color: #b92323;
 }
 
-#confirmationModal #cancelChanges {
+.confirmmodal-style .md-btn-2 {
     background-color: #41b923;
 }
 
-#confirmationModal #cancelChanges:hover {
+.confirmmodal-style .md-btn-2:hover {
     background-color: #38a71c;
 }
 
@@ -570,18 +573,27 @@ form > div:not(:first-child) span:first-child{
     justify-content: flex-end;
 }
 
-#confirmationModal ul{
+.confirmmodal-style ul{
     margin-bottom: 10px;
     font-size: 1.1rem;
+    white-space: nowrap;
+    margin-bottom: 20px;
+    list-style: none;
 }
 
-#confirmationModal span{
+.confirmmodal-style span{
     font-size: 1.3rem;
     font-weight: 600;
+    font-family: 'Afacad Flux', sans-serif;
 }
 
 /* #endregion */
 
-/* #region */
+.confirmmodal-style ul#addProductDetails {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    margin-bottom: 10px;
+    font-family: 'Afacad Flux', sans-serif;
+}
 
-/* #endregion */
