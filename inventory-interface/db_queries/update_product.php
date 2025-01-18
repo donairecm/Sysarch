@@ -1,5 +1,18 @@
 <?php
 header("Content-Type: application/json");
+session_start(); // Start the session
+
+// Ensure the user is logged in
+if (!isset($_SESSION['employee_id'])) {
+    echo json_encode(["success" => false, "error" => "User not authenticated."]);
+    exit();
+}
+
+// Retrieve employee_id from the session
+$employee_id_with_prefix = $_SESSION['employee_id'];
+
+// Remove the prefix to get the numeric employee_id
+$numeric_employee_id = (int)preg_replace('/^[A-Z]+-/', '', $employee_id_with_prefix);
 
 // Database configuration
 $servername = "localhost";
@@ -22,10 +35,6 @@ $data = json_decode(file_get_contents("php://input"), true);
 $product_id_with_prefix = $data["product_id"] ?? null;
 $updates = $data["updates"] ?? null;
 
-// Simulate retrieving logged-in employeeID
-// Replace this with actual logic to fetch employeeID from session or auth context
-$employeeID = $profileData['employeeID'] ?? 1; // Example employeeID, replace with actual session data
-
 if (!$product_id_with_prefix || !$updates) {
     echo json_encode(["success" => false, "error" => "Invalid input."]);
     exit();
@@ -41,7 +50,7 @@ foreach ($updates as $field => $value) {
 }
 
 // Add `updated_by` and `updated_on` fields to the query
-$updateFields[] = "`updated_by` = '" . $conn->real_escape_string($employeeID) . "'";
+$updateFields[] = "`updated_by` = '" . $conn->real_escape_string($numeric_employee_id) . "'";
 $updateFields[] = "`updated_on` = NOW()";
 
 $updateQuery = "UPDATE products SET " . implode(", ", $updateFields) . " WHERE product_id = $product_id";
@@ -64,7 +73,20 @@ if ($conn->query($updateQuery) === TRUE) {
         // Insert the snapshot into products_history table
         $snapshotQuery = "INSERT INTO products_history (" . implode(", ", $fields) . ") VALUES (" . implode(", ", $values) . ")";
         if ($conn->query($snapshotQuery) === TRUE) {
-            echo json_encode(["success" => true]);
+            // Insert the user activity log
+            $activityDetails = "Made changes to $product_id_with_prefix";
+            $activityQuery = "INSERT INTO user_activities (performed_by, activity_type, details, date_of_activity) 
+                              VALUES (
+                                  '" . $conn->real_escape_string($numeric_employee_id) . "',
+                                  'inventory',
+                                  '" . $conn->real_escape_string($activityDetails) . "',
+                                  NOW()
+                              )";
+            if ($conn->query($activityQuery) === TRUE) {
+                echo json_encode(["success" => true]);
+            } else {
+                echo json_encode(["success" => false, "error" => "Error logging user activity: " . $conn->error]);
+            }
         } else {
             echo json_encode(["success" => false, "error" => "Error creating snapshot: " . $conn->error]);
         }
