@@ -16,7 +16,7 @@
         </div>
         </div>
         <div class="inventory-product-details-item grid-item-design-pd pd2 button">Add new product</div>
-        <div class="inventory-product-details-item grid-item-design-pd pd7 button">Product changes</div>
+        <div class="inventory-product-details-item grid-item-design-pd pd7 button">Reorder a product</div>
         <div class="inventory-product-details-item grid-item-design-pd pd3 filter active">Product</div>
         <div class="inventory-product-details-item grid-item-design-pd pd4 filter">Reorder</div>
         <div class="inventory-product-details-item grid-item-design-pd pd5 filter">Others</div>
