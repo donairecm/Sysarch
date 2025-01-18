@@ -7,7 +7,22 @@ function populateSalesDetails(data) {
         return;
     }
 
-    data.products.forEach(product => {
+    // Remove prefix, sort by ID, add prefix back
+    const sortedProducts = data.products
+        .map(product => ({
+            ...product,
+            movement_id: parseInt(product.movement_id.replace(/^MOV-/, '')),
+            product_id: parseInt(product.product_id.replace(/^PRD-/, ''))
+        }))
+        .sort((a, b) => b.movement_id - a.movement_id) // Sort in descending order
+        .map(product => ({
+            ...product,
+            movement_id: `MOV-${product.movement_id}`,
+            product_id: `PRD-${product.product_id}`
+        }));
+
+    // Populate sorted data
+    sortedProducts.forEach(product => {
         const listItem = document.createElement("li");
         listItem.classList.add("inventory-movements-item", "sales-filter", "2", "active");
 
@@ -32,7 +47,22 @@ function populateReorderRequests(data) {
         return;
     }
 
-    data.reorderrequests.forEach(reorderRequest => {
+    // Remove prefix, sort by ID, add prefix back
+    const sortedReorderRequests = data.reorderrequests
+        .map(request => ({
+            ...request,
+            request_id: parseInt(request.request_id.replace(/^RRD-/, '')),
+            product_id: parseInt(request.product_id.replace(/^PRD-/, ''))
+        }))
+        .sort((a, b) => b.request_id - a.request_id) // Sort in descending order
+        .map(request => ({
+            ...request,
+            request_id: `RRD-${request.request_id}`,
+            product_id: `PRD-${request.product_id}`
+        }));
+
+    // Populate sorted data
+    sortedReorderRequests.forEach(reorderRequest => {
         const listItem = document.createElement("li");
         listItem.classList.add("inventory-movements-item", "restock-filter", "2", "active");
 

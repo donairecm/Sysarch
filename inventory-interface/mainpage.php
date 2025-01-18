@@ -426,19 +426,20 @@ $employeeID = $profileData['employeeID'];
 
     <!-- #region Content -->
     <div id="content">
-        <!-- #region Product Details -->
-        <div class="page" id="product_details"><?php include 'pages/product_details/product_details.php'; ?></div>
+
+        <!-- #region Inventory Movements -->
+        <div class="page" id="inventory_movements"><?php include 'pages/inventory_movements/inventory_movements.php'; ?></div>
         <!-- #endregion -->
          
         <!-- #region Dashboard -->
         <div class="page" id="dashboard"><?php include 'pages/dashboard/dashboard.php'; ?></div>
         <!-- #endregion -->
     
-        
-
-        <!-- #region Inventory Movements -->
-        <div class="page" id="inventory_movements"><?php include 'pages/inventory_movements/inventory_movements.php'; ?></div>
+        <!-- #region Product Details -->
+        <div class="page" id="product_details"><?php include 'pages/product_details/product_details.php'; ?></div>
         <!-- #endregion -->
+
+        
     
 
     </div>
