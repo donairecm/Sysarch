@@ -48,6 +48,7 @@ $employeeID = $profileData['employeeID'];
         <link rel="stylesheet" href="pages/product_details/css/product_details.css">
         <script type="text/javascript" src="pages/product_details/js/get_pd.js" defer></script>
         <script type="text/javascript" src="pages/product_details/js/filters.js" defer></script>
+        <script type="text/javascript" src="pages/product_details/js/update_pd.js" defer></script>
         <!-- #endregion -->
 
         <!-- #region Inventory Movements-->

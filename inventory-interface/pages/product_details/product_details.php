@@ -100,66 +100,70 @@
                  <!-- sample of row -->
                 <!-- #endregion-->
 
-                <div class="modal-product-details show">
+                <div class="modal-product-details">
                     <div class="modal-content">
-                        <form action="">
+                        <form action="POST" id="productForm">
                                 <div class="prod-m">
-                                    <span>PRD-000</span>
+                                    <span id="modal-product-id">product_id</span>
                                 </div>
                                 <div class="">
                                     <span>Product Name</span>
                                     <div class="input-group">
-                                    <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
-                                    <label for="username">Product XYZ</label>
+                                    <input type="text" placeholder="ex. stained glass frame" id="md-product_name-input" class="md-placeholder">
+                                    <label id="md-product_name">product_name</label>
                                     </div>
                                 </div>
                                 <div class="">
                                     <span>Quantity</span>
                                     <div class="input-group">
-                                    <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
-                                    <label for="username">102</label>
+                                    <input type="number" placeholder="ex. 321" id="md-quantity-input" class="md-placeholder">
+                                    <label id="md-quantity">quantity</label>
                                     </div>
                                 </div>
                                 <div class="">
                                     <span>Reorder point</span>
                                     <div class="input-group">
-                                    <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
-                                    <label for="username">34</label>
+                                    <input type="number" placeholder="ex. 32" id="md-reorder_point-input" class="md-placeholder">
+                                    <label id="md-reorder_point">reorder_point</label>
                                     </div>
                                 </div>
                                 <div class="">
                                     <span>Price</span>
                                     <div class="input-group">
-                                    <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
-                                    <label for="username">P45.00</label>
+                                    <input type="number" placeholder="ex. 55" id="md-price-input" class="md-placeholder">
+                                    <label id="md-price">price</label>
                                     </div>
                                 </div>
                                 <div class="">
                                     <span>Reorder Cost</span>
                                     <div class="input-group">
-                                    <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
-                                    <label for="username">P66.00</label>
-                                    </div>
-                                </div>
-                                <div class="">
-                                    <span>Supplier</span>
-                                    <div class="input-group">
-                                    <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
-                                    <label for="username">Aluminum Pro</label>
+                                    <input type="number" placeholder=" ex. 99" id="md-reorder_cost-input" class="md-placeholder">
+                                    <label id="md-reorder_cost">reorder_cost</label>
                                     </div>
                                 </div>
                                 <div class="">
                                     <span>Location</span>
                                     <div class="input-group">
-                                    <input type="text" name="username" id="username" placeholder=" " onfocus="hideTooltip('username-error')">
-                                    <label for="username">Room 2, aisle 4, shelf 3</label>
+                                    <input type="text" placeholder=" ex. shelf 2" id="md-location-input" class="md-placeholder">
+                                    <label id="md-location">stock_location</label>
                                     </div>
                                 </div>
                                 <div class="save">
-                                    <span>Save changes made</span>
+                                    <button type="submit" id="saveButton" disabled>Save changes made</button>
                                 </div>
-
                         </form>
+                    </div>
+                </div>
+
+                <!-- Confirmation modal -->
+                <div id="confirmationModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center;">
+                    <div style="background: white; padding: 20px; border-radius: 5px; max-width: 400px; width: 100%;">
+                        <span>Confirm Changes</span>
+                        <ul id="changeList" style="padding-left: 20px;"></ul>
+                        <div class="button-container">
+                            <button id="confirmChanges" style="margin-right: 10px;">Confirm</button>
+                            <button id="cancelChanges">Cancel</button>
+                        </div>
                     </div>
                 </div>
 

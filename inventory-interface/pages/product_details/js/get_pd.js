@@ -1,3 +1,39 @@
+// Function to open the modal
+function openModal(product) {
+    const modal = document.querySelector(".modal-product-details");
+    modal.classList.add("show");
+
+    // Populate modal with product details using IDs
+    document.getElementById("modal-product-id").textContent = product.product_id;
+    document.getElementById("md-product_name").textContent = product.product_name;
+    document.getElementById("md-quantity").textContent = product.quantity;
+    document.getElementById("md-reorder_point").textContent = product.reorder_point;
+    document.getElementById("md-price").textContent = product.price;
+    document.getElementById("md-reorder_cost").textContent = product.reorder_cost;
+    document.getElementById("md-location").textContent = product.stock_location;
+
+
+    
+    // Add event listener to close the modal when clicking outside the modal content
+    modal.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+}
+
+// Function to close the modal
+function closeModal() {
+    const modal = document.querySelector(".modal-product-details");
+    modal.classList.remove("show");
+}
+
+// Prevent event propagation inside modal content
+const modalContent = document.querySelector(".modal-content");
+modalContent.addEventListener("click", (event) => {
+    event.stopPropagation();
+});
+
 // Function to populate the product details list
 function populateProductDetails(data) {
     const productDetailsContainer = document.querySelector(".product-details-container");
@@ -14,6 +50,8 @@ function populateProductDetails(data) {
             <span class="product-status">${product.product_status}</span>
             <span class="created-on">${product.created_on}</span>
         `;
+
+        listItem.addEventListener("click", () => openModal(product));
 
         productDetailsContainer.appendChild(listItem);
     });
@@ -36,6 +74,8 @@ function populateReorderDetails(data) {
             <span class="last-restocked">${product.last_restocked}</span>
         `;
 
+        listItem.addEventListener("click", () => openModal(product));
+
         reorderDetailsContainer.appendChild(listItem);
     });
 }
@@ -55,6 +95,8 @@ function populateLocationDetails(data) {
             <span class="supplier">${product.supplier_name}</span>
             <span class="location">${product.stock_location}</span>
         `;
+
+        listItem.addEventListener("click", () => openModal(product));
 
         locationDetailsContainer.appendChild(listItem);
     });

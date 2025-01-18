@@ -364,8 +364,8 @@
     background: #fff;
     padding: 30px 30px 5px 30px;
     border-radius: 10px;
-    height: 480px;
-    width: 390px;
+    height: 430px;
+    width: 470px;
     display: flex;
     flex-direction: row;
     margin-top: -70px;
@@ -382,7 +382,22 @@
 /* #region Form styles */
 form .input-group{
     position: relative;
-    width: 100%;
+    width: 200px;
+}
+
+/* Default state: Hide placeholder */ 
+.md-placeholder::placeholder { 
+    color: transparent; 
+} 
+
+/* Focus state: Show placeholder */ 
+.md-placeholder:focus::placeholder { 
+    color: #999; /* Adjust the color as needed */ 
+} 
+
+/* Smaller placeholder text */ 
+.md-placeholder::placeholder {
+    font-size: 0.85rem; /* Adjust the size as needed */ 
 }
 
 form .input-group label{
@@ -393,10 +408,9 @@ form .input-group label{
     font-size: 1rem;
     letter-spacing: .5px;
     color: black;
-    padding: 0 5px;
+    padding: 0 8px;
     pointer-events: none;
     transition: .3s;
-    border-radius: 40px;
 }
 
 form .input-group input{    
@@ -421,25 +435,11 @@ form .input-group input:not(:placeholder-shown) + label {
     font-size: .85rem;
 }
 
-/* input upon click */
-
 
 .input-group input.has-value {
     background-color: white;
     border: 1px solid #022a35;
 }
-
-/* error handling */
-.input-group input.has-error {
-    background-color: rgb(255, 184, 184);
-    border: 1px solid rgb(255, 0, 0);
-}
-
-form .input-group input.has-error + label {
-   
-    color: rgb(255, 0, 0); 
-}
-
 
 /* #endregion */
 
@@ -448,6 +448,7 @@ form{
     width: 100%;
     display: flex;
     flex-direction: column;
+    font-family: 'Afacad Flux', sans-serif;
 }
 
 form > div:not(:last-child){
@@ -488,15 +489,95 @@ form > div:not(:first-child) span:first-child{
 
 .save{
     justify-content: center;
-    background-color: rgb(224, 31, 31);
-    border-radius: 20px;
-    margin: 15px 30px;
+    
     height: 100%;
-    color: rgb(235, 235, 235);
+    
 }
 
-.save:hover{
+.save > button{
+    font-family: 'Afacad Flux', sans-serif;
+    background-color: #e02a2a;
+    font-weight: 600;
+    color: white;
+    font-size: .78rem;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
     cursor: pointer;
-    background-color: rgb(190, 29, 29);
+    width: 100%;
+}
+
+.save > button:hover{
+    cursor: pointer;
+    background-color: #b92323;
+}
+
+.save > button[disabled] { 
+    background-color: grey; 
+    cursor: not-allowed; 
 }
 /* #endregion */
+
+
+/* #region confirm changes */
+#confirmationModal .button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+#confirmationModal .button-container button {
+    font-family: 'Afacad Flux', sans-serif;
+    font-weight: 600;
+    color: white;
+    font-size: .70rem;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 160px;
+}
+
+#confirmationModal #confirmChanges {
+    background-color: #e02a2a;
+}
+
+#confirmationModal #confirmChanges:hover {
+    background-color: #b92323;
+}
+
+#confirmationModal #cancelChanges {
+    background-color: #41b923;
+}
+
+#confirmationModal #cancelChanges:hover {
+    background-color: #38a71c;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#confirmationModal ul{
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+#confirmationModal span{
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+/* #endregion */
+
+/* Hide the up and down arrows (spinners) on number input fields */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
