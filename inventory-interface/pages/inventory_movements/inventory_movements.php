@@ -15,7 +15,10 @@
                 aria-label="Search products">
             </div>
         </div>
+
+        <!-- moved to manage products since this page is only for checking the inventory movements
         <div class="inventory-inventory-movements-item grid-item-design-imv imv2 button">Reorder a product</div>
+        -->
 
         <!-- Redundant already had incoming products in dashboard
         <div class="inventory-inventory-movements-item grid-item-design-imv imv7 button">Incoming products</div>

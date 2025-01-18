@@ -164,7 +164,7 @@ $employeeID = $profileData['employeeID'];
         <div class="icon-container">
             <div class="left-container">
                 <!-- Notifications -->
-                <div class="ic-container ic1" data-tooltip="Notifications">
+                <div class="ic-container ic1 inventory" data-tooltip="Notifications">
                     <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
                         <path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160ZM480-80q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80Z"/>
                     </svg>
@@ -176,8 +176,8 @@ $employeeID = $profileData['employeeID'];
                     </div>
                 </div>
 
-                <!-- Inventory Movements -->
-                <div class="ic-container ic3 in" data-tooltip="user-activities-ic-nav"> <!--User Activities hehe-->
+                <!-- Inventory Movements redundant
+                <div class="ic-container ic3 in" data-tooltip="user-activities-ic-nav"> 
                     <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
                         <path d="M560-440h200v-80H560v80Zm0-120h200v-80H560v80ZM200-320h320v-22q0-45-44-71.5T360-440q-72 0-116 26.5T200-342v22Zm160-160q33 0 56.5-23.5T440-560q0-33-23.5-56.5T360-640q-33 0-56.5 23.5T280-560q0 33 23.5 56.5T360-480ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Z"/>
                     </svg>
@@ -187,9 +187,9 @@ $employeeID = $profileData['employeeID'];
                     <span>Inventory Movements</span>
                     <div class="badge">
                     </div>
-                </div>
+                </div> -->
 
-                <!-- Action Tools / Utilities -->
+                <!-- Action Tools / Utilities not really needed the system is not that complex
                 <div class="ic-container ic4" data-tooltip="Action Tools">
                     <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
                         <path d="M666-440 440-666l226-226 226 226-226 226Zm-546-80v-320h320v320H120Zm400 400v-320h320v320H520Zm-400 0v-320h320v320H120Z"/>
@@ -197,7 +197,7 @@ $employeeID = $profileData['employeeID'];
                     <svg class="icon show" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
                         <path d="M666-440 440-666l226-226 226 226-226 226Zm-546-80v-320h320v320H120Zm400 400v-320h320v320H520Zm-400 0v-320h320v320H120Zm80-480h160v-160H200v160Zm467 48 113-113-113-113-113 113 113 113Zm-67 352h160v-160H600v160Zm-400 0h160v-160H200v160Zm160-400Zm194-65ZM360-360Zm240 0Z"/>
                     </svg>
-                </div>
+                </div> -->
             </div>
             <!-- Profile -->
             <div class="profile-container" onclick="toggleDropdown()">
