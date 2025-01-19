@@ -51,7 +51,18 @@ if ($stmt->execute()) {
 
     if ($stmt->execute()) {
         $stmt->close();
-        echo json_encode(["success" => true]);
+
+        // Insert into supply_chain_orders table
+        $source = "inventory_reorder";
+        $stmt = $conn->prepare("INSERT INTO supply_chain_orders (source, related_id) VALUES (?, ?)");
+        $stmt->bind_param("si", $source, $request_id);
+
+        if ($stmt->execute()) {
+            $stmt->close();
+            echo json_encode(["success" => true]);
+        } else {
+            echo json_encode(["success" => false, "error" => "Failed to insert into supply_chain_orders: " . $stmt->error]);
+        }
     } else {
         echo json_encode(["success" => false, "error" => "Failed to log user activity: " . $stmt->error]);
     }
