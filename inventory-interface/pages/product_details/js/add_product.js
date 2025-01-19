@@ -33,10 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Populate product details in confirmation modal
         const details = [
-            { label: "Product name", value: document.getElementById("md-product_name-input").value.trim() },
+            { label: "Product name", value: document.getElementById("ap-product_name-input").value.trim() },
             { label: "Quantity", value: document.getElementById("ap-quantity-input").value.trim() },
             { label: "Reorder point", value: document.getElementById("ap-reorder_point-input").value.trim() },
-            { label: "Price", value: document.getElementById("md-price-input").value.trim() },
+            { label: "Price", value: document.getElementById("ap-price-input").value.trim() },
             { label: "Reorder cost", value: document.getElementById("ap-reorder_cost-input").value.trim() },
             { label: "Location", value: document.getElementById("ap-location-input").value.trim() },
         ];
@@ -55,10 +55,10 @@ document.addEventListener("DOMContentLoaded", () => {
     confirmCreation.addEventListener("click", async () => {
         // Collect product details
         const productData = {
-            product_name: document.getElementById("md-product_name-input").value.trim(),
+            product_name: document.getElementById("ap-product_name-input").value.trim(),
             quantity: document.getElementById("ap-quantity-input").value.trim(),
             reorder_point: document.getElementById("ap-reorder_point-input").value.trim(),
-            price: document.getElementById("md-price-input").value.trim(),
+            price: document.getElementById("ap-price-input").value.trim(),
             reorder_cost: document.getElementById("ap-reorder_cost-input").value.trim(),
             stock_location: document.getElementById("ap-location-input").value.trim(),
         };

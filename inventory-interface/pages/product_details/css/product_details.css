@@ -365,6 +365,10 @@
     display: flex;
 }
 
+.modal-request-reorder.show{
+    display: flex;
+}
+
 .modal-style > .modal-content{
     background: #fff;
     padding: 30px 30px 5px 30px;
@@ -374,6 +378,10 @@
     display: flex;
     flex-direction: row;
     margin-top: -90px;
+}
+
+.modal-style.modal-request-reorder > .modal-content{
+    height: 250px;
 }
 
 .modal-content{
@@ -500,9 +508,7 @@ form > div:not(:first-child) span:first-child{
 
 .save{
     justify-content: center;
-    
     height: 100%;
-    
 }
 
 .save > button{
@@ -597,3 +603,10 @@ form > div:not(:first-child) span:first-child{
     font-family: 'Afacad Flux', sans-serif;
 }
 
+.confirmmodal-style ul#addreorderRequest {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    margin-bottom: 10px;
+    font-family: 'Afacad Flux', sans-serif;
+}

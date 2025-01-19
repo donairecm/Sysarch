@@ -27,7 +27,7 @@
                                 <div class="">
                                     <span>Product Name</span>
                                     <div class="input-group">
-                                    <input type="text" placeholder="ex. stained glass frame" id="md-product_name-input" class="md-placeholder">
+                                    <input type="text" placeholder="ex. stained glass frame" id="ap-product_name-input" class="md-placeholder">
                                     <label id="ap-product_name">enter product name</label>
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@
                                 <div class="">
                                     <span>Price</span>
                                     <div class="input-group">
-                                    <input type="number" placeholder="note: no decimals" id="md-price-input" class="md-placeholder">
+                                    <input type="number" placeholder="note: no decimals" id="ap-price-input" class="md-placeholder">
                                     <label id="ap-price">enter price</label>
                                     </div>
                                 </div>
@@ -96,63 +96,35 @@
                                     <span>Request reorder</span>
                                 </div>
                                 <div class="">
-                                    <span>Product Name</span>
+                                    <span>Product ID</span>
                                     <div class="input-group">
-                                    <input type="text" placeholder="ex. stained glass frame" id="md-product_name-input" class="md-placeholder">
-                                    <label id="ap-product_name">enter product name</label>
+                                    <input type="text" placeholder="ex. PRD-001" id="rr-product_id-input" class="md-placeholder">
+                                    <label id="rr-product_id">enter product id</label>
                                     </div>
                                 </div>
                                 <div class="">
                                     <span>Quantity</span>
                                     <div class="input-group">
-                                    <input type="number" placeholder="note: no decimals" id="ap-quantity-input" class="md-placeholder">
-                                    <label id="ap-quantity">enter quantity</label>
-                                    </div>
-                                </div>
-                                <div class="">
-                                    <span>Reorder point</span>
-                                    <div class="input-group">
-                                    <input type="number" placeholder="ex. 58" id="ap-reorder_point-input" class="md-placeholder">
-                                    <label id="ap-reorder_point">enter reorder point</label>
-                                    </div>
-                                </div>
-                                <div class="">
-                                    <span>Price</span>
-                                    <div class="input-group">
-                                    <input type="number" placeholder="note: no decimals" id="md-price-input" class="md-placeholder">
-                                    <label id="ap-price">enter price</label>
-                                    </div>
-                                </div>
-                                <div class="">
-                                    <span>Reorder Cost</span>
-                                    <div class="input-group">
-                                    <input type="number" placeholder=" note: no decimals" id="ap-reorder_cost-input" class="md-placeholder">
-                                    <label id="ap-reorder_cost">enter reorder cost</label>
-                                    </div>
-                                </div>
-                                <div class="">
-                                    <span>Location</span>
-                                    <div class="input-group">
-                                    <input type="text" placeholder=" ex. room 2, aisle 3" id="ap-location-input" class="md-placeholder">
-                                    <label id="ap-location">enter stock location</label>
+                                    <input type="number" placeholder="note: no decimals" id="rr-quantity-input" class="md-placeholder">
+                                    <label id="rr-quantity">enter quantity</label>
                                     </div>
                                 </div>
                                 <div class="save">
-                                    <button type="submit" id="addproductButton" disabled>Add product</button>
+                                    <button type="submit" id="addreorderrequestButton" disabled>Request reorder</button>
                                 </div>
                         </form>
                     </div>
                 </div>
-                <div id="confirmationModal2" class="confirmmodal-style" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center;">
+                <div id="confirmationModal3" class="confirmmodal-style" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center;">
     <div style="background: white; padding: 20px; border-radius: 5px; max-width: 700px; width: auto;">
         <span>Confirm product addition</span>
-        <ul id="addProductDetails" style="padding-left: 20px;"></ul>
+        <ul id="addreorderRequest" style="padding-left: 20px;"></ul>
         <div class="button-container">
-            <button id="confirmCreation" class="md-btn-1" style="margin-right: 10px;">Confirm</button>
-            <button id="cancelCreation" class="md-btn-2">Cancel</button>
+            <button id="confirmRequest" class="md-btn-1" style="margin-right: 10px;">Confirm</button>
+            <button id="cancelRequest" class="md-btn-2">Cancel</button>
         </div>
     </div>
-</div>
+                </div>
 
                 <!-- #endregion -->
 

@@ -50,6 +50,7 @@ $employeeID = $profileData['employeeID'];
         <script type="text/javascript" src="pages/product_details/js/filters.js" defer></script>
         <script type="text/javascript" src="pages/product_details/js/update_pd.js" defer></script>
         <script type="text/javascript" src="pages/product_details/js/add_product.js" defer></script>
+        <script type="text/javascript" src="pages/product_details/js/request_reorder.js" defer></script>
         <!-- #endregion -->
 
         <!-- #region Inventory Movements-->
