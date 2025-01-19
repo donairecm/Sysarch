@@ -39,7 +39,9 @@ $reorderRequestsQuery = "
     FROM 
         reorder_requests rr
     JOIN 
-        products p ON rr.product_id = p.product_id";
+        products p ON rr.product_id = p.product_id
+    WHERE 
+        rr.completed_on IS NOT NULL"; // Exclude rows with NULL 'completed_on'
 
 // Helper function for date formatting
 function formatDate($date) {
@@ -77,7 +79,7 @@ if ($reorderRequestsResult = $conn->query($reorderRequestsQuery)) {
         $row['request_id'] = formatId('RRD', $row['request_id']);
         $row['product_id'] = formatId('PRD', $row['product_id']);
         $row['date_of_request'] = formatDate($row['date_of_request']);
-        $row['completed_on'] = $row['completed_on'] ? formatDate($row['completed_on']) : null; // Handle NULL dates
+        $row['completed_on'] = formatDate($row['completed_on']); // 'completed_on' will never be NULL here
         $response["reorderrequests"][] = $row; // Updated key to match JavaScript expectation
     }
     $reorderRequestsResult->free();

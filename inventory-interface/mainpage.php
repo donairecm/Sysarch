@@ -418,13 +418,13 @@ $employeeID = $profileData['employeeID'];
 
     <!-- #region Content -->
     <div id="content">
+        
+        <!-- #region Dashboard -->
+        <div class="page" id="dashboard"><?php include 'pages/dashboard/dashboard.php'; ?></div>
+        <!-- #endregion -->
 
         <!-- #region Product Details -->
         <div class="page" id="product_details"><?php include 'pages/product_details/product_details.php'; ?></div>
-        <!-- #endregion -->
-         
-        <!-- #region Dashboard -->
-        <div class="page" id="dashboard"><?php include 'pages/dashboard/dashboard.php'; ?></div>
         <!-- #endregion -->
 
          <!-- #region Inventory Movements -->
