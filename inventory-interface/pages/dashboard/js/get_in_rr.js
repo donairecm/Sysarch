@@ -19,10 +19,13 @@ function populateModal(activity) {
 
             if (fieldName === "requested_by") {
                 console.log(`Comparing requested_by: ${activity[fieldName]} with logged in Employee ID: ${employeeID}`);
-                if (activity[fieldName] === employeeID) {
+                if (activity[fieldName] === employeeID && activity.status === "pending") {
                     field.textContent = "You";
+                    document.querySelector(".save").classList.remove("hide"); // Remove the hide class
                 } else {
                     field.textContent = activity[fieldName];
+                    // Ensure the save button remains hidden if conditions aren't met
+                    document.querySelector(".save").classList.add("hide");
                 }
             } else {
                 field.textContent = fieldName === "date_of_request"

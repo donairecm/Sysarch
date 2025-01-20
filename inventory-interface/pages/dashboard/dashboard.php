@@ -83,11 +83,11 @@
                 <span>Status</span>
                 <span data-field="status"></span>
             </div>
-            <div>
+            <div class="last">
                 <span>Date of Request</span>
                 <span data-field="date_of_request"></span>
             </div>
-            <div class="save">
+            <div class="save hide">
             <button type="submit" id="deleterequestButton">Delete Request</button>
             </div>
         </form>
@@ -95,7 +95,7 @@
         </div>
 
 
-                <div id="confirmationModal2" class="confirmmodal-style" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center;">
+                <div id="confirmationModal3" class="confirmmodal-style" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center;">
     <div style="background: white; padding: 20px; border-radius: 5px; max-width: 700px; width: auto;">
         <span>Confirm product addition</span>
         <ul id="addProductDetails" style="padding-left: 20px;"></ul>

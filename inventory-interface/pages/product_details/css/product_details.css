@@ -547,6 +547,11 @@ form > div:not(:first-child) span:first-child{
     background-color: grey; 
     cursor: not-allowed; 
 }
+
+.save.hide > button{
+    display: none;
+}
+
 /* #endregion */
 
 /* #region confirm changes */
