@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to validate username
     async function validateUsername() {
         const username = usernameInput.value.trim();
-        usernameError.style.display = 'none'; // Clear existing error
+        hideTooltip(usernameError);
 
         if (!username) {
             return; // Skip validation for empty input
@@ -24,29 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const userId = result.employee_id; // Use employee_id directly without removing prefix
-
-            // Log the employee_id and username
-            console.log(`Employee ID used for search: ${userId}`);
-            console.log(`Username inputted by the user: ${username}`);
+            const userId = result.employee_id;
 
             // Check username availability
             const checkResponse = await fetch('../php/val_accdetails_fields.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username,
-                    exclude_id: userId, // Exclude current user's ID
-                }),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, exclude_id: userId }),
             });
 
             const checkResult = await checkResponse.json();
-
-            // Log the table and the comparison results
-            console.log('Table where the search happened: users');
-            console.log('Results of usernames where the inputted was compared to:', checkResult);
 
             if (checkResult.exists) {
                 showTooltip(usernameError, 'Username already taken');
@@ -59,20 +46,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Helper function to show tooltips
+    // Show tooltip with animation and input highlight
     function showTooltip(element, message) {
+        const inputField = element.closest('.input-group-aig').querySelector('input');
         element.textContent = message;
         element.style.display = 'block';
         element.classList.add('pop-animation');
+        inputField.classList.add('has-error');
+
         setTimeout(() => {
             element.classList.remove('pop-animation');
         }, 300);
     }
 
-    // Other existing code for has-value class
+    // Hide tooltip and clear input highlight
+    function hideTooltip(element) {
+        element.style.display = 'none';
+        const inputField = element.closest('.input-group-aig').querySelector('input');
+        inputField.classList.remove('has-error');
+    }
+
+    // Remove error class on focus
     inputFields.forEach(input => {
-        input.addEventListener('input', function () {
-            if (input.value.trim() !== "") {
+        input.addEventListener('focus', () => {
+            const errorTooltip = input.closest('.input-group-aig').querySelector('.account-details-errors');
+            if (errorTooltip) hideTooltip(errorTooltip); // Hide the tooltip
+            input.classList.remove('has-error'); // Remove the error highlight
+        });
+    });
+
+    // Add `has-value` class based on input content
+    inputFields.forEach(input => {
+        input.addEventListener('input', () => {
+            if (input.value.trim() !== '') {
                 input.classList.add('has-value');
             } else {
                 input.classList.remove('has-value');
@@ -80,31 +86,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Add event listeners to all input fields
+    // Enable/Disable "Save Changes" button
     function checkInputFields() {
         const hasValue = Array.from(inputFields).some(input => input.value.trim() !== '');
         updateButton.disabled = !hasValue;
     }
-    inputFields.forEach(input => {
-        input.addEventListener('input', checkInputFields);
-    });
+    inputFields.forEach(input => input.addEventListener('input', checkInputFields));
 
     // Initial check on page load
     checkInputFields();
 
-    // Event listener for the "Save changes" button
+    // Validate username on form submission
     updateButton.addEventListener('click', async (e) => {
         e.preventDefault(); // Prevent form submission
-
-        // Perform validation only when the button is clicked
         await validateUsername();
 
-        // If there are any errors, do not proceed
-        if (usernameInput.classList.contains('has-error')) {
-            return;
-        }
+        // If there are errors, do not proceed
+        if (usernameInput.classList.contains('has-error')) return;
 
-        // Proceed with the form submission or other logic if no errors
-        console.log('Form is ready to be submitted or proceed with next steps.');
+        console.log('Form is ready to be submitted.');
     });
 });

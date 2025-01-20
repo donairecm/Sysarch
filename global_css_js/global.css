@@ -371,6 +371,7 @@ body::-webkit-scrollbar-thumb:hover {
     pointer-events: none;
     transition: .3s;
     padding: 0px 10px;
+    border-radius: 10px;
 }
 
 #updateaccountdetialsForm .input-group-aig input{    
@@ -387,6 +388,16 @@ body::-webkit-scrollbar-thumb:hover {
     margin: 4px 0 0 0;
     padding: 13px 15px;
     border-radius: 5px;
+}
+
+.input-group input:focus {
+    background-color: #f0f0f0;
+    border: 1px solid rgb(161, 161, 161);
+}
+
+.input-group input.has-value {
+    background-color: #f0f0f0;
+    border: 1px solid rgb(161, 161, 161);
 }
 
 /* label upon click */
@@ -413,7 +424,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 /* #region Account details error styling */
 
-.error-container.username{
+.error-container.username > .account-details-errors{
     display: none;
 }
 
@@ -424,7 +435,7 @@ body::-webkit-scrollbar-thumb:hover {
 .error-container.username .account-details-errors,
 .error-container.email .account-details-errors{
     bottom: -47px;
-    transform: translateX(-260%);
+    transform: translateX(10%);
 }
 
 .error-container.pnumber1{
@@ -477,12 +488,12 @@ body::-webkit-scrollbar-thumb:hover {
     border-top: none; /* Remove the original top border */
 }
 
-.input-group-aig input.has-error {
+#updateaccountdetialsForm .input-group-aig input.has-error {
     background-color: rgb(255, 184, 184);
     border: 1px solid rgb(255, 0, 0);
 }
 
-.input-group-aig input.has-error + label {
+#updateaccountdetialsForm .input-group-aig input.has-error + label {
     color: rgb(255, 0, 0); 
 }
 
