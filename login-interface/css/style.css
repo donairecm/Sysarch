@@ -206,7 +206,6 @@ form .input-group input:not(:placeholder-shown) + label {
 }
 
 form .input-group input.has-error + label {
-   
     color: rgb(255, 0, 0); 
 }
 

@@ -413,26 +413,39 @@ body::-webkit-scrollbar-thumb:hover {
 
 /* #region Account details error styling */
 
-.right-panel .username-error-container .account-details-errors{
+.error-container.username{
     display: none;
 }
 
-.right-panel .password-error-container .account-details-errors{
+.error-container.email{
     display: none;
+}
+
+.error-container.username .account-details-errors,
+.error-container.email .account-details-errors{
+    bottom: -47px;
+    transform: translateX(-260%);
+}
+
+.error-container.pnumber1{
+    display: none;
+}
+
+.error-container.pnumber2{
+    display: none;
+}
+
+.error-container.pnumber1 .account-details-errors,
+.error-container.pnumber2 .account-details-errors{
+    bottom: -47px;
+    transform: translateX(10%);
 }
 
 .error-container {
     position: relative;
 }
 
-.username-error-container .account-details-errors,
-.password-error-container .account-details-errors {
-    bottom: -102px;
-    left: 60%;
-    transform: translateX(-50%);
-}
-
-.right-panel .account-details-errors {
+.account-details-errors {
     font-family: "Montserrat", sans-serif;
     font-size: .75rem;
     letter-spacing: 0.4px;
@@ -450,7 +463,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 /* arrow at the top */
-.tooltip-style::after {
+.ae-tooltip-style::after {
     content: "";
     position: absolute;
     top: -10px; /* Adjust the arrow to the top */
@@ -462,6 +475,15 @@ body::-webkit-scrollbar-thumb:hover {
     border-right: 10px solid transparent;
     border-bottom: 10px solid rgb(255, 174, 174); /* Arrow pointing down */
     border-top: none; /* Remove the original top border */
+}
+
+.input-group-aig input.has-error {
+    background-color: rgb(255, 184, 184);
+    border: 1px solid rgb(255, 0, 0);
+}
+
+.input-group-aig input.has-error + label {
+    color: rgb(255, 0, 0); 
 }
 
 /* #endregion */
