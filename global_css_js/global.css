@@ -202,7 +202,7 @@ body::-webkit-scrollbar-thumb:hover {
     margin: 0;
     padding: 40px 40px 40px 120px;
     height: calc(100vh - 60px);
-    grid-template-rows: 270px 130px 460px;
+    grid-template-rows: 270px 130px 210px;
     overflow-y: auto;
 }
 /* #endregion */
@@ -225,7 +225,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 .aig3 {
     grid-row-start: 1;
-    grid-row-end: 3;
+    grid-row-end: 4;
     grid-column-start: 6;
     grid-column-end: 18;
 }
@@ -234,12 +234,158 @@ body::-webkit-scrollbar-thumb:hover {
 
 /* #region Grid item styles */
 .grid-item-design-aig {
-    padding: 10px;
+    padding: 0px;
     background-color: #f0f0f0;
     font-family: 'Afacad Flux', sans-serif;
     transition: transform 0.2s, box-shadow 0.2s; 
     border: 1px solid rgba(90, 90, 90, 0.253);
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
+
+.aig-title {
+    background-color: #02242e5e;
+    font-family: 'Afacad Flux', sans-serif;
+    border-bottom: 1px solid #02242e5e;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-radius: 7px 7px 0 0;
+    padding: 10px 20px;
+}
+/* #endregion */
+
+/* #region Grid content styles */
+.aig-content{
+    padding: 20px;
+}
+
+.aig-content > div:not(:last-child){
+    margin-bottom: 20px;
+}
+
+.row-item{
+    width: 100%;
+    height: 70px;
+    background-color: rgba(174, 174, 228, 0.527);
+    display: flex;
+    flex-direction: column;
+}
+
+.double{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/* #region Button */
+.update{
+    justify-content: flex-end;
+}
+
+.update > button{
+    font-family: 'Afacad Flux', sans-serif;
+    background-color: #e02a2a;
+    font-weight: 600;
+    color: white;
+    font-size: .78rem;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 30%;
+}
+
+.update > button:not(:last-child){
+    background-color: #062f3dc5;
+    margin-right: 10px;
+}
+
+.update > button:hover{
+    cursor: pointer;
+    background-color: #b92323;
+}
+
+.update > button:not(:last-child):hover {
+    cursor: pointer;
+    background-color: #063746;
+}
+
+
+
+.update > button[disabled] { 
+    background-color: grey; 
+    cursor: not-allowed; 
+}
+/* #endregion */
+
+/* #region Form styles */
+#updateaccountdetialsForm .input-group{
+    position: relative;
+    width: 200px;
+}
+
+/* #region Placeholder*/
+.md-placeholder::placeholder { 
+    color: transparent; 
+} 
+
+.md-placeholder:focus::placeholder { 
+    color: #999; /* Adjust the color as needed */ 
+} 
+
+.md-placeholder::placeholder {
+    font-size: 0.8rem; /* Adjust the size as needed */ 
+}
+/* #endregion */
+
+#updateaccountdetialsForm .input-group label{
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    letter-spacing: .5px;
+    color: black;
+    padding: 0 8px;
+    pointer-events: none;
+    transition: .3s;
+    border-radius: 40px;
+}
+
+#updateaccountdetialsForm .input-group input{    
+    padding: 13px 0 10px 0;
+    background-color: white;
+    border: 1px solid transparent;
+    width: 100%;
+    height: 45px;
+    outline: none;
+    text-align: left;
+    font-size: 1.03rem;
+    color: red;
+    font-weight: 500;
+    margin: 9px 0;
+    padding: 13px 15px;
+}
+
+/* label upon click */
+#updateaccountdetialsForm .input-group input:focus + label,
+#updateaccountdetialsForm .input-group input:not(:placeholder-shown) + label {
+    top: 4px;
+    left: 0px;
+    background: white;
+    font-size: .85rem;
+}
+#updateaccountdetialsForm .input-group input.has-value {
+    background-color: white;
+    border: 1px solid #022a35;
+}
+
+/* #endregion */
+
+
 /* #endregion */
 
