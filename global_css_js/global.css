@@ -239,10 +239,13 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .aig-title {
-    background-color: #02242e5e;
+    background-color: #062f3dc5;
     font-family: 'Afacad Flux', sans-serif;
     border-bottom: 1px solid #02242e5e;
-    font-size: 1.1rem;
+    color: white;
+    text-transform: uppercase;
+    font-size: .94rem;
+    letter-spacing: .5px;
     font-weight: 500;
     border-radius: 7px 7px 0 0;
     padding: 10px 20px;
@@ -394,6 +397,71 @@ body::-webkit-scrollbar-thumb:hover {
     background: #f0f0f0;
     font-size: .90rem;
     padding: 0px 5px;
+}
+
+/* #endregion */
+
+/* #region confirm changes */
+.confirmmodal-style ul#updatedemployeedetails {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    margin-bottom: 10px;
+    font-family: 'Afacad Flux', sans-serif;
+}
+/* #endregion */
+
+/* #region Account details error styling */
+
+.right-panel .username-error-container .account-details-errors{
+    display: none;
+}
+
+.right-panel .password-error-container .account-details-errors{
+    display: none;
+}
+
+.error-container {
+    position: relative;
+}
+
+.username-error-container .account-details-errors,
+.password-error-container .account-details-errors {
+    bottom: -102px;
+    left: 60%;
+    transform: translateX(-50%);
+}
+
+.right-panel .account-details-errors {
+    font-family: "Montserrat", sans-serif;
+    font-size: .75rem;
+    letter-spacing: 0.4px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 174, 174);
+    padding: 12px 16px;
+    position: absolute;
+    text-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: -3px 5px 30px rgba(0, 0, 0, 0.384);
+    border-radius: 4px;
+    z-index: 10;
+}
+
+/* arrow at the top */
+.tooltip-style::after {
+    content: "";
+    position: absolute;
+    top: -10px; /* Adjust the arrow to the top */
+    left: 20%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid rgb(255, 174, 174); /* Arrow pointing down */
+    border-top: none; /* Remove the original top border */
 }
 
 /* #endregion */
