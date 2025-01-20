@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const sidebarItems = document.querySelectorAll('.sidebar-item');
     const submenuItems = document.querySelectorAll('.submenu-container a');
+    const profileMenuItems = document.querySelectorAll('.profile-menu a');
     const pages = document.querySelectorAll('.page');
 
     function activatePage(targetPage) {
@@ -15,9 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function activateSidebarItem(targetItem) {
-        // Remove 'active' from all sidebar items and submenu items
+        // Remove 'active' from all sidebar, submenu, and profile menu items
         sidebarItems.forEach(link => link.classList.remove('active'));
         submenuItems.forEach(link => link.classList.remove('active'));
+        profileMenuItems.forEach(link => link.classList.remove('active'));
 
         // Add 'active' to the clicked item
         targetItem.classList.add('active');
@@ -35,6 +37,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Submenu item click handling
     submenuItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetPage = item.getAttribute('data-page');
+            activatePage(targetPage);
+            activateSidebarItem(item);
+        });
+    });
+
+    // Profile menu item click handling
+    profileMenuItems.forEach(item => {
         item.addEventListener('click', (e) => {
             e.preventDefault();
             const targetPage = item.getAttribute('data-page');

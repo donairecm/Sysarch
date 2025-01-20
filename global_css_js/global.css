@@ -193,3 +193,53 @@ body::-webkit-scrollbar-thumb:hover {
     width: 23px;
 }
 /* #endregion */
+
+/* #region Inventory grid designs */
+.account-information-grid {
+    display: grid;
+    grid-template-columns: repeat(17, 1fr); 
+    gap: 30px;
+    margin: 0;
+    padding: 40px 40px 40px 120px;
+    height: calc(100vh - 60px);
+    grid-template-rows: 270px 130px 460px;
+    overflow-y: auto;
+}
+/* #endregion */
+
+/* #region Grid Layout*/
+/* Search */
+.aig1 {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 6;
+}
+
+.aig2 {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 6;
+}
+
+.aig3 {
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 6;
+    grid-column-end: 18;
+}
+
+/* #endregion */
+
+/* #region Grid item styles */
+.grid-item-design-aig {
+    padding: 10px;
+    background-color: #f0f0f0;
+    font-family: 'Afacad Flux', sans-serif;
+    transition: transform 0.2s, box-shadow 0.2s; 
+    border: 1px solid rgba(90, 90, 90, 0.253);
+    border-radius: 8px;
+}
+/* #endregion */
+
