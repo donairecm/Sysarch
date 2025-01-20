@@ -150,9 +150,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 5px 10px;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 1.02rem;
-    color: rgba(37, 37, 37, 0.911);
 }
 
 /* Each row for inventory activity */
@@ -163,10 +162,9 @@
     padding: 12px 10px;
     border-bottom: 1px solid #cecece;
     font-family: 'Afacad Flux', sans-serif;
-    border-radius: 8px;
     transition: background-color 0.2s, box-shadow 0.2s;
     font-weight: 400;
-    font-size: .90rem;
+    font-size: .95rem;
 }
 
 /* Hover effect for rows */

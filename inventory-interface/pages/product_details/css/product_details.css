@@ -369,6 +369,10 @@
     display: flex;
 }
 
+.modal-view-delete-reorder-detail.show{
+    display: flex;
+}
+
 .modal-style > .modal-content{
     background: #fff;
     padding: 30px 30px 5px 30px;
@@ -382,6 +386,10 @@
 
 .modal-style.modal-request-reorder > .modal-content{
     height: 250px;
+}
+
+.modal-view-delete-reorder-detail > .modal-content{
+    height: auto;
 }
 
 .modal-content{
@@ -480,6 +488,10 @@ form > div{
     align-items: center;
     justify-content: space-between;
     padding: 0 10px;
+}
+
+#viewOrdeletereorderrequestForm > div:not(:first-child){
+    padding: 10px 10px;
 }
 
 form > div span{

@@ -16,6 +16,9 @@ $middleInitial = $profileData['middleInitial'];
 $profilePic = $profileData['profilePic'];
 $profileCover = $profileData['profileCover']; 
 $employeeID = $profileData['employeeID'];
+
+// Return the logged-in employee ID
+
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +44,11 @@ $employeeID = $profileData['employeeID'];
         <script type="text/javascript" src="pages/dashboard/js/get_stock_lvl.js" defer></script>
         <script type="text/javascript" src="pages/dashboard/js/get_in_val.js" defer></script>
         <script type="text/javascript" src="pages/dashboard/js/get_in_turno.js" defer></script>
-        <script type="text/javascript" src="pages/dashboard/js/get_in_mv.js" defer></script>
+        <script type="text/javascript" src="pages/dashboard/js/get_in_rr.js" defer></script>
+        <script>
+    const employeeID = "<?php echo $employeeID; ?>";
+</script>
+
         <!-- #endregion -->
 
         <!-- #region Product Details-->

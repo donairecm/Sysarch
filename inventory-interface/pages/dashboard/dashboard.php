@@ -36,19 +36,79 @@
         </div>
 
         <div class="inventory-item grid-item-design inventory-activities im3">
-            <div class="item-name">Incoming Inventory</div>
+            <div class="item-name">Reorder Requests</div>
             <div class="inventory-activities-container container_scrollbar_design">
                 <ul class="inventory-activities-list">
                     <!-- Header Row -->
                     <li class="inventory-activities-header">
+                        <span class="inventory-activities-header-product-id">Request ID</span>
                         <span class="inventory-activities-header-product-id">Product ID</span>
                         <span class="inventory-activities-header-quantity">Quantity</span>
+                        <span class="inventory-activities-header-product-id">Status</span>
                         <span class="inventory-activities-header-activity">Date of request</span>
                     </li>
                     <!-- Rows will be dynamically inserted here -->
                 </ul>
             </div>
         </div>
+
+        <!-- #region modal for add product -->
+        <div class="modal-style modal-view-delete-reorder-detail">
+    <div class="modal-content">
+        <form action="POST" id="viewOrdeletereorderrequestForm">
+            <div class="prod-m" id="requestID">
+                <span data-field="request_id"></span>
+            </div>
+            <div>
+                <span>Requested by</span>
+                <span data-field="requested_by"></span>
+            </div>
+            <div>
+                <span>Product ID</span>
+                <span data-field="product_id"></span>
+            </div>
+            <div>
+                <span>Product name</span>
+                <span data-field="product_name"></span>
+            </div>
+            <div>
+                <span>Requested quantity</span>
+                <span data-field="quantity"></span>
+            </div>
+            <div>
+                <span>Handled by</span>
+                <span data-field="handled_by"></span>
+            </div>
+            <div>
+                <span>Status</span>
+                <span data-field="status"></span>
+            </div>
+            <div>
+                <span>Date of Request</span>
+                <span data-field="date_of_request"></span>
+            </div>
+            <div class="save">
+            <button type="submit" id="deleterequestButton">Delete Request</button>
+            </div>
+        </form>
+    </div>
+        </div>
+
+
+                <div id="confirmationModal2" class="confirmmodal-style" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center;">
+    <div style="background: white; padding: 20px; border-radius: 5px; max-width: 700px; width: auto;">
+        <span>Confirm product addition</span>
+        <ul id="addProductDetails" style="padding-left: 20px;"></ul>
+        <div class="button-container">
+            <button id="confirmCreation" class="md-btn-1" style="margin-right: 10px;">Confirm</button>
+            <button id="cancelCreation" class="md-btn-2">Cancel</button>
+        </div>
+    </div>
+</div>
+
+                <!-- #endregion -->
+
+
         <!-- Stock Levels -->
         <div class="inventory-item grid-item-design im4">
             <div class="item-name">Stock Levels</div>
