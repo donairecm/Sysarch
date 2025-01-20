@@ -3,7 +3,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateButton = document.getElementById('updateaccountdetails');
     const usernameInput = document.getElementById('uad-employee_username');
     const usernameError = document.getElementById('aig-username-error');
+    const emailInput = document.getElementById('uad-employee_email');
+    const emailError = document.getElementById('aig-email-error');
     const inputFields = document.querySelectorAll('.input-group-aig input');
+
+    let userId = null; // To store the user's ID globally
+
+    // Function to fetch the user's ID
+    async function fetchUserId() {
+        try {
+            const response = await fetch('../php/get_logged_in_user.php');
+            const result = await response.json();
+
+            if (!result.success) {
+                console.error('Failed to fetch employee_id:', result.error);
+                return;
+            }
+
+            userId = result.employee_id; // Store the user's ID
+        } catch (error) {
+            console.error('Error fetching user ID:', error);
+        }
+    }
 
     // Function to validate username
     async function validateUsername() {
@@ -15,17 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // Fetch current user's employee_id
-            const response = await fetch('../php/get_logged_in_user.php');
-            const result = await response.json();
-
-            if (!result.success) {
-                console.error('Failed to fetch employee_id:', result.error);
-                return;
-            }
-
-            const userId = result.employee_id;
-
             // Check username availability
             const checkResponse = await fetch('../php/val_accdetails_fields.php', {
                 method: 'POST',
@@ -36,13 +46,63 @@ document.addEventListener('DOMContentLoaded', () => {
             const checkResult = await checkResponse.json();
 
             if (checkResult.exists) {
-                showTooltip(usernameError, 'Username already taken');
+                if (checkResult.message) {
+                    showTooltip(usernameError, checkResult.message); // Display "You're already using this username :)"
+                } else {
+                    showTooltip(usernameError, 'Username already taken'); // Display default error message
+                }
                 usernameInput.classList.add('has-error');
             } else {
                 usernameInput.classList.remove('has-error');
             }
         } catch (error) {
             console.error('Error validating username:', error);
+        }
+    }
+
+    // Function to validate email format
+    async function validateEmail() {
+        const email = emailInput.value.trim();
+        hideTooltip(emailError);
+
+        if (!email) {
+            return; // Skip validation for empty input
+        }
+
+        // Regex for validating email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // Client-side validation for email format
+        if (!emailRegex.test(email)) {
+            showTooltip(emailError, 'Please enter a legitimate email');
+            emailInput.classList.add('has-error');
+            return;
+        }
+
+        try {
+            // Fetch server validation for the email
+            const response = await fetch('../php/val_accdetails_fields.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: email,
+                    exclude_id: userId,
+                }),
+            });
+
+            const result = await response.json();
+
+            if (result.email_exists) {
+                // Server-side email validation error
+                showTooltip(emailError, result.email_message || 'Email already in use');
+                emailInput.classList.add('has-error');
+            } else {
+                emailInput.classList.remove('has-error'); // No server-side error
+            }
+        } catch (error) {
+            console.error('Error validating email:', error);
+            showTooltip(emailError, 'An error occurred while validating the email');
+            emailInput.classList.add('has-error');
         }
     }
 
@@ -96,13 +156,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial check on page load
     checkInputFields();
 
-    // Validate username on form submission
+    // Fetch the user ID when the page loads
+    fetchUserId();
+
+    // Validate username and email on form submission
     updateButton.addEventListener('click', async (e) => {
         e.preventDefault(); // Prevent form submission
+
+        // Validate inputs
         await validateUsername();
+        await validateEmail();
 
         // If there are errors, do not proceed
-        if (usernameInput.classList.contains('has-error')) return;
+        if (usernameInput.classList.contains('has-error') || emailInput.classList.contains('has-error')) return;
 
         console.log('Form is ready to be submitted.');
     });

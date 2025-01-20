@@ -428,7 +428,7 @@ body::-webkit-scrollbar-thumb:hover {
     display: none;
 }
 
-.error-container.email{
+.error-container.email > .account-details-errors{
     display: none;
 }
 
@@ -438,11 +438,11 @@ body::-webkit-scrollbar-thumb:hover {
     transform: translateX(10%);
 }
 
-.error-container.pnumber1{
+.error-container.pnumber1 > .account-details-errors{
     display: none;
 }
 
-.error-container.pnumber2{
+.error-container.pnumber2 > .account-details-errors{
     display: none;
 }
 

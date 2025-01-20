@@ -51,10 +51,10 @@
                 <div class="input-group-aig">
                     <input type="email" placeholder="" id="uad-employee_email" class="md-placeholder">
                     <label id="uad-email">email</label>
-                </div>
-                <!-- Email error container -->
-                <div class="error-container email">
-                    <div class="account-details-errors ae-tooltip-style" id="aig-email-error">--error message--</div>
+                    <!-- Email error container -->
+                    <div class="error-container email">
+                        <div class="account-details-errors ae-tooltip-style" id="aig-email-error">--error message--</div>
+                    </div>
                 </div>
             </div>
             <div class="row-item aig-ri-5 double">
