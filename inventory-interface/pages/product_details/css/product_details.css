@@ -627,3 +627,19 @@ form > div:not(:first-child) span:first-child{
     margin-bottom: 10px;
     font-family: 'Afacad Flux', sans-serif;
 }
+
+.confirmmodal-style ul#addProductDetails {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    margin-bottom: 10px;
+    font-family: 'Afacad Flux', sans-serif;
+}
+
+.confirmmodal-style ul#cancelreorderrequest {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    margin-bottom: 10px;
+    font-family: 'Afacad Flux', sans-serif;
+}

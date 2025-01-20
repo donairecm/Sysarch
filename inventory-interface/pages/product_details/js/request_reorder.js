@@ -19,48 +19,64 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch((error) => console.error("Error fetching product data:", error));
 
     // Check if a reorder request already exists for the product ID
-    const checkExistingReorderRequest = async (productId) => {
-        try {
-            const response = await fetch("db_queries/check_existing_request.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ product_id: productId }),
-            });
-            const data = await response.json();
-            return data.exists; // `true` if request exists, otherwise `false`
-        } catch (error) {
-            console.error("Error checking existing request:", error);
-            return false;
-        }
-    };
+    // Check if a reorder request already exists for the product ID
+const checkExistingReorderRequest = async (productId) => {
+    try {
+        const response = await fetch("db_queries/check_existing_request.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ product_id: productId }),
+        });
+        const data = await response.json();
+        return {
+            exists: data.exists, // True if request exists
+            status: data.status, // Status of the latest request (if applicable)
+        };
+    } catch (error) {
+        console.error("Error checking existing request:", error);
+        return { exists: false, status: null };
+    }
+};
 
-    // Function to check if both conditions are met to enable the button
-    const updateAddButtonState = async () => {
-        const inputProductId = productIdInput.value.trim();
-        const inputQuantity = quantityInput.value.trim();
+// Function to check if both conditions are met to enable the button
+const updateAddButtonState = async () => {
+    const inputProductId = productIdInput.value.trim();
+    const inputQuantity = quantityInput.value.trim();
 
-        const product = productData.find((p) => p.product_id === inputProductId);
+    const product = productData.find((p) => p.product_id === inputProductId);
 
-        if (product) {
-            const requestExists = await checkExistingReorderRequest(inputProductId);
+    if (product) {
+        const { exists, status } = await checkExistingReorderRequest(inputProductId);
 
-            if (requestExists) {
-                addProductButton.disabled = true;
-                addProductButton.textContent = `Request already made for ${inputProductId}`;
-            } else if (parseInt(inputQuantity) > 0) {
+        // Log the fetched status for debugging
+        console.log(`Product ID: ${inputProductId}, Status: ${status}`);
+
+        if (exists) {
+            if (status === "completed" || status === "cancelled") {
+                // Enable button if status is completed or cancelled
                 addProductButton.disabled = false;
                 addProductButton.textContent = `Request a reorder for ${inputProductId}`;
             } else {
+                // Disable button for any other status
                 addProductButton.disabled = true;
-                addProductButton.textContent = `${inputProductId} found, but quantity is required`;
+                addProductButton.textContent = `Request already made for ${inputProductId} with status: ${status}`;
             }
+        } else if (parseInt(inputQuantity) > 0) {
+            // Allow new requests only if quantity is valid
+            addProductButton.disabled = false;
+            addProductButton.textContent = `Request a reorder for ${inputProductId}`;
         } else {
             addProductButton.disabled = true;
-            addProductButton.textContent = `Product ID: "${inputProductId}" doesn't exist`;
+            addProductButton.textContent = `${inputProductId} found, but quantity is required`;
         }
-    };
+    } else {
+        addProductButton.disabled = true;
+        addProductButton.textContent = `Product ID: "${inputProductId}" doesn't exist`;
+    }
+};
+
 
     // Show modal-request-reorder when .pd7.button is clicked
     requestReorderDiv.addEventListener("click", () => {

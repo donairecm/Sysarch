@@ -95,13 +95,13 @@
         </div>
 
 
-                <div id="confirmationModal3" class="confirmmodal-style" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center;">
+                <div id="confirmationModal4" class="confirmmodal-style" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center;">
     <div style="background: white; padding: 20px; border-radius: 5px; max-width: 700px; width: auto;">
-        <span>Confirm product addition</span>
-        <ul id="addProductDetails" style="padding-left: 20px;"></ul>
+        <span>Confirm request cancellation?</span>
+        <ul id="cancelreorderrequest" style="padding-left: 20px;"></ul>
         <div class="button-container">
-            <button id="confirmCreation" class="md-btn-1" style="margin-right: 10px;">Confirm</button>
-            <button id="cancelCreation" class="md-btn-2">Cancel</button>
+            <button id="confirmcancellation" class="md-btn-1" style="margin-right: 10px;">Confirm</button>
+            <button id="cancelcancellation" class="md-btn-2">Cancel</button>
         </div>
     </div>
 </div>

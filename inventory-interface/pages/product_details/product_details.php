@@ -209,7 +209,7 @@
 
                 <!-- Rows for filter reorder will be dynamically inserted here -->
                  <!-- sample of row -->
-                <!-- #endregion-->
+                <!-- #endregion--> 
 
                 <div class="modal-product-details modal-style">
                     <div class="modal-content">
