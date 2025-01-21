@@ -52,9 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
     
             // Populate fetchedDetails for validation
             fetchedDetails = {
+                username: data.username || '',
+                email: data.email || '',
                 first_name: data.first_name || '',
                 middle_name: data.middle_name || '',
                 last_name: data.last_name || '',
+                phone_number_1: data.phone_number_1 || '',
+                phone_number_2: data.phone_number_2 || '',
             };
         } catch (error) {
             console.error('Error fetching account details:', error);
@@ -362,26 +366,26 @@ console.log('Fetched Details:', fetchedDetails);
         const changes = [];
     
         // Compare inputs with fetched details and add changes
-        if (usernameInput.value.trim() !== fetchedDetails.username) {
-            changes.push(`Username: ${fetchedDetails.username || 'N/A'} change to ${usernameInput.value.trim()}?`);
+        if (usernameInput.value.trim() && usernameInput.value.trim() !== fetchedDetails.username) {
+            changes.push(`Username: ${fetchedDetails.username || 'N/A'} → ${usernameInput.value.trim()}`);
         }
-        if (emailInput.value.trim() !== fetchedDetails.email) {
-            changes.push(`Email: ${fetchedDetails.email || 'N/A'} change to ${emailInput.value.trim()}?`);
+        if (emailInput.value.trim() && emailInput.value.trim() !== fetchedDetails.email) {
+            changes.push(`Email: ${fetchedDetails.email || 'N/A'} → ${emailInput.value.trim()}`);
         }
-        if (fnameInput.value.trim() !== fetchedDetails.first_name) {
-            changes.push(`First Name: ${fetchedDetails.first_name || 'N/A'} change to ${fnameInput.value.trim()}?`);
+        if (fnameInput.value.trim() && fnameInput.value.trim() !== fetchedDetails.first_name) {
+            changes.push(`First Name: ${fetchedDetails.first_name || 'N/A'} → ${fnameInput.value.trim()}`);
         }
-        if (mnameInput.value.trim() !== fetchedDetails.middle_name) {
-            changes.push(`Middle Name: ${fetchedDetails.middle_name || 'N/A'} change to ${mnameInput.value.trim()}?`);
+        if (mnameInput.value.trim() && mnameInput.value.trim() !== fetchedDetails.middle_name) {
+            changes.push(`Middle Name: ${fetchedDetails.middle_name || 'N/A'} → ${mnameInput.value.trim()}`);
         }
-        if (lnameInput.value.trim() !== fetchedDetails.last_name) {
-            changes.push(`Last Name: ${fetchedDetails.last_name || 'N/A'} change to ${lnameInput.value.trim()}?`);
+        if (lnameInput.value.trim() && lnameInput.value.trim() !== fetchedDetails.last_name) {
+            changes.push(`Last Name: ${fetchedDetails.last_name || 'N/A'} → ${lnameInput.value.trim()}`);
         }
-        if (phone1Input.value.trim() !== fetchedDetails.phone_number_1) {
-            changes.push(`Phone Number 1: ${fetchedDetails.phone_number_1 || 'N/A'} change to ${phone1Input.value.trim()}?`);
+        if (phone1Input.value.trim() && phone1Input.value.trim() !== fetchedDetails.phone_number_1) {
+            changes.push(`Phone Number 1: ${fetchedDetails.phone_number_1 || 'N/A'} → ${phone1Input.value.trim()}`);
         }
-        if (phone2Input.value.trim() !== fetchedDetails.phone_number_2) {
-            changes.push(`Phone Number 2: ${fetchedDetails.phone_number_2 || 'N/A'} change to ${phone2Input.value.trim()}?`);
+        if (phone2Input.value.trim() && phone2Input.value.trim() !== fetchedDetails.phone_number_2) {
+            changes.push(`Phone Number 2: ${fetchedDetails.phone_number_2 || 'N/A'} → ${phone2Input.value.trim()}`);
         }
     
         // If there are no changes, do not show the modal
@@ -406,6 +410,8 @@ console.log('Fetched Details:', fetchedDetails);
     
         console.log('Changes:', changes);
     });
+    
+    
     
     
     
