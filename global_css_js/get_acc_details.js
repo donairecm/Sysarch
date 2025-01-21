@@ -16,8 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const phone1Input = document.getElementById('uad-employee_pnum1');
     const phone2Label = document.getElementById('uad-phone-num-2');
     const phone2Input = document.getElementById('uad-employee_pnum2');
+    const phone1Error = document.getElementById('pnum1-error');
+    const phone2Error = document.getElementById('pnum2-error');
     const inputFields = document.querySelectorAll('.input-group-aig input');
-    const emailError = document.getElementById('aig-email-error'); // Added to match email validation
+    const emailError = document.getElementById('aig-email-error'); 
 
     let userId = null; // To store the user's ID globally
 
@@ -67,6 +69,77 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error fetching user ID:', error);
         }
     }
+
+    // Function to validate phone number
+    async function validatePhoneNumber(phoneInput) {
+        const phoneNumber = phoneInput.value.trim();
+        const inputGroup = phoneInput.closest('.input-group-aig');
+        const phoneError = inputGroup?.querySelector('.account-details-errors');
+        
+        if (phoneError) hideTooltip(phoneError); // Hide tooltip
+    
+        const validPattern = /^09\d{9}$/; // Matches 11 digits starting with 09
+    
+        if (!phoneNumber) {
+            return; // Skip validation for empty input
+        }
+    
+        if (!validPattern.test(phoneNumber)) {
+            showTooltip(phoneError, 'Please input a legitimate cellphone number (e.g., 09123456789)');
+            phoneInput.classList.add('has-error');
+            return; // Stop further processing if invalid format
+        }
+    
+        if (phoneNumber === '09000000000') {
+            showTooltip(phoneError, 'The phone number cannot be 09000000000');
+            phoneInput.classList.add('has-error');
+            return; // Stop further processing if invalid number
+        }
+    
+        try {
+            console.log('Validating phone number on the server...');
+            const response = await fetch('../php/val_accdetails_fields.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    phone_number_1: phoneNumber, 
+                    exclude_id: userId 
+                }),
+            });
+    
+            const responseText = await response.text();
+            console.log('Server response text:', responseText);
+    
+            try {
+                const result = JSON.parse(responseText);
+                console.log('Phone number validation result:', result);
+    
+                // Log inputted and compared phone numbers
+                console.log('Inputted phone number:', phoneNumber);
+                console.log('Compared phone number from DB (phone_number_1):', result.phone_number_1 || 'N/A');
+                console.log('Compared phone number from DB (phone_number_2):', result.phone_number_2 || 'N/A');
+                console.log('Type of inputted phone number:', isNaN(phoneNumber) ? 'varchar' : 'int');
+                console.log('Type of stored phone number:', result.phone_number_1 ? (isNaN(result.phone_number_1) ? 'varchar' : 'int') : 'N/A');
+    
+                if (result.phone_exists) {
+                    showTooltip(phoneError, result.phone_message || 'Phone number error');
+                    phoneInput.classList.add('has-error');
+                } else {
+                    phoneInput.classList.remove('has-error');
+                }
+            } catch (jsonError) {
+                console.error('Error parsing JSON:', jsonError);
+                showTooltip(phoneError, 'An error occurred while validating the phone number');
+                phoneInput.classList.add('has-error');
+            }
+        } catch (error) {
+            console.error('Error validating phone number:', error);
+            showTooltip(phoneError, 'An error occurred while validating the phone number');
+            phoneInput.classList.add('has-error');
+        }
+    }
+    
+    
 
     // Function to validate username
     async function validateUsername() {
@@ -160,9 +233,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hide tooltip and clear input highlight
     function hideTooltip(element) {
         element.style.display = 'none';
-        const inputField = element.closest('.input-group-aig').querySelector('input');
-        inputField.classList.remove('has-error');
+        const inputGroup = element.closest('.input-group-aig');
+        if (inputGroup) { // Check if the closest input group exists
+            const inputField = inputGroup.querySelector('input');
+            if (inputField) {
+                inputField.classList.remove('has-error');
+            }
+        }
     }
+    
 
     // Remove error class on focus
     inputFields.forEach(input => {
@@ -208,8 +287,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         await validateUsername();
         await validateEmail();
+        validatePhoneNumber(phone1Input); // Removed phoneError argument
+        validatePhoneNumber(phone2Input);
 
-        if (usernameInput.classList.contains('has-error') || emailInput.classList.contains('has-error')) {
+
+        if (
+            usernameInput.classList.contains('has-error') ||
+            emailInput.classList.contains('has-error') ||
+            phone1Input.classList.contains('has-error') ||
+            phone2Input.classList.contains('has-error')
+        ) {
             console.log('Form submission blocked due to errors.');
             return;
         }

@@ -7,12 +7,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
     $username = $data['username'] ?? null;
     $email = $data['email'] ?? null;
+    $phone_number_1 = $data['phone_number_1'] ?? null;
+    $phone_number_2 = $data['phone_number_2'] ?? null;
     $current_employee_id = $data['exclude_id'];
 
     try {
         error_log("Gotten employee_id: " . $current_employee_id);
         error_log("Inputted username: " . $username);
         error_log("Inputted email: " . $email);
+        error_log("Inputted phone_number_1: " . $phone_number_1);
+        error_log("Inputted phone_number_2: " . $phone_number_2);
 
         // Check username validation
         if ($username) {
@@ -95,7 +99,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        echo json_encode(['exists' => false, 'email_exists' => false]);
+        // Check phone number validation
+        if ($phone_number_1 || $phone_number_2) {
+            $stmt = $conn->prepare("
+                SELECT employee_id, phone_number_1, phone_number_2
+                FROM users
+                WHERE (CAST(phone_number_1 AS CHAR) = ? OR CAST(phone_number_2 AS CHAR) = ? 
+                       OR CAST(phone_number_1 AS CHAR) = ? OR CAST(phone_number_2 AS CHAR) = ?)
+            ");
+            if ($stmt === false) {
+                throw new Exception('Prepare failed: ' . htmlspecialchars($conn->error));
+            }
+            $stmt->bind_param("ssss", $phone_number_1, $phone_number_1, $phone_number_2, $phone_number_2);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            while ($row = $result->fetch_assoc()) {
+                $matched_employee_id = $row['employee_id'];
+                $matched_phone_number_1 = $row['phone_number_1'] ?? 'N/A';
+                $matched_phone_number_2 = $row['phone_number_2'] ?? 'N/A';
+
+                error_log("Inputted phone number: $phone_number_1, Compared phone number from DB (phone_number_1): $matched_phone_number_1");
+                error_log("Inputted phone number: $phone_number_2, Compared phone number from DB (phone_number_2): $matched_phone_number_2");
+
+                error_log("Type of stored phone_number_1: " . (is_numeric($matched_phone_number_1) ? 'int' : 'varchar'));
+                error_log("Type of stored phone_number_2: " . (is_numeric($matched_phone_number_2) ? 'int' : 'varchar'));
+
+                if ($matched_employee_id == $current_employee_id) {
+                    echo json_encode([
+                        'phone_exists' => true,
+                        'phone_message' => "You're already using this phone number",
+                        'phone_number_1' => $matched_phone_number_1,
+                        'phone_number_2' => $matched_phone_number_2
+                    ]);
+                    error_log("Matched phone number belongs to current employee: " . $matched_employee_id);
+                    exit;
+                } else {
+                    echo json_encode([
+                        'phone_exists' => true,
+                        'phone_message' => "Phone number already in use",
+                        'phone_number_1' => $matched_phone_number_1,
+                        'phone_number_2' => $matched_phone_number_2
+                    ]);
+                    error_log("Matched phone number belongs to another employee: " . $matched_employee_id);
+                    exit;
+                }
+            }
+
+            $stmt->close();
+        }
+
+        echo json_encode(['exists' => false, 'email_exists' => false, 'phone_exists' => false]);
     } catch (Exception $e) {
         error_log("Error occurred: " . $e->getMessage());
         echo json_encode(["success" => false, "error" => $e->getMessage()]);

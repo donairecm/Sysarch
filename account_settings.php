@@ -63,22 +63,24 @@
                     <div class="input-group-aig">
                         <input type="number" placeholder="format: 09252421367" id="uad-employee_pnum1" class="md-placeholder">
                         <label id="uad-phone-num-1">phone_number_1</label>
+                        <!-- Phone number 1 error container -->
+                        <div class="error-container pnumber1">
+                            <div class="account-details-errors ae-tooltip-style" id="pnum1-error">--error message--</div>
+                        </div>
                     </div>
-                    <!-- Phone number 1 error container -->
-                    <div class="error-container pnumber1">
-                        <div class="account-details-errors ae-tooltip-style" id="pnum3-error">--error message--</div>
-                    </div>
+                    
                 </div>
                 <div>
                     <div class="input-title">Phone number 2</div>
                     <div class="input-group-aig">
                         <input type="number" placeholder="format: 09252421367" id="uad-employee_pnum2" class="md-placeholder">
                         <label id="uad-phone-num-2">phone_number_2</label>
+                        <!-- Phone number 2 error container -->
+                        <div class="error-container pnumber2">
+                            <div class="account-details-errors ae-tooltip-style" id="pnum2-error">--error message--</div>
+                        </div>
                     </div>
-                    <!-- Phone number 2 error container -->
-                    <div class="error-container pnumber2">
-                        <div class="account-details-errors ae-tooltip-style" id="pnum2-error">--error message--</div>
-                    </div>
+                    
                 </div>
             </div>
 
