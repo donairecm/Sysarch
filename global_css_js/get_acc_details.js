@@ -362,42 +362,40 @@ console.log('Fetched Details:', fetchedDetails);
             return;
         }
     
-        // If no errors, check for changes and populate modal
+        // Identify changes
         const changes = [];
+        const updates = {};
+        const activities = [];
     
-        // Compare inputs with fetched details and add changes
-        if (usernameInput.value.trim() && usernameInput.value.trim() !== fetchedDetails.username) {
-            changes.push(`Username: ${fetchedDetails.username || 'N/A'} → ${usernameInput.value.trim()}`);
-        }
-        if (emailInput.value.trim() && emailInput.value.trim() !== fetchedDetails.email) {
-            changes.push(`Email: ${fetchedDetails.email || 'N/A'} → ${emailInput.value.trim()}`);
-        }
-        if (fnameInput.value.trim() && fnameInput.value.trim() !== fetchedDetails.first_name) {
-            changes.push(`First Name: ${fetchedDetails.first_name || 'N/A'} → ${fnameInput.value.trim()}`);
-        }
-        if (mnameInput.value.trim() && mnameInput.value.trim() !== fetchedDetails.middle_name) {
-            changes.push(`Middle Name: ${fetchedDetails.middle_name || 'N/A'} → ${mnameInput.value.trim()}`);
-        }
-        if (lnameInput.value.trim() && lnameInput.value.trim() !== fetchedDetails.last_name) {
-            changes.push(`Last Name: ${fetchedDetails.last_name || 'N/A'} → ${lnameInput.value.trim()}`);
-        }
-        if (phone1Input.value.trim() && phone1Input.value.trim() !== fetchedDetails.phone_number_1) {
-            changes.push(`Phone Number 1: ${fetchedDetails.phone_number_1 || 'N/A'} → ${phone1Input.value.trim()}`);
-        }
-        if (phone2Input.value.trim() && phone2Input.value.trim() !== fetchedDetails.phone_number_2) {
-            changes.push(`Phone Number 2: ${fetchedDetails.phone_number_2 || 'N/A'} → ${phone2Input.value.trim()}`);
-        }
+        const logChange = (fieldName, fetchedValue, inputValue, dbField, activityLabel) => {
+            const newValue = inputValue.trim();
+            if (newValue && newValue !== (fetchedValue || '')) {
+                changes.push(`${fieldName}: ${fetchedValue || 'N/A'} → ${newValue}`);
+                updates[dbField] = newValue; // Prepare the update payload
+                activities.push({
+                    details: `Changed user's ${activityLabel} from ${fetchedValue || 'N/A'} to ${newValue}`,
+                    dbField: dbField
+                });
+            }
+        };
     
-        // If there are no changes, do not show the modal
+        logChange('Username', fetchedDetails.username, usernameInput.value, 'username', 'username');
+        logChange('Email', fetchedDetails.email, emailInput.value, 'email', 'email');
+        logChange('First Name', fetchedDetails.first_name, fnameInput.value, 'first_name', 'first name');
+        logChange('Middle Name', fetchedDetails.middle_name, mnameInput.value, 'middle_name', 'middle name');
+        logChange('Last Name', fetchedDetails.last_name, lnameInput.value, 'last_name', 'last name');
+        logChange('Phone Number 1', fetchedDetails.phone_number_1, phone1Input.value, 'phone_number_1', '1st phone number');
+        logChange('Phone Number 2', fetchedDetails.phone_number_2, phone2Input.value, 'phone_number_2', '2nd phone number');
+    
         if (changes.length === 0) {
             console.log('No changes detected.');
             alert('No changes were made.');
             return;
         }
     
-        // Populate modal with changes
+        // Show changes in the modal
         const changesList = document.getElementById('updatedemployeedetails');
-        changesList.innerHTML = ''; // Clear previous list items
+        changesList.innerHTML = '';
         changes.forEach(change => {
             const li = document.createElement('li');
             li.textContent = change;
@@ -406,10 +404,64 @@ console.log('Fetched Details:', fetchedDetails);
     
         // Show modal
         const confirmationModal = document.getElementById('confirmationModal5');
-        confirmationModal.style.display = 'flex'; // Show the modal (flex for centering)
+        confirmationModal.style.display = 'flex';
     
         console.log('Changes:', changes);
+    
+        // Confirm and Save Changes
+        document.getElementById('confirmemployeedetailschange').addEventListener('click', async () => {
+            confirmationModal.style.display = 'none'; // Hide modal
+    
+            try {
+                // Update `users` table
+                const updateResponse = await fetch('../php/update_user_details.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        employee_id: userId,
+                        updates
+                    })
+                });
+    
+                const updateResult = await updateResponse.json();
+                if (!updateResult.success) {
+                    console.error('Failed to update user:', updateResult.error);
+                    alert('Error updating user information.');
+                    return;
+                }
+    
+                console.log('User updated successfully:', updateResult);
+    
+                // Log changes in `user_activities` table
+                for (const activity of activities) {
+                    const logResponse = await fetch('../php/update_user_details.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            performed_by: userId,
+                            activity_type: 'account changes',
+                            details: activity.details,
+                            date_of_activity: new Date().toISOString() // Add current date and time
+                        })
+                    });
+    
+                    const logResult = await logResponse.json();
+                    if (!logResult.success) {
+                        console.error('Failed to log activity:', logResult.error);
+                    } else {
+                        console.log('Activity logged successfully:', logResult);
+                    }
+                }
+    
+                alert('Changes saved and logged successfully!');
+            } catch (error) {
+                console.error('Error saving changes:', error);
+                alert('An error occurred while saving changes.');
+            }
+        });
     });
+    
+    
     
     
     

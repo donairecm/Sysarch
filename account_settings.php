@@ -1,9 +1,7 @@
 
 <div class="account-information-grid grid-scrollbar-design">
     <div class="account-information-grid-item grid-item-design-aig aig1">
-        <div class="aig-title">
-         
-        </div>
+        <div class="aig-title">Profile Picture</div>
     </div>
     <div class="account-information-grid-item grid-item-design-aig aig3">
         <div class="aig-title">Account Details</div>
