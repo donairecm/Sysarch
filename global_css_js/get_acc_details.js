@@ -20,36 +20,48 @@ document.addEventListener('DOMContentLoaded', () => {
     const phone2Error = document.getElementById('pnum2-error');
     const inputFields = document.querySelectorAll('.input-group-aig input');
     const emailError = document.getElementById('aig-email-error'); 
+    const fnameError = document.getElementById('fname-error');
+    const mnameError = document.getElementById('mname-error');
+    const lnameError = document.getElementById('lname-error');
 
     let userId = null; // To store the user's ID globally
+    let fetchedDetails = {}; 
 
-    // Fetch and populate employee account details
     async function fetchAccountDetails() {
         try {
             console.log('Fetching account details...');
             const response = await fetch('../php/fetch_acc_details.php');
             const result = await response.json();
-
+    
             if (!result.success) {
                 console.error('Failed to fetch account details:', result.error);
                 return;
             }
-
+    
             console.log('Account details fetched:', result.data);
             const data = result.data;
-
+    
             // Populate labels only
             usernameLabel.textContent = data.username || 'N/A';
             emailLabel.textContent = data.email || 'N/A';
             fnameLabel.textContent = data.first_name || 'N/A';
-            mnameLabel.textContent = data.middle_name || 'N/A';
-            lnameLabel.textContent = data.last_name || 'N/A';
+            mnameLabel.textContent = data.last_name || 'N/A'; // This was incorrectly set
+            lnameLabel.textContent = data.middle_name || 'N/A'; // This was incorrectly set
             phone1Label.textContent = data.phone_number_1 || 'N/A';
             phone2Label.textContent = data.phone_number_2 || 'N/A';
+    
+            // Populate fetchedDetails for validation
+            fetchedDetails = {
+                first_name: data.first_name || '',
+                middle_name: data.middle_name || '',
+                last_name: data.last_name || '',
+            };
         } catch (error) {
             console.error('Error fetching account details:', error);
         }
     }
+    
+    
 
     // Fetch the user's ID
     async function fetchUserId() {
@@ -218,6 +230,28 @@ document.addEventListener('DOMContentLoaded', () => {
             emailInput.classList.add('has-error');
         }
     }
+    console.log('Submit button clicked.');
+console.log('Fetched Details:', fetchedDetails);
+
+
+    function validateNameField(input, fetchedValue, errorElement, fieldName) {
+        const nameValue = input.value.trim();
+    
+        console.log(`Validating ${fieldName}: input=${nameValue}, fetched=${fetchedValue}`);
+        hideTooltip(errorElement);
+    
+        if (!nameValue) return;
+    
+        if (nameValue === fetchedValue) {
+            showTooltip(errorElement, `${nameValue} is already set as your ${fieldName.toLowerCase()}`);
+            input.classList.add('has-error');
+        } else {
+            input.classList.remove('has-error');
+        }
+    }
+    
+    
+    
 
     // Show tooltip with animation and input highlight
     function showTooltip(element, message) {
@@ -279,28 +313,101 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch the user ID when the page loads
     fetchUserId();
 
+    document.getElementById('confirmemployeedetailschange').addEventListener('click', () => {
+        console.log('Changes confirmed.');
+        // Perform the actual update (e.g., send the changes to the server)
+        const confirmationModal = document.getElementById('confirmationModal5');
+        confirmationModal.style.display = 'none'; // Hide the modal
+    });
+    
+    document.querySelector('.md-btn-2').addEventListener('click', () => {
+        console.log('Changes canceled.');
+        const confirmationModal = document.getElementById('confirmationModal5');
+        confirmationModal.style.display = 'none'; // Hide the modal
+    });
+    
+
     // Validate username and email on form submission
     updateButton.addEventListener('click', async (e) => {
         e.preventDefault(); // Prevent form submission
-
+    
         console.log('Submit button clicked.');
-
+    
+        // Run all validations
         await validateUsername();
         await validateEmail();
-        validatePhoneNumber(phone1Input); // Removed phoneError argument
-        validatePhoneNumber(phone2Input);
-
-
+        await validatePhoneNumber(phone1Input);
+        await validatePhoneNumber(phone2Input);
+    
+        // Validate name fields
+        validateNameField(fnameInput, fetchedDetails.first_name, fnameError, 'First name');
+        validateNameField(mnameInput, fetchedDetails.middle_name, mnameError, 'Middle name');
+        validateNameField(lnameInput, fetchedDetails.last_name, lnameError, 'Last name');
+    
+        // Check for errors
         if (
             usernameInput.classList.contains('has-error') ||
             emailInput.classList.contains('has-error') ||
             phone1Input.classList.contains('has-error') ||
+            fnameInput.classList.contains('has-error') ||
+            mnameInput.classList.contains('has-error') ||
+            lnameInput.classList.contains('has-error') ||
             phone2Input.classList.contains('has-error')
         ) {
             console.log('Form submission blocked due to errors.');
             return;
         }
-
-        console.log('Form is ready to be submitted.');
+    
+        // If no errors, check for changes and populate modal
+        const changes = [];
+    
+        // Compare inputs with fetched details and add changes
+        if (usernameInput.value.trim() !== fetchedDetails.username) {
+            changes.push(`Username: ${fetchedDetails.username || 'N/A'} change to ${usernameInput.value.trim()}?`);
+        }
+        if (emailInput.value.trim() !== fetchedDetails.email) {
+            changes.push(`Email: ${fetchedDetails.email || 'N/A'} change to ${emailInput.value.trim()}?`);
+        }
+        if (fnameInput.value.trim() !== fetchedDetails.first_name) {
+            changes.push(`First Name: ${fetchedDetails.first_name || 'N/A'} change to ${fnameInput.value.trim()}?`);
+        }
+        if (mnameInput.value.trim() !== fetchedDetails.middle_name) {
+            changes.push(`Middle Name: ${fetchedDetails.middle_name || 'N/A'} change to ${mnameInput.value.trim()}?`);
+        }
+        if (lnameInput.value.trim() !== fetchedDetails.last_name) {
+            changes.push(`Last Name: ${fetchedDetails.last_name || 'N/A'} change to ${lnameInput.value.trim()}?`);
+        }
+        if (phone1Input.value.trim() !== fetchedDetails.phone_number_1) {
+            changes.push(`Phone Number 1: ${fetchedDetails.phone_number_1 || 'N/A'} change to ${phone1Input.value.trim()}?`);
+        }
+        if (phone2Input.value.trim() !== fetchedDetails.phone_number_2) {
+            changes.push(`Phone Number 2: ${fetchedDetails.phone_number_2 || 'N/A'} change to ${phone2Input.value.trim()}?`);
+        }
+    
+        // If there are no changes, do not show the modal
+        if (changes.length === 0) {
+            console.log('No changes detected.');
+            alert('No changes were made.');
+            return;
+        }
+    
+        // Populate modal with changes
+        const changesList = document.getElementById('updatedemployeedetails');
+        changesList.innerHTML = ''; // Clear previous list items
+        changes.forEach(change => {
+            const li = document.createElement('li');
+            li.textContent = change;
+            changesList.appendChild(li);
+        });
+    
+        // Show modal
+        const confirmationModal = document.getElementById('confirmationModal5');
+        confirmationModal.style.display = 'flex'; // Show the modal (flex for centering)
+    
+        console.log('Changes:', changes);
     });
+    
+    
+    
+    
 });

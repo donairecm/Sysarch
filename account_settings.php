@@ -23,16 +23,24 @@
             <div class="row-item aig-ri-2 double">
                 <div>
                     <div class="input-title">First name</div>
-                        <div class="input-group-aig">
+                    <div class="input-group-aig">
                         <input type="text" placeholder="" id="uad-employee_fname" class="md-placeholder">
                         <label id="uad-first-name">first_name</label>
+                        <!-- First name error container -->
+                        <div class="error-container fname">
+                            <div class="account-details-errors ae-tooltip-style" id="fname-error">--error message--</div>
+                        </div>
                     </div>
                 </div>
                 <div>
                     <div class="input-title">Middle name</div>
-                        <div class="input-group-aig">
+                    <div class="input-group-aig">
                         <input type="text" placeholder="" id="uad-employee_mname" class="md-placeholder">
-                        <label id="uad-lname">middle_name</label>
+                        <label id="uad-mname">middle_name</label>
+                        <!-- First name error container -->
+                        <div class="error-container mname">
+                            <div class="account-details-errors ae-tooltip-style" id="mname-error">--error message--</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -41,7 +49,11 @@
                     <div class="input-title">Last name</div>
                         <div class="input-group-aig">
                         <input type="text" placeholder="" id="uad-employee_lname" class="md-placeholder">
-                        <label id="uad-mname">last_name</label>
+                        <label id="uad-lname">last_name</label>
+                        <!-- First name error container -->
+                        <div class="error-container lname">
+                            <div class="account-details-errors ae-tooltip-style" id="lname-error">--error message--</div>
+                        </div>
                     </div>
             </div>
 

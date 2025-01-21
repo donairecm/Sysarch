@@ -433,7 +433,12 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .error-container.username .account-details-errors,
-.error-container.email .account-details-errors{
+.error-container.email .account-details-errors,
+.error-container.pnumber1 .account-details-errors,
+.error-container.pnumber2 .account-details-errors,
+.error-container.fname .account-details-errors,
+.error-container.mname .account-details-errors,
+.error-container.lname .account-details-errors{
     bottom: -47px;
     transform: translateX(10%);
 }
@@ -446,10 +451,16 @@ body::-webkit-scrollbar-thumb:hover {
     display: none;
 }
 
-.error-container.pnumber1 .account-details-errors,
-.error-container.pnumber2 .account-details-errors{
-    bottom: -47px;
-    transform: translateX(10%);
+.error-container.fname > .account-details-errors{
+    display: none;
+}
+
+.error-container.mname > .account-details-errors{
+    display: none;
+}
+
+.error-container.lname > .account-details-errors{
+    display: none;
 }
 
 .error-container {
