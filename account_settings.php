@@ -2,7 +2,26 @@
 <div class="account-information-grid grid-scrollbar-design">
     <div class="account-information-grid-item grid-item-design-aig aig1">
         <div class="aig-title">Profile Picture</div>
+        <form action="POST" id="updateprofilepicture">
+            <div class="profilepreviewcontainer" id="profilePreviewContainer">
+                <img id="profilePicPreview" src="<?php echo htmlspecialchars($profilePic); ?>" alt="Profile Picture">
+            </div>
+            <div class="message">JPG or PNG no larger than 5mb</div>
+            <div class="profilepicbuttoncontainer">
+                <button type="submit" id="uploadButton" disabled>Upload new image</button>
+                <button type="button" id="reverttooriginal" class="">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path d="M480-120q-138 0-240.5-91.5T122-440h82q14 104 92.5 172T480-200q117 0 198.5-81.5T760-480q0-117-81.5-198.5T480-760q-69 0-129 32t-101 88h110v80H120v-240h80v94q51-64 124.5-99T480-840q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480q0 75-28.5 140.5t-77 114q-48.5 48.5-114 77T480-120Zm112-192L440-464v-216h80v184l128 128-56 56Z"/>
+                    </svg>
+                </button>
+            </div>
+            <!-- Hidden file input -->
+            <input type="file" id="fileInput" style="display: none;" accept="image/*">
+        </form>
     </div>
+
+    
+
     <div class="account-information-grid-item grid-item-design-aig aig3">
         <div class="aig-title">Account Details</div>
         <form action="POST" class="aig-content" id="updateaccountdetialsForm">

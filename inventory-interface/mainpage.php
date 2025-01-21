@@ -31,6 +31,7 @@ $employeeID = $profileData['employeeID'];
         <link rel="stylesheet" href="../global_css_js/global.css">
         <script type="text/javascript" src="../global_css_js/page_switching.js" defer></script>
         <script type="text/javascript" src="../global_css_js/get_acc_details.js" defer></script>
+        <script type="text/javascript" src="../global_css_js/choose_prof_pic.js" defer></script>
 
         <!-- #region Navbar-Sidebar CSS/JS-->
         <link rel="stylesheet" href="../global_css_js/navbar.css">
