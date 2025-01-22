@@ -6,7 +6,7 @@
     margin: 0;
     padding: 20px 20px 20px 100px;
     height: calc(100vh - 60px);
-    grid-template-rows: 50px 70px 70px 70px 80px;
+    grid-template-rows: 50px 70px 70px 70px 70px;
     overflow-y: auto;
 }
 /* #endregion */
@@ -155,12 +155,13 @@
 /* #region Product details container */
 .supply-chain-orders {
     overflow-y: auto;
-    height: 440px;
+    height: 360px;
     display: flex;
     flex-direction: column;
     list-style: none;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 /* Table alignment */
@@ -219,6 +220,7 @@
 
 /* #endregion */
 
+/* #region Metrics */
 .supply-chain-order-processing-item.metric{
     display: flex;
     flex-direction: row;
@@ -228,15 +230,137 @@
 
 .supply-chain-order-processing-item.metric .left{
     font-size: 1.1rem;
-    padding-left: 10px;
+    padding-left: 20px;
 }
 
 .supply-chain-order-processing-item.metric .right{
-    font-size: 1.3rem;
-    padding-left: 10px;
-    font-weight: 500;
+    font-size: 1.4rem;
+    padding-right: 10px;
+    font-weight: 600;
+    color: rgb(43, 43, 43);
     width: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+/* #endregion */
+
+/* #region Modal */
+.modal-style {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 11;
+}
+
+.modal-supply-chain-orders.show{
+    display: flex;
+}
+
+.modal-style > .modal-content{
+    background: #fff;
+    padding: 30px 30px 5px 30px;
+    border-radius: 10px;
+    height: 430px;
+    width: 470px;
+    display: flex;
+    flex-direction: row;
+    margin-top: -90px;
+}
+
+.modal-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.modal-style > .modal-content .delivery,
+.modal-style > .modal-content .reorder{
+    display: none;
+}
+
+
+.modal-style > .modal-content .reorder.show,
+.modal-style > .modal-content .delivery.show{
+    display: block;
+}
+
+.modal-style > .modal-content .accept,
+.modal-style > .modal-content .ready,
+.modal-style > .modal-content .delivered{
+    display: none;
+}
+
+.modal-style > .modal-content .accept.show,
+.modal-style > .modal-content .ready.show,
+.modal-style > .modal-content .delivered.show{
+    display: block;
+}
+
+.modal-style > .modal-content .reorder{
+    width: 100%;
+}
+
+.modal-style > .modal-content .reorder div{
+    border-bottom: 1px solid #cecece;
+    display: flex;
+    padding: 15px 20px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.modal-style > .modal-content .reorder > div:first-child{
+    border-bottom: 2px solid #cecece;
+    display: flex;
+    align-items: center;
+    padding: 0 20px 15px 20px;
+
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-align: center;
+    justify-content: center;
+}
+
+.modal-style > .modal-content .reorder > div{
+    font-size: 1.15rem;
+    font-weight: 500;
+}
+
+.modal-style > .modal-content .reorder > div span{
+    font-size: 1rem;
+    letter-spacing: .5px;
+    font-weight: 400;
+}
+
+.modal-style > .modal-content .reorder > button{
+    height: 35px;
+    margin: 20px 0;
+    width: 100%;
+    font-family: 'Afacad Flux', sans-serif;
+    background-color: #e02a2a;
+    font-weight: 600;
+    color: white;
+    font-size: .78rem;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.modal-style > .modal-content .reorder > button:hover{
+    cursor: pointer;
+    background-color: #b92323;
+}
+
+
+/* #endregion  */

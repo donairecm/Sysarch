@@ -26,7 +26,7 @@ $employeeID = $profileData['employeeID'];
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Inventory Interface</title>
+        <title>Supply-chain Interface</title>
 
         <link rel="stylesheet" href="../global_css_js/global.css">
         <script type="text/javascript" src="../global_css_js/page_switching.js" defer></script>

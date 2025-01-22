@@ -23,7 +23,7 @@ $employeeID = $profileData['employeeID'];
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Inventory Interface</title>
+        <title>Supply-chain Interface</title>
 
         <link rel="stylesheet" href="../global_css_js/global.css">
         <link rel="stylesheet" href="../inventory-interface/pages/product_details/css/product_details.css">
@@ -40,6 +40,7 @@ $employeeID = $profileData['employeeID'];
 
         <!-- #region Order Processing CSS/JS-->
         <link rel="stylesheet" href="pages/order_processing/css/order_processing.css">
+        <script type="text/javascript" src="pages/order_processing/js/get_sco.js" defer></script>
         <!-- #endregion -->
 
         <!-- #region chart.js scripts-->
