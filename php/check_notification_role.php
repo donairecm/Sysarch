@@ -46,6 +46,7 @@ $tableName = "notificationFor_" . $loggedInEmployeeId;
 $createTableQuery = "
     CREATE TABLE IF NOT EXISTS `$tableName` (
         id INT AUTO_INCREMENT PRIMARY KEY,
+        reference_id INT,
         message VARCHAR(255) NOT NULL,
         `read` BOOLEAN DEFAULT FALSE,
         created_on DATETIME NOT NULL
@@ -56,6 +57,12 @@ if (!$conn->query($createTableQuery)) {
     die(json_encode(['error' => "Failed to create notification table: " . $conn->error]));
 }
 
+// Check if the user's notification table is empty
+$checkEmptyQuery = "SELECT COUNT(*) as count FROM `$tableName`";
+$emptyResult = $conn->query($checkEmptyQuery);
+$emptyRow = $emptyResult->fetch_assoc();
+$isEmpty = $emptyRow['count'] == 0;
+
 // Fetch Notifications for User Role
 $fetchNotificationsQuery = "SELECT id, message, created_on FROM notifications WHERE `for` = ?";
 $notificationStmt = $conn->prepare($fetchNotificationsQuery);
@@ -63,30 +70,42 @@ $notificationStmt->bind_param('s', $userRole);
 $notificationStmt->execute();
 $notificationResult = $notificationStmt->get_result();
 
-// Prepare Insert Statement for User's Notification Table
-$insertQuery = "INSERT INTO `$tableName` (message, created_on) VALUES (?, ?)";
-$insertStmt = $conn->prepare($insertQuery);
+if ($isEmpty) {
+    // If user's table is empty, insert all notifications
+    $insertQuery = "INSERT INTO `$tableName` (reference_id, message, created_on) VALUES (?, ?, ?)";
+    $insertStmt = $conn->prepare($insertQuery);
 
-// Insert Notifications into User's Notification Table
-while ($row = $notificationResult->fetch_assoc()) {
-    $message = $row['message'];
-    $createdOn = $row['created_on'];
+    while ($row = $notificationResult->fetch_assoc()) {
+        $referenceId = $row['id'];
+        $message = $row['message'];
+        $createdOn = $row['created_on'];
 
-    // Check if Notification Already Exists in User's Table
-    $checkQuery = "SELECT id FROM `$tableName` WHERE created_on = ?";
-    $checkStmt = $conn->prepare($checkQuery);
-    $checkStmt->bind_param('s', $createdOn);
-    $checkStmt->execute();
-    $checkResult = $checkStmt->get_result();
-
-    // Insert if Not Exists
-    if ($checkResult->num_rows === 0) {
-        $insertStmt->bind_param('ss', $message, $createdOn);
+        $insertStmt->bind_param('iss', $referenceId, $message, $createdOn);
         if (!$insertStmt->execute()) {
             die(json_encode(['error' => "Failed to insert notification: " . $insertStmt->error]));
         }
     }
-    $checkStmt->close();
+    $insertStmt->close();
+} else {
+    // Get the latest notification date in the user's table
+    $latestDateQuery = "SELECT MAX(created_on) as latest_date FROM `$tableName`";
+    $latestDateResult = $conn->query($latestDateQuery);
+    $latestDateRow = $latestDateResult->fetch_assoc();
+    $latestDate = $latestDateRow['latest_date'];
+
+    // Insert only new notifications
+    $insertQuery = "INSERT INTO `$tableName` (reference_id, message, created_on)
+                    SELECT id, message, created_on
+                    FROM notifications
+                    WHERE `for` = ? AND created_on > ? 
+                    AND id NOT IN (SELECT reference_id FROM `$tableName`)";
+    $insertStmt = $conn->prepare($insertQuery);
+    $insertStmt->bind_param('ss', $userRole, $latestDate);
+
+    if (!$insertStmt->execute()) {
+        die(json_encode(['error' => "Failed to insert notification: " . $insertStmt->error]));
+    }
+    $insertStmt->close();
 }
 
 // Output Success Message
@@ -94,6 +113,5 @@ echo json_encode(['success' => "Notifications updated for user $loggedInEmployee
 
 // Close Connections
 $notificationStmt->close();
-$insertStmt->close();
 $conn->close();
 ?>

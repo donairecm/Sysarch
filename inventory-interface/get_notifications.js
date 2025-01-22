@@ -2,10 +2,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const badge = document.querySelector('.badge');
     const notificationsContainer = document.querySelector('.not-empty.all-and-unread');
 
+    // Helper function to log and fetch a script
+    const fetchScript = (url) => {
+        console.log(`About to fetch ${url}`);
+        return fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch ${url}: ${response.status}`);
+                }
+                console.log(`${url} fetched successfully.`);
+                return response.text(); // Return text for non-JSON responses
+            });
+    };
+
     // Fetch Notifications for the Logged-In User
     const fetchNotifications = () => {
-        console.log('About to fetch fetch_user_notifications.php');
-        fetch('../php/fetch_user_notifications.php')
+        console.log('Starting notification update cycle.');
+
+        // Run dependent PHP scripts first
+        Promise.all([
+            fetchScript('../php/stock_level_notification.php'),
+            fetchScript('../php/check_notification_role.php')
+        ])
+            .then(() => {
+                console.log('All dependent scripts executed successfully.');
+
+                // Fetch notifications
+                return fetch('../php/fetch_user_notifications.php');
+            })
             .then(response => {
                 console.log('Fetch called for fetch_user_notifications.php');
                 if (!response.ok) {
@@ -70,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     badge.classList.remove('show');
                 }
             })
-            .catch(error => console.error('Error fetching notifications:', error));
+            .catch(error => console.error('Error in notification update cycle:', error));
     };
 
     // Mark a Notification as Read
@@ -100,6 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => console.error('Error updating notification:', error));
     };
 
-    // Fetch notifications on load
+    // Fetch notifications on load and every 5 seconds
     fetchNotifications();
+   
 });

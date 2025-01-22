@@ -42,7 +42,7 @@ if ($tableExists->num_rows === 0) {
 
 // Fetch Notifications
 $fetchUserNotificationsQuery = "
-    SELECT id, message, `read`, created_on 
+    SELECT id, reference_id, message, `read`, created_on 
     FROM `$tableName` 
     ORDER BY created_on DESC
 ";
@@ -58,6 +58,7 @@ $notifications = [];
 while ($row = $result->fetch_assoc()) {
     $notifications[] = [
         'id' => $row['id'],
+        'reference_id' => $row['reference_id'],
         'message' => $row['message'],
         'read' => $row['read'] ? true : false,
         'created_on' => $row['created_on']
