@@ -6,7 +6,7 @@ async function fetchLoggedInUser() {
         const response = await fetch('../php/get_logged_in_user.php');
         const data = await response.json();
         if (data.success) {
-            currentEmployeeId = data.employee_id;
+            currentEmployeeId = data.employee_id.toString().padStart(3, '0');
         } else {
             console.error('Error fetching logged-in user:', data.error);
         }
@@ -45,6 +45,9 @@ function openModal(order) {
     const modal = document.querySelector(".modal-supply-chain-orders");
     modal.classList.add("show");
 
+    // Log the clicked item details
+    console.log(`Clicked Order ID: ${order.sc_order_id}, Status: ${order.status}, Handled By: ${order.handled_by}, Current Employee ID: SCM-${currentEmployeeId}`);
+
     // Reset any existing show classes
     modal.querySelectorAll(".reorder, .delivery, .accept, .ready, .delivered").forEach(el => el.classList.remove("show"));
 
@@ -82,6 +85,55 @@ function openModal(order) {
         }
     });
 }
+
+async function handleStatusUpdate(order, newStatus, action) {
+    const modal = document.querySelector("#confirmationModalforstatusupdate");
+    modal.style.display = "flex";
+
+    // Update confirmation text
+    modal.querySelector("span").textContent = `${action} ${order.sc_order_id}?`;
+
+    // Confirm button action
+    const confirmBtn = modal.querySelector("#confirmupdateStatus");
+    confirmBtn.onclick = async () => {
+        modal.style.display = "none";
+
+        try {
+            // Log the status update attempt
+            console.log(`Updating Order ID: ${order.sc_order_id}, New Status: ${newStatus}, Handled By: ${order.handled_by}, Current Employee ID: SCM-${currentEmployeeId}`);
+
+            // Update status in the database and log the activity
+            const response = await fetch("db_queries/update_order_status.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    sc_order_id: order.sc_order_id,
+                    new_status: newStatus,
+                    employee_id: currentEmployeeId
+                })
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                // Reload the page after successful update
+                location.reload();
+            } else {
+                console.error(result.error);
+                alert("Failed to update status: " + result.error);
+            }
+        } catch (error) {
+            console.error("Error updating status:", error);
+            alert("An unexpected error occurred while updating the status.");
+        }
+    };
+
+    // Cancel button action
+    const cancelBtn = modal.querySelector("#cancelupdateStatus");
+    cancelBtn.onclick = () => {
+        modal.style.display = "none";
+    };
+}
+
 
 function closeModal(modal) {
     modal.classList.remove("show");
@@ -131,7 +183,7 @@ async function handleStatusUpdate(order, newStatus, action) {
         modal.style.display = "none";
 
         try {
-            // Update status in the database
+            // Update status in the database and log the activity
             const response = await fetch("db_queries/update_order_status.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -144,13 +196,15 @@ async function handleStatusUpdate(order, newStatus, action) {
 
             const result = await response.json();
             if (result.success) {
-                // Refresh the table after successful update
-                fetchAndRenderOrders();
+                // Reload the page after successful update
+                location.reload();
             } else {
                 console.error(result.error);
+                alert("Failed to update status: " + result.error);
             }
         } catch (error) {
             console.error("Error updating status:", error);
+            alert("An unexpected error occurred while updating the status.");
         }
     };
 
@@ -160,6 +214,7 @@ async function handleStatusUpdate(order, newStatus, action) {
         modal.style.display = "none";
     };
 }
+
 
 // Function to fetch and render supply chain orders
 async function fetchAndRenderOrders() {

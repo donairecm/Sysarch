@@ -36,6 +36,7 @@ $sql = "
         products p ON rr.product_id = p.product_id
     WHERE 
         sco.status NOT IN ('completed', 'cancelled')
+    ORDER BY sco.sc_order_id DESC
 ";
 
 $result = $conn->query($sql);
@@ -77,14 +78,20 @@ while ($row = $result->fetch_assoc()) {
             $row['status'] = ucfirst($row['status']);
     }
 
-    // Format handled_by with SCM-000 or display "...." if null
-    $row['handled_by'] = !empty($row['handled_by']) 
-        ? sprintf('SCM-%03d', $row['handled_by']) 
+   // Format handled_by with SCM-000 or display "...." if null
+   $row['handled_by'] = !empty($row['handled_by']) 
+   ? sprintf('SCM-%03d', $row['handled_by']) 
+   : '....';
+
+
+    // Format accepted_on and delivered_on or display "...." if null
+    $row['accepted_on'] = !empty($row['accepted_on']) 
+        ? date('M j, Y | g:ia', strtotime($row['accepted_on'])) 
         : '....';
 
-    // Format accepted_on and delivered_on to "Jan 1, 2020 | 7:21am"
-    $row['accepted_on'] = date('M j, Y | g:ia', strtotime($row['accepted_on']));
-    $row['delivered_on'] = date('M j, Y | g:ia', strtotime($row['delivered_on']));
+    $row['delivered_on'] = !empty($row['delivered_on']) 
+        ? date('M j, Y | g:ia', strtotime($row['delivered_on'])) 
+        : '....';
 
     // Include only necessary fields for display
     $supplyChainOrders[] = [
@@ -94,9 +101,9 @@ while ($row = $result->fetch_assoc()) {
         'handled_by' => $row['handled_by'],
         'accepted_on' => $row['accepted_on'],
         'delivered_on' => $row['delivered_on'],
-        'product_id' => $row['product_id'],
-        'product_name' => $row['product_name'],
-        'quantity' => $row['requested_quantity'],
+        'product_id' => $row['product_id'] ?? '....',
+        'product_name' => $row['product_name'] ?? '....',
+        'quantity' => $row['requested_quantity'] ?? '....',
     ];
 }
 
