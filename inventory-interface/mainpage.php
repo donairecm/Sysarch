@@ -50,6 +50,7 @@ $employeeID = $profileData['employeeID'];
         <script>
     const employeeID = "<?php echo $employeeID; ?>";
 </script>
+        <script type="text/javascript" src="get_notifications.js" defer></script>
 
         <!-- #endregion -->
 
@@ -181,8 +182,8 @@ $employeeID = $profileData['employeeID'];
                     <svg class="icon show" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
                         <path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z"/>
                     </svg>
-                    <span>Notifications</span>
                     <div class="badge">
+                        <div class="count">182</div>
                     </div>
                 </div>
 
@@ -210,7 +211,7 @@ $employeeID = $profileData['employeeID'];
                 </div> -->
             </div>
             <!-- Profile -->
-            <div class="profile-container" onclick="toggleDropdown()">
+            <div class="profile-container inventory" onclick="toggleDropdown()">
                 <div class="pic">
                     <!-- Display profile picture here -->
                     <img src="<?php echo htmlspecialchars($profilePic); ?>" alt="Profile Picture">
@@ -227,7 +228,7 @@ $employeeID = $profileData['employeeID'];
 
     <div class="layer">
         <!-- Profile Popover -->
-        <div class="profile-pop-over" id="profilePopOverContent" >
+        <div class="profile-pop-over inventory" id="profilePopOverContent" >
             <div class="background-img" style="background-image: url('<?php echo htmlspecialchars($profileCover); ?>');"></div>
             <div class="background-overlay"></div>
             <div class="profile-header">
@@ -395,42 +396,33 @@ $employeeID = $profileData['employeeID'];
 
         <!-- Notifications Popover -->
         <div class="notifications-pop-over" id="notificationsPopOverContent">
-                <div class="header">Notifications</div>
-                <div class="row2">
-                    <div class="filters">
-                        <div class="all f active">All</div>
-                        <div class="unread f">Unread 
-                            <span class="count"></span>
-                        </div>
-                        <div class="alerts f ">Alerts
-                            <span class="count"></span>
-                        </div>
+            <div class="header">Notifications</div>
+            <div class="contents grid-scrollbar-design">
+                <div class="empty all-and-unread hide">
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                            <path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160ZM480-80q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80Z"/>
+                        </svg>
+                    </div>
+                    <div class="message">
+                        <span class="top">Currently, nothing to report!</span>
+                        <span class="bot">Your notifications will appear here when you have some.</span>
                     </div>
                 </div>
-                <div class="contents">
-                    <div class="empty all-and-unread">
-                        <div class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                                <path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160ZM480-80q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80Z"/>
-                            </svg>
-                        </div>
-                        <div class="message">
-                            <span class="top">Currently, nothing to report!</span>
-                            <span class="bot">Your notifications will appear here when you have some.</span>
-                        </div>
+                <div class="not-empty all-and-unread">
+                    <!--Content will be dynamically added here-->
+                    <div class="notification-content">
+                        <div class="notif-message">Your notification message appears here appears here appears here appears here appears here</div>
+                        <div class="notif-message-date">Jan 1, 2020 | 7:31am</div>
                     </div>
                 </div>
-                <div class="previous-notifs">See previous notifications</div>
+            </div>
         </div>
     
     </div>
 
     <!-- #region Content -->
     <div id="content">
-
-        <!-- #region Account Settings Movements -->
-        <div class="page" id="account_settings"><?php include '../account_settings.php'; ?></div>
-        <!-- #endregion -->
         
         <!-- #region Dashboard -->
         <div class="page" id="dashboard"><?php include 'pages/dashboard/dashboard.php'; ?></div>
@@ -444,6 +436,9 @@ $employeeID = $profileData['employeeID'];
          <div class="page" id="inventory_movements"><?php include 'pages/inventory_movements/inventory_movements.php'; ?></div>
         <!-- #endregion -->
 
+        <!-- #region Account Settings Movements -->
+        <div class="page" id="account_settings"><?php include '../account_settings.php'; ?></div>
+        <!-- #endregion -->
         
 
 
