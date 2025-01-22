@@ -56,17 +56,18 @@ try {
         throw new Exception("Failed to update supply_chain_orders: " . $stmt->error);
     }
 
-    // Log the activity
-    $activity_details = "Cancelled reorder request {$request_id_prefixed} for {$product_id_prefixed}";
-    $activity_query = "
-        INSERT INTO user_activities (performed_by, details, reference_id, date_of_activity) 
-        VALUES (?, ?, ?, ?)";
-    $stmt = $conn->prepare($activity_query);
-    $stmt->bind_param("isis", $employee_id, $activity_details, $request_id, $current_datetime);
+    // Log the inventory activity
+$activity_details = "Inventory updated: Cancelled reorder request {$request_id_prefixed} for product {$product_id_prefixed} by user {$employee_id_with_prefix}";
+$activity_query = "
+    INSERT INTO user_activities (performed_by, details, reference_id, date_of_activity) 
+    VALUES (?, ?, ?, ?)";
+$stmt = $conn->prepare($activity_query);
+$stmt->bind_param("isis", $employee_id, $activity_details, $request_id, $current_datetime);
 
-    if (!$stmt->execute()) {
-        throw new Exception("Failed to log activity: " . $stmt->error);
-    }
+if (!$stmt->execute()) {
+    throw new Exception("Failed to log inventory activity: " . $stmt->error);
+}
+
 
     // Commit transaction
     $conn->commit();

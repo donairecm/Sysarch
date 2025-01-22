@@ -393,12 +393,12 @@ body::-webkit-scrollbar-thumb:hover {
     border-radius: 5px;
 }
 
-.input-group input:focus {
+#updateaccountdetialsForm .input-group-aig input:focus {
     background-color: #f0f0f0;
     border: 1px solid rgb(161, 161, 161);
 }
 
-.input-group input.has-value {
+#updateaccountdetialsForm .input-group-aig input.has-value {
     background-color: #f0f0f0;
     border: 1px solid rgb(161, 161, 161);
 }

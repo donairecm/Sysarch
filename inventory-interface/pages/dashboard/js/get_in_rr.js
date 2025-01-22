@@ -5,9 +5,11 @@ function formatDate(date) {
 }
 
 // Function to populate the modal with details
+// Function to populate the modal with details
 function populateModal(activity) {
     const modal = document.querySelector(".modal-style.modal-view-delete-reorder-detail");
     const fields = modal.querySelectorAll("[data-field]");
+    const deleteRequestDiv = document.querySelector(".save"); // Select the parent div
 
     console.log("Logged in Employee ID:", employeeID); // Log the logged-in employee ID
     console.log("Activity:", activity); // Log the activity object for debugging
@@ -53,9 +55,17 @@ function populateModal(activity) {
         }
     });
 
+    // Show or hide the delete request div based on the status
+    if (activity.status.trim().toLowerCase() === "pending") {
+        deleteRequestDiv.classList.remove("hide"); // Show the div
+    } else {
+        deleteRequestDiv.classList.add("hide"); // Hide the div
+    }
+
     // Show the modal
     modal.classList.add("show");
 }
+
 
 
 // Function to handle closing the modal when clicking outside content
@@ -116,8 +126,6 @@ function fetchInventoryData() {
         })
         .catch(error => console.error('Error:', error));
 }
-
-
 
 // Function to show the confirmation modal for cancellation
 function showConfirmationModal(activity) {
