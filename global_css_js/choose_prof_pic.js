@@ -107,7 +107,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 revertToOriginalButton.classList.remove('show');
                 messageDiv.style.color = 'green';
                 messageDiv.textContent = 'Profile picture updated successfully!';
+                
+                // First alert
                 alert('Profile picture updated successfully!');
+                
+                // Second alert to prompt for page reload
+                if (confirm('Reload the page to see the changes?')) {
+                    // Reload the page
+                    location.reload();
+                }
             } else {
                 messageDiv.style.color = 'red';
                 messageDiv.textContent = `Error: ${data.error}`;
