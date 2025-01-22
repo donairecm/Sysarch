@@ -1,5 +1,5 @@
 
-    <div class="inventory-product-details grid-scrollbar-design">
+<div class="inventory-product-details grid-scrollbar-design">
         <div class="inventory-product-details-item grid-item-design-pd title">Manage Products</div>
         <div class="inventory-product-details-item grid-item-design-pd pd1">
             <div class="icon-container">

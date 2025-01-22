@@ -38,8 +38,8 @@ $employeeID = $profileData['employeeID'];
         <script type="text/javascript" src="../global_css_js/sidebar.js" defer></script>
         <!-- #endregion -->
 
-        <!-- #region Dashboard CSS/JS-->
-
+        <!-- #region Order Processing CSS/JS-->
+        <link rel="stylesheet" href="pages/order_processing/css/order_processing.css">
         <!-- #endregion -->
 
         <!-- #region chart.js scripts-->
