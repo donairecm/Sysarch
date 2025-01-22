@@ -123,7 +123,7 @@ function handleOutsideClickNotifications(event) {
     }
 }
 
-/* User Activities Popover
+ // User Activities Popover
 function toggleUserActivitiesPopOver() {
     const useractivitiespopover = document.getElementById('userActivitiesPopOverContent');
 uaIcon = document.querySelector('.ic-container[data-tooltip="user-activities-ic-nav"]');
@@ -141,7 +141,7 @@ uaIcon = document.querySelector('.ic-container[data-tooltip="user-activities-ic-
         logsSecondSVG.classList.add('show');
         document.removeEventListener('click', handleOutsideClickLogs);
     }
-}*/
+}
 
 function handleOutsideClickLogs(event) {
     const useractivitiespopover = document.getElementById('userActivitiesPopOverContent');
@@ -158,7 +158,7 @@ function handleOutsideClickLogs(event) {
 }
 
 
-/* Action Tools Popover
+ // Action Tools Popover
 function toggleActionToolsPopover() {
     const actionToolsPopover = document.getElementById('actiontoolsPopoverContent');
     const actionToolsIcon = document.querySelector('.ic-container[data-tooltip="Action Tools"]');
@@ -178,9 +178,9 @@ function toggleActionToolsPopover() {
         actionToolsSecondSVG.classList.add('show');
         document.removeEventListener('click', handleOutsideClickQuickAccess);
     }
-}*/
+}
 
-/* Action Tools removed
+
 function handleOutsideClickQuickAccess(event) {
     const actionToolsPopover = document.getElementById('actiontoolsPopoverContent');
     const actionToolsIcon = document.querySelector('.ic-container[data-tooltip="Action Tools"]');
@@ -194,9 +194,9 @@ function handleOutsideClickQuickAccess(event) {
         actionToolsSecondSVG.classList.add('show');
         document.removeEventListener('click', handleOutsideClickQuickAccess);
     }
-}*/
+}
 
-/*
+
 //quick access tooltip
 document.addEventListener('DOMContentLoaded', () => {
     // Select only the Quick Access icon
@@ -222,14 +222,12 @@ document.addEventListener('DOMContentLoaded', () => {
     actionToolsIcon.addEventListener('mouseleave', () => {
         tooltip.style.opacity = '0';
     });
-}); */
+}); 
 
 // Event Listeners for Icons
 // document.querySelector('.ic-container[data-tooltip="Alerts"]').addEventListener('click', toggleAlertsPopover);
 document.querySelector('.ic-container[data-tooltip="Notifications"]').addEventListener('click', toggleNotificationsPopover);
-// document.querySelector('.ic-container[data-tooltip="user-activities-ic-nav"]').addEventListener('click', toggleUserActivitiesPopOver);
-// document.querySelector('.ic-container[data-tooltip="Action Tools"]').addEventListener('click', toggleActionToolsPopover);
+document.querySelector('.ic-container[data-tooltip="user-activities-ic-nav"]').addEventListener('click', toggleUserActivitiesPopOver);
+document.querySelector('.ic-container[data-tooltip="Action Tools"]').addEventListener('click', toggleActionToolsPopover);
 
-
-// Notification demo
 

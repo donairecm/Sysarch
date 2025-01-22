@@ -142,7 +142,8 @@
     transition: opacity 0.1s ease, visibility 0.1s ease, transform 0.1s ease;
 }
 
-.profile-pop-over.inventory{
+.profile-pop-over.inventory,
+.profile-pop-over.supply_chain{
     right: 70px;
 }
 
@@ -449,6 +450,10 @@
     right: 63px;
 }
 
+.notifications-pop-over.supply_chain::after{
+    right: 147px;
+}
+
 
 .alerts-pop-over.show,
 .notifications-pop-over.show,
@@ -704,8 +709,14 @@
     justify-content: center;
 }
 
+.ic1.supply_chain{
+    width: 125px;
+    height: 39px;
+    padding-left: 10px;
+}
+
 .ic1 span{
-    margin-left: 6px;
+    margin-left: 3px;
 }
 
 .ic2{
@@ -763,6 +774,21 @@
     width: 25px;
     height: 25px;
     margin-left: 1px;
+}
+
+.ic5{
+    width: 158px;
+    height: 39px;
+    padding-left: 13px;
+}
+
+.ic5 svg{
+    width: 26px;
+    height: 26px;
+}
+
+.ic5 span{
+    margin-left: 5px;
 }
 
 .ic-container:hover svg{
