@@ -526,9 +526,7 @@
     padding: 10px 30px;
 }
 
-.notification-content.read .notif-message{
-    color: rgba(0, 0, 0, 0.438);
-}
+
 
 .notification-content:not(:first-child){
     border-bottom: 1px solid #cecece;
@@ -555,6 +553,14 @@
     margin-top: 5px;
     font-size: .85rem;
     color: rgba(0, 0, 0, 0.822);
+}
+
+.notification-content.read .notif-message{
+    color: rgba(0, 0, 0, 0.438);
+}
+
+.notification-content.read .notif-message-date{
+    color: rgba(0, 0, 0, 0.438);
 }
 /* #endregion */
 

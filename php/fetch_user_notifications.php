@@ -42,7 +42,7 @@ if ($tableExists->num_rows === 0) {
 
 // Fetch Notifications
 $fetchUserNotificationsQuery = "
-    SELECT message, `read`, created_on 
+    SELECT id, message, `read`, created_on 
     FROM `$tableName` 
     ORDER BY created_on DESC
 ";
@@ -57,21 +57,16 @@ if (!$result) {
 $notifications = [];
 while ($row = $result->fetch_assoc()) {
     $notifications[] = [
+        'id' => $row['id'],
         'message' => $row['message'],
         'read' => $row['read'] ? true : false,
         'created_on' => $row['created_on']
     ];
 }
 
-// Count Unread Notifications
-$unreadCountQuery = "SELECT COUNT(*) AS unread_count FROM `$tableName` WHERE `read` = FALSE";
-$unreadResult = $conn->query($unreadCountQuery);
-$unreadCount = $unreadResult ? $unreadResult->fetch_assoc()['unread_count'] : 0;
-
 // Return JSON Response
 echo json_encode([
     'notifications' => $notifications,
-    'badgeCount' => $unreadCount,
     'success' => true
 ]);
 

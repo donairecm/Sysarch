@@ -91,7 +91,7 @@ if ($conn->query($updateQuery) === TRUE) {
             echo json_encode(["success" => false, "error" => "Error creating snapshot: " . $conn->error]);
         }
     } else {
-        echo json_encode(["success" => false, "error" => "Error fetching updated record for snapshot."]);
+        echo json_encode(["success" => false, "error" => "Error fetching updated record for snapshot: " . $conn->error]);
     }
 } else {
     echo json_encode(["success" => false, "error" => "Error updating record: " . $conn->error]);
