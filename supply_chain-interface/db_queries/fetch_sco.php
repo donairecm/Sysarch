@@ -15,10 +15,29 @@ if ($conn->connect_error) {
     exit();
 }
 
-// SQL query to fetch the required rows from supply_chain_orders while excluding completed and cancelled statuses
-$sql = "SELECT sc_order_id, source, status, handled_by, accepted_on, delivered_on, details 
-        FROM supply_chain_orders
-        WHERE status NOT IN ('completed', 'cancelled')";
+// SQL query to fetch required rows from supply_chain_orders and join with reorder_requests for product details
+$sql = "
+    SELECT 
+        sco.sc_order_id, 
+        sco.source, 
+        sco.status, 
+        sco.handled_by, 
+        sco.accepted_on, 
+        sco.delivered_on, 
+        sco.details, 
+        rr.product_id, 
+        p.product_name, 
+        rr.quantity AS requested_quantity
+    FROM 
+        supply_chain_orders sco
+    LEFT JOIN 
+        reorder_requests rr ON sco.related_id = rr.request_id
+    LEFT JOIN 
+        products p ON rr.product_id = p.product_id
+    WHERE 
+        sco.status NOT IN ('completed', 'cancelled')
+";
+
 $result = $conn->query($sql);
 
 if ($result === false) {
@@ -63,12 +82,21 @@ while ($row = $result->fetch_assoc()) {
         ? sprintf('SCM-%03d', $row['handled_by']) 
         : '....';
 
+    // Format accepted_on and delivered_on to "Jan 1, 2020 | 7:21am"
+    $row['accepted_on'] = date('M j, Y | g:ia', strtotime($row['accepted_on']));
+    $row['delivered_on'] = date('M j, Y | g:ia', strtotime($row['delivered_on']));
+
     // Include only necessary fields for display
     $supplyChainOrders[] = [
         'sc_order_id' => $row['sc_order_id'],
         'source' => $row['source'],
         'status' => $row['status'],
         'handled_by' => $row['handled_by'],
+        'accepted_on' => $row['accepted_on'],
+        'delivered_on' => $row['delivered_on'],
+        'product_id' => $row['product_id'],
+        'product_name' => $row['product_name'],
+        'quantity' => $row['requested_quantity'],
     ];
 }
 

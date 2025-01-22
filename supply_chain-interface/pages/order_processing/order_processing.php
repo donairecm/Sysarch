@@ -14,10 +14,10 @@
         </div>
         <div class="supply-chain-order-processing-item grid-item-design-op op4 metric">
             <div class="left">Completed</div>
-            <div class="right">Cancelled</div>
+            <div class="right">2</div>
         </div>
         <div class="supply-chain-order-processing-item grid-item-design-op op5 metric">
-            <div class="left">Completed</div>
+            <div class="left">Cancelled</div>
             <div class="right">15</div>
         </div>
         <div class="supply-chain-order-processing-item grid-item-design-op op6 ">

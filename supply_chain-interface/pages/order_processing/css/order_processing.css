@@ -266,9 +266,9 @@
 
 .modal-style > .modal-content{
     background: #fff;
-    padding: 30px 30px 5px 30px;
+    padding: 30px 30px 30px 30px;
     border-radius: 10px;
-    height: 430px;
+    height: auto;
     width: 470px;
     display: flex;
     flex-direction: row;
@@ -342,7 +342,7 @@
 
 .modal-style > .modal-content .reorder > button{
     height: 35px;
-    margin: 20px 0;
+    margin: 20px 0 0 0;
     width: 100%;
     font-family: 'Afacad Flux', sans-serif;
     background-color: #e02a2a;
