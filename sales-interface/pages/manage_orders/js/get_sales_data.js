@@ -1,8 +1,8 @@
 // Fetch and display sales data
 async function fetchAndDisplaySalesData() {
     try {
-        const response = await fetch("db_queries/fetch_sales_data.php"); // Replace with your API endpoint
-        const salesData = await response.json(); // Assume the data is an array of sales objects
+        const response = await fetch("db_queries/fetch_sales_data.php");
+        const salesData = await response.json();
 
         console.log("Fetched sales data:", salesData);
 
@@ -35,45 +35,58 @@ async function fetchAndDisplaySalesData() {
     }
 }
 
-// Show order items in a modal
 function showOrderDetailsModal(sale) {
     const modal = document.querySelector("#order-details-modal");
-    const modalContent = modal.querySelector(".modal-content");
 
-    // Clear previous content
-    modalContent.innerHTML = `
-        <h3>Order Details: ${sale.sales_order_id}</h3>
-        <p>Managed By: ${sale.managed_by}</p>
-        <p>Total Amount: ${sale.total_amount}</p>
-        <p>Status: ${sale.status}</p>
-        <p>Created On: ${sale.created_on}</p>
-        <h4>Order Items (${sale.order_items.length}):</h4>
-        <ul class="order-items-list">
-            ${
-                sale.order_items.length > 0
-                    ? sale.order_items
-                          .map(
-                              item => `
-                <li>
-                    <span>Product: ${item.product_name} (ID: ${item.product_id})</span>
-                    <span>Quantity: ${item.quantity}</span>
-                    <span>Price: ₱${item.total_price}</span>
-                </li>
-            `
-                          )
-                          .join("")
-                    : "<li>No items found for this order.</li>"
-            }
-        </ul>
-    `;
+    // Populate the order details on the left
+    document.querySelector("#sales-order-id").innerText = `Order ID: ${sale.sales_order_id}`;
+    document.querySelector("#managed-by").innerText = `Managed By: ${sale.managed_by}`;
+    document.querySelector("#total-amount").innerText = `Total Amount: ${sale.total_amount}`;
+    document.querySelector("#status").innerText = `Status: ${sale.status}`;
+    document.querySelector("#created-on").innerText = `Created On: ${sale.created_on}`;
 
-    // Show modal
+    // Populate the order items table on the right
+    const orderItemsBody = document.querySelector("#order-items-body");
+    orderItemsBody.innerHTML = ""; // Clear previous items
+
+    if (sale.order_items.length > 0) {
+        sale.order_items.forEach(item => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${item.product_name}</td>
+                <td>${item.quantity}</td>
+                <td>₱${item.total_price}</td>
+            `;
+            orderItemsBody.appendChild(row);
+        });
+    } else {
+        // Show a message if no order items are found
+        const row = document.createElement("tr");
+        row.innerHTML = `<td colspan="3" style="text-align:center;">No items found for this order.</td>`;
+        orderItemsBody.appendChild(row);
+    }
+
+    // Show the modal
     modal.style.display = "block";
 }
 
-// Close modal functionality
+// Close modal when clicking outside the content
+const modal = document.querySelector("#order-details-modal");
+modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+});
+
+// Close modal when clicking the close button
 document.querySelector("#order-details-modal .close").addEventListener("click", () => {
-    document.querySelector("#order-details-modal").style.display = "none";
+    modal.style.display = "none";
+});
+
+
+// Close modal when clicking the close button
+document.querySelector("#order-details-modal .close").addEventListener("click", () => {
+    modal.style.display = "none";
 });
 
 // Fetch and display sales data every 5 seconds

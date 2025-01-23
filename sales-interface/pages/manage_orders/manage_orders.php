@@ -96,9 +96,34 @@
                 <div id="order-details-modal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <!-- Modal content will be dynamically populated -->
+        <div class="modal-body">
+            <div class="order-details">
+                <h3>Order Details</h3>
+                <p class="detail" id="sales-order-id"></p>
+                <p class="detail" id="managed-by"></p>
+                <p class="detail" id="total-amount"></p>
+                <p class="detail" id="status"></p>
+                <p class="detail" id="created-on"></p>
+            </div>
+            <div class="order-items">
+                <h3>Order Items</h3>
+                <table class="order-items-table">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="order-items-body">
+                        <!-- Rows will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+
 
 
             </ul>
