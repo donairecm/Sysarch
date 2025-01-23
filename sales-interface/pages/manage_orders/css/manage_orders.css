@@ -160,8 +160,8 @@
 .sales > .hd-total-amount, 
 .sales > .total-amount { flex-basis: 17%; }
 
-.sales > .hd-payment-method, 
-.sales > .payment-method { flex-basis: 17%; }
+.sales > .hd-sales-item-status, 
+.sales > .sales-item-status { flex-basis: 17%; }
 
 .sales > .hd-created-on, 
 .sales > .created-on { flex-basis: 21%; }
@@ -207,6 +207,8 @@
 .save.sales{
     margin-top: 20px;
     height: 30px;
+    padding: 10px;
+    white-space: nowrap;
 }
 
 .save.sales button{

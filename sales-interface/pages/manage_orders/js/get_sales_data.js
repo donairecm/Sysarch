@@ -2,7 +2,6 @@ async function fetchAndDisplaySalesData() {
     try {
         // Fetch sales data from the server
         const response = await fetch("db_queries/fetch_sales_data.php"); // Replace with your API endpoint
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
         const salesData = await response.json(); // Assume the data is an array of sales objects
 
@@ -24,7 +23,7 @@ async function fetchAndDisplaySalesData() {
                 <span class="order-item-count">${orderItemCount}</span>
                 <span class="hd-managed-by">${sale.managed_by}</span>
                 <span class="total-amount">${sale.total_amount}</span>
-                <span class="payment-method">${sale.payment_method}</span>
+                <span class="sales-item-status">${sale.status}</span>
                 <span class="created-on">${sale.created_on}</span>
             `;
 
