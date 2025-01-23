@@ -193,87 +193,105 @@
     background: #fff;
     padding: 30px 30px 30px 30px;
     border-radius: 10px;
-    height: auto;
-    width: 770px;
+    height: 400px;
+    width: 870px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
 /* #endregion  */
 
-/* #region Sales Manage Orders container */
-.orderItemattached {
-    overflow-y: auto;
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
+/* #region Sales modal */
+.save.sales{
+    margin-top: 20px;
+    height: 30px;
 }
 
-/* Table alignment */
-.orderItemattached-header, 
-.orderItemattached-item {
-    display: flex;
-    align-items: center; 
-    text-align: center; 
-    border-bottom: 1px solid #cecece;
-}
-
-.orderItemattached-header > span,
-.orderItemattached-item > span {
-    flex: 1; /* Ensures equal spacing */
-}
-
-.orderItemattached-header {
-    font-weight: 600;
-    font-size: 1.02rem;
-    background-color: white;
-    padding: 0 0 0px 0;
-    position: sticky;
-    z-index: 4;
-    top: 0;
-}
-
-.orderItemattached-item {
-    padding: 10px 0;
-    border-bottom: 1px solid #cecece;
-    font-size: .95rem;
-}
-
-.orderItemattached-item:hover{
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-}
-
-.orderItemattached-header-hd{
-    display: flex;
+.save.sales button{
+    height: 30px;
     justify-content: center;
+    display: flex;
     align-items: center;
-    border-radius: 10px;
-    padding: 5px 0;
 }
 
-/* #region product filter alignment */
-.orders > .hd-order-id, 
-.orders > .order-id { flex-basis: 15%; }
+.orderitematt form.salesadditem{
+    width: 300px;
+    height: 210px;
+    border: 1px solid #cecece;
+    border-radius: 20px;
+    justify-content: flex-start;
+}
 
-.orders > .hd-order-product-id, 
-.orders > .order-product-id { flex-basis: 15%; }
+.prod-m.sales{
+    margin-top: 10px;
+}
 
-.orders > .hd-product-name, 
-.orders > .product-name { flex-basis: 15%; }
-
-.orders > .hd-quantity, 
-.orders > .quantity { flex-basis: 17%; }
-
-.orders > .hd-total-price, 
-.orders > .total-price { flex-basis: 17%; }
-
+.orderitemlist{
+    margin-left: 30px;
+    border: 1px solid #cecece;
+    border-radius: 20px;
+    justify-content: flex-start;
+}
 /* #endregion */
+
+
+/* #region create order modal  */
+.orderitemlist > ul{
+    height: 220px;
+    list-style: none;
+}
+
+.orderlist-container .header {
+    display: flex;
+    background-color: white;
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 1px solid #cecece;
+    text-align: center;
+}
+
+/* Header Column Styling */
+.orderlist-container .header span {
+    flex: 1;
+    padding: 5px;
+    text-align: center;
+}
+
+/* Item Row Styling */
+.orderlist-container .item {
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid #cecece;
+    align-items: center;
+    background-color: #fff;
+}
+
+/* Columns in Item */
+.orderlist-container .item span {
+    flex: 1;
+    padding: 5px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+/* SVG Icon Styling */
+.orderlist-container .item span svg {
+    height: 23px;
+    width: 23px;
+    cursor: pointer;
+    fill: #888; /* Default color */
+    transition: fill 0.2s ease;
+}
+
+.orderlist-container .item span svg:hover {
+    fill: #e74c3c; /* Hover color */
+}
+
+/* Remove Border for Last Row */
+.orderlist-container .item:last-child {
+    border-bottom: none;
+}
 
 /* #endregion */

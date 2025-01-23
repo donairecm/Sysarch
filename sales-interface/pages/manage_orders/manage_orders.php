@@ -37,70 +37,64 @@
                 </li>
 
                   <!-- Modal -->
-                  <div class="modal-order-items-attached modal-style grid-scrollbar-design ">
+                <div class="modal-order-items-attached modal-style grid-scrollbar-design show">
                     <div class="modal-content orderitematt">
-                        <div>
-                            <div class="left">SID-032 | status</div>
-                            <div class="left">Managed by </div>
-                        </div>
-                        <ul class="orderItemattached container_scrollbar_design">
-                            <!-- rows will be dynamically loaded here -->
-                            <!-- sample row -->
-                            <li class="orderItemattached-header orders">
-                                <span class="orderItemattached-header-hd hd-order-id">
-                                    <span>Order ID</span>
-                                </span>
-                                <span class="orderItemattached-header-hd hd-product-id">
+                        <form action="POST" id="" class="salesadditem">
+                                <div class="prod-m sales">
+                                    <span>Add items here</span>
+                                </div>
+                                <div class="">
                                     <span>Product ID</span>
-                                </span>
-                                <span class="orderItemattached-header-hd hd-product-name">
+                                    <div class="input-group">
+                                    <input type="text" placeholder="ex. PRD-001" id="rr-product_id-input" class="md-placeholder">
+                                    <label id="rr-product_id">enter product id</label>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <span>Quantity</span>
+                                    <div class="input-group">
+                                    <input type="number" placeholder="note: no decimals" id="rr-quantity-input" class="md-placeholder">
+                                    <label id="rr-quantity">enter quantity</label>
+                                    </div>
+                                </div>
+                                <div class="save sales">
+                                    <button type="submit" id="" disabled>Add item</button>
+                                </div>
+                        </form>
+                        <form action="POST" class="orderitemlist">
+                            <div class="prod-m sales">Order List</div>
+                            <ul class="orderlist-container container_scrollbar_design">
+                                <li class="header">
+                                    <span>Product ID</span>
                                     <span>Product name</span>
-                                </span>
-                                <span class="orderItemattached-header-hd hd-quantity">
-                                    <span>Quantity ID</span>
-                                </span>
-                                <span class="orderItemattached-header-hd hd-total-price">
-                                    <span>Total price</span>
-                                </span>
-                            </li>
-                            <li class="orderItemattached-item orders">
-                                <span class="order-id">OID-001</span>
-                                <span class="product-id">PRD-011</span>
-                                <span class="product-name">Product GT1</span>
-                                <span class="quantity">Product GT1</span>
-                                <span class="total-price">₱1,172.00</span>
-                            </li>
-                            <li class="orderItemattached-item orders">
-                                <span class="order-id">OID-001</span>
-                                <span class="product-id">PRD-011</span>
-                                <span class="product-name">Product GT1</span>
-                                <span class="quantity">Product GT1</span>
-                                <span class="total-price">₱1,172.00</span>
-                            </li>
-                            <li class="orderItemattached-item orders">
-                                <span class="order-id">OID-001</span>
-                                <span class="product-id">PRD-011</span>
-                                <span class="product-name">Product GT1</span>
-                                <span class="quantity">Product GT1</span>
-                                <span class="total-price">₱1,172.00</span>
-                            </li>
-                            <li class="orderItemattached-item orders">
-                                <span class="order-id">OID-001</span>
-                                <span class="product-id">PRD-011</span>
-                                <span class="product-name">Product GT1</span>
-                                <span class="quantity">Product GT1</span>
-                                <span class="total-price">₱1,172.00</span>
-                            </li>
-                            <li class="orderItemattached-item orders">
-                                <span class="order-id">OID-001</span>
-                                <span class="product-id">PRD-011</span>
-                                <span class="product-name">Product GT1</span>
-                                <span class="quantity">Product GT1</span>
-                                <span class="total-price">₱1,172.00</span>
-                            </li>
-
-                        </ul>
-                        
+                                    <span>Quantity</span>
+                                    <span></span>
+                                </li>
+                                <li class="item">
+                                    <span>PRD-112</span>
+                                    <span>Product GT1</span>
+                                    <span>32</span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                            <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+                                        </svg>
+                                    </span>
+                                </li>
+                                <li class="item">
+                                    <span>PRD-112</span>
+                                    <span>Product GT1</span>
+                                    <span>32</span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                            <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+                                        </svg>
+                                    </span>
+                                </li>
+                            </ul>
+                            <div class="save sales">
+                                <button type="submit" id="" disabled>Create an order</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
 

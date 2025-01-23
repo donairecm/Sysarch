@@ -29,6 +29,7 @@ $employeeID = $profileData['employeeID'];
         <script type="text/javascript" src="../global_css_js/page_switching.js" defer></script>
         <script type="text/javascript" src="../global_css_js/get_acc_details.js" defer></script>
         <script type="text/javascript" src="../global_css_js/choose_prof_pic.js" defer></script>
+        <link rel="stylesheet" href="../inventory-interface/pages/product_details/css/product_details.css">
 
         <!-- #region Navbar-Sidebar CSS/JS-->
         <link rel="stylesheet" href="../global_css_js/navbar.css">
@@ -44,6 +45,7 @@ $employeeID = $profileData['employeeID'];
         <!-- #region Manage Orders CSS/JS-->
         <link rel="stylesheet" href="pages/manage_orders/css/manage_orders.css">
         <script type="text/javascript" src="pages/manage_orders//js/get_sales_data.js" defer></script>
+        <script type="text/javascript" src="pages/manage_orders//js/order_item.js" defer></script>
         <!-- #endregion -->
 
         <!-- #region chart.js scripts-->
