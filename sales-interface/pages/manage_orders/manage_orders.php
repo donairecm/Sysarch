@@ -70,6 +70,8 @@
                                     <span>Quantity</span>
                                     <span></span>
                                 </li>
+
+                                <!-- Content will be dynamically added here -->
                                 <li class="item">
                                     <span>PRD-112</span>
                                     <span>Product GT1</span>
