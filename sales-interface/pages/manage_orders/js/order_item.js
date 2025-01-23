@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function() {
             const quantityInput = document.getElementById("aoi-quantity-input");
             const addButton = document.getElementById("additemtosale");
             const orderListContainer = document.querySelector(".orderlist-container");
+            const modal = document.querySelector(".modal-order-items-attached.modal-style.grid-scrollbar-design");
+            const createOrderButton = document.querySelector(".sales-manage-orders-item.grid-item-design-ms.ms1.tabs");
 
             function resetForm() {
                 productIdInput.value = '';
@@ -100,6 +102,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 addButton.innerHTML = 'Add item';
                 addButton.disabled = false;
+            });
+
+            // Show the modal when the "Create an order" div is clicked
+            createOrderButton.addEventListener("click", () => {
+                modal.classList.add("show");
+            });
+
+            // Hide the modal when clicking outside the modal content
+            modal.addEventListener("click", (event) => {
+                if (!event.target.closest(".modal-content")) {
+                    modal.classList.remove("show");
+                }
             });
         })
         .catch(error => {
