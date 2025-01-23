@@ -241,6 +241,7 @@
 .orderitemlist > ul{
     height: 220px;
     list-style: none;
+    overflow-y: auto;
 }
 
 .orderlist-container .header {
@@ -250,6 +251,9 @@
     padding: 10px;
     border-bottom: 1px solid #cecece;
     text-align: center;
+    top: 0;
+    position: sticky;
+    z-index: 4;
 }
 
 /* Header Column Styling */
@@ -281,7 +285,7 @@
     height: 23px;
     width: 23px;
     cursor: pointer;
-    fill: #888; /* Default color */
+    fill: #d61717; /* Default color */
     transition: fill 0.2s ease;
 }
 
@@ -293,5 +297,18 @@
 .orderlist-container .item:last-child {
     border-bottom: none;
 }
+
+/* Set flex-basis percentages for header columns */
+.orderlist-container .header span:nth-child(1) { flex-basis: 25%; }   /* Product ID */
+.orderlist-container .header span:nth-child(2) { flex-basis: 45%; }   /* Product Name */
+.orderlist-container .header span:nth-child(3) { flex-basis: 20%; }   /* Quantity */
+.orderlist-container .header span:nth-child(4) { flex-basis: 10%; }   /* Actions (SVG) */
+
+/* Set flex-basis percentages for item columns */
+.orderlist-container .item span:nth-child(1) { flex-basis: 25%; }   /* Product ID */
+.orderlist-container .item span:nth-child(2) { flex-basis: 45%; }   /* Product Name */
+.orderlist-container .item span:nth-child(3) { flex-basis: 20%; }   /* Quantity */
+.orderlist-container .item span:nth-child(4) { flex-basis: 10%; }   /* Actions (SVG) */
+
 
 /* #endregion */
