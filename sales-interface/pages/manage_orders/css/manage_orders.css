@@ -270,7 +270,7 @@
 }
 
 .save.sales.ss2.hide{
-    display: none;
+    display: none !important; 
 }
 /* #endregion */
 

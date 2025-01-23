@@ -138,8 +138,8 @@
                                 
                             </ul>
                             <div class="save sales ss2">
-                            <button type="submit" id="">Delete order</button>
-                                <button type="submit" id="">Mark as complete</button>
+                            <button type="submit" id="cancelsaleorder">Cancel order</button>
+                                <button type="submit" id="marksaleordercomplete">Mark as complete</button>
                             </div>
                         </form>
                     </div>

@@ -1,5 +1,30 @@
+let loggedInEmployeeId = null; // Global variable to store the logged-in employee ID
+
+// Fetch the logged-in employee ID
+async function getLoggedInEmployeeId() {
+    try {
+        const response = await fetch("../php/get_logged_in_user.php");
+        const data = await response.json();
+
+        if (data.success) {
+            // Format the employee ID with the prefix "SSM-" and zero-padding
+            const rawEmployeeId = parseInt(data.employee_id, 10); // Convert to integer
+            loggedInEmployeeId = `SSM-${rawEmployeeId.toString().padStart(3, "0")}`; // Add prefix and pad with zeros
+
+            console.log("Logged-in Employee ID:", loggedInEmployeeId);
+        } else {
+            console.error("Error fetching logged-in user:", data.error);
+        }
+    } catch (error) {
+        console.error("Failed to fetch logged-in user:", error);
+    }
+}
+
 // Fetch and display sales data
 async function fetchAndDisplaySalesData() {
+    // Ensure employee ID is fetched before proceeding
+    if (!loggedInEmployeeId) await getLoggedInEmployeeId();
+
     try {
         const response = await fetch("db_queries/fetch_sales_data.php");
         const salesData = await response.json();
@@ -13,13 +38,16 @@ async function fetchAndDisplaySalesData() {
         salesData.forEach(sale => {
             const orderItemCount = sale.order_items ? sale.order_items.length : 0;
 
+            // Replace `managed_by` with "You" if it matches the logged-in employee ID
+            const managedByDisplay = (sale.managed_by === loggedInEmployeeId) ? "You" : sale.managed_by;
+
             const listItem = document.createElement("li");
             listItem.classList.add("sales-manage-orders-table-item", "sales");
 
             listItem.innerHTML = `
                 <span class="sales-order-id">${sale.sales_order_id}</span>
                 <span class="order-item-count">${orderItemCount}</span>
-                <span class="hd-managed-by">${sale.managed_by}</span>
+                <span class="hd-managed-by">${managedByDisplay}</span>
                 <span class="total-amount">${sale.total_amount}</span>
                 <span class="sales-item-status">${sale.status}</span>
                 <span class="created-on">${sale.created_on}</span>
@@ -35,11 +63,71 @@ async function fetchAndDisplaySalesData() {
     }
 }
 
+async function handleCancelOrder(salesOrderId, rawEmployeeId) {
+    try {
+        const response = await fetch("db_queries/update_sale_order_status.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                sales_order_id: salesOrderId, // Without prefix
+                new_status: "cancelled",
+                performed_by: rawEmployeeId, // Without prefix
+                details: `Cancelled sale SID-${salesOrderId.toString().padStart(3, "0")}`,
+            }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert("Order successfully cancelled!");
+            location.reload(); // Reload the page after the alert
+        } else {
+            console.error("Failed to cancel the order:", result.error);
+        }
+    } catch (error) {
+        console.error("Error cancelling order:", error);
+    }
+}
+
+async function handleMarkOrderComplete(salesOrderId, rawEmployeeId) {
+    try {
+        const response = await fetch("db_queries/update_sale_order_status.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                sales_order_id: salesOrderId, // Without prefix
+                new_status: "completed",
+                performed_by: rawEmployeeId, // Without prefix
+                details: `Made a sale. SID-${salesOrderId.toString().padStart(3, "0")} marked as complete`,
+            }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert("Order successfully marked as complete!");
+            location.reload(); // Reload the page after the alert
+        } else {
+            console.error("Failed to mark the order as complete:", result.error);
+        }
+    } catch (error) {
+        console.error("Error marking order complete:", error);
+    }
+}
+
 function showOrderDetailsModal(sale) {
     // Get modal and necessary sections
     const modal = document.querySelector(".modal-order-items-attached2");
     const orderDetailsSection = modal.querySelector(".salesadditem2");
     const orderItemsContainer = modal.querySelector(".orderlist-container");
+    const actionButtonsContainer = modal.querySelector(".save.sales.ss2"); // Action buttons container
+
+    // Determine the "Managed by" display value
+    const managedByDisplay = loggedInEmployeeId === sale.managed_by ? "You" : sale.managed_by;
 
     // Populate order details
     orderDetailsSection.innerHTML = `
@@ -48,7 +136,7 @@ function showOrderDetailsModal(sale) {
         </div>
         <div class="">
             <span>Managed by</span>
-            <span>${sale.managed_by}</span>
+            <span>${managedByDisplay}</span>
         </div>
         <div class="">
             <span>Total Amount</span>
@@ -86,7 +174,6 @@ function showOrderDetailsModal(sale) {
             orderItemsContainer.innerHTML += orderItemHTML;
         });
     } else {
-        // Display message if no items found
         const emptyMessageHTML = `
             <li class="item">
                 <span colspan="4" style="text-align: center;">No items found for this order.</span>
@@ -94,6 +181,34 @@ function showOrderDetailsModal(sale) {
         `;
         orderItemsContainer.innerHTML += emptyMessageHTML;
     }
+
+    // Attach button functionality
+    const cancelButton = document.getElementById("cancelsaleorder");
+    const completeButton = document.getElementById("marksaleordercomplete");
+
+    // Hide buttons based on conditions
+    if (sale.status === "cancelled" || sale.status === "completed" || sale.managed_by !== loggedInEmployeeId) {
+        cancelButton.classList.add("hide");
+        completeButton.classList.add("hide");
+    } else {
+        cancelButton.classList.remove("hide");
+        completeButton.classList.remove("hide");
+    }
+
+    // Add fresh event listeners to buttons
+    cancelButton.onclick = async (event) => {
+        event.preventDefault();
+        const rawEmployeeId = parseInt(loggedInEmployeeId.replace("SSM-", ""), 10); // Remove prefix
+        const salesOrderId = parseInt(sale.sales_order_id.replace("SID-", ""), 10); // Extract raw sales_order_id
+        await handleCancelOrder(salesOrderId, rawEmployeeId);
+    };
+
+    completeButton.onclick = async (event) => {
+        event.preventDefault();
+        const rawEmployeeId = parseInt(loggedInEmployeeId.replace("SSM-", ""), 10); // Remove prefix
+        const salesOrderId = parseInt(sale.sales_order_id.replace("SID-", ""), 10); // Extract raw sales_order_id
+        await handleMarkOrderComplete(salesOrderId, rawEmployeeId);
+    };
 
     // Show modal
     modal.classList.add("show");
@@ -107,7 +222,6 @@ modal.addEventListener("click", (event) => {
     }
 });
 
-
-// Fetch and display sales data every 5 seconds
+// Call fetch and display data every 5 seconds
 fetchAndDisplaySalesData();
 setInterval(fetchAndDisplaySalesData, 5000);
