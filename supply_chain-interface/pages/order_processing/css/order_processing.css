@@ -6,7 +6,7 @@
     margin: 0;
     padding: 20px 20px 20px 100px;
     height: calc(100vh - 60px);
-    grid-template-rows: 50px 70px 70px 70px 70px;
+    grid-template-rows: 50px 70px 70px 70px 70px 70px;
     overflow-y: auto;
 }
 /* #endregion */
@@ -30,24 +30,24 @@
 
 /* In transit */
 .op3 {
-    grid-row-start: 3;
-    grid-row-end: 4;
-    grid-column-start: 1;
-    grid-column-end: 4;
-}
-
-/* Delivered */
-.op4 {
     grid-row-start: 4;
     grid-row-end: 5;
     grid-column-start: 1;
     grid-column-end: 4;
 }
 
-/* Cancelled */
-.op5 {
+/* Delivered */
+.op4 {
     grid-row-start: 5;
     grid-row-end: 6;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+/* Cancelled */
+.op5 {
+    grid-row-start: 6;
+    grid-row-end: 7;
     grid-column-start: 1;
     grid-column-end: 4;
 }
@@ -155,7 +155,7 @@
 /* #region Product details container */
 .supply-chain-orders {
     overflow-y: auto;
-    height: 360px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     list-style: none;
@@ -226,6 +226,19 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
+}
+
+.supply-chain-order-processing-item.metric:hover{
+    background-color: #58a5bd6e;
+}
+
+.op1.metric.active,
+.op2.metric.active,
+.op3.metric.active,
+.op4.metric.active,
+.op5.metric.active{
+    background-color: #58a5bd6e;
 }
 
 .supply-chain-order-processing-item.metric .left{

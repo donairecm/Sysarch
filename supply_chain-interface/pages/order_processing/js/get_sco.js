@@ -1,4 +1,5 @@
 let currentEmployeeId = null;
+let currentFilterStatus = null; 
 
 // Fetch the logged-in employee ID
 async function fetchLoggedInUser() {
@@ -13,6 +14,11 @@ async function fetchLoggedInUser() {
     } catch (error) {
         console.error('Error fetching logged-in user:', error);
     }
+}
+
+function sortOrdersByStatus(data) {
+    const statusOrder = ["Pending", "On process", "In transit", "Completed", "Cancelled"];
+    return data.sort((a, b) => statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status));
 }
 
 // Function to populate the supply chain orders table
@@ -37,6 +43,46 @@ function populateSupplyChainOrders(data) {
         listItem.addEventListener("click", () => openModal(order));
 
         ordersContainer.appendChild(listItem);
+    });
+}
+
+// Function to filter orders based on selected status
+function filterOrdersByStatus(data, status) {
+    if (!status) {
+        return data; // Return all orders if no specific status is selected
+    }
+    return data.filter(order => order.status === status);
+}
+
+// Function to handle metric clicks
+function setupMetrics(data) {
+    const metrics = document.querySelectorAll(".supply-chain-order-processing-item.metric");
+
+    metrics.forEach(metric => {
+        metric.addEventListener("click", () => {
+            const status = metric.querySelector(".left").textContent; // Get status from the metric
+
+            // If the clicked metric is already active, deactivate it
+            if (metric.classList.contains("active")) {
+                metric.classList.remove("active");
+                currentFilterStatus = null; // Clear the active filter
+                populateSupplyChainOrders(data); // Show all orders
+                return;
+            }
+
+            // Deactivate the previously active metric
+            document.querySelectorAll(".supply-chain-order-processing-item.metric.active").forEach(activeMetric => {
+                activeMetric.classList.remove("active");
+            });
+
+            // Activate the clicked metric
+            metric.classList.add("active");
+            currentFilterStatus = status; // Update the active filter status
+
+            // Filter and render the orders
+            const filteredData = filterOrdersByStatus(data, currentFilterStatus);
+            populateSupplyChainOrders(filteredData);
+        });
     });
 }
 
@@ -218,15 +264,53 @@ async function handleStatusUpdate(order, newStatus, action) {
     };
 }
 
+// Function to calculate and display status counts
+function displayStatusCounts(data) {
+    const statusCounts = {
+        Pending: 0,
+        "On process": 0,
+        "In transit": 0,
+        Completed: 0,
+        Cancelled: 0
+    };
 
-// Function to fetch and render supply chain orders
+    // Calculate counts
+    data.forEach(order => {
+        if (statusCounts[order.status] !== undefined) {
+            statusCounts[order.status]++;
+        }
+    });
+
+    // Update DOM elements with calculated counts
+    document.querySelector(".supply-chain-order-processing-item.op1 .right").textContent = statusCounts.Pending;
+    document.querySelector(".supply-chain-order-processing-item.op2 .right").textContent = statusCounts["On process"];
+    document.querySelector(".supply-chain-order-processing-item.op3 .right").textContent = statusCounts["In transit"];
+    document.querySelector(".supply-chain-order-processing-item.op4 .right").textContent = statusCounts.Completed;
+    document.querySelector(".supply-chain-order-processing-item.op5 .right").textContent = statusCounts.Cancelled;
+}
+
+
 async function fetchAndRenderOrders() {
     try {
         const response = await fetch("db_queries/fetch_sco.php"); // PHP script fetching supply chain orders
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-        const data = await response.json();
-        populateSupplyChainOrders(data);
+        const rawData = await response.json();
+
+        // Sort orders by status
+        const sortedData = sortOrdersByStatus(rawData);
+
+        // Apply the current filter if there is one
+        const dataToRender = currentFilterStatus
+            ? filterOrdersByStatus(sortedData, currentFilterStatus) // Apply filter
+            : sortedData; // No filter, render all data
+
+        // Populate the orders table
+        populateSupplyChainOrders(dataToRender);
+
+        // Update status counts and reapply metric click interactions
+        displayStatusCounts(sortedData);
+        setupMetrics(sortedData);
     } catch (error) {
         console.error("Error fetching supply chain orders:", error);
     }

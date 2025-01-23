@@ -39,10 +39,10 @@ $sql = "
         products p ON rr.product_id = p.product_id
     LEFT JOIN 
         suppliers s ON p.supplier_id = s.supplier_id
-    WHERE 
-        sco.status NOT IN ('completed', 'cancelled')
-    ORDER BY sco.sc_order_id DESC
 ";
+
+// Order by sc_order_id in descending order
+$sql .= " ORDER BY sco.sc_order_id DESC";
 
 $result = $conn->query($sql);
 
