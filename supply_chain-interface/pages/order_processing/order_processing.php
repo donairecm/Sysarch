@@ -44,7 +44,7 @@
                     <span class="handled-by">....</span>
                 </li>
                 
-
+                <!-- Modal -->
                 <div class="modal-supply-chain-orders modal-style grid-scrollbar-design">
                     <div class="modal-content">
                         <div class="delivery"></div>
