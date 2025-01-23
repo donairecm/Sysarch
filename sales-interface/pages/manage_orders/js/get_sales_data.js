@@ -129,6 +129,11 @@ function showOrderDetailsModal(sale) {
     // Determine the "Managed by" display value
     const managedByDisplay = loggedInEmployeeId === sale.managed_by ? "You" : sale.managed_by;
 
+    // Log the status and managed_by for debugging
+    console.log("Order Status:", sale.status);
+    console.log("Managed By (raw):", sale.managed_by);
+    console.log("Logged-in Employee ID:", loggedInEmployeeId);
+
     // Populate order details
     orderDetailsSection.innerHTML = `
         <div class="prod-m sales2">
@@ -188,11 +193,11 @@ function showOrderDetailsModal(sale) {
 
     // Hide buttons based on conditions
     if (sale.status === "cancelled" || sale.status === "completed" || sale.managed_by !== loggedInEmployeeId) {
-        cancelButton.classList.add("hide");
-        completeButton.classList.add("hide");
+        console.log("Hiding buttons - Condition met.");
+        actionButtonsContainer.classList.add("hide");
     } else {
-        cancelButton.classList.remove("hide");
-        completeButton.classList.remove("hide");
+        console.log("Showing buttons - Condition NOT met.");
+        actionButtonsContainer.classList.remove("hide");
     }
 
     // Add fresh event listeners to buttons
@@ -213,6 +218,7 @@ function showOrderDetailsModal(sale) {
     // Show modal
     modal.classList.add("show");
 }
+
 
 // Close modal by removing the "show" class when clicking outside the modal content
 const modal = document.querySelector(".modal-order-items-attached2");
