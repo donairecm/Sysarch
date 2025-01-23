@@ -5,6 +5,8 @@ async function fetchAndDisplaySalesData() {
 
         const salesData = await response.json(); // Assume the data is an array of sales objects
 
+        console.log("Fetched sales data:", salesData); // Log the fetched data
+
         // Reference to the sales table container
         const salesTable = document.querySelector(".sales-manage-orders-table");
 
@@ -36,3 +38,4 @@ async function fetchAndDisplaySalesData() {
 
 // Call the function to fetch and display data
 fetchAndDisplaySalesData();
+setInterval(fetchAndDisplaySalesData, 5000);

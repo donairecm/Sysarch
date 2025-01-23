@@ -85,10 +85,11 @@
                 <!-- Confirmation modal -->
                 <div id="confirmmodalfororderitem"  class="confirmmodal-style" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center;">
                     <div style="background: white; padding: 20px; border-radius: 5px; max-width: 700px; width: auto;">
-                        <span>Confirm status update?</span>
+                        <span>Confirm order creation?</span>
+                        <ul></ul>
                         <div class="button-container">
-                            <button id="confirmupdateStatus" class="md-btn-1" style="margin-right: 10px;">Confirm</button>
-                            <button id="cancelupdateStatus" class="md-btn-2">Cancel</button>
+                            <button id="confirmcreateorder" class="md-btn-1" style="margin-right: 10px;">Confirm</button>
+                            <button id="cancelcreateorder" class="md-btn-2">Cancel</button>
                         </div>
                     </div>
                 </div>

@@ -16,8 +16,8 @@ if ($conn->connect_error) {
 }
 
 // Set date range for filtering
-$startDate = "2025-01-01";
-$endDate = date("Y-m-d");
+$startDate = "2025-01-01 00:00:00";
+$endDate = "2025-12-31 23:59:59";
 
 // Fetch sales orders within the date range
 $sqlSalesOrders = "

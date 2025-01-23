@@ -7,8 +7,13 @@ document.addEventListener("DOMContentLoaded", function() {
             const quantityInput = document.getElementById("aoi-quantity-input");
             const addButton = document.getElementById("additemtosale");
             const orderListContainer = document.querySelector(".orderlist-container");
+            const createOrderButton = document.getElementById("createanorder");
             const modal = document.querySelector(".modal-order-items-attached.modal-style.grid-scrollbar-design");
-            const createOrderButton = document.querySelector(".sales-manage-orders-item.grid-item-design-ms.ms1.tabs");
+            const createOrderDiv = document.querySelector(".sales-manage-orders-item.grid-item-design-ms.ms1.tabs");
+            const confirmModal = document.getElementById("confirmmodalfororderitem");
+            const confirmList = confirmModal.querySelector("ul");
+            const confirmButton = document.getElementById("confirmcreateorder");
+            const cancelButton = document.getElementById("cancelcreateorder");
 
             function resetForm() {
                 productIdInput.value = '';
@@ -38,8 +43,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 removeSvg.appendChild(removePath);
                 removeSpan.appendChild(removeSvg);
 
-                removeSpan.addEventListener('click', () => {
+                removeSpan.addEventListener('click', (event) => {
+                    event.stopPropagation();
                     orderListContainer.removeChild(li);
+                    toggleCreateOrderButton();
                 });
 
                 li.appendChild(productIdSpan);
@@ -48,6 +55,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 li.appendChild(removeSpan);
 
                 orderListContainer.appendChild(li);
+                toggleCreateOrderButton();
+            }
+
+            function toggleCreateOrderButton() {
+                if (orderListContainer.querySelectorAll('.item').length > 0) {
+                    createOrderButton.disabled = false;
+                } else {
+                    createOrderButton.disabled = true;
+                }
+            }
+
+            function isProductInOrderList(productId) {
+                return Array.from(orderListContainer.querySelectorAll('.item span:first-child')).some(span => span.textContent === productId);
             }
 
             addButton.addEventListener("click", function(event) {
@@ -56,9 +76,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 const quantity = quantityInput.value.trim();
 
                 if (productId && quantity && productMap.has(productId)) {
-                    const product = productMap.get(productId);
-                    addToOrderList(productId, product.product_name, quantity);
-                    resetForm();
+                    if (isProductInOrderList(productId)) {
+                        addButton.innerHTML = `${productId} is already on the list`;
+                    } else {
+                        const product = productMap.get(productId);
+                        addToOrderList(productId, product.product_name, quantity);
+                        resetForm();
+                    }
                 }
             });
 
@@ -77,7 +101,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
 
                 if (!quantityInput.value.trim()) {
-                    addButton.innerHTML = `${productId} found but enter a quantity.`;
+                    const product = productMap.get(productId);
+                    addButton.innerHTML = `Product name: ${product.product_name}`;
                     addButton.disabled = true;
                     return;
                 }
@@ -95,7 +120,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
 
                 if (!quantityInput.value.trim()) {
-                    addButton.innerHTML = `${productId} found but enter a quantity.`;
+                    const product = productMap.get(productId);
+                    addButton.innerHTML = `Product name: ${product.product_name}`;
                     addButton.disabled = true;
                     return;
                 }
@@ -105,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
 
             // Show the modal when the "Create an order" div is clicked
-            createOrderButton.addEventListener("click", () => {
+            createOrderDiv.addEventListener("click", () => {
                 modal.classList.add("show");
             });
 
@@ -114,6 +140,68 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (!event.target.closest(".modal-content")) {
                     modal.classList.remove("show");
                 }
+            });
+
+            // Show the confirmation modal and display order list
+            createOrderButton.addEventListener("click", (event) => {
+                event.preventDefault();
+                confirmList.innerHTML = ''; // Clear the existing list
+
+                Array.from(orderListContainer.querySelectorAll('.item')).forEach(item => {
+                    const productId = item.querySelector('span:nth-child(1)').textContent;
+                    const productName = item.querySelector('span:nth-child(2)').textContent;
+                    const quantity = item.querySelector('span:nth-child(3)').textContent;
+
+                    const li = document.createElement('li');
+                    li.textContent = `Product ID: ${productId} | Product name: ${productName} | Quantity: ${quantity}`;
+                    confirmList.appendChild(li);
+                });
+
+                confirmModal.style.display = 'flex';
+            });
+
+            // Close the confirmation modal on cancel
+            cancelButton.addEventListener("click", () => {
+                confirmModal.style.display = 'none';
+            });
+
+            // Handle confirm action
+            confirmButton.addEventListener("click", () => {
+                const orderItems = Array.from(orderListContainer.querySelectorAll('.item')).map(item => {
+                    return {
+                        productId: item.querySelector('span:nth-child(1)').textContent.replace(/^\D+/g, ''),
+                        productName: item.querySelector('span:nth-child(2)').textContent,
+                        quantity: item.querySelector('span:nth-child(3)').textContent
+                    };
+                });
+
+                // Send order details to PHP script
+                fetch('db_queries/create_order.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ orderItems })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Clear the modal and list
+                        productIdInput.value = '';
+                        quantityInput.value = '';
+                        orderListContainer.innerHTML = '';
+                        confirmList.innerHTML = '';
+                        modal.classList.remove('show');
+                        alert('Order created successfully!');
+                    } else {
+                        console.error('Error creating order:', data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+                confirmModal.style.display = 'none';
             });
         })
         .catch(error => {
