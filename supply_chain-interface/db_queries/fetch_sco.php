@@ -15,7 +15,7 @@ if ($conn->connect_error) {
     exit();
 }
 
-// SQL query to fetch required rows from supply_chain_orders and join with reorder_requests for product details
+// SQL query to fetch required rows from supply_chain_orders and join with reorder_requests, products, and suppliers
 $sql = "
     SELECT 
         sco.sc_order_id, 
@@ -27,13 +27,18 @@ $sql = "
         sco.details, 
         rr.product_id, 
         p.product_name, 
-        rr.quantity AS requested_quantity
+        rr.quantity AS requested_quantity,
+        s.supplier_name, 
+        s.contact_person, 
+        s.phone_number
     FROM 
         supply_chain_orders sco
     LEFT JOIN 
         reorder_requests rr ON sco.related_id = rr.request_id
     LEFT JOIN 
         products p ON rr.product_id = p.product_id
+    LEFT JOIN 
+        suppliers s ON p.supplier_id = s.supplier_id
     WHERE 
         sco.status NOT IN ('completed', 'cancelled')
     ORDER BY sco.sc_order_id DESC
@@ -78,11 +83,10 @@ while ($row = $result->fetch_assoc()) {
             $row['status'] = ucfirst($row['status']);
     }
 
-   // Format handled_by with SCM-000 or display "...." if null
-   $row['handled_by'] = !empty($row['handled_by']) 
-   ? sprintf('SCM-%03d', $row['handled_by']) 
-   : '....';
-
+    // Format handled_by with SCM-000 or display "...." if null
+    $row['handled_by'] = !empty($row['handled_by']) 
+        ? sprintf('SCM-%03d', $row['handled_by']) 
+        : '....';
 
     // Format accepted_on and delivered_on or display "...." if null
     $row['accepted_on'] = !empty($row['accepted_on']) 
@@ -104,6 +108,9 @@ while ($row = $result->fetch_assoc()) {
         'product_id' => $row['product_id'] ?? '....',
         'product_name' => $row['product_name'] ?? '....',
         'quantity' => $row['requested_quantity'] ?? '....',
+        'supplier_name' => $row['supplier_name'] ?? '....',
+        'contact_person' => $row['contact_person'] ?? '....',
+        'phone_number' => $row['phone_number'] ?? '....',
     ];
 }
 

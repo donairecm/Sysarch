@@ -262,6 +262,7 @@
 
 .modal-supply-chain-orders.show{
     display: flex;
+    overflow-y: auto;
 }
 
 .modal-style > .modal-content{
@@ -272,7 +273,8 @@
     width: 470px;
     display: flex;
     flex-direction: row;
-    margin-top: -90px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .modal-content{

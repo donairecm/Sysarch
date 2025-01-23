@@ -58,6 +58,9 @@ function openModal(order) {
     modal.querySelector(".product_id span").textContent = order.product_id || "...";
     modal.querySelector(".product_name span").textContent = order.product_name || "...";
     modal.querySelector(".quantity span").textContent = order.quantity || "...";
+    modal.querySelector(".supplier_name span").textContent = order.supplier_name || "...";
+    modal.querySelector(".contact_person span").textContent = order.contact_person || "...";
+    modal.querySelector(".phone_number span").textContent = order.phone_number || "...";
 
     // Show type-specific modal content
     if (order.source === "Reorder") {

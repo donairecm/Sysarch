@@ -33,15 +33,33 @@ $product_id = $data['product_id']; // Un-prefixed product ID
 $quantity = intval($data['quantity']); // Ensure the quantity is an integer
 $date_of_request = date("Y-m-d H:i:s"); // Current date
 
-// Insert into reorder_requests table
-$stmt = $conn->prepare("INSERT INTO reorder_requests (product_id, quantity, requested_by, date_of_request) VALUES (?, ?, ?, ?)");
-$stmt->bind_param("siss", $product_id, $quantity, $employee_id, $date_of_request);
+// Step 1: Get the supplier_id from the products table
+$sql = "SELECT supplier_id FROM products WHERE product_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $product_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows === 0) {
+    echo json_encode(["success" => false, "error" => "Product not found."]);
+    $stmt->close();
+    $conn->close();
+    exit();
+}
+
+$product = $result->fetch_assoc();
+$supplier_id = $product['supplier_id']; // Get supplier_id
+$stmt->close();
+
+// Step 2: Insert into reorder_requests table
+$stmt = $conn->prepare("INSERT INTO reorder_requests (product_id, quantity, requested_by, date_of_request, supplier_id) VALUES (?, ?, ?, ?, ?)");
+$stmt->bind_param("sisss", $product_id, $quantity, $employee_id, $date_of_request, $supplier_id);
 
 if ($stmt->execute()) {
     $request_id = $stmt->insert_id; // Get the inserted request_id
     $stmt->close();
 
-    // Insert into user_activities table
+    // Step 3: Insert into user_activities table
     $activity_type = "inventory";
     $details = "Requested a reorder for PRD-" . sprintf("%03d", $product_id); // Add the prefix back
     $date_of_activity = date("Y-m-d H:i:s"); // Current date and time
@@ -52,14 +70,14 @@ if ($stmt->execute()) {
     if ($stmt->execute()) {
         $stmt->close();
 
-        // Insert into supply_chain_orders table
+        // Step 4: Insert into supply_chain_orders table
         $source = "inventory_reorder";
         $stmt = $conn->prepare("INSERT INTO supply_chain_orders (source, related_id) VALUES (?, ?)");
         $stmt->bind_param("si", $source, $request_id);
 
         if ($stmt->execute()) {
             $stmt->close();
-            echo json_encode(["success" => true]);
+            echo json_encode(["success" => true, "message" => "Reorder request submitted successfully."]);
         } else {
             echo json_encode(["success" => false, "error" => "Failed to insert into supply_chain_orders: " . $stmt->error]);
         }

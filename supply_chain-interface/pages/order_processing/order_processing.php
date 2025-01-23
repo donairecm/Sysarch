@@ -48,7 +48,7 @@
                 </li>
                 
 
-                <div class="modal-supply-chain-orders modal-style">
+                <div class="modal-supply-chain-orders modal-style grid-scrollbar-design">
                     <div class="modal-content">
                         <div class="delivery"></div>
                         <div class="reorder">
@@ -58,6 +58,9 @@
                             <div class="product_id">Product ID<span>product_id</span></div>
                             <div class="product_name">Product name<span>product_name</span></div>
                             <div class="quantity">Requested quantity <span>quantity</span></div>
+                            <div class="supplier_name">Supplier name<span>supplier_name</span></div>
+                            <div class="contact_person">Contact person <span>contact_person</span></div>
+                            <div class="phone_number">Contact number <span>phone_number</span></div>
                             <button class="accept show">Accept</button>
                             <button class="ready">Ready for delivery</button>
                             <button class="delivered">Product received</button>
