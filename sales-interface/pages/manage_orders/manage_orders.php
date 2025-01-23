@@ -93,37 +93,56 @@
                         </div>
                     </div>
                 </div>
-                <div id="order-details-modal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <div class="modal-body">
-            <div class="order-details">
-                <h3>Order Details</h3>
-                <p class="detail" id="sales-order-id"></p>
-                <p class="detail" id="managed-by"></p>
-                <p class="detail" id="total-amount"></p>
-                <p class="detail" id="status"></p>
-                <p class="detail" id="created-on"></p>
-            </div>
-            <div class="order-items">
-                <h3>Order Items</h3>
-                <table class="order-items-table">
-                    <thead>
-                        <tr>
-                            <th>Product Name</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody id="order-items-body">
-                        <!-- Rows will be dynamically added here -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 
+                  <!-- Modal 2-->
+                  <div class="modal-order-items-attached2 modal-style grid-scrollbar-design show">
+                    <div class="modal-content orderitematt">
+                        <form action="POST" id="" class="salesadditem2">
+                                <div class="prod-m sales2">
+                                    <span>sc_order_id</span>
+                                </div>
+                                <div class="">
+                                    <span>Managed by</span>
+                                    <span>SSM-010</span>
+                                </div>
+                                <div class="">
+                                    <span>Total Amount</span>
+                                    <span>P1,000.00</span>
+                                </div>
+                                <div class="">
+                                    <span>Status</span>
+                                    <span>On process</span>
+                                </div>
+                                <div class="">
+                                    <span class="last">Jan 24, 2025 | 1:31am</span>
+                                </div>
+                        </form>
+                        <form action="POST" class="orderitemlist">
+                            <div class="prod-m sales2">Order List</div>
+                            <ul class="orderlist-container container_scrollbar_design">
+                                <li class="header">
+                                    <span>Product ID</span>
+                                    <span>Product name</span>
+                                    <span>Quantity</span>
+                                    <span>Total price</span>
+                                </li>
+
+                                <!-- Content will be dynamically added here -->
+                                <li class="item">
+                                    <span>PRD-001</span>
+                                    <span>Product GT1</span>
+                                    <span>12</span>
+                                    <span>P12,200.00</span>
+                                </li>
+                                <!-- sample row -->
+                                
+                            </ul>
+                            <div class="save sales">
+                                <button type="submit" id="createanorder" disabled>Create an order</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
 
             </ul>
