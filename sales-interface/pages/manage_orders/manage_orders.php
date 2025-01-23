@@ -95,7 +95,7 @@
                 </div>
 
                   <!-- Modal 2-->
-                  <div class="modal-order-items-attached2 modal-style grid-scrollbar-design show">
+                  <div class="modal-order-items-attached2 modal-style grid-scrollbar-design">
                     <div class="modal-content orderitematt">
                         <form action="POST" id="" class="salesadditem2">
                                 <div class="prod-m sales2">
@@ -124,7 +124,7 @@
                                     <span>Product ID</span>
                                     <span>Product name</span>
                                     <span>Quantity</span>
-                                    <span>Total price</span>
+                                    <span>Price</span>
                                 </li>
 
                                 <!-- Content will be dynamically added here -->
@@ -137,8 +137,9 @@
                                 <!-- sample row -->
                                 
                             </ul>
-                            <div class="save sales">
-                                <button type="submit" id="createanorder" disabled>Create an order</button>
+                            <div class="save sales ss2">
+                            <button type="submit" id="">Delete order</button>
+                                <button type="submit" id="">Mark as complete</button>
                             </div>
                         </form>
                     </div>

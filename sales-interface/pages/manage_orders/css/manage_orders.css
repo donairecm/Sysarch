@@ -260,6 +260,18 @@
     border-radius: 20px;
     justify-content: flex-start;
 }
+.save.sales.ss2 > button:last-child{
+    margin-left: 10px;
+    background-color: rgb(51, 170, 21);
+}
+
+.save.sales.ss2 > button:last-child:hover{
+    background-color: rgb(40, 133, 16);
+}
+
+.save.sales.ss2.hide{
+    display: none;
+}
 /* #endregion */
 
 

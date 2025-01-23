@@ -36,58 +36,77 @@ async function fetchAndDisplaySalesData() {
 }
 
 function showOrderDetailsModal(sale) {
-    const modal = document.querySelector("#order-details-modal");
+    // Get modal and necessary sections
+    const modal = document.querySelector(".modal-order-items-attached2");
+    const orderDetailsSection = modal.querySelector(".salesadditem2");
+    const orderItemsContainer = modal.querySelector(".orderlist-container");
 
-    // Populate the order details on the left
-    document.querySelector("#sales-order-id").innerText = `Order ID: ${sale.sales_order_id}`;
-    document.querySelector("#managed-by").innerText = `Managed By: ${sale.managed_by}`;
-    document.querySelector("#total-amount").innerText = `Total Amount: ${sale.total_amount}`;
-    document.querySelector("#status").innerText = `Status: ${sale.status}`;
-    document.querySelector("#created-on").innerText = `Created On: ${sale.created_on}`;
+    // Populate order details
+    orderDetailsSection.innerHTML = `
+        <div class="prod-m sales2">
+            <span>${sale.sales_order_id}</span>
+        </div>
+        <div class="">
+            <span>Managed by</span>
+            <span>${sale.managed_by}</span>
+        </div>
+        <div class="">
+            <span>Total Amount</span>
+            <span>${sale.total_amount}</span>
+        </div>
+        <div class="">
+            <span>Status</span>
+            <span>${sale.status}</span>
+        </div>
+        <div class="">
+            <span class="last">${sale.created_on}</span>
+        </div>
+    `;
 
-    // Populate the order items table on the right
-    const orderItemsBody = document.querySelector("#order-items-body");
-    orderItemsBody.innerHTML = ""; // Clear previous items
+    // Populate order items
+    orderItemsContainer.innerHTML = `
+        <li class="header">
+            <span>Product ID</span>
+            <span>Product name</span>
+            <span>Quantity</span>
+            <span>Price</span>
+        </li>
+    `;
 
     if (sale.order_items.length > 0) {
         sale.order_items.forEach(item => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${item.product_name}</td>
-                <td>${item.quantity}</td>
-                <td>₱${item.total_price}</td>
+            const orderItemHTML = `
+                <li class="item">
+                    <span>${item.product_id}</span>
+                    <span>${item.product_name}</span>
+                    <span>${item.quantity}</span>
+                    <span>₱${item.total_price}</span>
+                </li>
             `;
-            orderItemsBody.appendChild(row);
+            orderItemsContainer.innerHTML += orderItemHTML;
         });
     } else {
-        // Show a message if no order items are found
-        const row = document.createElement("tr");
-        row.innerHTML = `<td colspan="3" style="text-align:center;">No items found for this order.</td>`;
-        orderItemsBody.appendChild(row);
+        // Display message if no items found
+        const emptyMessageHTML = `
+            <li class="item">
+                <span colspan="4" style="text-align: center;">No items found for this order.</span>
+            </li>
+        `;
+        orderItemsContainer.innerHTML += emptyMessageHTML;
     }
 
-    // Show the modal
-    modal.style.display = "block";
+    // Show modal
+    modal.classList.add("show");
 }
 
-// Close modal when clicking outside the content
-const modal = document.querySelector("#order-details-modal");
+// Close modal by removing the "show" class when clicking outside the modal content
+const modal = document.querySelector(".modal-order-items-attached2");
 modal.addEventListener("click", (event) => {
     if (event.target === modal) {
-        modal.style.display = "none";
+        modal.classList.remove("show");
     }
 });
 
-// Close modal when clicking the close button
-document.querySelector("#order-details-modal .close").addEventListener("click", () => {
-    modal.style.display = "none";
-});
-
-
-// Close modal when clicking the close button
-document.querySelector("#order-details-modal .close").addEventListener("click", () => {
-    modal.style.display = "none";
-});
 
 // Fetch and display sales data every 5 seconds
 fetchAndDisplaySalesData();
