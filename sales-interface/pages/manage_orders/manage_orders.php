@@ -93,7 +93,13 @@
                         </div>
                     </div>
                 </div>
-                
+                <div id="order-details-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <!-- Modal content will be dynamically populated -->
+    </div>
+</div>
+
 
             </ul>
     </div>

@@ -16,6 +16,9 @@ $middleInitial = $profileData['middleInitial'];
 $profilePic = $profileData['profilePic'];
 $profileCover = $profileData['profileCover']; 
 $employeeID = $profileData['employeeID'];
+
+// Echo the employee_id for JavaScript
+echo "<script>const LOGGED_IN_EMPLOYEE_ID = " . json_encode($employeeID) . ";</script>";
 ?>
 
 <!DOCTYPE html>
@@ -42,6 +45,7 @@ $employeeID = $profileData['employeeID'];
         <link rel="stylesheet" href="pages/manage_orders/css/manage_orders.css">
         <script type="text/javascript" src="pages/manage_orders//js/get_sales_data.js" defer></script>
         <script type="text/javascript" src="pages/manage_orders//js/order_item.js" defer></script>
+        <script type="text/javascript" src="pages/manage_orders//js/fetch_order_item.js" defer></script>
         <!-- #endregion -->
 
         <!-- #region chart.js scripts-->

@@ -224,6 +224,7 @@
     border: 1px solid #cecece;
     border-radius: 20px;
     justify-content: flex-start;
+    margin-right: 30px;
 }
 
 .prod-m.sales{
@@ -231,7 +232,6 @@
 }
 
 .orderitemlist{
-    margin-left: 30px;
     border: 1px solid #cecece;
     border-radius: 20px;
     justify-content: flex-start;
@@ -314,3 +314,80 @@
 
 
 /* #endregion */
+
+/* #region Modal when on_process */
+
+.salesadditem.hide{
+    display: none;
+}
+
+.save.sales .b3.hide{
+    display: none;
+}
+
+.save.sales .b2,
+.save.sales .b1{
+    margin: 5px;
+}
+
+.save.sales .b2{
+    background-color: rgb(16, 148, 16);
+}
+
+.save.sales .b2:hover{
+    background-color: rgb(16, 107, 16);
+}
+
+/* #endregion */
+/* Modal styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.modal-content h3,
+.modal-content p,
+.modal-content h4 {
+    margin: 0 0 10px;
+}
+
+.order-items-list {
+    list-style: none;
+    padding: 0;
+}
+
+.order-items-list li {
+    margin: 5px 0;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
