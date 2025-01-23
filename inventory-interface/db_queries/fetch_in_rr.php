@@ -19,7 +19,8 @@ if ($conn->connect_error) {
 // Query to retrieve rows from supply_chain_orders where source is 'inventory_reorder' and status is not 'completed'
 $sql = "SELECT status, related_id, handled_by 
         FROM supply_chain_orders 
-        WHERE source = 'inventory_reorder' AND status != 'completed'";
+        WHERE source = 'inventory_reorder' AND status NOT IN ('completed', 'cancelled')";
+
 
 $result = $conn->query($sql);
 
