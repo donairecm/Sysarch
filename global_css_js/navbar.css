@@ -1,3 +1,92 @@
+
+/* #region Logo Styling */
+#navbar.supply_chain .logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+#navbar.supply_chain .logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 13px;
+    margin-bottom: 20px;
+    transition: width 0.27s ease; 
+}
+
+#navbar.supply_chain .squares {
+    position: relative;
+    width: 37px;
+    height: 37px;
+    flex-shrink: 0; 
+    margin-right: 6px;
+}
+
+#navbar.supply_chain .square {
+    width: 25px;
+    height: 27px;
+    border: 3px solid;
+    border-image: linear-gradient(to top right, #4a4a4a, #d3d3d3) 1;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    position: absolute;
+}
+
+#navbar.supply_chain .square:nth-child(1) {
+    top: 0;
+    left: 0;
+}
+
+#navbar.supply_chain .square:nth-child(2) {
+    top: 13px;
+    left: 13px;
+}
+
+#navbar.supply_chain .logo-text-container{
+    margin-top: 4px;
+}
+
+#navbar.supply_chain .logo-text .b {
+    font-size: 2.2rem;
+    line-height: 0.9;
+    font-weight: 600;
+    display: inline-block;
+    background: linear-gradient(to top right, #b4b4b4, #ffffff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#navbar.supply_chain.logo-text {
+    font-size: 1.4rem;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    background: linear-gradient(to top right, #b4b4b4, #ffffff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    text-transform: uppercase;
+    margin-bottom: -4px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#navbar.supply_chain .logo-subtext {
+    font-size: .49rem;
+    font-weight: 900;
+    font-family: "Playwrite DE Grund", cursive;
+    background: linear-gradient(to top right, #cfcfcf, #ffffff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-left: 2px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+/* #endregion */
 /* #region Navbar Styling */
 #navbar {
     height: 60px;
@@ -12,6 +101,10 @@
     padding: 5px 18px 5px 74px;
     z-index: 9;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#navbar.supply_chain{
+    padding: 5px 18px 5px 18px;
 }
 /* #endregion */
 

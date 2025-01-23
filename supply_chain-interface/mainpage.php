@@ -49,68 +49,34 @@ $employeeID = $profileData['employeeID'];
         <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix"></script>
         <!-- #endregion -->
+        <script>
+function goToMainPage() {
+    window.location.href = 'mainpage.php';
+}
+</script>
 
     </head>
 <body>
-    <nav id="sidebar">
-        <div class="logo-wrapper">
-            <div class="logo-container">
-                <div class="squares">
-                    <div class="square"></div>
-                    <div class="square"></div>
-                </div>
-                <div class="logo-text-container">
-                    <div class="logo-text"><span class="b">B</span>est</div>
-                    <div class="logo-subtext">Aluminum Sales Corp.</div>
-                </div>
-            </div>
-        </div>
-        <ul>
-            <!-- Order Processing -->
-            <li class="active">
-                <a class="sidebar-item" href="#" data-page="order_processing">
-                    <div class="left">
-                        <div class="icon-container">
-                            <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                                <path d="M240-160q-50 0-85-35t-35-85H40v-440q0-33 23.5-56.5T120-800h560v160h120l120 160v200h-80q0 50-35 85t-85 35q-50 0-85-35t-35-85H360q0 50-35 85t-85 35Zm0-80q17 0 28.5-11.5T280-280q0-17-11.5-28.5T240-320q-17 0-28.5 11.5T200-280q0 17 11.5 28.5T240-240ZM120-360h32q17-18 39-29t49-11q27 0 49 11t39 29h272v-360H120v360Zm600 120q17 0 28.5-11.5T760-280q0-17-11.5-28.5T720-320q-17 0-28.5 11.5T680-280q0 17 11.5 28.5T720-240Zm-40-200h170l-90-120h-80v120ZM360-540Z"/>
-                            </svg>
-                        </div>
-                        <span class="sidebar-hover">Order Processing</span>
-                    </div>
-                </a>
-            </li>
-            
-            <!-- Manage Suppliers -->
-            <li class="has-submenu">
-                <a class="sidebar-item" href="#" data-page="manage_suppliers">
-                    <div class="left">
-                        <div class="icon-container">
-                            <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                                <path d="M80-120q-33 0-56.5-23.5T0-200v-560q0-33 23.5-56.5T80-840h800q33 0 56.5 23.5T960-760v560q0 33-23.5 56.5T880-120H80Zm556-80h244v-560H80v560h4q42-75 116-117.5T360-360q86 0 160 42.5T636-200ZM360-400q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Zm400 160 80-80-60-80h-66q-6-18-10-38.5t-4-41.5q0-21 4-40.5t10-39.5h66l60-80-80-80q-54 42-87 106.5T640-480q0 69 33 133.5T760-240Zm-578 40h356q-34-38-80.5-59T360-280q-51 0-97 21t-81 59Zm178-280q-17 0-28.5-11.5T320-520q0-17 11.5-28.5T360-560q17 0 28.5 11.5T400-520q0 17-11.5 28.5T360-480Zm120 0Z"/>
-                            </svg>
-                        </div>
-                        <span class="sidebar-hover">Manage Suppliers</span>
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </nav>
+
 
     <div id="overlay"></div>
 
-    <nav id="navbar">
-        <div class="title">
-            <div class="navbarleft">
-                <div class="logo-wrapper">
-                    <div class="logo-container">
-                        <div class="squares">
-                            <div class="square"></div>
-                            <div class="square"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <nav id="navbar" class="supply_chain">
+    <div class="logo-wrapper" onclick="goToMainPage()">
+    <div class="logo-container">
+        <div class="squares">
+            <div class="square"></div>
+            <div class="square"></div>
         </div>
+        <div class="logo-text-container">
+            <div class="logo-text"><span class="b">B</span>est</div>
+            <div class="logo-subtext">Aluminum Sales Corp.</div>
+        </div>
+    </div>
+</div>
+
+
+
         <div class="icon-container">
             <div class="left-container">
          
@@ -158,14 +124,6 @@ $employeeID = $profileData['employeeID'];
             <div class="divider"></div>
 
             <ul class="profile-menu">
-                <li>
-                    <a href="#" >
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                            <path d="m787-145 28-28-75-75v-112h-40v128l87 87Zm-587 25q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v268q-19-9-39-15.5t-41-9.5v-243H200v560h242q3 22 9.5 42t15.5 38H200Zm0-120v40-560 243-3 280Zm80-40h163q3-21 9.5-41t14.5-39H280v80Zm0-160h244q32-30 71.5-50t84.5-27v-3H280v80Zm0-160h400v-80H280v80ZM720-40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Z"/>
-                        </svg>
-                        <span>Activity Logs</span>
-                    </a>
-                </li>
                 <li>
                     <a href="#" data-page="account_settings">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">

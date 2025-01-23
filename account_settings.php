@@ -1,5 +1,5 @@
 
-<div class="account-information-grid grid-scrollbar-design">
+<div class="account-information-grid grid-scrollbar-design supply_chain">
     <div class="account-information-grid-item grid-item-design-aig aig1">
         <div class="aig-title">Profile Picture</div>
         <form action="POST" id="updateprofilepicture">

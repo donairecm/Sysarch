@@ -208,6 +208,10 @@ body::-webkit-scrollbar-thumb:hover {
     grid-template-rows: 300px 40px 230px;
     overflow-y: auto;
 }
+
+.account-information-grid.supply_chain {
+    padding: 40px 40px 40px 40px;
+}
 /* #endregion */
 
 /* #region Grid Layout*/

@@ -1,5 +1,5 @@
 <div class="supply-chain-order-processing grid-scrollbar-design">
-        <div class="supply-chain-order-processing-item grid-item-design-op title">Order Processing</div>
+        <div class="supply-chain-order-processing-item grid-item-design-op title">Reorder processing</div>
         <div class="supply-chain-order-processing-item grid-item-design-op op1 metric">
             <div class="left">Pending</div>
             <div class="right">12</div>
@@ -27,9 +27,6 @@
                 <li class="supply-chain-orders-header all-filter active">
                     <span class="supply-chain-orders-header-hd hd-order-id active">
                         <span>Order ID</span>
-                    </span>
-                    <span class="supply-chain-orders-header-hd hd-type">
-                        <span>Type</span>
                     </span>
                     <span class="supply-chain-orders-header-hd hd-status">
                         <span>Status</span>

@@ -1,0 +1,167 @@
+/* #region Inventory grid designs */
+.sales-manage-orders {
+    display: grid;
+    grid-template-columns: repeat(17, 1fr); 
+    gap: 20px;
+    margin: 0;
+    padding: 20px 20px 20px 20px;
+    height: calc(100vh - 60px);
+    grid-template-rows: 60px 90px 90px 70px;
+    overflow-y: auto;
+}
+/* #endregion */
+
+/* #region Grid Layout*/
+/* Pending */
+.ms1 {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+/* On process */
+.ms2 {
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+/* In transit */
+.ms3 {
+    grid-row-start: 2;
+    grid-row-end: 7;
+    grid-column-start: 4;
+    grid-column-end: 18;
+}
+
+/* #endregion */
+
+/* #region Grid item styles */
+.grid-item-design-ms {
+    padding: 10px;
+    background-color: #f0f0f0;
+    font-family: 'Afacad Flux', sans-serif;
+    transition: transform 0.2s, box-shadow 0.2s; 
+    border: 1px solid rgba(90, 90, 90, 0.253);
+    border-radius: 8px;
+}
+
+.grid-item-design-ms .item-name {
+    letter-spacing: .8px;
+    font-size: 1.18rem;
+    font-weight: 500;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+/* #endregion */
+
+/* #region Title style*/
+.grid-item-design-ms.title {
+    background: transparent;
+    box-shadow: none;
+    font-size: 1.85rem;
+    font-weight: 500;
+    letter-spacing: .85px;
+    border: none;
+    white-space: nowrap;
+}
+
+.grid-item-design-ms.title:hover {
+    transform: none; 
+    box-shadow: none; 
+    cursor:default;
+}
+/* #endregion */
+
+/* #region Tabs styling */
+.sales-manage-orders-item.tabs{
+    font-size: 1.4rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #053746ef;
+    color: white;
+    cursor: pointer;
+}
+
+.sales-manage-orders-item.tabs:hover{
+    background-color: #042b36ef;
+}
+/* #endregion */
+
+/* #region Sales Manage Orders container */
+.sales-manage-orders-table {
+    overflow-y: auto;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Table alignment */
+.sales-manage-orders-table-header, 
+.sales-manage-orders-table-item {
+    display: flex;
+    align-items: center; 
+    text-align: center; 
+    border-bottom: 1px solid #cecece;
+}
+
+.sales-manage-orders-table-header > span,
+.sales-manage-orders-table-item > span {
+    flex: 1; /* Ensures equal spacing */
+}
+
+.sales-manage-orders-table-header {
+    font-weight: 600;
+    font-size: 1.02rem;
+    background-color: #f1f1f1;
+    padding: 0 0 5px 0;
+    position: sticky;
+    z-index: 4;
+    top: 0;
+}
+
+.sales-manage-orders-table-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #cecece;
+    font-size: .95rem;
+}
+
+.sales-manage-orders-table-item:hover{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.sales-manage-orders-table-header-hd{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding: 5px 0;
+}
+
+/* #region product filter alignment */
+.sales > .hd-sales-order-id, 
+.sales > .sales-order-id { flex-basis: 20%; }
+
+.sales > .hd-managed-by, 
+.sales > .managed-by { flex-basis: 20%; }
+
+.sales > .hd-total-amount, 
+.sales > .total-amount { flex-basis: 20%; }
+
+.sales > .hd-payment-method, 
+.sales > .payment-method { flex-basis: 20%; }
+
+.sales > .hd-created-on, 
+.sales > .created-on { flex-basis: 20%; }
+/* #endregion */
+
+/* #endregion */

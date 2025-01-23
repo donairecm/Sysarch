@@ -34,7 +34,6 @@ function populateSupplyChainOrders(data) {
 
         listItem.innerHTML = `
             <span class="order-id">${order.sc_order_id}</span>
-            <span class="type">${order.source}</span>
             <span class="status">${order.status}</span>
             <span class="handled-by">${order.handled_by === `SCM-${currentEmployeeId}` ? "You" : order.handled_by}</span>
         `;
@@ -290,7 +289,7 @@ function displayStatusCounts(data) {
 }
 
 
-async function fetchAndRenderOrders() {
+async function fetchAndRenderOrders(status = null) {
     try {
         const response = await fetch("db_queries/fetch_sco.php"); // PHP script fetching supply chain orders
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -300,9 +299,9 @@ async function fetchAndRenderOrders() {
         // Sort orders by status
         const sortedData = sortOrdersByStatus(rawData);
 
-        // Apply the current filter if there is one
-        const dataToRender = currentFilterStatus
-            ? filterOrdersByStatus(sortedData, currentFilterStatus) // Apply filter
+        // Apply the filter if a specific status is provided
+        const dataToRender = status
+            ? filterOrdersByStatus(sortedData, status) // Apply filter
             : sortedData; // No filter, render all data
 
         // Populate the orders table
@@ -314,6 +313,16 @@ async function fetchAndRenderOrders() {
     } catch (error) {
         console.error("Error fetching supply chain orders:", error);
     }
+}
+
+function setupFetchInterval() {
+    // Clear any existing interval
+    if (fetchInterval) {
+        clearInterval(fetchInterval);
+    }
+
+    // Start a new interval
+    fetchInterval = setInterval(() => fetchAndRenderOrders(), 5000);
 }
 
 // Initialize on page load
