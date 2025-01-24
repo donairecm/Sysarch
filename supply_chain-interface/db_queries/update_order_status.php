@@ -111,6 +111,14 @@ if ($new_status === 'completed') {
         $stmtNotification = $conn->prepare($sqlNotification);
         $stmtNotification->bind_param("s", $notificationMessage);
         $stmtNotification->execute();
+
+        // Insert into inventory_movements table
+        $movementType = 'restock';
+        $sqlInventoryMovement = "INSERT INTO inventory_movements (product_id, quantity, movement_type, date_of_movement, reference_id) 
+                                 VALUES (?, ?, ?, NOW(), ?)";
+        $stmtInventoryMovement = $conn->prepare($sqlInventoryMovement);
+        $stmtInventoryMovement->bind_param("iisi", $product_id, $quantity, $movementType, $related_id);
+        $stmtInventoryMovement->execute();
     }
 
     $stmtReorder->close();
@@ -129,8 +137,9 @@ if ($stmtLog) {
     $stmtLog->execute();
 }
 
-// Success response
-echo json_encode(["success" => true, "message" => "Order status updated successfully."]);
+// Success response with an alert message
+$alertMessage = "Order status successfully updated to: " . ucfirst($new_status) . ".";
+echo json_encode(["success" => true, "message" => "Order status updated successfully.", "alert" => $alertMessage]);
 
 // Close connections
 $stmtUpdate->close();
