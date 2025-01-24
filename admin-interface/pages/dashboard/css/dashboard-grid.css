@@ -61,6 +61,13 @@
     grid-column-end: 13;
 }
 
+.ex2 .top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
 
 
 /* #endregion */
@@ -202,3 +209,149 @@
 }
 /* #endregion */
 
+/* #region Grid item styles */
+.grid-item-design {
+    padding: 10px;
+    background-color: #f0f0f0;
+    font-family: 'Afacad Flux', sans-serif;
+    transition: transform 0.2s, box-shadow 0.2s; 
+    border: 1px solid rgba(90, 90, 90, 0.253);
+    border-radius: 8px;
+}
+
+.grid-item-design:hover {
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+    cursor: default;
+}
+
+.grid-item-design .item-name{
+    letter-spacing: .8px;
+    font-size: 1.18rem;
+    font-weight: 500;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+/* #endregion */
+
+/* #region Search bar*/
+.ex2 .search-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid rgb(97, 97, 97);
+    border-radius: 10px;
+    margin-top: 6px;
+    width: 190px;
+    margin-right: 5px;
+}
+
+.ex2 .icon-container svg {
+    fill: rgb(51, 51, 51);
+    height: 16px;
+    width: 16px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.ex2 .input-container {
+    display: flex;
+    width: 100%;
+    margin-top: 1px;
+    font-family: 'Afacad Flux', sans-serif;
+    position: relative;
+}
+
+.ex2 .search-input {
+    width: 100%;
+    padding: 4px;
+    border: none;
+    border-radius: 4px;
+    font-size: .80rem;
+    background-color: transparent;
+}
+
+.ex2 .search-input:focus {
+    outline: none;
+}
+/* #endregion */
+
+
+/* #region Inventory Movements */
+.inventory-movements-container {
+    overflow-y: auto;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Table alignment */
+.inventory-movements-header, 
+.inventory-movements-item {
+    display: flex;
+    align-items: center; 
+    text-align: center; 
+    border-bottom: 1px solid #cecece;
+}
+
+.inventory-movements-header > span,
+.inventory-movements-item > span {
+    flex: 1; /* Ensures equal spacing */
+}
+
+.inventory-movements-header {
+    font-weight: 600;
+    font-size: 1.02rem;
+    background-color: #f1f1f1;
+    padding: 0 0 5px 0;
+    position: sticky;
+    z-index: 4;
+    top: 0;
+}
+
+.inventory-movements-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #cecece;
+    font-size: .95rem;
+}
+
+.inventory-movements-item:hover{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* #region sales filter alignment */
+.sales-filter > .hd-movement-id, 
+.sales-filter > .movement-id { flex-basis: 15%; }
+
+.sales-filter > .hd-product-id, 
+.sales-filter > .product-id { flex-basis: 15%; }
+
+.sales-filter > .hd-product-name, 
+.sales-filter > .product-name { flex-basis: 15%; }
+
+.sales-filter > .hd-quantity, 
+.sales-filter > .quantity { flex-basis: 15%; }
+
+.sales-filter > .hd-movement-type, 
+.sales-filter > .movement-type { flex-basis: 20%; } /* Adjusted */
+
+.sales-filter > .hd-date-of-movement, 
+.sales-filter > .date-of-movement { flex-basis: 20%; } /* Adjusted */
+/* #endregion */
+
+
+/* #endregion */
+
+/* #region header */
+.inventory-movements-header-hd{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding: 5px 0;
+}
+/* #endregion */

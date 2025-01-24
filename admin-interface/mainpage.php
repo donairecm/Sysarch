@@ -38,25 +38,19 @@ $employeeID = $profileData['employeeID'];
         <!-- #region Dashboard CSS/JS-->
         <link rel="stylesheet" href="pages/dashboard/css/dashboard-grid.css">
         <script type="text/javascript" src="pages/dashboard/js/stock_levels.js" defer></script>
-        <script type="text/javascript" src="pages/dashboard/js/units_sold_per_product.js" defer></script>
+        <script type="text/javascript" src="pages/dashboard/js/get_imv.js" defer></script>
+        <script type="text/javascript" src="pages/dashboard/js/get_in_turno.js" defer></script>
+        <script type="text/javascript" src="pages/dashboard/js/get_in_val.js" defer></script>
         <!-- #endregion -->
 
-        <!-- #region Inventory CSS/JS-->
-        <link rel="stylesheet" href="pages/inventory/css/inventory_grid.css">
-        <script type="text/javascript" src="pages/inventory/js/hp_inventory_activities.js" defer></script>
-        <script type="text/javascript" src="pages/inventory/js/hp_inventory_movements.js" defer></script>
-
-        <link rel="stylesheet" href="pages/inventory/css/product_details.css">
-        <!-- #endregion -->
-
-        <!-- #region Sales CSS/JS-->
-        <link rel="stylesheet" href="pages/sales/css/sales_grid.css">
-        <script type="text/javascript" src="pages/sales/js/hp_recent_orders.js" defer></script>
-        <!-- #endregion -->
-
-        <!-- #region Supply-chain CSS/JS-->
-        <link rel="stylesheet" href="pages/supply_chain/css/supply-chain-grid.css">
-        <script type="text/javascript" src="pages/supply_chain/js/hp_order_samples.js" defer></script>
+        <!-- #region Manage Products CSS/JS-->
+        <!-- #region Product Details-->
+        <link rel="stylesheet" href="pages/product_details/css/product_details.css">
+        <script type="text/javascript" src="pages/product_details/js/get_pd.js" defer></script>
+        <script type="text/javascript" src="pages/product_details/js/filters.js" defer></script>
+        <script type="text/javascript" src="pages/product_details/js/update_pd.js" defer></script>
+        <script type="text/javascript" src="pages/product_details/js/add_product.js" defer></script>
+        <script type="text/javascript" src="pages/product_details/js/request_reorder.js" defer></script>
         <!-- #endregion -->
 
         <!-- #region chart.js scripts-->
@@ -97,7 +91,7 @@ $employeeID = $profileData['employeeID'];
             </li>
             <!-- Manage Products -->
             <li class="has-submenu">
-                <a class="sidebar-item" href="#" data-page="manage_products">
+                <a class="sidebar-item" href="#" data-page="product_details">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -444,12 +438,11 @@ $employeeID = $profileData['employeeID'];
         <!-- #region Dashboard -->
         <div class="page" id="dashboard"><?php include 'pages/dashboard/dashboard.php'; ?></div>
         <!-- #region Manage Products -->
-        <div class="page" id="manage_products"><?php include 'pages/manage_products/manage_products.php'; ?></div>
+        <div class="page" id="product_details"><?php include 'pages/product_details/product_details.php'; ?></div>
         <!-- #endregion -->
     
         <!-- #region Manage Users -->
         <div class="page" id="manage_user"><?php include 'pages/manage_users/manage_users.php'; ?></div>
-
         <!-- #endregion -->
     
     </div>

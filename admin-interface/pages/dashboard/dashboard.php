@@ -21,11 +21,11 @@
         </div>
 
         <!-- Inventory Value -->
-        <div class="dashboard-item grid-item-design top-row inventory-value">
+        <div class="dashboard-item grid-item-design top-row inventory-value im1">
             <div class="top">
                 <div class="text">
                     <div class="name">Inventory Value</div>
-                    <div class="value"><span>₱</span>24,051</div>
+                    <div class="value">...</div>
                 </div>
                 <div class="svg-container">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="dashboard-analytics">
-                <span>+3%</span> more than last month
+                <span></span> loading values...
             </div>
         </div>
 
@@ -42,10 +42,10 @@
 
         <!-- Inventory Turnover Rate -->
         <div class="dashboard-item grid-item-design top-row inventory-turnover-rate">
-            <div class="top">
+        <div class="top">
                 <div class="text">
                     <div class="name">Inventory Turnover</div>
-                    <div class="value">4.7</div>
+                    <div class="value">...</div>
                 </div>
                 <div class="svg-container">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div class="dashboard-analytics">
-                <span>+1.2</span> more than last week
+                <span></span>loading values...
             </div>
         </div>
 
@@ -89,13 +89,44 @@
 
         <!-- Units Sold per Product -->
         <div class="dashboard-item grid-item-design ex2">
-            <div class="item-name">Units Sold per Product</div>
-            <div class="frame">
-                <div class="text">*Almost 3% of the products underperformed last month</div>
-                <div class="container">
-                    <canvas id="dashboardUnitsSoldperProduct"></canvas>
-                </div>
-            </div>
+            <div class="item-name">Inventory Movements</div>
+            <ul class="inventory-movements-container container_scrollbar_design">
+                <!-- #region sales filter -->
+                <!-- #region Header Row --> 
+                <li class="inventory-movements-header sales-filter active">
+                    <span class="inventory-movements-header-hd hd-movement-id">
+                        <span>Movement ID</span>
+                    </span>
+                    <span class="inventory-movements-header-hd hd-product-id">
+                        <span>Product ID</span>
+                    </span>
+                    <span class="inventory-movements-header-hd hd-product-name">
+                        <span>Product name</span>
+                    </span>
+                    <span class="inventory-movements-header-hd hd-quantity">
+                        <span>Quantity</span>
+                    </span>
+                    <span class="inventory-movements-header-hd hd-movement-type">
+                        <span>Movement type</span>
+                    </span>
+                    <span class="inventory-movements-header-hd hd-date-of-movement">
+                        <span>Date of Movement</span>
+                    </span>
+                </li>
+                <!-- #endregion-->
+
+                <!-- Rows be dynamically inserted here -->
+                <li class="inventory-movements-item sales-filter active">
+                    <span class="movement-id">MOV-001</span>
+                    <span class="product-id">PRD-001</span>
+                    <span class="product-name">Product GT2</span>
+                    <span class="quantity">23</span>
+                    <span class="movement-type">sale</span>
+                    <span class="date-of-movement">Jan 1, 2023 | 7:00am</span>
+                </li>
+
+                <!-- #endregion-->
+            </ul>
         </div>
 
     </div>
