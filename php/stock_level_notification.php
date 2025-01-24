@@ -95,16 +95,24 @@ while ($row = $result->fetch_assoc()) {
         }
     }
 
-    // Insert notification only if necessary
     if ($shouldInsertNotification && $stockLevel !== 'normal_stock') {
-        $recipient = 'inventory_manager';
         $createdOn = date('Y-m-d H:i:s'); // Current timestamp
-
+    
+        // Insert notification for inventory_manager
+        $recipient = 'inventory_manager';
         $insertNotificationStmt->bind_param('sss', $recipient, $message, $createdOn);
         if (!$insertNotificationStmt->execute()) {
-            die(json_encode(['error' => "Insert failed: " . $insertNotificationStmt->error]));
+            die(json_encode(['error' => "Insert failed for inventory_manager: " . $insertNotificationStmt->error]));
+        }
+    
+        // Insert notification for admin
+        $recipient = 'admin';
+        $insertNotificationStmt->bind_param('sss', $recipient, $message, $createdOn);
+        if (!$insertNotificationStmt->execute()) {
+            die(json_encode(['error' => "Insert failed for admin: " . $insertNotificationStmt->error]));
         }
     }
+    
 }
 
 // Close Statements

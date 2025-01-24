@@ -1,0 +1,204 @@
+/* #region Inventory grid designs */
+.manage-users {
+    display: grid;
+    grid-template-columns: repeat(17, 1fr); 
+    gap: 20px;
+    margin: 0;
+    padding: 20px 20px 20px 100px;
+    height: calc(100vh - 60px);
+    grid-template-rows: 50px 34px 460px;
+    overflow-y: auto;
+}
+/* #endregion */
+
+/* #region Grid Layout*/
+/* Search */
+.mu1 {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 13;
+    grid-column-end: 18;
+}
+
+/* Table */
+.mu6 {
+    grid-row-start: 2;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 18;
+    margin-top: -10px;
+}
+/* #endregion */
+
+/* #region Grid item styles */
+.grid-item-design-mu {
+    padding: 10px;
+    background-color: #f0f0f0;
+    font-family: 'Afacad Flux', sans-serif;
+    transition: transform 0.2s, box-shadow 0.2s; 
+    border: 1px solid rgba(90, 90, 90, 0.253);
+    border-radius: 8px;
+}
+
+.grid-item-design-mu .item-name {
+    letter-spacing: .8px;
+    font-size: 1.18rem;
+    font-weight: 500;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+/* #endregion */
+
+/* #region Title style*/
+
+.grid-item-design-mu.title {
+    background: transparent;
+    box-shadow: none;
+    font-size: 1.85rem;
+    font-weight: 500;
+    letter-spacing: .85px;
+    border: none;
+    white-space: nowrap;
+}
+
+.grid-item-design-mu.title:hover {
+    transform: none; 
+    box-shadow: none; 
+    cursor:default;
+}
+/* #endregion */
+
+/* #region Search style*/
+.mu1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.mu1 > .icon-container svg {
+    fill: rgb(51, 51, 51);
+    height: 16px;
+    width: 16px;
+    margin-top: 4px;
+    margin-left: 3px;
+}
+
+.input-container {
+    display: flex;
+    width: 100%;
+    margin-top: 1px;
+    font-family: 'Afacad Flux', sans-serif;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: .85rem;
+    background-color: transparent;
+}
+
+.search-input:focus {
+    outline: none;
+}
+/* #endregion */
+
+/* #region Add product button */
+.mu2.button {
+    background-color: #02242e;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: .80rem;
+    font-weight: 400;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-left: 50px;
+}
+
+.mu2.button:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+}
+/* #endregion */
+
+
+/* #region Product details container */
+.manage-users-table-container {
+    overflow-y: auto;
+    height: 490px;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+/* Table alignment */
+.manage-users-header, 
+.manage-users-item {
+    display: flex;
+    align-items: center; 
+    text-align: center; 
+    border-bottom: 1px solid #cecece;
+}
+
+.manage-users-header > span,
+.manage-users-item > span {
+    flex: 1; /* Ensures equal spacing */
+}
+
+.manage-users-header {
+    font-weight: 600;
+    font-size: 1.02rem;
+    background-color: #f1f1f1;
+    padding: 0 0 5px 0;
+    position: sticky;
+    z-index: 4;
+    top: 0;
+}
+
+.manage-users-header-hd{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding: 5px 0;
+}
+
+.manage-users-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #cecece;
+    font-size: .95rem;
+}
+
+.manage-users-item:hover{
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* #region product filter alignment */
+.manage-users-alignment > .hd-employee-id, 
+.manage-users-alignment > .employee-id { 
+    flex-basis: 8%; /* Adjusted for smaller employee ID */ 
+}
+.manage-users-alignment > .hd-name, 
+.manage-users-alignment > .name { 
+    flex-basis: 15%; /* Slightly larger for names */ 
+}
+.manage-users-alignment > .hd-phone-number-1, 
+.manage-users-alignment > .phone-number-1 { 
+    flex-basis: 18%; /* Adjusted for larger phone numbers */ 
+}
+
+.manage-users-alignment > .hd-email, 
+.manage-users-alignment > .email { 
+    flex-basis: 19%; /* Kept larger for emails */ 
+}
+
+/* #endregion */

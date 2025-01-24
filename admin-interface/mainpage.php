@@ -25,6 +25,11 @@ $employeeID = $profileData['employeeID'];
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin Interface</title>
 
+        <script>
+    const employeeID = "<?php echo $employeeID; ?>";
+</script>
+        <script type="text/javascript" src="get_notifications.js" defer></script>
+
         <link rel="stylesheet" href="../global_css_js/global.css">
         <script type="text/javascript" src="../global_css_js/page_switching.js" defer></script>
 
@@ -51,6 +56,12 @@ $employeeID = $profileData['employeeID'];
         <script type="text/javascript" src="pages/product_details/js/update_pd.js" defer></script>
         <script type="text/javascript" src="pages/product_details/js/add_product.js" defer></script>
         <script type="text/javascript" src="pages/product_details/js/request_reorder.js" defer></script>
+        <!-- #endregion -->
+
+        <!-- #region Manage Users-->
+        
+        <link rel="stylesheet" href="pages/manage_users/css/manage_users.css">
+        <script type="text/javascript" src="pages/manage_users/js/get_users.js" defer></script>
         <!-- #endregion -->
 
         <!-- #region chart.js scripts-->
@@ -104,57 +115,16 @@ $employeeID = $profileData['employeeID'];
             </li>
             <!-- Manage users -->
             <li class="has-submenu">
-                <a class="sidebar-item" href="#" data-page="sales">
+                <a class="sidebar-item" href="#" data-page="manage_users">
                     <div class="left">
                         <div class="icon-container">
                             <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                                <path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80ZM120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z"/>
+                                <path d="M240-280h240v-80H240v80Zm120-160h240v-80H360v80Zm120-160h240v-80H480v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/>
                             </svg>
                         </div>
-                        <span class="sidebar-hover">Sales</span>
-                    </div>
-                    <div class="right">
-                        <svg class="sidebar-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                            <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/>
-                        </svg>
+                        <span class="sidebar-hover">User Activities</span>
                     </div>
                 </a>
-                <!-- Sales Menu -->
-                <ul class="submenu">
-                    <!-- Sales Overview -->
-                    <li class="submenu-container">
-                        <a class="sidebar-sub-item" href="#" data-page="sales_overview">
-                            <div class="submenu-icon-container">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                                    <path d="m787-145 28-28-75-75v-112h-40v128l87 87Zm-587 25q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v268q-19-9-39-15.5t-41-9.5v-243H200v560h242q3 22 9.5 42t15.5 38H200Zm0-120v40-560 243-3 280Zm80-40h163q3-21 9.5-41t14.5-39H280v80Zm0-160h244q32-30 71.5-50t84.5-27v-3H280v80Zm0-160h400v-80H280v80ZM720-40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Z"/>
-                                </svg>
-                            </div>
-                            <span>Sales Overview</span>
-                        </a>
-                    </li>
-                    <!-- Manage Orders -->
-                    <li class="submenu-container">
-                        <a class="sidebar-sub-item" href="#" data-page="manage_orders">
-                            <div class="submenu-icon-container">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                                    <path d="M160-160v-516L82-846l72-34 94 202h464l94-202 72 34-78 170v516H160Zm240-280h160q17 0 28.5-11.5T600-480q0-17-11.5-28.5T560-520H400q-17 0-28.5 11.5T360-480q0 17 11.5 28.5T400-440ZM240-240h480v-358H240v358Zm0 0v-358 358Z"/>
-                                </svg>
-                            </div>
-                            <span>Manage Orders</span>
-                        </a>
-                    </li>
-                    <!-- Customer Details -->
-                    <li class="submenu-container">
-                        <a class="sidebar-sub-item" href="#" data-page="customer_details">
-                            <div class="submenu-icon-container">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                                    <path d="M680-320q-50 0-85-35t-35-85q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35Zm0-80q17 0 28.5-11.5T720-440q0-17-11.5-28.5T680-480q-17 0-28.5 11.5T640-440q0 17 11.5 28.5T680-400ZM440-40v-116q0-21 10-39.5t28-29.5q32-19 67.5-31.5T618-275l62 75 62-75q37 6 72 18.5t67 31.5q18 11 28.5 29.5T920-156v116H440Zm79-80h123l-54-66q-18 5-35 13t-34 17v36Zm199 0h122v-36q-16-10-33-17.5T772-186l-54 66Zm-76 0Zm76 0Zm-518 0q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v200q-16-20-35-38t-45-24v-138H200v560h166q-3 11-4.5 22t-1.5 22v36H200Zm80-480h280q26-20 57-30t63-10v-40H280v80Zm0 160h200q0-21 4.5-41t12.5-39H280v80Zm0 160h138q11-9 23.5-16t25.5-13v-51H280v80Zm-80 80v-560 137-17 440Zm480-240Z"/>
-                                </svg>
-                            </div>
-                            <span>Customer Details</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
         </ul>
     </nav>
@@ -202,18 +172,6 @@ $employeeID = $profileData['employeeID'];
                     </div>
                 </div>-->
 
-                <!-- User Activities -->
-                <div class="ic-container ic3" data-tooltip="user-activities-ic-nav"> <!--User Activities hehe-->
-                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                        <path d="M560-440h200v-80H560v80Zm0-120h200v-80H560v80ZM200-320h320v-22q0-45-44-71.5T360-440q-72 0-116 26.5T200-342v22Zm160-160q33 0 56.5-23.5T440-560q0-33-23.5-56.5T360-640q-33 0-56.5 23.5T280-560q0 33 23.5 56.5T360-480ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Z"/>
-                    </svg>
-                    <svg class="icon show" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                        <path d="M560-440h200v-80H560v80Zm0-120h200v-80H560v80ZM200-320h320v-22q0-45-44-71.5T360-440q-72 0-116 26.5T200-342v22Zm160-160q33 0 56.5-23.5T440-560q0-33-23.5-56.5T360-640q-33 0-56.5 23.5T280-560q0 33 23.5 56.5T360-480ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm0-80h640v-480H160v480Zm0 0v-480 480Z"/>
-                    </svg>
-                    <span>User Activities</span>
-                    <div class="badge">
-                    </div>
-                </div>
 
                 
             </div>
@@ -375,74 +333,43 @@ $employeeID = $profileData['employeeID'];
             alerts go here
         </div>
 
-        <!-- User Activities Navbar -->
-        <div class="user-activities-nav" id="userActivitiesPopOverContent">
-            <div class="header">User Activities</div>
-            <div class="row2">
-                <div class="filters">
-                    <div class="all f active">All</div>
-                    <div class="unread f">Inventory </div>
-                    <div class="unread f">Sales</div>
-                    <div class="unread f">Supply-chain </div>
+        <div class="notifications-pop-over admin" id="notificationsPopOverContent">
+            <div class="header">Notifications</div>
+            <div class="contents grid-scrollbar-design">
+                <div class="empty all-and-unread hide">
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                            <path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160ZM480-80q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80Z"/>
+                        </svg>
+                    </div>
+                    <div class="message">
+                        <span class="top">Currently, nothing to report!</span>
+                        <span class="bot">Your notifications will appear here when you have some.</span>
+                    </div>
+                </div>
+                <div class="not-empty all-and-unread">
+                    <!--Notification Content will be dynamically added here-->
+                    <div class="notification-content">
+                        <div class="notif-message">Your notification message appears here appears here appears here appears here appears here</div>
+                        <div class="notif-message-date">Jan 1, 2020 | 7:31am</div>
+                    </div>
                 </div>
             </div>
-            <div class="contents">
-                    <div class="empty all-and-unread">
-                        <div class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                                <path d="M560-440h200v-80H560v80Zm0-120h200v-80H560v80ZM200-320h320v-22q0-45-44-71.5T360-440q-72 0-116 26.5T200-342v22Zm160-160q33 0 56.5-23.5T440-560q0-33-23.5-56.5T360-640q-33 0-56.5 23.5T280-560q0 33 23.5 56.5T360-480ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm0-80h640v-480H160v480Zm0 0v-480 480Z"/>
-                            </svg>
-                        </div>
-                        <div class="message">
-                            <span class="top">No activities to show yet!</span>
-                            <span class="bot">User activities will appear here once actions have been made.</span>
-                        </div>
-                    </div>
-                </div>
-        </div>
-
-        <!-- Notifications Popover -->
-        <div class="notifications-pop-over" id="notificationsPopOverContent">
-                <div class="header">Notifications</div>
-                <div class="row2">
-                    <div class="filters">
-                        <div class="all f active">All</div>
-                        <div class="unread f">Unread 
-                            <span class="count"></span>
-                        </div>
-                        <div class="alerts f ">Alerts
-                            <span class="count"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="contents">
-                    <div class="empty all-and-unread">
-                        <div class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                                <path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160ZM480-80q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80Z"/>
-                            </svg>
-                        </div>
-                        <div class="message">
-                            <span class="top">Currently, nothing to report!</span>
-                            <span class="bot">Your notifications will appear here when you have some.</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="previous-notifs">See previous notifications</div>
         </div>
     </div>
 
     <!-- #region Content -->
     <div id="content">
-    
+
         <!-- #region Dashboard -->
         <div class="page" id="dashboard"><?php include 'pages/dashboard/dashboard.php'; ?></div>
+
         <!-- #region Manage Products -->
         <div class="page" id="product_details"><?php include 'pages/product_details/product_details.php'; ?></div>
         <!-- #endregion -->
-    
-        <!-- #region Manage Users -->
-        <div class="page" id="manage_user"><?php include 'pages/manage_users/manage_users.php'; ?></div>
+
+                <!-- #region Manage Users -->
+                <div class="page" id="manage_users"><?php include 'pages/manage_users/manage_users.php'; ?></div>
         <!-- #endregion -->
     
     </div>

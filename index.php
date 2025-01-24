@@ -95,7 +95,7 @@ include 'php/login_metrics.php';
                                 <input type="checkbox">
                                 <p class="text">Remember me</p>
                             </div>-->
-                            <a href="#" class="text">Forgot your password?</a>
+                         
                         </div>
     <button type="submit" name="login">Sign in</button>
 </form>

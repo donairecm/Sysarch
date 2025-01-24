@@ -547,6 +547,10 @@
     right: 147px;
 }
 
+.notifications-pop-over.admin::after{
+    right: 160px;
+}
+
 
 .alerts-pop-over.show,
 .notifications-pop-over.show,
