@@ -43,7 +43,7 @@ if (isset($_POST['login'])) {
                     'super_admin' => 'super_admin-interface/mainpage.php',
                     'sales_manager' => 'sales-interface/mainpage.php',
                     'inventory_manager' => 'inventory-interface/mainpage.php',
-                    'admin' => 'not set',
+                    'admin' => 'admin-interface/mainpage.php',
                     'supply_chain_manager' => 'supply_chain-interface/mainpage.php',
                     default => 'default_page.html',
                 };
