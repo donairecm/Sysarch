@@ -34,30 +34,41 @@ try {
     $stmt->bind_param('si', $new_status, $sales_order_id);
     $stmt->execute();
 
-    // Retrieve the order items for the given sales order
-    $orderItemsQuery = "SELECT product_id, quantity FROM order_items WHERE sales_order_id = ?";
-    $stmt = $conn->prepare($orderItemsQuery);
-    $stmt->bind_param('i', $sales_order_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    // Deduct quantities from products table and insert notifications
-    while ($row = $result->fetch_assoc()) {
-        $product_id = intval($row['product_id']);
-        $quantity = intval($row['quantity']);
-        
-        // Deduct quantity from products table
-        $updateProductQuery = "UPDATE products SET quantity = quantity - ? WHERE product_id = ?";
-        $stmt = $conn->prepare($updateProductQuery);
-        $stmt->bind_param('ii', $quantity, $product_id);
+    // Check if the new status is 'completed'
+    if ($new_status === 'completed') {
+        // Retrieve the order items for the given sales order
+        $orderItemsQuery = "SELECT product_id, quantity FROM order_items WHERE sales_order_id = ?";
+        $stmt = $conn->prepare($orderItemsQuery);
+        $stmt->bind_param('i', $sales_order_id);
         $stmt->execute();
+        $result = $stmt->get_result();
 
-        // Insert notification for inventory manager
-        $notificationMessage = "Sale made on PRD-" . str_pad($product_id, 3, '0', STR_PAD_LEFT) . ". Quantity deducted $quantity.";
-        $insertNotificationQuery = "INSERT INTO notifications (`for`, message, created_on) VALUES ('inventory_manager', ?, ?)";
-        $stmt = $conn->prepare($insertNotificationQuery);
-        $stmt->bind_param('ss', $notificationMessage, $date_of_activity);
-        $stmt->execute();
+        // Deduct quantities from products table, insert notifications, and populate inventory_movements table
+        while ($row = $result->fetch_assoc()) {
+            $product_id = intval($row['product_id']);
+            $quantity = intval($row['quantity']);
+
+            // Deduct quantity from products table
+            $updateProductQuery = "UPDATE products SET quantity = quantity - ? WHERE product_id = ?";
+            $stmt = $conn->prepare($updateProductQuery);
+            $stmt->bind_param('ii', $quantity, $product_id);
+            $stmt->execute();
+
+            // Insert notification for inventory manager
+            $notificationMessage = "Sale made on PRD-" . str_pad($product_id, 3, '0', STR_PAD_LEFT) . ". Quantity deducted $quantity.";
+            $insertNotificationQuery = "INSERT INTO notifications (`for`, message, created_on) VALUES ('inventory_manager', ?, ?)";
+            $stmt = $conn->prepare($insertNotificationQuery);
+            $stmt->bind_param('ss', $notificationMessage, $date_of_activity);
+            $stmt->execute();
+
+            // Populate inventory_movements table
+            $movementType = 'sale';
+            $insertInventoryMovementQuery = "INSERT INTO inventory_movements (product_id, quantity, movement_type, date_of_movement, reference_id) 
+                                             VALUES (?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($insertInventoryMovementQuery);
+            $stmt->bind_param('iissi', $product_id, $quantity, $movementType, $date_of_activity, $sales_order_id);
+            $stmt->execute();
+        }
     }
 
     // Insert into user_activities
