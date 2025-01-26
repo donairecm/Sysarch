@@ -10,7 +10,7 @@ function openModal(product) {
     document.getElementById("md-reorder_point").textContent = product.reorder_point;
     document.getElementById("md-price").textContent = product.price;
     document.getElementById("md-reorder_cost").textContent = product.reorder_cost;
-    document.getElementById("md-location").textContent = product.stock_location;
+    document.getElementById("md-stock_location").textContent = product.stock_location;
 
 
     

@@ -255,8 +255,8 @@
                                 <div class="">
                                     <span>Location</span>
                                     <div class="input-group">
-                                    <input type="text" placeholder=" ex. shelf 2" id="md-location-input" class="md-placeholder">
-                                    <label id="md-location">stock_location</label>
+                                    <input type="text" placeholder=" ex. shelf 2" id="md-stock_location-input" class="md-placeholder">
+                                    <label id="md-stock_location">stock_location</label>
                                     </div>
                                 </div>
                                 <div class="save">

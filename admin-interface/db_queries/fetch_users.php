@@ -35,16 +35,20 @@ if ($result === false) {
 // Fetch all rows as an associative array
 $uaactivities = [];
 while ($row = $result->fetch_assoc()) {
-    // Add prefix to performed_by based on activity_type
+    // Format performed_by based on activity_type
     switch (strtolower($row['activity_type'])) {
         case 'sales':
-            $row['performed_by'] = 'SSM-000' . $row['performed_by'];
+            $row['performed_by'] = 'SSM-' . str_pad($row['performed_by'], 3, '0', STR_PAD_LEFT);
             break;
         case 'supply_chain':
-            $row['performed_by'] = 'SCM-000' . $row['performed_by'];
+            $row['performed_by'] = 'SCM-' . str_pad($row['performed_by'], 3, '0', STR_PAD_LEFT);
             break;
         case 'inventory':
-            $row['performed_by'] = 'IVM-000' . $row['performed_by'];
+            $row['performed_by'] = 'IVM-' . str_pad($row['performed_by'], 3, '0', STR_PAD_LEFT);
+            break;
+        default:
+            // Format the performed_by with a generic prefix if necessary
+            $row['performed_by'] = 'ADM_' . str_pad($row['performed_by'], 3, '0', STR_PAD_LEFT);
             break;
     }
     $uaactivities[] = $row; // Add the modified row to the array
