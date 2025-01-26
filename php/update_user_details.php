@@ -25,8 +25,9 @@ if (!isset($data['employee_id'], $data['updates']) || empty($data['updates'])) {
 
 $employee_id = $data['employee_id'];
 $updates = $data['updates'];
+$new_password = $data['new_password'] ?? null; // Optional: Handle password update
+$old_password = $data['old_password'] ?? null; // Optional: Verify old password
 
-// Prepare response
 $response = [
     'success' => true,
     'updates' => [],
@@ -37,7 +38,7 @@ $response = [
 $conn->begin_transaction();
 
 try {
-    // Fetch current values from `users` table before the update
+    // Fetch current user data
     $currentValuesSql = "SELECT * FROM users WHERE employee_id = ?";
     $currentValuesStmt = $conn->prepare($currentValuesSql);
     $currentValuesStmt->bind_param("i", $employee_id);
@@ -49,7 +50,19 @@ try {
         throw new Exception('User not found.');
     }
 
-    // Update `users` table
+    // Hash new password if provided
+    if (!empty($new_password)) {
+        $hashedPassword = password_hash($new_password, PASSWORD_BCRYPT);
+        if (!$hashedPassword) {
+            throw new Exception('Failed to hash the new password.');
+        }
+        error_log("Hashed password for update: $hashedPassword");
+
+        // Add to updates array
+        $updates['password_hash'] = $hashedPassword;
+    }
+
+    // Prepare the update statement dynamically
     $updateFields = [];
     foreach ($updates as $column => $value) {
         $updateFields[] = "$column = ?";
@@ -82,13 +95,16 @@ try {
         'email' => 'email',
         'phone_number_1' => '1st phone number',
         'phone_number_2' => '2nd phone number',
-        'username' => 'username'
+        'username' => 'username',
+        'password_hash' => 'password'
     ];
 
     foreach ($updates as $column => $newValue) {
         if (isset($columnMap[$column])) {
             $oldValue = $currentValues[$column] ?? 'N/A';
-            $details = "Changed user's {$columnMap[$column]} from " . ($oldValue ?: 'N/A') . " to $newValue";
+            $details = $column === 'password_hash'
+                ? "Updated user's password."
+                : "Changed user's {$columnMap[$column]} from " . ($oldValue ?: 'N/A') . " to $newValue";
 
             // Log activity
             $performed_by = $employee_id;

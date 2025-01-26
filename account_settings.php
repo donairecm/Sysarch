@@ -1,5 +1,5 @@
 
-<div class="account-information-grid grid-scrollbar-design supply_chain">
+<div class="account-information-grid grid-scrollbar-design supply_chain admin">
     <div class="account-information-grid-item grid-item-design-aig aig1">
         <div class="aig-title">Profile Picture</div>
         <form action="POST" id="updateprofilepicture">
@@ -26,7 +26,7 @@
         <div class="aig-title">Account Details</div>
         <form action="POST" class="aig-content" id="updateaccountdetialsForm">
             <div class="row-item aig-ri-1">
-                <div class="input-title">Username (will be used for logging in and password retrieval)</div>
+                <div class="input-title">Username (will be used for logging in)</div>
                 <div class="input-group-aig">
                     <input type="text" placeholder="" id="uad-employee_username" class="md-placeholder">
                     <label id="uad-username">username</label>
@@ -74,18 +74,6 @@
                     </div>
             </div>
 
-
-            <div class="row-item aig-ri-4">
-                <div class="input-title">Email</div>
-                <div class="input-group-aig">
-                    <input type="email" placeholder="" id="uad-employee_email" class="md-placeholder">
-                    <label id="uad-email">email</label>
-                    <!-- Email error container -->
-                    <div class="error-container email">
-                        <div class="account-details-errors ae-tooltip-style" id="aig-email-error">--error message--</div>
-                    </div>
-                </div>
-            </div>
             <div class="row-item aig-ri-5 double">
                 <div>
                     <div class="input-title">Phone number 1</div>
@@ -113,8 +101,45 @@
                 </div>
             </div>
 
+            <div class="row-item aig-ri-4">
+                <div class="input-title">Email</div>
+                <div class="input-group-aig">
+                    <input type="email" placeholder="" id="uad-employee_email" class="md-placeholder">
+                    <label id="uad-email">email</label>
+                    <!-- Email error container -->
+                    <div class="error-container email">
+                        <div class="account-details-errors ae-tooltip-style" id="aig-email-error">--error message--</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-item aig-ri-6 double">
+                <div>
+                    <div class="input-title">Enter your old password</div>
+                        <div class="input-group-aig">
+                            <input type="text" placeholder="" id="uad-employee_old_password" class="md-placeholder">
+                            <label id="uad-old-password">password</label>
+                            <!-- Phone number 1 error container -->
+                            <div class="error-container old_password">
+                                <div class="account-details-errors ae-tooltip-style" id="old-password-error">--error message--</div>
+                            </div>
+                     </div>
+                </div>
+                <div>
+                    <div class="input-title">Enter you new password</div>
+                        <div class="input-group-aig">
+                            <input type="text" placeholder="format: 09252421367" id="uad-employee_new_password" class="md-placeholder">
+                            <label id="uad-new-password">papssword</label>
+                            <!-- Phone number 1 error container -->
+                            <div class="error-container new_password">
+                                <div class="account-details-errors ae-tooltip-style" id="new-password-error">--error message--</div>
+                            </div>
+                     </div>
+                </div>
+            </div>
+
             <div class="update">
-                <button>Change Password</button> 
+                <button type="button" id="changepasswordmodal">Change Password</button> 
                 <button type="submit" id="updateaccountdetails" disabled>Save changes</button>
             </div>
         </form>
@@ -132,5 +157,3 @@
     </div>
 
 </div>
-
-    

@@ -24,8 +24,81 @@ document.addEventListener('DOMContentLoaded', () => {
     const mnameError = document.getElementById('mname-error');
     const lnameError = document.getElementById('lname-error');
 
+    //password
+    const changePasswordButton = document.getElementById('changepasswordmodal');
+    const passwordRow = document.querySelector('.row-item.aig-ri-6.double');
+    const passwordInputs = passwordRow.querySelectorAll('input');
+
     let userId = null; // To store the user's ID globally
     let fetchedDetails = {}; 
+    
+
+    changePasswordButton.addEventListener('click', () => {
+        if (passwordRow.classList.contains('show')) {
+            // Remove 'show' class and empty the input fields
+            passwordRow.classList.remove('show');
+            passwordInputs.forEach(input => input.value = '');
+        } else {
+            // Add 'show' class
+            passwordRow.classList.add('show');
+        }
+    });
+
+    async function validatePasswords() {
+        const oldPasswordInput = document.getElementById('uad-employee_old_password');
+        const newPasswordInput = document.getElementById('uad-employee_new_password');
+        const oldPassword = oldPasswordInput.value.trim();
+        const newPassword = newPasswordInput.value.trim();
+    
+        const oldPasswordError = document.getElementById('old-password-error');
+        const newPasswordError = document.getElementById('new-password-error');
+    
+        hideTooltip(oldPasswordError);
+        hideTooltip(newPasswordError);
+    
+        let isValid = true; // Track overall validation status
+    
+        // Validate old password
+        if (!oldPassword && newPassword) {
+            showTooltip(oldPasswordError, 'Please enter your old password');
+            oldPasswordInput.classList.add('has-error');
+            isValid = false;
+        } else if (oldPassword) {
+            try {
+                const response = await fetch('../php/val_accdetails_fields.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ old_password: oldPassword }) // No employee_id needed
+                });
+    
+                const result = await response.json();
+                if (!result.success) {
+                    const errorMessage = result.message || 'Incorrect password';
+                    showTooltip(oldPasswordError, errorMessage);
+                    oldPasswordInput.classList.add('has-error');
+                    isValid = false;
+                } else {
+                    oldPasswordInput.classList.remove('has-error');
+                }
+            } catch (error) {
+                console.error('Error validating old password:', error);
+                showTooltip(oldPasswordError, 'An unexpected error occurred. Please try again later.');
+                oldPasswordInput.classList.add('has-error');
+                isValid = false;
+            }
+        }
+    
+        // Validate new password
+        if (newPassword && newPassword.length < 8) {
+            showTooltip(newPasswordError, 'Must be at least 8 characters long');
+            newPasswordInput.classList.add('has-error');
+            isValid = false;
+        } else if (newPassword) {
+            newPasswordInput.classList.remove('has-error');
+        }
+    
+        return isValid; // Return whether the password validation passed
+    }
 
     async function fetchAccountDetails() {
         try {
@@ -331,7 +404,6 @@ console.log('Fetched Details:', fetchedDetails);
     });
     
 
-    // Validate username and email on form submission
     updateButton.addEventListener('click', async (e) => {
         e.preventDefault(); // Prevent form submission
     
@@ -348,7 +420,14 @@ console.log('Fetched Details:', fetchedDetails);
         validateNameField(mnameInput, fetchedDetails.middle_name, mnameError, 'Middle name');
         validateNameField(lnameInput, fetchedDetails.last_name, lnameError, 'Last name');
     
-        // Check for errors
+        // Validate passwords
+        const isPasswordValid = await validatePasswords();
+        if (!isPasswordValid) {
+            console.log('Password validation failed.');
+            return; // Prevent submission if passwords are invalid
+        }
+    
+        // Check for errors in all fields
         if (
             usernameInput.classList.contains('has-error') ||
             emailInput.classList.contains('has-error') ||
@@ -356,7 +435,9 @@ console.log('Fetched Details:', fetchedDetails);
             fnameInput.classList.contains('has-error') ||
             mnameInput.classList.contains('has-error') ||
             lnameInput.classList.contains('has-error') ||
-            phone2Input.classList.contains('has-error')
+            phone2Input.classList.contains('has-error') ||
+            document.getElementById('uad-employee_old_password').classList.contains('has-error') || 
+            document.getElementById('uad-employee_new_password').classList.contains('has-error')
         ) {
             console.log('Form submission blocked due to errors.');
             return;
@@ -387,13 +468,30 @@ console.log('Fetched Details:', fetchedDetails);
         logChange('Phone Number 1', fetchedDetails.phone_number_1, phone1Input.value, 'phone_number_1', '1st phone number');
         logChange('Phone Number 2', fetchedDetails.phone_number_2, phone2Input.value, 'phone_number_2', '2nd phone number');
     
+        // Password changes
+        const oldPassword = document.getElementById('uad-employee_old_password').value.trim();
+        const newPassword = document.getElementById('uad-employee_new_password').value.trim();
+        if (oldPassword && newPassword) {
+            changes.push(`Password changed to: ${newPassword}`);
+            updates['password_hash'] = newPassword; // Match backend field name
+            activities.push({
+                details: `Changed user's password`,
+                dbField: 'password'
+            });
+        }
+    
         if (changes.length === 0) {
             console.log('No changes detected.');
             alert('No changes were made.');
             return;
         }
     
-        // Show changes in the modal
+        console.log('Payload being sent:', {
+            employee_id: userId,
+            updates
+        });
+    
+        // Show modal
         const changesList = document.getElementById('updatedemployeedetails');
         changesList.innerHTML = '';
         changes.forEach(change => {
@@ -402,7 +500,6 @@ console.log('Fetched Details:', fetchedDetails);
             changesList.appendChild(li);
         });
     
-        // Show modal
         const confirmationModal = document.getElementById('confirmationModal5');
         confirmationModal.style.display = 'flex';
     
@@ -413,7 +510,6 @@ console.log('Fetched Details:', fetchedDetails);
             confirmationModal.style.display = 'none'; // Hide modal
     
             try {
-                // Update `users` table
                 const updateResponse = await fetch('../php/update_user_details.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -424,33 +520,12 @@ console.log('Fetched Details:', fetchedDetails);
                 });
     
                 const updateResult = await updateResponse.json();
+                console.log('Response from server:', updateResult);
+    
                 if (!updateResult.success) {
                     console.error('Failed to update user:', updateResult.error);
                     alert('Error updating user information.');
                     return;
-                }
-    
-                console.log('User updated successfully:', updateResult);
-    
-                // Log changes in `user_activities` table
-                for (const activity of activities) {
-                    const logResponse = await fetch('../php/update_user_details.php', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            performed_by: userId,
-                            activity_type: 'account changes',
-                            details: activity.details,
-                            date_of_activity: new Date().toISOString() // Add current date and time
-                        })
-                    });
-    
-                    const logResult = await logResponse.json();
-                    if (!logResult.success) {
-                        console.error('Failed to log activity:', logResult.error);
-                    } else {
-                        console.log('Activity logged successfully:', logResult);
-                    }
                 }
     
                 alert('Changes saved and logged successfully!');
@@ -460,10 +535,6 @@ console.log('Fetched Details:', fetchedDetails);
             }
         });
     });
-    
-    
-    
-    
     
     
     
