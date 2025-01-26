@@ -212,6 +212,10 @@ body::-webkit-scrollbar-thumb:hover {
 .account-information-grid.supply_chain {
     padding: 40px 40px 40px 40px;
 }
+
+.account-information-grid.supply_chain.admin {
+    padding: 40px 40px 40px 120px;
+}
 /* #endregion */
 
 /* #region Grid Layout*/

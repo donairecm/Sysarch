@@ -1,5 +1,5 @@
 
-<div class="account-information-grid grid-scrollbar-design supply_chain">
+<div class="account-information-grid grid-scrollbar-design supply_chain admin">
     <div class="account-information-grid-item grid-item-design-aig aig1">
         <div class="aig-title">Profile Picture</div>
         <form action="POST" id="updateprofilepicture">
@@ -26,7 +26,7 @@
         <div class="aig-title">Account Details</div>
         <form action="POST" class="aig-content" id="updateaccountdetialsForm">
             <div class="row-item aig-ri-1">
-                <div class="input-title">Username (will be used for logging in and password retrieval)</div>
+                <div class="input-title">Username (will be used for logging in)</div>
                 <div class="input-group-aig">
                     <input type="text" placeholder="" id="uad-employee_username" class="md-placeholder">
                     <label id="uad-username">username</label>
@@ -114,7 +114,6 @@
             </div>
 
             <div class="update">
-                <button>Change Password</button> 
                 <button type="submit" id="updateaccountdetails" disabled>Save changes</button>
             </div>
         </form>
