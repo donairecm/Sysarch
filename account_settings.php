@@ -139,7 +139,10 @@
             </div>
 
             <div class="update">
+<<<<<<< HEAD
                 <button type="button" id="changepasswordmodal">Change Password</button> 
+=======
+>>>>>>> 7adc88984abd2bd432d83b28c2ec9d10da18173c
                 <button type="submit" id="updateaccountdetails" disabled>Save changes</button>
             </div>
         </form>
