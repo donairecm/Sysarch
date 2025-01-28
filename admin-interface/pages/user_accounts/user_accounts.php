@@ -11,11 +11,111 @@
             <input 
                 type="text" 
                 class="search-input" 
+                id="searchusertable"
                 placeholder="Search users..." 
                 aria-label="Search users">
         </div>
         </div>
+        <div class="admin-user-accounts-grid-item grid-item-design-mua mua7 button">Change password</div>
+        <!-- #region modal for Changing passwords -->
+        <div class="modal-style modal-change-password-for-a-user">
+            <div class="modal-content">
+                <form action="POST" id="changepasswordforauserForm">
+                    <div class="prod-m">
+                        <span>Change password of a user</span>
+                    </div>
+                    <div class="center-wrapper">
+                        <div class="select-container">
+                            <div class="input-group select">
+                                <select id="mua-user_change_password-input" class="custom-select">
+                                    <option value="" disabled selected>Choose user</option>
+                                    <!-- Users will be dynamically added here-->
+
+                                    <!-- sample format-->
+                                    <option value="1">ADM-001 | Carlo Joshua B. Abellera</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <span>Change Password</span>
+                        <div class="input-group">
+                        <input type="text" placeholder="must be atleast 8 characters long" id="mua-change-password-input" class="md-placeholder">
+                        <label id="mua-change-password">enter new password</label>
+                        </div>
+                    </div>
+                    <div class="save">
+                        <button type="submit" id="changepasswordforuserconfirm" disabled>Change password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="confirmationModalchangepasswordforuser" class="confirmmodal-style" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center;">
+            <div style="background: white; padding: 20px; border-radius: 5px; max-width: 700px; width: auto;">
+                <span>Confirm password change for?</span>
+                <ul id="changeauserpasswordconfirmationlist" style="padding-left: 20px;"></ul>
+                <div class="button-container">
+                    <button id="confirmpasswordchangeforuser" class="md-btn-1" style="margin-right: 10px;">Confirm</button>
+                    <button id="cancelpasswordchangeforuser" class="md-btn-2">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- #endregion -->
+
         <div class="admin-user-accounts-grid-item grid-item-design-mua mua2 button">Add new user</div>
+        <!-- #region modal for Adding users -->
+        <div class="modal-style modal-add-users">
+            <div class="modal-content">
+                <form action="POST" id="addauserForm">
+                    <div class="prod-m">
+                        <span>Add a user</span>
+                    </div>
+                    <div class="">
+                        <span>Username</span>
+                        <div class="input-group">
+                        <input type="text" placeholder="ex. default_username" id="mua-username-input" class="md-placeholder">
+                        <label id="mua-username">enter username</label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <span>Password</span>
+                        <div class="input-group">
+                        <input type="text" placeholder="must be atleast 8 characters long" id="mua-password-input" class="md-placeholder">
+                        <label id="mua-password">enter password</label>
+                        </div>
+                    </div>
+                    <div class="center-wrapper">
+                        <div class="select-container">
+                            <div class="input-group select">
+                                <select id="mua-user_role-input" class="custom-select">
+                                    <option value="" disabled selected>Choose role</option>
+                                    <option value="1">Inventory Manager</option>
+                                    <option value="2">Sales Manager</option>
+                                    <option value="3">Supply Chain Manager</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="save">
+                        <button type="submit" id="addauserconfirmbtn" disabled>Add user</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="confirmationModaladdusers" class="confirmmodal-style" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center;">
+            <div style="background: white; padding: 20px; border-radius: 5px; max-width: 700px; width: auto;">
+                <span>Confirm user creation?</span>
+                <ul id="addauserconfirmationlist" style="padding-left: 20px;"></ul>
+                <div class="button-container">
+                    <button id="confirmusercreation" class="md-btn-1" style="margin-right: 10px;">Confirm</button>
+                    <button id="cancelusercreation" class="md-btn-2">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <!-- #endregion -->
         <div class="admin-user-accounts-grid-item grid-item-design-mua mua3 filter active">Details</div>
         <div class="admin-user-accounts-grid-item grid-item-design-mua mua4 filter">Contact</div>
         <div class="admin-user-accounts-grid-item grid-item-design-mua mua5 filter">Logs</div>
@@ -25,7 +125,7 @@
                 <!-- #region filter Details-->
                 <!-- Header Row -->
                 <li class="user-account-information-header details-filter active">
-                    <span class="user-account-information-header-hd hd-employee-id active">
+                    <span class="user-account-information-header-hd hd-employee-id">
                         <span>Employee ID</span>
                     </span>
                     <span class="user-account-information-header-hd hd-employee-name">
@@ -43,13 +143,6 @@
                 </li>
 
                 <!-- Rows be dynamically inserted here -->
-                 <li class="user-account-information-item details-filter 2 active">
-                    <span class="employee-id">ADM-002</span>
-                    <span class="employee-name">John Doe Demo</span>
-                    <span class="user-role">Inventory Manager</span>
-                    <span class="user-status">Online</span>
-                    <span class="created-on">Jan 1, 2025 | 7:30am</span>
-                 </li>
                  <!-- sample of row -->
                 
                 <!-- #endregion-->
@@ -72,12 +165,6 @@
                 </li>
 
                 <!-- Rows will be dynamically inserted here -->
-                <li class="user-account-information-item contacts-filter">
-                    <span class="employee-id">ADM-001</span>
-                    <span class="email">jhondoe.demo@sample.com</span>
-                    <span class="phone-number-1">0925-275-1532</span>
-                    <span class="phone-number-2">0916-824-1078</span>
-                 </li>
                 <!-- #endregion-->
 
                 <!-- #region filter location-->
@@ -102,13 +189,6 @@
 
                 <!-- Rows for filter reorder will be dynamically inserted here -->
                 <!-- sample of row -->
-                <li class="user-account-information-item logs-filter">
-                    <span class="employee-id">ADM-001</span>
-                    <span class="last-login">Jan 1, 2025 | 7:30am</span>
-                    <span class="last-logout">Jan 1, 2025 | 9:30pm</span>
-                    <span class="updated-on">Jan 1, 2024 | 12:00am</span>
-                    <span class="updated-by">Jan 1, 2024 | 12:00am</span>
-                 </li>
                 <!-- #endregion--> 
        
             </ul>

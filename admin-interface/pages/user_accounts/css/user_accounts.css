@@ -209,13 +209,14 @@
     border: 1px solid #02242e;
 }
 
-.pd7.button:hover{
+.mua7.button:hover{
     cursor: pointer;
     transform: translateY(-2px);
 }
 /* #endregion */
 
 /* #region Product details container */
+
 .user-account-list-container {
     overflow-y: auto;
     height: 440px;
@@ -233,6 +234,14 @@
     align-items: center; 
     text-align: center; 
     border-bottom: 1px solid #cecece;
+}
+
+.user-account-information-header-hd{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding: 5px 0;
 }
 
 .user-account-information-header > span,
@@ -321,5 +330,140 @@
 .logs-filter.active{
     display: flex;
 }
+
+/* #endregion */
+
+/* #region Modal */
+.modal-style {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 11;
+    overflow-y: auto;
+}
+
+
+.modal-add-users.show{
+    display: flex;
+}
+
+.modal-change-password-for-a-user.show{
+    display: flex;
+}
+
+.modal-style > .modal-content{
+    background: #fff;
+    padding: 30px 30px 5px 30px;
+    border-radius: 10px;
+    height: 430px;
+    width: 470px;
+    display: flex;
+    flex-direction: row;
+    margin-top: -90px;
+}
+
+.modal-style.modal-add-users > .modal-content{
+    height: 280px;
+}
+
+.modal-change-password-for-a-user > .modal-content{
+    height: 235px;
+}
+
+.modal-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* #endregion  */
+
+/* #region Select */
+/* Center everything in the parent container */
+.center-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    font-family: 'Afacad Flux', sans-serif; 
+    padding: 0;
+}
+
+/* Existing select-container styles */
+.select-container {
+    margin: 0;
+    font-family: 'Afacad Flux', sans-serif;
+    text-align: center; 
+    width: 100%;
+}
+
+/* Label styling */
+.select-label {
+    display: block;
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+/* Custom select */
+.custom-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    border-top: 1px solid #cccccc; /* Top border */
+    border-bottom: 1px solid #cccccc; /* Bottom border */
+    border-left: none; /* No left border */
+    border-right: none; /* No right border */
+    border-radius: 0; /* Remove border-radius for sharp corners */
+    background-color: #fff;
+    appearance: none;
+    cursor: pointer;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* Center align placeholder */
+.custom-select option[disabled] {
+    text-align: center;
+    color: #aaa;
+}
+
+/* Focus effect */
+.custom-select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+/* Disabled styling */
+.custom-select:disabled {
+    background-color: #f9f9f9;
+    color: #999;
+    cursor: not-allowed;
+}
+
+/* Input group styles */
+.input-group.select {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+/* Placeholder text center alignment */
+
 
 /* #endregion */

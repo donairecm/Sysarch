@@ -64,11 +64,14 @@ $employeeID = $profileData['employeeID'];
         <!-- #region Manage Users-->
         <link rel="stylesheet" href="pages/manage_users/css/manage_users.css">
         <script type="text/javascript" src="pages/manage_users/js/get_users.js" defer></script>
+        <script type="text/javascript" src="pages/manage_users/js/add_user_default_details.js" defer></script>
         <!-- #endregion -->
 
         <!-- #region User accounts-->
         <link rel="stylesheet" href="pages/user_accounts/css/user_accounts.css">
         <script type="text/javascript" src="pages/user_accounts/js/get_users2.js" defer></script>
+        <script type="text/javascript" src="pages/user_accounts/js/add_user_default_details.js" defer></script>
+        <script type="text/javascript" src="pages/user_accounts/js/change_password_for_a_user.js" defer></script>
         <!-- #endregion -->
 
         <!-- #region chart.js scripts-->

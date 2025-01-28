@@ -48,7 +48,7 @@ while ($row = $result->fetch_assoc()) {
             break;
         default:
             // Format the performed_by with a generic prefix if necessary
-            $row['performed_by'] = 'ADM_' . str_pad($row['performed_by'], 3, '0', STR_PAD_LEFT);
+            $row['performed_by'] = 'ADM-' . str_pad($row['performed_by'], 3, '0', STR_PAD_LEFT);
             break;
     }
     $uaactivities[] = $row; // Add the modified row to the array
