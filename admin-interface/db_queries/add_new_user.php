@@ -113,6 +113,35 @@ if (!$user_role) {
 $password_hash = password_hash($password, PASSWORD_BCRYPT);
 error_log("Debug: Password hashed successfully");
 
+// Function to check and generate a unique email
+function getUniqueEmail($conn, $email) {
+    [$emailPrefix, $emailDomain] = explode('@', $email);
+    $uniqueEmail = $email;
+    $counter = 1;
+
+    while (true) {
+        $query = "SELECT COUNT(*) AS count FROM users WHERE email = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("s", $uniqueEmail);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+
+        if ($result['count'] == 0) {
+            break; // Email is unique
+        }
+
+        $uniqueEmail = $emailPrefix . $counter . '@' . $emailDomain;
+        $counter++;
+    }
+
+    return $uniqueEmail;
+}
+
+// Generate a unique email
+$email = 'changeyour.email@sample.com';
+$uniqueEmail = getUniqueEmail($conn, $email);
+error_log("Debug: Unique email determined: $uniqueEmail");
+
 // Insert the user into the `users` table
 $insertUserQuery = "
     INSERT INTO users (
@@ -131,7 +160,7 @@ $insertUserQuery = "
         'John',
         'Demo',
         'Doe',
-        'changeyour.email@sample.com',
+        ?, -- Unique email
         '12345678987',
         '12345678987',
         ?, ?, ?, NOW(), 'offline'
@@ -139,14 +168,13 @@ $insertUserQuery = "
 ";
 
 $stmt = $conn->prepare($insertUserQuery);
-
 if (!$stmt) {
     error_log("Error: Prepare statement failed - " . $conn->error);
     echo json_encode(["success" => false, "error" => "Error preparing query."]);
     exit();
 }
 
-$stmt->bind_param("sss", $username, $password_hash, $user_role);
+$stmt->bind_param("ssss", $uniqueEmail, $username, $password_hash, $user_role);
 
 if ($stmt->execute()) {
     error_log("Debug: User added successfully");
@@ -170,7 +198,7 @@ if ($stmt->execute()) {
 
     if ($activityStmt->execute()) {
         error_log("Debug: Activity logged successfully");
-        echo json_encode(["success" => true, "message" => "User added successfully."]);
+        echo json_encode(["success" => true, "message" => "User added successfully with email: $uniqueEmail."]);
     } else {
         error_log("Error: Failed to log activity - " . $activityStmt->error);
         echo json_encode(["success" => false, "error" => "Error logging user activity."]);
