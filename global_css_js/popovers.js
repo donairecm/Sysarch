@@ -37,11 +37,51 @@ function toggleDropdown() {
 
     // Add or remove event listener based on the dropdown state
     if (dropdown.classList.contains('show')) {
-        document.addEventListener('click', handleOutsideClick);
+        document.addEventListener('click', handleOutsideClickOrMenuItem);
     } else {
-        document.removeEventListener('click', handleOutsideClick);
+        document.removeEventListener('click', handleOutsideClickOrMenuItem);
     }
 }
+
+function handleOutsideClickOrMenuItem(event) {
+    const dropdown = document.getElementById('profilePopOverContent');
+    const profileContainer = document.querySelector('.profile-container');
+    const accountSettingsLink = document.querySelector('a[data-page="account_settings"]');
+    const logoutLink = document.querySelector('.logout a');
+
+    // Check if the clicked element is inside the dropdown or specific menu items
+    if (
+        !dropdown.contains(event.target) &&
+        !profileContainer.contains(event.target)
+    ) {
+        // Close the dropdown if clicked outside
+        closeProfilePopover();
+    } else if (
+        event.target === accountSettingsLink || 
+        accountSettingsLink.contains(event.target) || 
+        event.target === logoutLink || 
+        logoutLink.contains(event.target)
+    ) {
+        // Close the dropdown when clicking on Account Settings or Logout
+        closeProfilePopover();
+
+        if (event.target === logoutLink || logoutLink.contains(event.target)) {
+            console.log('Logging out...');
+            // Redirect to logout link
+            window.location.href = logoutLink.getAttribute('href');
+        }
+    }
+}
+
+function closeProfilePopover() {
+    const dropdown = document.getElementById('profilePopOverContent');
+    const chevron = document.getElementById('chevron');
+    
+    dropdown.classList.remove('show');
+    chevron.classList.remove('rotate');
+    document.removeEventListener('click', handleOutsideClickOrMenuItem);
+}
+
 
 function handleOutsideClick(event) {
     const dropdown = document.getElementById('profilePopOverContent');

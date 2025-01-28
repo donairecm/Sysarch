@@ -139,10 +139,7 @@
             </div>
 
             <div class="update">
-<<<<<<< HEAD
                 <button type="button" id="changepasswordmodal">Change Password</button> 
-=======
->>>>>>> 7adc88984abd2bd432d83b28c2ec9d10da18173c
                 <button type="submit" id="updateaccountdetails" disabled>Save changes</button>
             </div>
         </form>
@@ -154,7 +151,7 @@
             <ul id="updatedemployeedetails" style="padding-left: 20px;"></ul>
             <div class="button-container">
                 <button id="confirmemployeedetailschange" class="md-btn-1" style="margin-right: 10px;">Confirm</button>
-                <button id="confirmemployeedetailschange" class="md-btn-2">Cancel</button>
+                <button id="cancelemployeedetailschange" class="md-btn-2">Cancel</button>
             </div>
         </div>
     </div>

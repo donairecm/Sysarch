@@ -32,6 +32,8 @@ echo "<script>const LOGGED_IN_EMPLOYEE_ID = " . json_encode($employeeID) . ";</s
         <script type="text/javascript" src="../global_css_js/page_switching.js" defer></script>
         <script type="text/javascript" src="../global_css_js/get_acc_details.js" defer></script>
         <script type="text/javascript" src="../global_css_js/choose_prof_pic.js" defer></script>
+        <script type="text/javascript" src="../global_css_js/change_password.js" defer></script>
+        <script type="text/javascript" src="../global_css_js/change_password.js" defer></script>
         <link rel="stylesheet" href="../inventory-interface/pages/product_details/css/product_details.css">
 
         <!-- #region Navbar-Sidebar CSS/JS-->

@@ -40,65 +40,87 @@ document.addEventListener('DOMContentLoaded', () => {
 
     changePasswordButton.addEventListener('click', () => {
         if (passwordRow.classList.contains('show')) {
-            // Remove 'show' class and empty the input fields
+            // Remove 'show' class and clear the password fields
             passwordRow.classList.remove('show');
-            passwordInputs.forEach(input => input.value = '');
+            passwordInputs.forEach(input => {
+                input.value = ''; // Clear the input value
+                input.classList.remove('has-error', 'has-value'); // Reset error and value classes
+            });
+    
+            // Check if all fields are empty and disable the update button if true
+            const hasValue = Array.from(inputFields).some(input => input.value.trim() !== '');
+            if (!hasValue) {
+                updateButton.disabled = true; // Disable the button
+            }
         } else {
             // Add 'show' class
             passwordRow.classList.add('show');
         }
     });
+    
 
-    async function validatePasswords() {
-        const oldPassword = oldPasswordInput.value.trim();
-        const newPassword = newPasswordInput.value.trim();
-    
-        hideTooltip(oldPasswordError);
-        hideTooltip(newPasswordError);
-    
-        let isValid = true; // Track overall validation status
-    
-        // Validate old password
-        if (!oldPassword && newPassword) {
-            showTooltip(oldPasswordError, 'Please enter your old password');
-            oldPasswordInput.classList.add('has-error');
-            isValid = false;
-        } else if (oldPassword) {
-            try {
-                const response = await fetch('../php/val_accdetails_fields.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ old_password: oldPassword }) // No employee_id needed
-                });
-    
-                const result = await response.json();
-                if (!result.success) {
-                    const errorMessage = result.message || 'Incorrect password';
-                    showTooltip(oldPasswordError, errorMessage);
-                    oldPasswordInput.classList.add('has-error');
-                    isValid = false;
-                } else {
-                    oldPasswordInput.classList.remove('has-error');
-                }
-            } catch (error) {
-                console.error('Error validating old password:', error);
-                showTooltip(oldPasswordError, 'An unexpected error occurred. Please try again later.');
+// Function to validate passwords
+async function validatePasswords() {
+    const oldPassword = oldPasswordInput.value.trim();
+    const newPassword = newPasswordInput.value.trim();
+
+    hideTooltip(oldPasswordError);
+    hideTooltip(newPasswordError);
+
+    let isValid = true; // Track overall validation status
+
+    // Validate old password
+    if (!oldPassword && newPassword) {
+        showTooltip(oldPasswordError, 'Please enter your old password');
+        oldPasswordInput.classList.add('has-error');
+        isValid = false;
+    } else if (oldPassword) {
+        try {
+            const response = await fetch('../php/val_accdetails_fields.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ old_password: oldPassword }) // No employee_id needed
+            });
+
+            const result = await response.json();
+            if (!result.success) {
+                const errorMessage = result.message || 'Incorrect password';
+                showTooltip(oldPasswordError, errorMessage);
                 oldPasswordInput.classList.add('has-error');
                 isValid = false;
+            } else {
+                oldPasswordInput.classList.remove('has-error');
             }
-        }
-    
-        // Validate new password
-        if (newPassword && newPassword.length < 8) {
-            showTooltip(newPasswordError, 'Must be at least 8 characters long');
-            newPasswordInput.classList.add('has-error');
+        } catch (error) {
+            console.error('Error validating old password:', error);
+            showTooltip(oldPasswordError, 'An unexpected error occurred. Please try again later.');
+            oldPasswordInput.classList.add('has-error');
             isValid = false;
-        } else if (newPassword) {
-            newPasswordInput.classList.remove('has-error');
         }
-    
-        return isValid; // Return whether the password validation passed
     }
+
+    // Validate new password
+    if (oldPassword && !newPassword) {
+        showTooltip(newPasswordError, 'Enter your new password to change it');
+        newPasswordInput.classList.add('has-error');
+        isValid = false;
+    } else if (newPassword && newPassword.length < 8) {
+        showTooltip(newPasswordError, 'Must be at least 8 characters long');
+        newPasswordInput.classList.add('has-error');
+        isValid = false;
+    } else if (newPassword && oldPassword === newPassword) {
+        // Check if the old password is the same as the new password
+        showTooltip(newPasswordError, "You're already using this password");
+        newPasswordInput.classList.add('has-error');
+        isValid = false;
+    } else if (newPassword) {
+        newPasswordInput.classList.remove('has-error');
+    }
+
+    return isValid; // Return whether the password validation passed
+}
+
+    
 
     async function fetchAccountDetails() {
         try {
@@ -159,74 +181,79 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Function to validate phone number
-    async function validatePhoneNumber(phoneInput) {
-        const phoneNumber = phoneInput.value.trim();
-        const inputGroup = phoneInput.closest('.input-group-aig');
-        const phoneError = inputGroup?.querySelector('.account-details-errors');
-        
-        if (phoneError) hideTooltip(phoneError); // Hide tooltip
+// Function to validate phone number
+async function validatePhoneNumber(phoneInput) {
+    const phoneNumber = phoneInput.value.trim();
+    const inputGroup = phoneInput.closest('.input-group-aig');
+    const phoneError = inputGroup?.querySelector('.account-details-errors');
     
-        const validPattern = /^09\d{9}$/; // Matches 11 digits starting with 09
-    
-        if (!phoneNumber) {
-            return; // Skip validation for empty input
-        }
-    
-        if (!validPattern.test(phoneNumber)) {
-            showTooltip(phoneError, 'Please input a legitimate cellphone number (e.g., 09123456789)');
-            phoneInput.classList.add('has-error');
-            return; // Stop further processing if invalid format
-        }
-    
-        if (phoneNumber === '09000000000') {
-            showTooltip(phoneError, 'The phone number cannot be 09000000000');
-            phoneInput.classList.add('has-error');
-            return; // Stop further processing if invalid number
-        }
-    
+    if (phoneError) hideTooltip(phoneError); // Hide tooltip
+
+    const validPattern = /^09\d{9}$/; // Matches 11 digits starting with 09
+
+    if (!phoneNumber) {
+        return; // Skip validation for empty input
+    }
+
+    if (!validPattern.test(phoneNumber)) {
+        showTooltip(phoneError, 'Please input a legitimate cellphone number (e.g., 09123456789)');
+        phoneInput.classList.add('has-error');
+        return; // Stop further processing if invalid format
+    }
+
+    if (phoneNumber === '09000000000') {
+        showTooltip(phoneError, 'The phone number cannot be 09000000000');
+        phoneInput.classList.add('has-error');
+        return; // Stop further processing if invalid number
+    }
+
+    // Check if both phone numbers are the same
+    const otherPhoneInput = phoneInput === phone1Input ? phone2Input : phone1Input;
+    if (phoneNumber && phoneNumber === otherPhoneInput.value.trim()) {
+        const otherPhoneError = otherPhoneInput.closest('.input-group-aig')?.querySelector('.account-details-errors');
+        if (phoneError) showTooltip(phoneError, 'Please enter a different phone number');
+        if (otherPhoneError) showTooltip(otherPhoneError, 'Please enter a different phone number');
+        phoneInput.classList.add('has-error');
+        otherPhoneInput.classList.add('has-error');
+        return;
+    }
+
+    try {
+        console.log('Validating phone number on the server...');
+        const response = await fetch('../php/val_accdetails_fields.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                phone_number_1: phoneNumber, 
+                exclude_id: userId 
+            }),
+        });
+
+        const responseText = await response.text();
+        console.log('Server response text:', responseText);
+
         try {
-            console.log('Validating phone number on the server...');
-            const response = await fetch('../php/val_accdetails_fields.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    phone_number_1: phoneNumber, 
-                    exclude_id: userId 
-                }),
-            });
-    
-            const responseText = await response.text();
-            console.log('Server response text:', responseText);
-    
-            try {
-                const result = JSON.parse(responseText);
-                console.log('Phone number validation result:', result);
-    
-                // Log inputted and compared phone numbers
-                console.log('Inputted phone number:', phoneNumber);
-                console.log('Compared phone number from DB (phone_number_1):', result.phone_number_1 || 'N/A');
-                console.log('Compared phone number from DB (phone_number_2):', result.phone_number_2 || 'N/A');
-                console.log('Type of inputted phone number:', isNaN(phoneNumber) ? 'varchar' : 'int');
-                console.log('Type of stored phone number:', result.phone_number_1 ? (isNaN(result.phone_number_1) ? 'varchar' : 'int') : 'N/A');
-    
-                if (result.phone_exists) {
-                    showTooltip(phoneError, result.phone_message || 'Phone number error');
-                    phoneInput.classList.add('has-error');
-                } else {
-                    phoneInput.classList.remove('has-error');
-                }
-            } catch (jsonError) {
-                console.error('Error parsing JSON:', jsonError);
-                showTooltip(phoneError, 'An error occurred while validating the phone number');
+            const result = JSON.parse(responseText);
+            console.log('Phone number validation result:', result);
+
+            if (result.phone_exists) {
+                showTooltip(phoneError, result.phone_message || 'Phone number error');
                 phoneInput.classList.add('has-error');
+            } else {
+                phoneInput.classList.remove('has-error');
             }
-        } catch (error) {
-            console.error('Error validating phone number:', error);
+        } catch (jsonError) {
+            console.error('Error parsing JSON:', jsonError);
             showTooltip(phoneError, 'An error occurred while validating the phone number');
             phoneInput.classList.add('has-error');
         }
+    } catch (error) {
+        console.error('Error validating phone number:', error);
+        showTooltip(phoneError, 'An error occurred while validating the phone number');
+        phoneInput.classList.add('has-error');
     }
+}
+
     
     
 
@@ -404,91 +431,121 @@ console.log('Fetched Details:', fetchedDetails);
     });
     
 
-    updateButton.addEventListener('click', async (e) => {
-        e.preventDefault(); // Prevent form submission
-    
-        console.log('Submit button clicked.');
-    
-        // Run all validations
-        await validateUsername();
-        await validateEmail();
-        await validatePhoneNumber(phone1Input);
-        await validatePhoneNumber(phone2Input);
-    
-        // Validate name fields
-        validateNameField(fnameInput, fetchedDetails.first_name, fnameError, 'First name');
-        validateNameField(mnameInput, fetchedDetails.middle_name, mnameError, 'Middle name');
-        validateNameField(lnameInput, fetchedDetails.last_name, lnameError, 'Last name');
-    
-        // Validate passwords
-        const isPasswordValid = await validatePasswords();
-        if (!isPasswordValid) {
-            console.log('Password validation failed.');
-            return; // Prevent submission if passwords are invalid
-        }
-    
-        // Check for errors in all fields
-        if (
-            usernameInput.classList.contains('has-error') ||
-            emailInput.classList.contains('has-error') ||
-            phone1Input.classList.contains('has-error') ||
-            fnameInput.classList.contains('has-error') ||
-            mnameInput.classList.contains('has-error') ||
-            lnameInput.classList.contains('has-error') ||
-            phone2Input.classList.contains('has-error') ||
-            oldPasswordInput.classList.contains('has-error') || 
-            newPasswordInput.classList.contains('has-error')
-        ) {
-            console.log('Form submission blocked due to errors.');
-            return;
-        }
-    
-        // Identify changes
-        const changes = [];
-        const updates = {};
-        const activities = [];
-    
-        const logChange = (fieldName, fetchedValue, inputValue, dbField, activityLabel) => {
-            const newValue = inputValue.trim();
-            if (newValue && newValue !== (fetchedValue || '')) {
-                changes.push(`${fieldName}: ${fetchedValue || 'N/A'} → ${newValue}`);
-                updates[dbField] = newValue; // Prepare the update payload
-                activities.push({
-                    details: `Changed user's ${activityLabel} from ${fetchedValue || 'N/A'} to ${newValue}`,
-                    dbField: dbField
-                });
-            }
-        };
-    
-        logChange('Username', fetchedDetails.username, usernameInput.value, 'username', 'username');
-        logChange('Email', fetchedDetails.email, emailInput.value, 'email', 'email');
-        logChange('First Name', fetchedDetails.first_name, fnameInput.value, 'first_name', 'first name');
-        logChange('Middle Name', fetchedDetails.middle_name, mnameInput.value, 'middle_name', 'middle name');
-        logChange('Last Name', fetchedDetails.last_name, lnameInput.value, 'last_name', 'last name');
-        logChange('Phone Number 1', fetchedDetails.phone_number_1, phone1Input.value, 'phone_number_1', '1st phone number');
-        logChange('Phone Number 2', fetchedDetails.phone_number_2, phone2Input.value, 'phone_number_2', '2nd phone number');
-    
-        // Include new password if it was changed
-        if (newPasswordInput.value.trim()) {
-            changes.push('Password: [Hidden] → [Hidden]');
-            updates['new_password'] = newPasswordInput.value.trim(); // Add the new password to the update payload
+// Add logic for opening and handling the modal
+updateButton.addEventListener('click', async (e) => {
+    e.preventDefault(); // Prevent form submission
+
+    console.log('Submit button clicked.');
+
+    // Run all validations
+    await validateUsername();
+    await validateEmail();
+    await validatePhoneNumber(phone1Input);
+    await validatePhoneNumber(phone2Input);
+
+    // Validate name fields
+    validateNameField(fnameInput, fetchedDetails.first_name, fnameError, 'First name');
+    validateNameField(mnameInput, fetchedDetails.middle_name, mnameError, 'Middle name');
+    validateNameField(lnameInput, fetchedDetails.last_name, lnameError, 'Last name');
+
+    // Validate passwords
+    const isPasswordValid = await validatePasswords();
+    if (!isPasswordValid) {
+        console.log('Password validation failed.');
+        return; // Prevent submission if passwords are invalid
+    }
+
+    // Check for errors in all fields
+    if (
+        usernameInput.classList.contains('has-error') ||
+        emailInput.classList.contains('has-error') ||
+        phone1Input.classList.contains('has-error') ||
+        fnameInput.classList.contains('has-error') ||
+        mnameInput.classList.contains('has-error') ||
+        lnameInput.classList.contains('has-error') ||
+        phone2Input.classList.contains('has-error') ||
+        oldPasswordInput.classList.contains('has-error') || 
+        newPasswordInput.classList.contains('has-error')
+    ) {
+        console.log('Form submission blocked due to errors.');
+        return;
+    }
+
+    // Identify changes
+    const changes = [];
+    const updates = {};
+    const activities = [];
+
+    const logChange = (fieldName, fetchedValue, inputValue, dbField, activityLabel) => {
+        const newValue = inputValue.trim();
+        if (newValue && newValue !== (fetchedValue || '')) {
+            changes.push(`${fieldName}: ${fetchedValue || 'N/A'} → ${newValue}`);
+            updates[dbField] = newValue; // Prepare the update payload
             activities.push({
-                details: `Changed user's password`,
-                dbField: 'password'
+                details: `Changed user's ${activityLabel} from ${fetchedValue || 'N/A'} to ${newValue}`,
+                dbField: dbField
             });
         }
+    };
+
+    logChange('Username', fetchedDetails.username, usernameInput.value, 'username', 'username');
+    logChange('Email', fetchedDetails.email, emailInput.value, 'email', 'email');
+    logChange('First Name', fetchedDetails.first_name, fnameInput.value, 'first_name', 'first name');
+    logChange('Middle Name', fetchedDetails.middle_name, mnameInput.value, 'middle_name', 'middle name');
+    logChange('Last Name', fetchedDetails.last_name, lnameInput.value, 'last_name', 'last name');
+    logChange('Phone Number 1', fetchedDetails.phone_number_1, phone1Input.value, 'phone_number_1', '1st phone number');
+    logChange('Phone Number 2', fetchedDetails.phone_number_2, phone2Input.value, 'phone_number_2', '2nd phone number');
+
+    // Include new password if it was changed
+    if (newPasswordInput.value.trim()) {
+        const newPassword = newPasswordInput.value.trim();
+        changes.push(`Password: [Hidden] → ${newPassword}`); // Display the new password
+        updates['new_password'] = newPassword; // Add the new password to the update payload
+        activities.push({
+            details: `Changed user's password to ${newPassword}`, // Log the new password
+            dbField: 'password'
+        });
+    }
     
-        if (changes.length === 0) {
-            console.log('No changes detected.');
-            alert('No changes were made.');
-            return;
+
+    if (changes.length === 0) {
+        console.log('No changes detected.');
+        alert('No changes were made.');
+        return;
+    }
+
+    // Populate the modal with changes
+    const updatedDetailsList = document.getElementById('updatedemployeedetails');
+    updatedDetailsList.innerHTML = ''; // Clear previous entries
+    changes.forEach(change => {
+        const listItem = document.createElement('li');
+        listItem.textContent = change;
+        updatedDetailsList.appendChild(listItem);
+    });
+
+    // Show the modal
+    const confirmationModal = document.getElementById('confirmationModal5');
+    confirmationModal.style.display = 'flex';
+
+    // Add event listener to close the modal when clicking outside
+    confirmationModal.addEventListener('click', (event) => {
+        if (event.target === confirmationModal) {
+            confirmationModal.style.display = 'none';
+            console.log('Modal closed by clicking outside.');
         }
-    
+    });
+
+    // Confirm button logic
+    const confirmButton = document.getElementById('confirmemployeedetailschange');
+    const cancelButton = document.getElementById('cancelemployeedetailschange');
+    confirmButton.onclick = async () => {
+        confirmationModal.style.display = 'none'; // Hide the modal
+
         console.log('Payload being sent:', {
             employee_id: userId,
             updates
         });
-    
+
         try {
             const updateResponse = await fetch('../php/update_user_details.php', {
                 method: 'POST',
@@ -498,26 +555,46 @@ console.log('Fetched Details:', fetchedDetails);
                     updates
                 })
             });
-    
+
             const updateResult = await updateResponse.json();
             console.log('Response from server:', updateResult);
-    
+
             if (!updateResult.success) {
                 console.error('Failed to update user:', updateResult.error);
                 alert('Error updating user information.');
                 return;
             }
-    
+
             alert('Changes saved successfully!');
+
+            // Clear all input fields
+            inputFields.forEach(input => {
+                input.value = ''; // Clear the input field
+                input.classList.remove('has-value', 'has-error'); // Remove additional classes
+            });
+
+            // Clear the password fields and hide the password section
+            oldPasswordInput.value = '';
+            newPasswordInput.value = '';
+            oldPasswordInput.classList.remove('has-error');
+            newPasswordInput.classList.remove('has-error');
+            if (passwordRow.classList.contains('show')) {
+                passwordRow.classList.remove('show');
+            }
+
+            // Disable the update button
+            updateButton.disabled = true;
+
         } catch (error) {
             console.error('Error saving changes:', error);
             alert('An error occurred while saving changes.');
         }
-    });
-    
-    
-    
-    
-    
-    
+    };
+    // Cancel button logic
+cancelButton.onclick = () => {
+    confirmationModal.style.display = 'none'; // Hide the modal
+    console.log('Modal closed via Cancel button.');
+};
+});
+
 });
