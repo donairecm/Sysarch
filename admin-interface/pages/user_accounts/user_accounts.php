@@ -122,6 +122,12 @@
         <div class="admin-user-accounts-grid-item grid-item-design-mua mua6">
             <ul class="user-account-list-container container_scrollbar_design">
 
+
+                <div class="action-menu">
+                <button class="action-deactivate">Deactivate</button>
+                <button class="action-delete">Delete</button>
+                </div>
+
                 <!-- #region filter Details-->
                 <!-- Header Row -->
                 <li class="user-account-information-header details-filter active">

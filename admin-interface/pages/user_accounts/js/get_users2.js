@@ -1,5 +1,86 @@
 // File: /js/userAccounts.js
 
+function setupUserActionListeners() {
+    const userAccountListContainer = document.querySelector(".user-account-list-container");
+    const actionMenu = document.querySelector(".action-menu");
+
+    // Event delegation for dynamically added list items
+    userAccountListContainer.addEventListener("click", (event) => {
+        const listItem = event.target.closest(".user-account-information-item");
+
+        if (listItem) {
+            // Get the bounding box of the clicked item
+            const rect = listItem.getBoundingClientRect();
+
+            const employeeIdFull = listItem.querySelector(".employee-id").textContent;
+            const employeeId = employeeIdFull.split("-")[1]; // Extract numeric ID
+
+            // Adjust the position of the action menu
+            actionMenu.style.top = `${rect.top + window.scrollY + -220}px`; // Slightly below the item
+            actionMenu.style.left = `${rect.left + 1000}px`; // Slightly shifted to the right for better alignment
+            actionMenu.style.display = "flex"; // Show the menu
+
+            setupActionMenuActions(actionMenu, employeeIdFull, employeeId);
+        }
+    });
+
+    // Close the action menu when clicking outside
+    document.addEventListener("click", (event) => {
+        if (!event.target.closest(".user-account-information-item") && !event.target.closest(".action-menu")) {
+            actionMenu.style.display = "none"; // Hide the menu
+        }
+    });
+}
+
+
+function setupActionMenuActions(actionMenu, employeeIdFull, employeeId) {
+    const deactivateButton = actionMenu.querySelector(".action-deactivate");
+    const deleteButton = actionMenu.querySelector(".action-delete");
+
+    // Remove any previous click event listeners to prevent duplication
+    deactivateButton.onclick = null;
+    deleteButton.onclick = null;
+
+    // Handle deactivate
+    deactivateButton.onclick = () => {
+        if (confirm(`Deactivate user: ${employeeIdFull}?`)) {
+            sendUserAction("deactivate", employeeId);
+        }
+    };
+
+    // Handle delete
+    deleteButton.onclick = () => {
+        if (confirm(`Delete user: ${employeeIdFull}?`)) {
+            sendUserAction("delete", employeeId);
+        }
+    };
+}
+
+async function sendUserAction(action, employeeId) {
+    try {
+        const response = await fetch('db_queries/delete_deactivate_user.php', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ action, employee_id: employeeId }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert(`${action === "delete" ? "Deleted" : "Deactivated"} user successfully.`);
+            // Optionally refresh the list or remove the item
+            fetchAndRenderUserAccounts();
+        } else {
+            alert(`Failed to ${action}: ${result.error}`);
+        }
+    } catch (error) {
+        console.error("Error performing action:", error);
+        alert("An error occurred. Please try again.");
+    }
+}
+
 // Fetch user account details and render them dynamically
 async function fetchAndRenderUserAccounts() {
     try {
