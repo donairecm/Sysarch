@@ -355,20 +355,21 @@ $employeeID = $profileData['employeeID'];
     <!-- #region Content -->
     <div id="content">
 
-            <!-- #region Account Settings Movements -->
-            <div class="page" id="account_settings"><?php include '../account_settings.php'; ?></div>
+        <!-- #region Manage Products -->
+        <div class="page" id="product_details"><?php include 'pages/product_details/product_details.php'; ?></div>
         <!-- #endregion -->
 
         <!-- #region Dashboard -->
         <div class="page" id="dashboard"><?php include 'pages/dashboard/dashboard.php'; ?></div>
 
-        <!-- #region Manage Products -->
-        <div class="page" id="product_details"><?php include 'pages/product_details/product_details.php'; ?></div>
-        <!-- #endregion -->
-
         <!-- #region Manage Users -->
         <div class="page" id="manage_users"><?php include 'pages/manage_users/manage_users.php'; ?></div>
         <!-- #endregion -->
+
+        <!-- #region Account Settings Movements -->
+        <div class="page" id="account_settings"><?php include '../account_settings.php'; ?></div>
+        <!-- #endregion -->
+
 
 
     

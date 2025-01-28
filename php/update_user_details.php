@@ -25,8 +25,6 @@ if (!isset($data['employee_id'], $data['updates']) || empty($data['updates'])) {
 
 $employee_id = $data['employee_id'];
 $updates = $data['updates'];
-$new_password = $data['new_password'] ?? null; // Optional: Handle password update
-$old_password = $data['old_password'] ?? null; // Optional: Verify old password
 
 $response = [
     'success' => true,
@@ -50,16 +48,11 @@ try {
         throw new Exception('User not found.');
     }
 
-    // Hash new password if provided
-    if (!empty($new_password)) {
-        $hashedPassword = password_hash($new_password, PASSWORD_BCRYPT);
-        if (!$hashedPassword) {
-            throw new Exception('Failed to hash the new password.');
-        }
-        error_log("Hashed password for update: $hashedPassword");
-
-        // Add to updates array
+    // If new_password is included, hash it and replace it in updates
+    if (isset($updates['new_password'])) {
+        $hashedPassword = password_hash($updates['new_password'], PASSWORD_BCRYPT);
         $updates['password_hash'] = $hashedPassword;
+        unset($updates['new_password']); // Remove plain password to avoid storing it
     }
 
     // Prepare the update statement dynamically
@@ -75,9 +68,14 @@ try {
     $types = str_repeat('s', count($updates)) . 'i'; // `s` for strings, `i` for employee_id
     $values = array_values($updates);
     $values[] = $employee_id; // Add employee_id for the WHERE clause
-    $stmt->bind_param($types, ...$values);
 
+    // Debugging: Log the SQL query and values
+    error_log("SQL Query: $updateSql");
+    error_log("SQL Values: " . json_encode($values));
+
+    $stmt->bind_param($types, ...$values);
     $stmt->execute();
+
     if ($stmt->affected_rows > 0) {
         $response['updates'] = $updates;
     } else {
@@ -96,7 +94,7 @@ try {
         'phone_number_1' => '1st phone number',
         'phone_number_2' => '2nd phone number',
         'username' => 'username',
-        'password_hash' => 'password'
+        'password_hash' => 'password' // Map password_hash for logging
     ];
 
     foreach ($updates as $column => $newValue) {
@@ -131,4 +129,3 @@ try {
     $logStmt->close();
     $conn->close();
 }
-?>

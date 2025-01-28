@@ -24,7 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const mnameError = document.getElementById('mname-error');
     const lnameError = document.getElementById('lname-error');
 
-    //password
+    // Password fields (refactored as universal variables)
+    const oldPasswordInput = document.getElementById('uad-employee_old_password');
+    const newPasswordInput = document.getElementById('uad-employee_new_password');
+    const oldPasswordError = document.getElementById('old-password-error');
+    const newPasswordError = document.getElementById('new-password-error');
+    
     const changePasswordButton = document.getElementById('changepasswordmodal');
     const passwordRow = document.querySelector('.row-item.aig-ri-6.double');
     const passwordInputs = passwordRow.querySelectorAll('input');
@@ -45,13 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     async function validatePasswords() {
-        const oldPasswordInput = document.getElementById('uad-employee_old_password');
-        const newPasswordInput = document.getElementById('uad-employee_new_password');
         const oldPassword = oldPasswordInput.value.trim();
         const newPassword = newPasswordInput.value.trim();
-    
-        const oldPasswordError = document.getElementById('old-password-error');
-        const newPasswordError = document.getElementById('new-password-error');
     
         hideTooltip(oldPasswordError);
         hideTooltip(newPasswordError);
@@ -436,8 +436,8 @@ console.log('Fetched Details:', fetchedDetails);
             mnameInput.classList.contains('has-error') ||
             lnameInput.classList.contains('has-error') ||
             phone2Input.classList.contains('has-error') ||
-            document.getElementById('uad-employee_old_password').classList.contains('has-error') || 
-            document.getElementById('uad-employee_new_password').classList.contains('has-error')
+            oldPasswordInput.classList.contains('has-error') || 
+            newPasswordInput.classList.contains('has-error')
         ) {
             console.log('Form submission blocked due to errors.');
             return;
@@ -468,12 +468,10 @@ console.log('Fetched Details:', fetchedDetails);
         logChange('Phone Number 1', fetchedDetails.phone_number_1, phone1Input.value, 'phone_number_1', '1st phone number');
         logChange('Phone Number 2', fetchedDetails.phone_number_2, phone2Input.value, 'phone_number_2', '2nd phone number');
     
-        // Password changes
-        const oldPassword = document.getElementById('uad-employee_old_password').value.trim();
-        const newPassword = document.getElementById('uad-employee_new_password').value.trim();
-        if (oldPassword && newPassword) {
-            changes.push(`Password changed to: ${newPassword}`);
-            updates['password_hash'] = newPassword; // Match backend field name
+        // Include new password if it was changed
+        if (newPasswordInput.value.trim()) {
+            changes.push('Password: [Hidden] → [Hidden]');
+            updates['new_password'] = newPasswordInput.value.trim(); // Add the new password to the update payload
             activities.push({
                 details: `Changed user's password`,
                 dbField: 'password'
@@ -491,50 +489,33 @@ console.log('Fetched Details:', fetchedDetails);
             updates
         });
     
-        // Show modal
-        const changesList = document.getElementById('updatedemployeedetails');
-        changesList.innerHTML = '';
-        changes.forEach(change => {
-            const li = document.createElement('li');
-            li.textContent = change;
-            changesList.appendChild(li);
-        });
+        try {
+            const updateResponse = await fetch('../php/update_user_details.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    employee_id: userId,
+                    updates
+                })
+            });
     
-        const confirmationModal = document.getElementById('confirmationModal5');
-        confirmationModal.style.display = 'flex';
+            const updateResult = await updateResponse.json();
+            console.log('Response from server:', updateResult);
     
-        console.log('Changes:', changes);
-    
-        // Confirm and Save Changes
-        document.getElementById('confirmemployeedetailschange').addEventListener('click', async () => {
-            confirmationModal.style.display = 'none'; // Hide modal
-    
-            try {
-                const updateResponse = await fetch('../php/update_user_details.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        employee_id: userId,
-                        updates
-                    })
-                });
-    
-                const updateResult = await updateResponse.json();
-                console.log('Response from server:', updateResult);
-    
-                if (!updateResult.success) {
-                    console.error('Failed to update user:', updateResult.error);
-                    alert('Error updating user information.');
-                    return;
-                }
-    
-                alert('Changes saved and logged successfully!');
-            } catch (error) {
-                console.error('Error saving changes:', error);
-                alert('An error occurred while saving changes.');
+            if (!updateResult.success) {
+                console.error('Failed to update user:', updateResult.error);
+                alert('Error updating user information.');
+                return;
             }
-        });
+    
+            alert('Changes saved successfully!');
+        } catch (error) {
+            console.error('Error saving changes:', error);
+            alert('An error occurred while saving changes.');
+        }
     });
+    
+    
     
     
     

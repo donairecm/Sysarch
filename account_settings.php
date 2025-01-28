@@ -119,7 +119,7 @@
                         <div class="input-group-aig">
                             <input type="text" placeholder="" id="uad-employee_old_password" class="md-placeholder">
                             <label id="uad-old-password">password</label>
-                            <!-- Phone number 1 error container -->
+                            <!-- Old password container -->
                             <div class="error-container old_password">
                                 <div class="account-details-errors ae-tooltip-style" id="old-password-error">--error message--</div>
                             </div>
@@ -128,9 +128,9 @@
                 <div>
                     <div class="input-title">Enter you new password</div>
                         <div class="input-group-aig">
-                            <input type="text" placeholder="format: 09252421367" id="uad-employee_new_password" class="md-placeholder">
-                            <label id="uad-new-password">papssword</label>
-                            <!-- Phone number 1 error container -->
+                            <input type="text" placeholder="Must be at least 8 characters long" id="uad-employee_new_password" class="md-placeholder">
+                            <label id="uad-new-password">password</label>
+                            <!-- Old password container -->
                             <div class="error-container new_password">
                                 <div class="account-details-errors ae-tooltip-style" id="new-password-error">--error message--</div>
                             </div>
