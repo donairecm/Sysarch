@@ -1,10 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     const usersContainer = document.querySelector(".manage-users-table-container");
-    const modal = document.querySelector(".modal");
-    const modalOverlay = document.querySelector(".modal-overlay");
-    const modalEmployeeId = document.getElementById("modal-employee-id");
-    const modalClose = document.getElementById("modal-close");
-
     // Function to format date
     function formatDate(dateString) {
         const options = {
@@ -59,15 +54,4 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         })
         .catch(error => console.error("Error fetching activity data:", error));
-
-    // Close modal when overlay or close button is clicked
-    modalOverlay.addEventListener("click", () => {
-        modal.classList.remove("show");
-        modalOverlay.classList.remove("show");
-    });
-
-    modalClose.addEventListener("click", () => {
-        modal.classList.remove("show");
-        modalOverlay.classList.remove("show");
-    });
 });
