@@ -33,7 +33,11 @@ $employeeID = $profileData['employeeID'];
         <link rel="stylesheet" href="../global_css_js/global.css">
         <script type="text/javascript" src="../global_css_js/page_switching.js" defer></script>
         <script type="text/javascript" src="../global_css_js/get_acc_details.js" defer></script>
+<<<<<<< HEAD
+        <script type="text/javascript" src="../global_css_js/change_password.js" defer></script>
+=======
         <script type="text/javascript" src="../global_css_js/choose_prof_pic.js" defer></script>
+>>>>>>> 7adc88984abd2bd432d83b28c2ec9d10da18173c
 
         <!-- #region Navbar-Sidebar CSS/JS-->
         <link rel="stylesheet" href="../global_css_js/navbar.css">
@@ -359,20 +363,28 @@ function goToMainPage() {
     <!-- #region Content -->
     <div id="content">
 
-        <!-- #region Dashboard -->
-        <div class="page" id="dashboard"><?php include 'pages/dashboard/dashboard.php'; ?></div>
-
         <!-- #region Manage Products -->
         <div class="page" id="product_details"><?php include 'pages/product_details/product_details.php'; ?></div>
         <!-- #endregion -->
 
-                <!-- #region Manage Users -->
-                <div class="page" id="manage_users"><?php include 'pages/manage_users/manage_users.php'; ?></div>
+        <!-- #region Dashboard -->
+        <div class="page" id="dashboard"><?php include 'pages/dashboard/dashboard.php'; ?></div>
+
+        <!-- #region Manage Users -->
+        <div class="page" id="manage_users"><?php include 'pages/manage_users/manage_users.php'; ?></div>
         <!-- #endregion -->
 
         <!-- #region Account Settings Movements -->
+<<<<<<< HEAD
+        <div class="page" id="account_settings"><?php include '../account_settings.php'; ?></div>
+        <!-- #endregion -->
+
+
+
+=======
     <div class="page" id="account_settings"><?php include '../account_settings.php'; ?></div>
     <!-- #endregion -->
+>>>>>>> 7adc88984abd2bd432d83b28c2ec9d10da18173c
     
     </div>
     <!-- #endregion -->

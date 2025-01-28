@@ -26,7 +26,6 @@ if (!isset($data['employee_id'], $data['updates']) || empty($data['updates'])) {
 $employee_id = $data['employee_id'];
 $updates = $data['updates'];
 
-// Prepare response
 $response = [
     'success' => true,
     'updates' => [],
@@ -37,7 +36,7 @@ $response = [
 $conn->begin_transaction();
 
 try {
-    // Fetch current values from `users` table before the update
+    // Fetch current user data
     $currentValuesSql = "SELECT * FROM users WHERE employee_id = ?";
     $currentValuesStmt = $conn->prepare($currentValuesSql);
     $currentValuesStmt->bind_param("i", $employee_id);
@@ -49,7 +48,14 @@ try {
         throw new Exception('User not found.');
     }
 
-    // Update `users` table
+    // If new_password is included, hash it and replace it in updates
+    if (isset($updates['new_password'])) {
+        $hashedPassword = password_hash($updates['new_password'], PASSWORD_BCRYPT);
+        $updates['password_hash'] = $hashedPassword;
+        unset($updates['new_password']); // Remove plain password to avoid storing it
+    }
+
+    // Prepare the update statement dynamically
     $updateFields = [];
     foreach ($updates as $column => $value) {
         $updateFields[] = "$column = ?";
@@ -62,9 +68,14 @@ try {
     $types = str_repeat('s', count($updates)) . 'i'; // `s` for strings, `i` for employee_id
     $values = array_values($updates);
     $values[] = $employee_id; // Add employee_id for the WHERE clause
-    $stmt->bind_param($types, ...$values);
 
+    // Debugging: Log the SQL query and values
+    error_log("SQL Query: $updateSql");
+    error_log("SQL Values: " . json_encode($values));
+
+    $stmt->bind_param($types, ...$values);
     $stmt->execute();
+
     if ($stmt->affected_rows > 0) {
         $response['updates'] = $updates;
     } else {
@@ -82,13 +93,16 @@ try {
         'email' => 'email',
         'phone_number_1' => '1st phone number',
         'phone_number_2' => '2nd phone number',
-        'username' => 'username'
+        'username' => 'username',
+        'password_hash' => 'password' // Map password_hash for logging
     ];
 
     foreach ($updates as $column => $newValue) {
         if (isset($columnMap[$column])) {
             $oldValue = $currentValues[$column] ?? 'N/A';
-            $details = "Changed user's {$columnMap[$column]} from " . ($oldValue ?: 'N/A') . " to $newValue";
+            $details = $column === 'password_hash'
+                ? "Updated user's password."
+                : "Changed user's {$columnMap[$column]} from " . ($oldValue ?: 'N/A') . " to $newValue";
 
             // Log activity
             $performed_by = $employee_id;
@@ -115,4 +129,3 @@ try {
     $logStmt->close();
     $conn->close();
 }
-?>

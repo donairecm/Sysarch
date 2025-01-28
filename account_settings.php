@@ -74,18 +74,6 @@
                     </div>
             </div>
 
-
-            <div class="row-item aig-ri-4">
-                <div class="input-title">Email</div>
-                <div class="input-group-aig">
-                    <input type="email" placeholder="" id="uad-employee_email" class="md-placeholder">
-                    <label id="uad-email">email</label>
-                    <!-- Email error container -->
-                    <div class="error-container email">
-                        <div class="account-details-errors ae-tooltip-style" id="aig-email-error">--error message--</div>
-                    </div>
-                </div>
-            </div>
             <div class="row-item aig-ri-5 double">
                 <div>
                     <div class="input-title">Phone number 1</div>
@@ -113,7 +101,48 @@
                 </div>
             </div>
 
+            <div class="row-item aig-ri-4">
+                <div class="input-title">Email</div>
+                <div class="input-group-aig">
+                    <input type="email" placeholder="" id="uad-employee_email" class="md-placeholder">
+                    <label id="uad-email">email</label>
+                    <!-- Email error container -->
+                    <div class="error-container email">
+                        <div class="account-details-errors ae-tooltip-style" id="aig-email-error">--error message--</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-item aig-ri-6 double">
+                <div>
+                    <div class="input-title">Enter your old password</div>
+                        <div class="input-group-aig">
+                            <input type="text" placeholder="" id="uad-employee_old_password" class="md-placeholder">
+                            <label id="uad-old-password">password</label>
+                            <!-- Old password container -->
+                            <div class="error-container old_password">
+                                <div class="account-details-errors ae-tooltip-style" id="old-password-error">--error message--</div>
+                            </div>
+                     </div>
+                </div>
+                <div>
+                    <div class="input-title">Enter you new password</div>
+                        <div class="input-group-aig">
+                            <input type="text" placeholder="Must be at least 8 characters long" id="uad-employee_new_password" class="md-placeholder">
+                            <label id="uad-new-password">password</label>
+                            <!-- Old password container -->
+                            <div class="error-container new_password">
+                                <div class="account-details-errors ae-tooltip-style" id="new-password-error">--error message--</div>
+                            </div>
+                     </div>
+                </div>
+            </div>
+
             <div class="update">
+<<<<<<< HEAD
+                <button type="button" id="changepasswordmodal">Change Password</button> 
+=======
+>>>>>>> 7adc88984abd2bd432d83b28c2ec9d10da18173c
                 <button type="submit" id="updateaccountdetails" disabled>Save changes</button>
             </div>
         </form>
@@ -131,5 +160,3 @@
     </div>
 
 </div>
-
-    

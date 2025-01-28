@@ -32,7 +32,7 @@ if (!is_numeric($employee_id)) {
 
 // Query to retrieve user data
 $stmt = $conn->prepare("
-    SELECT first_name, last_name, middle_name, email, phone_number_1, phone_number_2, username
+    SELECT first_name, last_name, middle_name, email, phone_number_1, phone_number_2, username, password_hash
     FROM users
     WHERE employee_id = ?
 ");

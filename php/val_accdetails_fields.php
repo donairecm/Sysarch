@@ -1,5 +1,7 @@
 <?php
+session_start();
 require_once '../php/db_connection.php'; // Replace with your database connection file
+
 
 header('Content-Type: application/json');
 
@@ -9,7 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $data['email'] ?? null;
     $phone_number_1 = $data['phone_number_1'] ?? null;
     $phone_number_2 = $data['phone_number_2'] ?? null;
-    $current_employee_id = $data['exclude_id'];
+    $current_employee_id = $data['exclude_id'] ?? null;
+    $old_password = $data['old_password'] ?? null;
+    $new_password = $data['new_password'] ?? null;
 
     try {
         error_log("Gotten employee_id: " . $current_employee_id);
@@ -122,9 +126,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 error_log("Inputted phone number: $phone_number_1, Compared phone number from DB (phone_number_1): $matched_phone_number_1");
                 error_log("Inputted phone number: $phone_number_2, Compared phone number from DB (phone_number_2): $matched_phone_number_2");
 
-                error_log("Type of stored phone_number_1: " . (is_numeric($matched_phone_number_1) ? 'int' : 'varchar'));
-                error_log("Type of stored phone_number_2: " . (is_numeric($matched_phone_number_2) ? 'int' : 'varchar'));
-
                 if ($matched_employee_id == $current_employee_id) {
                     echo json_encode([
                         'phone_exists' => true,
@@ -149,7 +150,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->close();
         }
 
-        echo json_encode(['exists' => false, 'email_exists' => false, 'phone_exists' => false]);
+        // Validate and update password
+        if ($old_password) {
+            error_log("Starting password validation...");
+        
+            if (!isset($_SESSION['employee_id'])) {
+                echo json_encode(["success" => false, "message" => "User not logged in."]);
+                exit();
+            }
+        
+            // Use session-based employee_id
+            $current_employee_id = preg_replace('/^[A-Z]+-/', '', $_SESSION['employee_id']);
+            error_log("Session employee_id: " . $_SESSION['employee_id']);
+            error_log("Processed employee_id: " . $current_employee_id);
+        
+            $stmt = $conn->prepare("SELECT password_hash FROM users WHERE employee_id = ?");
+            if ($stmt === false) {
+                error_log("Failed to prepare statement: " . htmlspecialchars($conn->error));
+                echo json_encode(["success" => false, "message" => "Database query failed."]);
+                exit();
+            }
+        
+            $stmt->bind_param("s", $current_employee_id);
+        
+            if (!$stmt->execute()) {
+                error_log("Query execution failed: " . $conn->error);
+                echo json_encode(["success" => false, "message" => "Database query failed."]);
+                exit();
+            }
+        
+            $stmt->store_result();
+            error_log("Number of rows returned: " . $stmt->num_rows);
+        
+            if ($stmt->num_rows === 0) {
+                error_log("No user found for employee_id: " . $current_employee_id);
+                echo json_encode(["success" => false, "message" => "No user found with the given employee_id."]);
+                exit();
+            }
+        
+            $stmt->bind_result($password_hash);
+            $stmt->fetch();
+            error_log("Fetched password hash from DB: " . $password_hash);
+            $stmt->close();
+        
+            if (!password_verify($old_password, $password_hash)) {
+                error_log("Password verification failed for employee_id: " . $current_employee_id);
+                echo json_encode(["success" => false, "message" => "Incorrect password."]);
+                exit();
+            }
+        
+            error_log("Password verification successful for employee_id: " . $current_employee_id);
+        }
+        
+
+        echo json_encode(['exists' => false, 'email_exists' => false, 'phone_exists' => false, 'success' => true]);
     } catch (Exception $e) {
         error_log("Error occurred: " . $e->getMessage());
         echo json_encode(["success" => false, "error" => $e->getMessage()]);

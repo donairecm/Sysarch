@@ -205,7 +205,7 @@ body::-webkit-scrollbar-thumb:hover {
     margin: 0;
     padding: 40px 40px 40px 120px;
     height: calc(100vh - 60px);
-    grid-template-rows: 300px 40px 230px;
+    grid-template-rows: 300px 40px auto;
     overflow-y: auto;
 }
 
@@ -216,6 +216,10 @@ body::-webkit-scrollbar-thumb:hover {
 .account-information-grid.supply_chain.admin {
     padding: 40px 40px 40px 120px;
 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7adc88984abd2bd432d83b28c2ec9d10da18173c
 /* #endregion */
 
 /* #region Grid Layout*/
@@ -431,6 +435,7 @@ body::-webkit-scrollbar-thumb:hover {
     margin-bottom: 10px;
     font-family: 'Afacad Flux', sans-serif;
 }
+
 /* #endregion */
 
 /* #region Account details error styling */
@@ -471,6 +476,14 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .error-container.lname > .account-details-errors{
+    display: none;
+}
+
+.error-container.old_password > .account-details-errors{
+    display: none;
+}
+
+.error-container.new_password > .account-details-errors{
     display: none;
 }
 
@@ -586,6 +599,11 @@ body::-webkit-scrollbar-thumb:hover {
     cursor: not-allowed; 
 }
 
+#confirmpasswordChange[disabled] { 
+    background-color: grey; 
+    cursor: not-allowed; 
+}
+
 .profilepicbuttoncontainer > #reverttooriginal{
     background-color: #062f3dc5;
     font-weight: 600;
@@ -617,3 +635,11 @@ body::-webkit-scrollbar-thumb:hover {
 /* #endregion */
 
 /* #endregion */
+
+.aig-ri-6.double{
+    display: none;
+}
+
+.aig-ri-6.double.show{
+    display: flex;
+}
