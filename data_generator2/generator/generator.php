@@ -75,9 +75,43 @@ function generateRandomTime(&$timeSlots)
     if (empty($timeSlots)) {
         throw new Exception("No available timeslots for today.");
     }
-    $randomIndex = array_rand($timeSlots);
-    $randomTime = $timeSlots[$randomIndex];
-    unset($timeSlots[$randomIndex]); // Remove the chosen time
+
+    // Define time ranges with weights
+    $timeRanges = [
+        '7-10' => 80,  // 80% chance
+        '10-14' => 10, // 10% chance
+        '14-21' => 10  // 10% chance
+    ];
+
+    // Randomly choose a time range based on the weights
+    $randomPercent = rand(1, 100);
+    $selectedRange = '';
+    $cumulative = 0;
+
+    foreach ($timeRanges as $range => $weight) {
+        $cumulative += $weight;
+        if ($randomPercent <= $cumulative) {
+            $selectedRange = $range;
+            break;
+        }
+    }
+
+    // Filter time slots based on the selected range
+    [$startHour, $endHour] = explode('-', $selectedRange);
+    $filteredSlots = array_filter($timeSlots, function ($slot) use ($startHour, $endHour) {
+        $hour = (int)explode(':', $slot)[0];
+        return $hour >= $startHour && $hour < $endHour;
+    });
+
+    if (empty($filteredSlots)) {
+        throw new Exception("No available timeslots in the selected range.");
+    }
+
+    // Randomly select a time from the filtered slots
+    $randomIndex = array_rand($filteredSlots);
+    $randomTime = $filteredSlots[$randomIndex];
+    unset($timeSlots[array_search($randomTime, $timeSlots)]); // Remove selected time
+
     return $randomTime;
 }
 
@@ -139,7 +173,9 @@ function createSalesOrder($customerId, $totalAmount, $createdOn, &$totalUnitsSol
     $salesOrderId = $conn->insert_id;
 
     $randPercent = rand(1, 100);
-    $itemCount = ($randPercent <= 70) ? rand(1, 3) : rand(3, 5);
+    $itemCount = ($randPercent <= 70) ? rand(1, 3) : rand(5, 10);
+
+    
 
     for ($i = 0; $i < $itemCount; $i++) {
         $query = "SELECT product_id, price, quantity, reorder_point FROM products ORDER BY RAND() LIMIT 1";
@@ -502,7 +538,7 @@ function logInventoryMovementsForRestocks()
 
 // Main script
 $currentDate = getSavedDateFromDB() ?: strtotime('2024-01-01'); // Resume from saved date or start from Jan 1, 2020
-$endDate = strtotime('2025-01-17');
+$endDate = strtotime('2025-01-16');
 
 
 $totalUnitsSold = [];
@@ -532,11 +568,11 @@ while ($currentDate <= $endDate) {
 if (in_array($month, ['April', 'May', 'June', 'July', 'August'])) {
     // Special months: 50% chance for 2-3 or 3-4 sales
     $randPercent = rand(1, 100);
-    $daySales = ($randPercent <= 50) ? rand(3, 4) : rand(4, 6);
+    $daySales = ($randPercent <= 50) ? rand(4, 8) : rand(8, 12);
 } else {
     // Normal days: 80% chance for 0-2 sales, 20% chance for 2-3 sales
     $randPercent = rand(1, 100);
-    $daySales = ($randPercent <= 80) ? rand(0, 2) : rand(2, 3);
+    $daySales = ($randPercent <= 80) ? rand(0, 2) : rand(3, 10);
 }
 
 
