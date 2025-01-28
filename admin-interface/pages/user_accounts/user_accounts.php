@@ -124,7 +124,8 @@
 
 
                 <div class="action-menu">
-                <button class="action-deactivate">Deactivate</button>
+                <button class="action-deactivate ">Deactivate</button>
+                <button class="action-activate hide">Activate</button>
                 <button class="action-delete">Delete</button>
                 </div>
 

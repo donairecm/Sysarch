@@ -511,9 +511,24 @@
     font-family: 'Afacad Flux', sans-serif;
 }
 
+.action-menu button.action-activate{
+    background-color: rgb(14, 148, 14);
+}
+
 .action-menu button:hover {
     background: #a81111;
 }
 
+.action-menu button.action-activate{
+    background-color: rgb(18, 151, 18);
+}
+
 /* #endregion */
 
+.user-account-information-item.deactivated{
+    background-color: rgba(255, 30, 30, 0.678);
+}
+
+.action-menu > .hide{
+    display: none !important;
+}

@@ -38,6 +38,8 @@ if ($action === "delete") {
     $query = "DELETE FROM users WHERE employee_id = ?";
 } elseif ($action === "deactivate") {
     $query = "UPDATE users SET user_status = 'deactivated' WHERE employee_id = ?";
+} elseif ($action === "activate") { // New action for activating a user
+    $query = "UPDATE users SET user_status = 'active' WHERE employee_id = ?";
 } else {
     echo json_encode(["success" => false, "error" => "Invalid action."]);
     exit();

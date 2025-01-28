@@ -3,6 +3,8 @@
 function setupUserActionListeners() {
     const userAccountListContainer = document.querySelector(".user-account-list-container");
     const actionMenu = document.querySelector(".action-menu");
+    const deactivateButton = actionMenu.querySelector(".action-deactivate");
+    const activateButton = actionMenu.querySelector(".action-activate");
 
     // Event delegation for dynamically added list items
     userAccountListContainer.addEventListener("click", (event) => {
@@ -16,10 +18,20 @@ function setupUserActionListeners() {
             const employeeId = employeeIdFull.split("-")[1]; // Extract numeric ID
 
             // Adjust the position of the action menu
-            actionMenu.style.top = `${rect.top + window.scrollY + -220}px`; // Slightly below the item
+            actionMenu.style.top = `${rect.top + window.scrollY - 220}px`; // Slightly below the item
             actionMenu.style.left = `${rect.left + 1000}px`; // Slightly shifted to the right for better alignment
             actionMenu.style.display = "flex"; // Show the menu
 
+            // Check if the item is deactivated
+            if (listItem.classList.contains("deactivated")) {
+                deactivateButton.classList.add("hide"); // Hide "Deactivate"
+                activateButton.classList.remove("hide"); // Show "Activate"
+            } else {
+                deactivateButton.classList.remove("hide"); // Show "Deactivate"
+                activateButton.classList.add("hide"); // Hide "Activate"
+            }
+
+            // Setup action menu functionality
             setupActionMenuActions(actionMenu, employeeIdFull, employeeId);
         }
     });
@@ -28,23 +40,37 @@ function setupUserActionListeners() {
     document.addEventListener("click", (event) => {
         if (!event.target.closest(".user-account-information-item") && !event.target.closest(".action-menu")) {
             actionMenu.style.display = "none"; // Hide the menu
+
+            // Revert buttons to default state
+            deactivateButton.classList.remove("hide");
+            activateButton.classList.add("hide");
         }
     });
 }
 
 
+
 function setupActionMenuActions(actionMenu, employeeIdFull, employeeId) {
     const deactivateButton = actionMenu.querySelector(".action-deactivate");
+    const activateButton = actionMenu.querySelector(".action-activate");
     const deleteButton = actionMenu.querySelector(".action-delete");
 
     // Remove any previous click event listeners to prevent duplication
     deactivateButton.onclick = null;
+    activateButton.onclick = null;
     deleteButton.onclick = null;
 
     // Handle deactivate
     deactivateButton.onclick = () => {
         if (confirm(`Deactivate user: ${employeeIdFull}?`)) {
             sendUserAction("deactivate", employeeId);
+        }
+    };
+
+    // Handle activate
+    activateButton.onclick = () => {
+        if (confirm(`Activate user: ${employeeIdFull}?`)) {
+            sendUserAction("activate", employeeId);
         }
     };
 
@@ -55,6 +81,7 @@ function setupActionMenuActions(actionMenu, employeeIdFull, employeeId) {
         }
     };
 }
+
 
 async function sendUserAction(action, employeeId) {
     try {
@@ -69,7 +96,8 @@ async function sendUserAction(action, employeeId) {
         const result = await response.json();
 
         if (result.success) {
-            alert(`${action === "delete" ? "Deleted" : "Deactivated"} user successfully.`);
+            // Show appropriate message based on action
+            alert(`${action === "delete" ? "Deleted" : action === "deactivate" ? "Deactivated" : "Activated"} user successfully.`);
             // Optionally refresh the list or remove the item
             fetchAndRenderUserAccounts();
         } else {
@@ -80,6 +108,7 @@ async function sendUserAction(action, employeeId) {
         alert("An error occurred. Please try again.");
     }
 }
+
 
 // Fetch user account details and render them dynamically
 async function fetchAndRenderUserAccounts() {
@@ -155,6 +184,11 @@ function populateDetailsFilter(users) {
         const listItem = document.createElement("li");
         listItem.classList.add("user-account-information-item", "details-filter", "active");
 
+        // Add the "deactivated" class if the user status is "deactivated"
+        if (user.user_status.toLowerCase() === "deactivated") {
+            listItem.classList.add("deactivated");
+        }
+
         listItem.innerHTML = `
             <span class="employee-id">${employeeId}</span>
             <span class="employee-name">${user.first_name} ${user.last_name}</span>
@@ -166,6 +200,7 @@ function populateDetailsFilter(users) {
         container.appendChild(listItem);
     });
 }
+
 
 // Populate the "Contacts" filter
 function populateContactsFilter(users) {
@@ -263,5 +298,5 @@ function setupLiveSearch() {
     });
 }
 
-// Initialize fetch and rendering process
 fetchAndRenderUserAccounts();
+setInterval(fetchAndRenderUserAccounts, 5000);
