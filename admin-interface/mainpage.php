@@ -72,12 +72,16 @@ $employeeID = $profileData['employeeID'];
         <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix"></script>
         <!-- #endregion -->
-
+        <script>
+function goToMainPage() {
+    window.location.href = 'mainpage.php';
+}
+</script>
     </head>
 <body>
     <nav id="sidebar">
         <div class="logo-wrapper">
-            <div class="logo-container">
+            <div class="logo-container "onclick="goToMainPage()">
                 <div class="squares">
                     <div class="square"></div>
                     <div class="square"></div>
