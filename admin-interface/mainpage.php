@@ -380,10 +380,6 @@ function goToMainPage() {
     <!-- #region Content -->
     <div id="content">
 
-        <!-- #region User Accounts -->
-        <div class="page" id="user_accounts"><?php include 'pages/user_accounts/user_accounts.php'; ?></div>
-        <!-- #endregion -->
-
         <!-- #region Dashboard -->
         <div class="page" id="dashboard"><?php include 'pages/dashboard/dashboard.php'; ?></div>
 
@@ -393,6 +389,10 @@ function goToMainPage() {
 
         <!-- #region Manage Users -->
         <div class="page" id="manage_users"><?php include 'pages/manage_users/manage_users.php'; ?></div>
+        <!-- #endregion -->
+
+        <!-- #region User Accounts -->
+        <div class="page" id="user_accounts"><?php include 'pages/user_accounts/user_accounts.php'; ?></div>
         <!-- #endregion -->
 
 
